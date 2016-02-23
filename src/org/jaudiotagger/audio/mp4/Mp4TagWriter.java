@@ -20,6 +20,7 @@ package org.jaudiotagger.audio.mp4;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.mp4.atom.*;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.Tag;
@@ -339,7 +340,7 @@ public class Mp4TagWriter
         //Build AtomTree
         try
         {
-            atomTree = new Mp4AtomTree(raf, false);
+            atomTree = new Mp4AtomTree(new FileDataSource(raf), false);
         }
         catch (CannotReadException cre)
         {
@@ -736,7 +737,7 @@ public class Mp4TagWriter
         {
             //Create a tree from the new file
             Mp4AtomTree newAtomTree;
-            newAtomTree = new Mp4AtomTree(rafTemp, false);
+            newAtomTree = new Mp4AtomTree(new FileDataSource(rafTemp), false);
 
             //Check we still have audio data file, and check length
             Mp4BoxHeader newMdatHeader = newAtomTree.getBoxHeader(newAtomTree.getMdatNode());

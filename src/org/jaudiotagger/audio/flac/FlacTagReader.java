@@ -21,13 +21,13 @@ package org.jaudiotagger.audio.flac;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.flac.metadatablock.MetadataBlockDataPicture;
 import org.jaudiotagger.audio.flac.metadatablock.MetadataBlockHeader;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.tag.InvalidFrameException;
 import org.jaudiotagger.tag.flac.FlacTag;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentReader;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentTag;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -44,9 +44,9 @@ public class FlacTagReader
     private VorbisCommentReader vorbisCommentReader = new VorbisCommentReader();
 
 
-    public FlacTag read(RandomAccessFile raf) throws CannotReadException, IOException
+    public FlacTag read(DataSource dataSource) throws CannotReadException, IOException
     {
-        FlacStreamReader flacStream = new FlacStreamReader(raf);
+        FlacStreamReader flacStream = new FlacStreamReader(dataSource);
         flacStream.findStream();
 
         //Hold the metadata
@@ -59,11 +59,11 @@ public class FlacTagReader
         {
             if(logger.isLoggable(Level.CONFIG))
             {
-                logger.config("Looking for MetaBlockHeader at:"+raf.getFilePointer());
+                logger.config("Looking for MetaBlockHeader at:" + dataSource.position());
             }
             
             //Read the header
-            MetadataBlockHeader mbh = MetadataBlockHeader.readHeader(raf);
+            MetadataBlockHeader mbh = MetadataBlockHeader.readHeader(dataSource);
             if(mbh==null)
             {
                 break;
@@ -71,7 +71,7 @@ public class FlacTagReader
 
             if(logger.isLoggable(Level.CONFIG))
             {
-                logger.config("Reading MetadataBlockHeader:"+mbh.toString() + " ending at "+raf.getFilePointer());
+                logger.config("Reading MetadataBlockHeader:"+mbh.toString() + " ending at " + dataSource.position());
             }
             
             //Is it one containing some sort of metadata, therefore interested in it?
@@ -84,14 +84,14 @@ public class FlacTagReader
                     //We got a vorbiscomment comment block, parse it
                     case VORBIS_COMMENT:
                         byte[] commentHeaderRawPacket = new byte[mbh.getDataLength()];
-                        raf.read(commentHeaderRawPacket);
+                        dataSource.read(commentHeaderRawPacket);
                         tag = vorbisCommentReader.read(commentHeaderRawPacket, false);
                         break;
 
                     case PICTURE:
                         try
                         {
-                            MetadataBlockDataPicture mbdp = new MetadataBlockDataPicture(mbh, raf);
+                            MetadataBlockDataPicture mbdp = new MetadataBlockDataPicture(mbh, dataSource);
                             images.add(mbdp);
                         }
                         catch (IOException ioe)
@@ -111,7 +111,7 @@ public class FlacTagReader
                         {
                             logger.config("Ignoring MetadataBlock:"+mbh.getBlockType());
                         }
-                        raf.seek(raf.getFilePointer() + mbh.getDataLength());
+                        dataSource.position(dataSource.position() + mbh.getDataLength());
                         break;
                 }
             }

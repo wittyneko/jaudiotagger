@@ -3,6 +3,7 @@ package org.jaudiotagger.audio.aiff;
 
 import org.jaudiotagger.audio.aiff.chunk.*;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.iff.Chunk;
@@ -12,8 +13,6 @@ import org.jaudiotagger.logging.Hex;
 
 import java.io.IOException;
 import java.nio.ByteOrder;
-import java.nio.channels.FileChannel;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
 /**
@@ -24,25 +23,23 @@ public class AiffInfoReader extends AiffChunkReader
     public static Logger logger = Logger.getLogger("org.jaudiotagger.audio.aiff");
 
 
-    protected GenericAudioHeader read(Path file) throws CannotReadException, IOException
+    protected GenericAudioHeader read(DataSource dataSource) throws CannotReadException, IOException
     {
-        try(FileChannel fc = FileChannel.open(file))
-        {
-            logger.config(file + " Reading AIFF file size:" + fc.size() + " (" + Hex.asHex(fc.size()) + ")");
+
+            logger.config("Reading AIFF file size:" + dataSource.size() + " (" + Hex.asHex(dataSource.size()) + ")");
             AiffAudioHeader aiffAudioHeader = new AiffAudioHeader();
             final AiffFileHeader fileHeader = new AiffFileHeader();
-            long noOfBytes = fileHeader.readHeader(fc, aiffAudioHeader, file.toString());
-            while (fc.position() < fc.size())
+            long noOfBytes = fileHeader.readHeader(dataSource, aiffAudioHeader);
+            while (dataSource.position() < dataSource.size())
             {
-                if (!readChunk(fc, aiffAudioHeader, file.toString()))
+                if (!readChunk(dataSource, aiffAudioHeader))
                 {
-                    logger.severe(file + " UnableToReadProcessChunk");
+                    logger.severe(" UnableToReadProcessChunk");
                     break;
                 }
             }
             calculateBitRate(aiffAudioHeader);
             return aiffAudioHeader;
-        }
     }
 
     /**
@@ -65,44 +62,44 @@ public class AiffInfoReader extends AiffChunkReader
      *
      * @return {@code false}, if we were not able to read a valid chunk id
      */
-    private boolean readChunk(FileChannel fc, AiffAudioHeader aiffAudioHeader, String fileName) throws IOException
+    private boolean readChunk(DataSource dataSource, AiffAudioHeader aiffAudioHeader) throws IOException
     {
-        logger.config(fileName + " Reading Info Chunk");
+        logger.config("Reading Info Chunk");
         final Chunk chunk;
         final ChunkHeader chunkHeader = new ChunkHeader(ByteOrder.BIG_ENDIAN);
-        if (!chunkHeader.readHeader(fc))
+        if (!chunkHeader.readHeader(dataSource))
         {
             return false;
         }
 
-        logger.config(fileName + "Reading Next Chunk:" + chunkHeader.getID() + ":starting at:" + chunkHeader.getStartLocationInFile() + ":sizeIncHeader:" + (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE));
-        chunk = createChunk(fc, chunkHeader, aiffAudioHeader);
+        logger.config("Reading Next Chunk:" + chunkHeader.getID() + ":starting at:" + chunkHeader.getStartLocationInFile() + ":sizeIncHeader:" + (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE));
+        chunk = createChunk(dataSource, chunkHeader, aiffAudioHeader);
         if (chunk != null)
         {
             if (!chunk.readChunk())
             {
-                logger.severe(fileName + "ChunkReadFail:" + chunkHeader.getID());
+                logger.severe("ChunkReadFail:" + chunkHeader.getID());
                 return false;
             }
         }
         else
         {
-            fc.position(fc.position() + chunkHeader.getSize());
+            dataSource.boundarySafePosition(dataSource.position() + chunkHeader.getSize());
         }
-        IffHeaderChunk.ensureOnEqualBoundary(fc, chunkHeader);
+        IffHeaderChunk.ensureOnEqualBoundary(dataSource, chunkHeader);
         return true;
     }
 
     /**
      * Create a chunk. May return {@code null}, if the chunk is not of a valid type.
      *
-     * @param fc
+     * @param dataSource
      * @param chunkHeader
      * @param aiffAudioHeader
      * @return
      * @throws IOException
      */
-    private Chunk createChunk(FileChannel fc, final ChunkHeader chunkHeader, AiffAudioHeader aiffAudioHeader)
+    private Chunk createChunk(DataSource dataSource, final ChunkHeader chunkHeader, AiffAudioHeader aiffAudioHeader)
     throws IOException {
         final AiffChunkType chunkType = AiffChunkType.get(chunkHeader.getID());
         Chunk chunk;
@@ -111,42 +108,42 @@ public class AiffInfoReader extends AiffChunkReader
             switch (chunkType)
             {
                 case FORMAT_VERSION:
-                    chunk = new FormatVersionChunk(chunkHeader, readChunkDataIntoBuffer(fc,chunkHeader), aiffAudioHeader);
+                    chunk = new FormatVersionChunk(chunkHeader, readChunkDataIntoBuffer(dataSource,chunkHeader), aiffAudioHeader);
                     break;
 
                 case APPLICATION:
-                    chunk = new ApplicationChunk(chunkHeader, readChunkDataIntoBuffer(fc,chunkHeader), aiffAudioHeader);
+                    chunk = new ApplicationChunk(chunkHeader, readChunkDataIntoBuffer(dataSource,chunkHeader), aiffAudioHeader);
                     break;
 
                 case COMMON:
-                    chunk = new CommonChunk(chunkHeader, readChunkDataIntoBuffer(fc,chunkHeader), aiffAudioHeader);
+                    chunk = new CommonChunk(chunkHeader, readChunkDataIntoBuffer(dataSource,chunkHeader), aiffAudioHeader);
                     break;
 
                 case COMMENTS:
-                    chunk = new CommentsChunk(chunkHeader, readChunkDataIntoBuffer(fc,chunkHeader), aiffAudioHeader);
+                    chunk = new CommentsChunk(chunkHeader, readChunkDataIntoBuffer(dataSource,chunkHeader), aiffAudioHeader);
                     break;
 
                 case NAME:
-                    chunk = new NameChunk(chunkHeader, readChunkDataIntoBuffer(fc,chunkHeader), aiffAudioHeader);
+                    chunk = new NameChunk(chunkHeader, readChunkDataIntoBuffer(dataSource,chunkHeader), aiffAudioHeader);
                     break;
 
                 case AUTHOR:
-                    chunk = new AuthorChunk(chunkHeader, readChunkDataIntoBuffer(fc,chunkHeader), aiffAudioHeader);
+                    chunk = new AuthorChunk(chunkHeader, readChunkDataIntoBuffer(dataSource,chunkHeader), aiffAudioHeader);
                     break;
 
                 case COPYRIGHT:
-                    chunk = new CopyrightChunk(chunkHeader, readChunkDataIntoBuffer(fc,chunkHeader), aiffAudioHeader);
+                    chunk = new CopyrightChunk(chunkHeader, readChunkDataIntoBuffer(dataSource,chunkHeader), aiffAudioHeader);
                     break;
 
                 case ANNOTATION:
-                    chunk = new AnnotationChunk(chunkHeader, readChunkDataIntoBuffer(fc,chunkHeader), aiffAudioHeader);
+                    chunk = new AnnotationChunk(chunkHeader, readChunkDataIntoBuffer(dataSource,chunkHeader), aiffAudioHeader);
                     break;
 
                 case SOUND:
                     //Dont need to read chunk itself just need size
                     aiffAudioHeader.setAudioDataLength(chunkHeader.getSize());
-                    aiffAudioHeader.setAudioDataStartPosition(fc.position());
-                    aiffAudioHeader.setAudioDataEndPosition(fc.position() + chunkHeader.getSize());
+                    aiffAudioHeader.setAudioDataStartPosition(dataSource.position());
+                    aiffAudioHeader.setAudioDataEndPosition(dataSource.position() + chunkHeader.getSize());
 
                     chunk = null;
                     break;

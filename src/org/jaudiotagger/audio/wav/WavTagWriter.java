@@ -21,6 +21,7 @@ package org.jaudiotagger.audio.wav;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.TagWriter;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.iff.ChunkHeader;
@@ -69,7 +70,7 @@ public class WavTagWriter implements TagWriter
         {
             //Find WavTag (if any)
             WavTagReader im = new WavTagReader();
-            return im.read(raf);
+            return im.read(new FileDataSource(raf));
         }
         catch (CannotReadException ex)
         {

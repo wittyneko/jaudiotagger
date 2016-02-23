@@ -20,13 +20,13 @@
 package org.jaudiotagger.audio.ogg.util;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
@@ -38,25 +38,25 @@ public class OggInfoReader
     // Logger Object
     public static Logger logger = Logger.getLogger("org.jaudiotagger.audio.ogg.atom");
 
-    public GenericAudioHeader read(RandomAccessFile raf) throws CannotReadException, IOException
+    public GenericAudioHeader read(DataSource dataSource) throws CannotReadException, IOException
     {
-        long start = raf.getFilePointer();
+        long start = dataSource.position();
         GenericAudioHeader info = new GenericAudioHeader();
         logger.fine("Started");
         long oldPos;
 
         //Check start of file does it have Ogg pattern
         byte[] b = new byte[OggPageHeader.CAPTURE_PATTERN.length];
-        raf.read(b);
+        dataSource.read(b);
         if (!(Arrays.equals(b, OggPageHeader.CAPTURE_PATTERN)))
         {
-            raf.seek(0);
-            if(AbstractID3v2Tag.isId3Tag(raf))
+            dataSource.position(0);
+            if(AbstractID3v2Tag.isId3Tag(dataSource))
             {
-                raf.read(b);
+                dataSource.read(b);
                 if ((Arrays.equals(b, OggPageHeader.CAPTURE_PATTERN)))
                 {
-                    start=raf.getFilePointer();
+                    start=dataSource.position();
                 }
             }
             else
@@ -68,35 +68,35 @@ public class OggInfoReader
         //Now work backwards from file looking for the last ogg page, it reads the granule position for this last page
         //which must be set.
         //TODO should do buffering to cut down the number of file reads
-        raf.seek(start);
+        dataSource.position(start);
         double pcmSamplesNumber = -1;
-        raf.seek(raf.length() - 2);
-        while (raf.getFilePointer() >= 4)
+        dataSource.position(dataSource.size() - 2);
+        while (dataSource.position() >= 4)
         {
-            if (raf.read() == OggPageHeader.CAPTURE_PATTERN[3])
+            if (dataSource.read() == OggPageHeader.CAPTURE_PATTERN[3])
             {
-                raf.seek(raf.getFilePointer() - OggPageHeader.FIELD_CAPTURE_PATTERN_LENGTH);
+                dataSource.position(dataSource.position() - OggPageHeader.FIELD_CAPTURE_PATTERN_LENGTH);
                 byte[] ogg = new byte[3];
-                raf.readFully(ogg);
+                dataSource.readFully(ogg);
                 if (ogg[0] == OggPageHeader.CAPTURE_PATTERN[0] && ogg[1] == OggPageHeader.CAPTURE_PATTERN[1] && ogg[2] == OggPageHeader.CAPTURE_PATTERN[2])
                 {
-                    raf.seek(raf.getFilePointer() - 3);
+                    dataSource.position(dataSource.position() - 3);
 
-                    oldPos = raf.getFilePointer();
-                    raf.seek(raf.getFilePointer() + OggPageHeader.FIELD_PAGE_SEGMENTS_POS);
-                    int pageSegments = raf.readByte() & 0xFF; //Unsigned
-                    raf.seek(oldPos);
+                    oldPos = dataSource.position();
+                    dataSource.position(dataSource.position() + OggPageHeader.FIELD_PAGE_SEGMENTS_POS);
+                    int pageSegments = dataSource.readByte() & 0xFF; //Unsigned
+                    dataSource.position(oldPos);
 
                     b = new byte[OggPageHeader.OGG_PAGE_HEADER_FIXED_LENGTH + pageSegments];
-                    raf.readFully(b);
+                    dataSource.readFully(b);
 
                     OggPageHeader pageHeader = new OggPageHeader(b);
-                    raf.seek(0);
+                    dataSource.position(0);
                     pcmSamplesNumber = pageHeader.getAbsoluteGranulePosition();
                     break;
                 }
             }
-            raf.seek(raf.getFilePointer() - 2);
+            dataSource.position(dataSource.position() - 2);
         }
 
         if (pcmSamplesNumber == -1)
@@ -106,9 +106,9 @@ public class OggInfoReader
         }
 
         //1st page = Identification Header
-        OggPageHeader pageHeader = OggPageHeader.read(raf);
+        OggPageHeader pageHeader = OggPageHeader.read(dataSource);
         byte[] vorbisData = new byte[pageHeader.getPageLength()];
-        raf.read(vorbisData);
+        dataSource.read(vorbisData);
         VorbisIdentificationHeader vorbisIdentificationHeader = new VorbisIdentificationHeader(vorbisData);
 
         //Map to generic encodingInfo
@@ -137,7 +137,7 @@ public class OggInfoReader
         else
         {
             //TODO need to remove comment from raf.getLength()
-            info.setBitRate(computeBitrate(info.getTrackLength(), raf.length()));
+            info.setBitRate(computeBitrate(info.getTrackLength(), dataSource.size()));
             info.setVariableBitRate(true);
         }
         return info;

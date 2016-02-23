@@ -19,30 +19,30 @@
 package org.jaudiotagger.audio.mp4;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.generic.AudioFileReader;
+import org.jaudiotagger.audio.generic.AudioFileReader3;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.tag.Tag;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 
 /**
  * Mp4 File Reader
  *
  * <p>This can read files containing either the .mp4 or .m4a suffixes
  */
-public class Mp4FileReader extends AudioFileReader
+public class Mp4FileReader extends AudioFileReader3
 {
     private Mp4InfoReader ir = new Mp4InfoReader();
     private Mp4TagReader tr = new Mp4TagReader();
 
-    protected GenericAudioHeader getEncodingInfo(RandomAccessFile raf) throws CannotReadException, IOException
+    protected GenericAudioHeader getEncodingInfo(DataSource dataSource) throws CannotReadException, IOException
     {
-        return ir.read(raf);
+        return ir.read(dataSource);
     }
 
-    protected Tag getTag(RandomAccessFile raf) throws CannotReadException, IOException
+    protected Tag getTag(DataSource dataSource) throws CannotReadException, IOException
     {
-        return tr.read(raf);
+        return tr.read(dataSource);
     }
 }

@@ -19,7 +19,8 @@
 package org.jaudiotagger.audio.ogg;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.generic.AudioFileReader;
+import org.jaudiotagger.audio.generic.AudioFileReader3;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.audio.ogg.util.OggInfoReader;
 import org.jaudiotagger.audio.ogg.util.OggPageHeader;
@@ -35,7 +36,7 @@ import java.util.logging.Logger;
  *
  * Only implemented for ogg files containing a vorbis stream with vorbis comments
  */
-public class OggFileReader extends AudioFileReader
+public class OggFileReader extends AudioFileReader3
 {
     // Logger Object
     public static Logger logger = Logger.getLogger("org.jaudiotagger.audio.ogg");
@@ -49,14 +50,16 @@ public class OggFileReader extends AudioFileReader
         vtr = new OggVorbisTagReader();
     }
 
-    protected GenericAudioHeader getEncodingInfo(RandomAccessFile raf) throws CannotReadException, IOException
+    @Override
+    protected GenericAudioHeader getEncodingInfo(DataSource dataSource) throws CannotReadException, IOException
     {
-        return ir.read(raf);
+        return ir.read(dataSource);
     }
 
-    protected Tag getTag(RandomAccessFile raf) throws CannotReadException, IOException
+    @Override
+    protected Tag getTag(DataSource dataSource) throws CannotReadException, IOException
     {
-        return vtr.read(raf);
+        return vtr.read(dataSource);
     }
 
     /**

@@ -20,6 +20,8 @@ package org.jaudiotagger.audio.mp4.atom;
 
 import org.jaudiotagger.audio.exceptions.InvalidBoxHeaderException;
 import org.jaudiotagger.audio.exceptions.NullBoxIdException;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.logging.ErrorMessage;
 
@@ -260,11 +262,16 @@ public class Mp4BoxHeader
      */
     public static Mp4BoxHeader seekWithinLevel(RandomAccessFile raf, String id) throws IOException
     {
-        logger.finer("Started searching for:" + id + " in file at:" + raf.getChannel().position());
+        return seekWithinLevel(new FileDataSource(raf), id);
+    }
+
+    public static Mp4BoxHeader seekWithinLevel(DataSource dataSource, String id) throws IOException
+    {
+        logger.finer("Started searching for:" + id + " in file at:" + dataSource.position());
 
         Mp4BoxHeader boxHeader = new Mp4BoxHeader();
         ByteBuffer headerBuffer = ByteBuffer.allocate(HEADER_LENGTH);
-        int bytesRead = raf.getChannel().read(headerBuffer);
+        int bytesRead = dataSource.read(headerBuffer);
         if (bytesRead != HEADER_LENGTH)
         {
             return null;
@@ -273,21 +280,21 @@ public class Mp4BoxHeader
         boxHeader.update(headerBuffer);
         while (!boxHeader.getId().equals(id))
         {
-            logger.finer("Found:" + boxHeader.getId() + " Still searching for:" + id + " in file at:" + raf.getChannel().position());
+            logger.finer("Found:" + boxHeader.getId() + " Still searching for:" + id + " in file at:" + dataSource.position());
 
             //Something gone wrong probably not at the start of an atom so return null;
             if (boxHeader.getLength() < Mp4BoxHeader.HEADER_LENGTH)
             {
                 return null;
             }
-            int noOfBytesSkipped = raf.skipBytes(boxHeader.getDataLength());
+            long noOfBytesSkipped = dataSource.skip(boxHeader.getDataLength());
             logger.finer("Skipped:" + noOfBytesSkipped);
             if (noOfBytesSkipped < boxHeader.getDataLength())
             {
                 return null;
             }
             headerBuffer.rewind();
-            bytesRead = raf.getChannel().read(headerBuffer);
+            bytesRead = dataSource.read(headerBuffer);
             logger.finer("Header Bytes Read:" + bytesRead);
             headerBuffer.rewind();
             if (bytesRead == Mp4BoxHeader.HEADER_LENGTH)
@@ -301,7 +308,6 @@ public class Mp4BoxHeader
         }
         return boxHeader;
     }
-
 
     /**
      * Seek for box with the specified id starting from the current location of filepointer,

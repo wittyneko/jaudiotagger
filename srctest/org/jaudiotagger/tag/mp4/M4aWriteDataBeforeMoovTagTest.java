@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.mp4.Mp4AtomTree;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
@@ -28,7 +29,7 @@ public class M4aWriteDataBeforeMoovTagTest extends TestCase
             File testFile = AbstractTestCase.copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart1.m4a"));
 
             //First lets just createField tree
-            Mp4AtomTree atomTree = new Mp4AtomTree(new RandomAccessFile(testFile, "r"));
+            Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
             //Now we try to make some changes
@@ -44,7 +45,7 @@ public class M4aWriteDataBeforeMoovTagTest extends TestCase
             System.out.println(tag);
 
             //See tree again
-            atomTree = new Mp4AtomTree(new RandomAccessFile(testFile, "r"));
+            atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
             //Ease of use methods for common fields
@@ -71,7 +72,7 @@ public class M4aWriteDataBeforeMoovTagTest extends TestCase
             File testFile = AbstractTestCase.copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart2.m4a"));
 
             //First lets just createField tree
-            Mp4AtomTree atomTree = new Mp4AtomTree(new RandomAccessFile(testFile, "r"));
+            Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
             //Now we try to make some changes
@@ -90,7 +91,7 @@ public class M4aWriteDataBeforeMoovTagTest extends TestCase
             System.out.println(tag);
 
             //See tree again
-            atomTree = new Mp4AtomTree(new RandomAccessFile(testFile, "r"));
+            atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
             //Ease of use methods for common fields
@@ -118,7 +119,7 @@ public class M4aWriteDataBeforeMoovTagTest extends TestCase
             File testFile = AbstractTestCase.copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart3.m4a"));
 
             //First lets just createField tree
-            Mp4AtomTree atomTree = new Mp4AtomTree(new RandomAccessFile(testFile, "r"));
+            Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
             //Now we try to make some changes
@@ -134,7 +135,7 @@ public class M4aWriteDataBeforeMoovTagTest extends TestCase
             System.out.println(tag);
 
             //See tree again
-            atomTree = new Mp4AtomTree(new RandomAccessFile(testFile, "r"));
+            atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
             //Ease of use methods for common fields
@@ -164,7 +165,7 @@ public class M4aWriteDataBeforeMoovTagTest extends TestCase
             AudioFile f = AudioFileIO.read(testFile);
 
             //First lets just createField tree
-            Mp4AtomTree atomTree = new Mp4AtomTree(new RandomAccessFile(testFile, "r"));
+            Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
             Tag tag = f.getTag();
@@ -196,7 +197,7 @@ public class M4aWriteDataBeforeMoovTagTest extends TestCase
             //Save changes and reread from disk
             f.commit();
 
-            atomTree = new Mp4AtomTree(new RandomAccessFile(testFile, "r"));
+            atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
             f = AudioFileIO.read(testFile);

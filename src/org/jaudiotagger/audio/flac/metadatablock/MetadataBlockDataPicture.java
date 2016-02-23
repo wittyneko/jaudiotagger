@@ -1,5 +1,6 @@
 package org.jaudiotagger.audio.flac.metadatablock;
 
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.InvalidFrameException;
@@ -8,7 +9,6 @@ import org.jaudiotagger.tag.reference.PictureTypes;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -109,24 +109,22 @@ public class MetadataBlockDataPicture implements MetadataBlockData, TagField
     /**
      * Construct picture block by reading from file, the header informs us how many bytes we should be reading from
      *
-     * @param header
-     * @param raf
+     * @param header The metadata block header
+     * @param dataSource The data source
      * @throws java.io.IOException
      * @throws org.jaudiotagger.tag.InvalidFrameException
      */
     //TODO check for buffer underflows see http://research.eeye.com/html/advisories/published/AD20071115.html
-    public MetadataBlockDataPicture(MetadataBlockHeader header, RandomAccessFile raf) throws IOException, InvalidFrameException
+    public MetadataBlockDataPicture(MetadataBlockHeader header, DataSource dataSource) throws IOException, InvalidFrameException
     {
         ByteBuffer rawdata = ByteBuffer.allocate(header.getDataLength());
-        int bytesRead = raf.getChannel().read(rawdata);
+        int bytesRead = dataSource.read(rawdata);
         if (bytesRead < header.getDataLength())
         {
             throw new IOException("Unable to read required number of databytes read:" + bytesRead + ":required:" + header.getDataLength());
         }
         rawdata.rewind();
         initFromByteBuffer(rawdata);
-
-
     }
 
     /**

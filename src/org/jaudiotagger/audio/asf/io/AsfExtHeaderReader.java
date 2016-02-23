@@ -3,6 +3,7 @@ package org.jaudiotagger.audio.asf.io;
 import org.jaudiotagger.audio.asf.data.AsfExtendedHeader;
 import org.jaudiotagger.audio.asf.data.GUID;
 import org.jaudiotagger.audio.asf.util.Utils;
+import org.jaudiotagger.audio.generic.DataSource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,12 +53,12 @@ public class AsfExtHeaderReader extends ChunkContainerReader<AsfExtendedHeader> 
      */
     @Override
     protected AsfExtendedHeader createContainer(final long streamPosition,
-            final BigInteger chunkLength, final InputStream stream)
+            final BigInteger chunkLength, final DataSource dataSource)
             throws IOException {
-        Utils.readGUID(stream); // First reserved field (should be a specific
+        Utils.readGUID(dataSource); // First reserved field (should be a specific
         // GUID.
-        Utils.readUINT16(stream); // Second reserved field (should always be 6)
-        final long extensionSize = Utils.readUINT32(stream);
+        Utils.readUINT16(dataSource); // Second reserved field (should always be 6)
+        final long extensionSize = Utils.readUINT32(dataSource);
         assert extensionSize == 0 || extensionSize >= 24;
         assert chunkLength.subtract(BigInteger.valueOf(46)).longValue() == extensionSize;
         return new AsfExtendedHeader(streamPosition, chunkLength);

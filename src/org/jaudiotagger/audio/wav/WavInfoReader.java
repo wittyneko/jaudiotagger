@@ -19,6 +19,7 @@
 package org.jaudiotagger.audio.wav;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.iff.Chunk;
@@ -28,7 +29,6 @@ import org.jaudiotagger.audio.wav.chunk.WavFactChunk;
 import org.jaudiotagger.audio.wav.chunk.WavFormatChunk;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.logging.Logger;
@@ -45,14 +45,14 @@ public class WavInfoReader
 
     }
 
-    public GenericAudioHeader read(RandomAccessFile raf) throws CannotReadException, IOException
+    public GenericAudioHeader read(DataSource dataSource) throws CannotReadException, IOException
     {
         GenericAudioHeader info = new GenericAudioHeader();
-        if(WavRIFFHeader.isValidHeader(raf))
+        if(WavRIFFHeader.isValidHeader(dataSource))
         {
-            while (raf.getFilePointer() < raf.length())
+            while (dataSource.position() < dataSource.size())
             {
-                if (!readChunk(raf, info))
+                if (!readChunk(dataSource, info))
                 {
                     break;
                 }
@@ -97,11 +97,11 @@ public class WavInfoReader
     /**
      * Reads a Wav Chunk.
      */
-    protected boolean readChunk(RandomAccessFile raf, GenericAudioHeader info) throws IOException
+    protected boolean readChunk(DataSource dataSource, GenericAudioHeader info) throws IOException
     {
         Chunk chunk;
         ChunkHeader chunkHeader = new ChunkHeader(ByteOrder.LITTLE_ENDIAN);
-        if (!chunkHeader.readHeader(raf))
+        if (!chunkHeader.readHeader(dataSource))
         {
             return false;
         }
@@ -117,7 +117,7 @@ public class WavInfoReader
             {
                 case FACT:
                 {
-                    ByteBuffer fmtChunkData = Utils.readFileDataIntoBufferLE(raf, (int) chunkHeader.getSize());
+                    ByteBuffer fmtChunkData = Utils.readFileDataIntoBufferLE(dataSource, (int) chunkHeader.getSize());
                     chunk = new WavFactChunk(fmtChunkData, chunkHeader, info);
                     if (!chunk.readChunk())
                     {
@@ -130,15 +130,15 @@ public class WavInfoReader
                 {
                     //We just need this value from header dont actually need to read data itself
                     info.setAudioDataLength(chunkHeader.getSize());
-                    info.setAudioDataStartPosition(raf.getFilePointer());
-                    info.setAudioDataEndPosition(raf.getFilePointer() + chunkHeader.getSize());
-                    raf.skipBytes((int) chunkHeader.getSize());
+                    info.setAudioDataStartPosition(dataSource.position());
+                    info.setAudioDataEndPosition(dataSource.position() + chunkHeader.getSize());
+                    dataSource.skip((int) chunkHeader.getSize());
                     break;
                 }
 
                 case FORMAT:
                 {
-                    ByteBuffer fmtChunkData = Utils.readFileDataIntoBufferLE(raf, (int) chunkHeader.getSize());
+                    ByteBuffer fmtChunkData = Utils.readFileDataIntoBufferLE(dataSource, (int) chunkHeader.getSize());
                     chunk = new WavFormatChunk(fmtChunkData, chunkHeader, info);
                     if (!chunk.readChunk())
                     {
@@ -150,16 +150,16 @@ public class WavInfoReader
                 //Dont need to do anything with these just skip
                 default:
                     logger.config("Skipping chunk bytes:" + chunkHeader.getSize());
-                    raf.skipBytes((int)chunkHeader.getSize());
+                    dataSource.skip((int)chunkHeader.getSize());
             }
         }
         //Unknown chunk type just skip
         else
         {
             logger.config("Skipping chunk bytes:" + chunkHeader.getSize());
-            raf.skipBytes((int)chunkHeader.getSize());
+            dataSource.skip((int)chunkHeader.getSize());
         }
-        IffHeaderChunk.ensureOnEqualBoundary(raf, chunkHeader);
+        IffHeaderChunk.ensureOnEqualBoundary(dataSource, chunkHeader);
         return true;
     }
 

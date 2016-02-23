@@ -1,6 +1,8 @@
 package org.jaudiotagger.audio.flac;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 
@@ -20,17 +22,21 @@ public class FlacStreamReader
     public static final int FLAC_STREAM_IDENTIFIER_LENGTH = 4;
     public static final String FLAC_STREAM_IDENTIFIER = "fLaC";
 
-    private RandomAccessFile raf;
+    private DataSource dataSource;
     private int startOfFlacInFile;
 
     /**
      * Create instance for holding stream info
      * @param raf
      */
-    public FlacStreamReader(RandomAccessFile raf)
+    public FlacStreamReader(RandomAccessFile raf) throws IOException
     {
-        this.raf = raf;
+        this.dataSource = new FileDataSource(raf);
+    }
 
+    public FlacStreamReader(DataSource dataSource)
+    {
+        this.dataSource = dataSource;
     }
 
     /**
@@ -42,12 +48,12 @@ public class FlacStreamReader
     public void findStream() throws IOException, CannotReadException
     {
         //Begins tag parsing
-        if (raf.length() == 0)
+        if (dataSource.size() == 0)
         {
             //Empty File
             throw new CannotReadException("Error: File empty");
         }
-        raf.seek(0);
+        dataSource.position(0);
 
         //FLAC Stream at start
         if (isFlacHeader())
@@ -59,7 +65,7 @@ public class FlacStreamReader
         //Ok maybe there is an ID3v24tag first
         if (isId3v2Tag())
         {
-            startOfFlacInFile = (int) (raf.getFilePointer() - FLAC_STREAM_IDENTIFIER_LENGTH);
+            startOfFlacInFile = (int) (dataSource.position() - FLAC_STREAM_IDENTIFIER_LENGTH);
             return;
         }
         throw new CannotReadException(ErrorMessage.FLAC_NO_FLAC_HEADER_FOUND.getMsg());
@@ -67,10 +73,10 @@ public class FlacStreamReader
 
     private boolean isId3v2Tag() throws IOException
     {
-        raf.seek(0);
-        if(AbstractID3v2Tag.isId3Tag(raf))
+        dataSource.position(0);
+        if(AbstractID3v2Tag.isId3Tag(dataSource))
         {
-            logger.warning(ErrorMessage.FLAC_CONTAINS_ID3TAG.getMsg(raf.getFilePointer()));
+            logger.warning(ErrorMessage.FLAC_CONTAINS_ID3TAG.getMsg(dataSource.position()));
             //FLAC Stream immediately after end of id3 tag
             if (isFlacHeader())
             {
@@ -84,7 +90,7 @@ public class FlacStreamReader
     {
         //FLAC Stream at start
         byte[] b = new byte[FLAC_STREAM_IDENTIFIER_LENGTH];
-        raf.read(b);
+        dataSource.read(b);
         String flac = new String(b);
         return flac.equals(FLAC_STREAM_IDENTIFIER);
     }

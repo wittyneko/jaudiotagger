@@ -23,6 +23,7 @@
  */
 package org.jaudiotagger.tag.id3;
 
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.*;
@@ -32,7 +33,6 @@ import org.jaudiotagger.tag.reference.GenreTypes;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -178,21 +178,19 @@ public class ID3v1Tag extends AbstractID3v1Tag implements Tag
     /**
      * Creates a new ID3v1 datatype.
      *
-     * @param file
+     * @param dataSource
      * @param loggingFilename
      * @throws TagNotFoundException
      * @throws IOException
      */
-    public ID3v1Tag(RandomAccessFile file, String loggingFilename) throws TagNotFoundException, IOException
+    public ID3v1Tag(DataSource dataSource, String loggingFilename) throws TagNotFoundException, IOException
     {
         setLoggingFilename(loggingFilename);
-        FileChannel fc;
         ByteBuffer byteBuffer;
 
-        fc = file.getChannel();
-        fc.position(file.length() - TAG_LENGTH);
+        dataSource.position(dataSource.size() - TAG_LENGTH);
         byteBuffer = ByteBuffer.allocate(TAG_LENGTH);
-        fc.read(byteBuffer);
+        dataSource.read(byteBuffer);
         byteBuffer.flip();
         read(byteBuffer);
     }
@@ -200,14 +198,14 @@ public class ID3v1Tag extends AbstractID3v1Tag implements Tag
     /**
      * Creates a new ID3v1 datatype.
      *
-     * @param file
+     * @param dataSource
      * @throws TagNotFoundException
      * @throws IOException
-     * @deprecated use {@link #ID3v1Tag(RandomAccessFile,String)} instead
+     * @deprecated use {@link #ID3v1Tag(DataSource,String)} instead
      */
-    public ID3v1Tag(RandomAccessFile file) throws TagNotFoundException, IOException
+    public ID3v1Tag(DataSource dataSource) throws TagNotFoundException, IOException
     {
-        this(file, "");
+        this(dataSource, "");
     }
 
     public void addField(TagField field)

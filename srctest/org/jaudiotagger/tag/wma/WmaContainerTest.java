@@ -9,8 +9,9 @@ import org.jaudiotagger.audio.asf.data.MetadataContainerUtils;
 import org.jaudiotagger.audio.asf.io.AsfHeaderUtils;
 import org.jaudiotagger.audio.asf.io.MetadataReader;
 import org.jaudiotagger.audio.asf.util.Utils;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.MemoryDataSource;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -44,10 +45,10 @@ public class WmaContainerTest extends WmaTestCase {
         byte[] tmp = AsfHeaderUtils.getFirstChunk(prepareTestFile, GUID.GUID_EXTENDED_CONTENT_DESCRIPTION);
 
         MetadataReader reader = new MetadataReader();
-        ByteArrayInputStream bis = new ByteArrayInputStream(tmp);
-        GUID readGUID = Utils.readGUID(bis);
+        DataSource dataSource = new MemoryDataSource(tmp);
+        GUID readGUID = Utils.readGUID(dataSource);
         assertEquals(GUID.GUID_EXTENDED_CONTENT_DESCRIPTION, readGUID);
-        Chunk read1 = reader.read(GUID.GUID_EXTENDED_CONTENT_DESCRIPTION, bis,
+        Chunk read1 = reader.read(GUID.GUID_EXTENDED_CONTENT_DESCRIPTION, dataSource,
                 0);
         System.out.println(read1);
         assertTrue(read1 instanceof MetadataContainer);
@@ -56,10 +57,10 @@ public class WmaContainerTest extends WmaTestCase {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ((MetadataContainer) read1).writeInto(bos);
         assertEquals(tmp.length, bos.toByteArray().length);
-        bis = new ByteArrayInputStream(bos.toByteArray());
-        readGUID = Utils.readGUID(bis);
+        dataSource = new MemoryDataSource(bos.toByteArray());
+        readGUID = Utils.readGUID(dataSource);
         assertEquals(GUID.GUID_EXTENDED_CONTENT_DESCRIPTION, readGUID);
-        Chunk read2 = reader.read(GUID.GUID_EXTENDED_CONTENT_DESCRIPTION, bis,
+        Chunk read2 = reader.read(GUID.GUID_EXTENDED_CONTENT_DESCRIPTION, dataSource,
                 0);
         System.out.println(MetadataContainerUtils.equals(
                 (MetadataContainer) read1, (MetadataContainer) read2));

@@ -19,6 +19,8 @@
 package org.jaudiotagger.audio.flac.metadatablock;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.logging.ErrorMessage;
 
 import java.io.IOException;
@@ -48,8 +50,13 @@ public class MetadataBlockHeader
      */
     public static MetadataBlockHeader readHeader(RandomAccessFile raf) throws CannotReadException, IOException
     {
+        return readHeader(new FileDataSource(raf));
+    }
+
+    public static MetadataBlockHeader readHeader(DataSource dataSource) throws CannotReadException, IOException
+    {
         ByteBuffer rawdata = ByteBuffer.allocate(HEADER_LENGTH);
-        int bytesRead = raf.getChannel().read(rawdata);
+        int bytesRead = dataSource.read(rawdata);
         if (bytesRead < HEADER_LENGTH)
         {
             throw new IOException("Unable to read required number of databytes read:" + bytesRead + ":required:" + HEADER_LENGTH);

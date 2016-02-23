@@ -24,6 +24,7 @@
  */
 package org.jaudiotagger.tag.id3;
 
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.*;
@@ -32,7 +33,6 @@ import org.jaudiotagger.tag.id3.framebody.*;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -219,21 +219,19 @@ public class ID3v11Tag extends ID3v1Tag
     /**
      * Creates a new ID3v11 datatype.
      *
-     * @param file
+     * @param dataSource
      * @param loggingFilename
      * @throws TagNotFoundException
      * @throws IOException
      */
-    public ID3v11Tag(RandomAccessFile file, String loggingFilename) throws TagNotFoundException, IOException
+    public ID3v11Tag(DataSource dataSource, String loggingFilename) throws TagNotFoundException, IOException
     {
         setLoggingFilename(loggingFilename);
-        FileChannel fc;
         ByteBuffer byteBuffer = ByteBuffer.allocate(TAG_LENGTH);
 
-        fc = file.getChannel();
-        fc.position(file.length() - TAG_LENGTH);
+        dataSource.position(dataSource.size() - TAG_LENGTH);
 
-        fc.read(byteBuffer);
+        dataSource.read(byteBuffer);
         byteBuffer.flip();
         read(byteBuffer);
 
@@ -242,14 +240,14 @@ public class ID3v11Tag extends ID3v1Tag
     /**
      * Creates a new ID3v11 datatype.
      *
-     * @param file
+     * @param dataSource
      * @throws TagNotFoundException
      * @throws IOException
-     * @deprecated use {@link #ID3v11Tag(RandomAccessFile,String)} instead
+     * @deprecated use {@link #ID3v11Tag(DataSource,String)} instead
      */
-    public ID3v11Tag(RandomAccessFile file) throws TagNotFoundException, IOException
+    public ID3v11Tag(DataSource dataSource) throws TagNotFoundException, IOException
     {
-        this(file, "");
+        this(dataSource, "");
 
     }
 
