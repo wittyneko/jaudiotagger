@@ -27,6 +27,8 @@ import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Permissions;
 import org.jaudiotagger.logging.*;
 import org.jaudiotagger.tag.Tag;
@@ -135,18 +137,18 @@ public class MP3File extends AudioFile
      * Read v1 tag
      *
      * @param file
-     * @param newFile
+     * @param dataSource
      * @param loadOptions
      * @throws IOException
      */
-    private void readV1Tag(File file, RandomAccessFile newFile, int loadOptions) throws IOException
+    private void readV1Tag(File file, DataSource dataSource, int loadOptions) throws IOException
     {
         if ((loadOptions & LOAD_IDV1TAG) != 0)
         {
             logger.finer("Attempting to read id3v1tags");
             try
             {
-                id3v1tag = new ID3v11Tag(newFile, file.getName());
+                id3v1tag = new ID3v11Tag(dataSource, file != null ? file.getName() : "");
             }
             catch (TagNotFoundException ex)
             {
@@ -157,7 +159,7 @@ public class MP3File extends AudioFile
             {
                 if (id3v1tag == null)
                 {
-                    id3v1tag = new ID3v1Tag(newFile, file.getName());
+                    id3v1tag = new ID3v1Tag(dataSource, file != null ? file.getName() : "");
                 }
             }
             catch (TagNotFoundException ex)
@@ -177,40 +179,16 @@ public class MP3File extends AudioFile
      * @throws IOException
      * @throws TagException
      */
-    private void readV2Tag(File file, int loadOptions, int startByte) throws IOException, TagException
+    private void readV2Tag(File file, DataSource dataSource, int loadOptions, int startByte) throws IOException, TagException
     {
         //We know where the actual Audio starts so load all the file from start to that point into
         //a buffer then we can read the IDv2 information without needing any more File I/O
         if (startByte >= AbstractID3v2Tag.TAG_HEADER_LENGTH)
         {
             logger.finer("Attempting to read id3v2tags");
-            FileInputStream fis = null;
-            FileChannel fc = null;
-            ByteBuffer bb;
-            try
-            {
-                fis = new FileInputStream(file);
-                fc = fis.getChannel();
-                bb = fc.map(FileChannel.MapMode.READ_ONLY,0,startByte);
-            }
-            //#JAUDIOTAGGER-419:If reading networked file map can fail so just copy bytes instead
-            catch(IOException ioe)
-            {
-                bb =  ByteBuffer.allocate(startByte);
-                fc.read(bb,0);
-            }
-            finally
-            {
-                if (fc != null)
-                {
-                    fc.close();
-                }
-
-                if (fis != null)
-                {
-                    fis.close();
-                }
-            }
+            ByteBuffer bb =  ByteBuffer.allocate(startByte);
+            dataSource.position(0);
+            dataSource.read(bb);
 
             try
             {
@@ -473,7 +451,7 @@ public class MP3File extends AudioFile
             this.file = file;
 
             //Check File accessibility
-            newFile = checkFilePermissions(file, readOnly);
+            checkFilePermissions(file, readOnly);
 
             //Read ID3v2 tag size (if tag exists) to allow audioHeader parsing to skip over tag
             long tagSizeReportedByHeader = AbstractID3v2Tag.getV2TagSizeIfExists(file);
@@ -487,11 +465,12 @@ public class MP3File extends AudioFile
                 audioHeader = checkAudioStart(tagSizeReportedByHeader, (MP3AudioHeader) audioHeader);
             }
 
+            DataSource dataSource = new FileDataSource(file);
             //Read v1 tags (if any)
-            readV1Tag(file, newFile, loadOptions);
+            readV1Tag(file, dataSource, loadOptions);
 
             //Read v2 tags (if any)
-            readV2Tag(file, loadOptions, (int)((MP3AudioHeader) audioHeader).getMp3StartByte());
+            readV2Tag(file, dataSource, loadOptions, (int)((MP3AudioHeader) audioHeader).getMp3StartByte());
 
             //If we have a v2 tag use that, if we do not but have v1 tag use that
             //otherwise use nothing
@@ -703,7 +682,7 @@ public class MP3File extends AudioFile
      * Hash is calculated EXCLUDING meta-data, like id3v1 or id3v2
      *
      * @return byte[] hash value in byte
-     * @param  int buffer buffersize
+     * @param  buffer buffersize
      * @throws IOException 
      * @throws InvalidAudioFrameException 
      * @throws NoSuchAlgorithmException 

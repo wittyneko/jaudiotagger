@@ -20,6 +20,8 @@ package org.jaudiotagger.audio.flac;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.generic.AudioFileReader;
+import org.jaudiotagger.audio.generic.AudioFileReader3;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.tag.Tag;
 
@@ -29,19 +31,19 @@ import java.io.RandomAccessFile;
 /**
  * Read encoding and tag info for Flac file (open source lossless encoding)
  */
-public class FlacFileReader extends AudioFileReader
+public class FlacFileReader extends AudioFileReader3
 {
 
     private FlacInfoReader ir = new FlacInfoReader();
     private FlacTagReader tr = new FlacTagReader();
 
-    protected GenericAudioHeader getEncodingInfo(RandomAccessFile raf) throws CannotReadException, IOException
+    protected GenericAudioHeader getEncodingInfo(DataSource dataSource) throws CannotReadException, IOException
     {
-        return ir.read(raf);
+        return ir.read(dataSource);
     }
 
-    protected Tag getTag(RandomAccessFile raf) throws CannotReadException, IOException
+    protected Tag getTag(DataSource dataSource) throws CannotReadException, IOException
     {
-        return tr.read(raf);
+        return tr.read(dataSource);
     }
 }

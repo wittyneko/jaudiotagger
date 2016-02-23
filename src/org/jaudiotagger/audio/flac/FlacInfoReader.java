@@ -22,6 +22,7 @@ import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.flac.metadatablock.BlockType;
 import org.jaudiotagger.audio.flac.metadatablock.MetadataBlockDataStreamInfo;
 import org.jaudiotagger.audio.flac.metadatablock.MetadataBlockHeader;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.Utils;
 
 import java.io.File;
@@ -39,9 +40,9 @@ public class FlacInfoReader
 
 
 
-    public FlacAudioHeader read(RandomAccessFile raf) throws CannotReadException, IOException
+    public FlacAudioHeader read(DataSource dataSource) throws CannotReadException, IOException
     {
-        FlacStreamReader flacStream = new FlacStreamReader(raf);
+        FlacStreamReader flacStream = new FlacStreamReader(dataSource);
         flacStream.findStream();
 
         MetadataBlockDataStreamInfo mbdsi = null;
@@ -52,10 +53,10 @@ public class FlacInfoReader
         //the bitrate
         while (!isLastBlock)
         {
-            MetadataBlockHeader mbh = MetadataBlockHeader.readHeader(raf);
+            MetadataBlockHeader mbh = MetadataBlockHeader.readHeader(dataSource);
             if (mbh.getBlockType() == BlockType.STREAMINFO)
             {
-                mbdsi = new MetadataBlockDataStreamInfo(mbh, raf);
+                mbdsi = new MetadataBlockDataStreamInfo(mbh, dataSource);
                 if (!mbdsi.isValid())
                 {
                     throw new CannotReadException("FLAC StreamInfo not valid");
@@ -63,12 +64,12 @@ public class FlacInfoReader
             }
             else
             {
-                raf.seek(raf.getFilePointer() + mbh.getDataLength());
+                dataSource.position(dataSource.position() + mbh.getDataLength());
             }
             isLastBlock = mbh.isLastBlock();
         }
         //Audio continues from this point to end of file (normally - TODO might need to allow for an ID3v1 tag at file end ?)
-        long streamStart = raf.getFilePointer();
+        long streamStart = dataSource.position();
 
         if (mbdsi == null)
         {
@@ -84,9 +85,9 @@ public class FlacInfoReader
         info.setEncodingType(mbdsi.getEncodingType());
         info.setLossless(true);
         info.setMd5(mbdsi.getMD5Signature());
-        info.setAudioDataLength(raf.length() - streamStart);
+        info.setAudioDataLength(dataSource.size() - streamStart);
         info.setAudioDataStartPosition(streamStart);
-        info.setAudioDataEndPosition(raf.length());
+        info.setAudioDataEndPosition(dataSource.size());
         info.setBitRate(computeBitrate(info.getAudioDataLength(), mbdsi.getPreciseLength()));
 
         return info;

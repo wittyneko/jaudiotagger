@@ -2,6 +2,8 @@ package org.jaudiotagger.audio.ogg;
 
 import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.ogg.util.OggPageHeader;
 
 import java.io.File;
@@ -122,18 +124,18 @@ public class OggPageTest extends TestCase
         {
             File testFile = AbstractTestCase.copyAudioToTmp("testlargeimage.ogg", new File("testReadAllOggPagesLargeFile.ogg"));
             RandomAccessFile raf = new RandomAccessFile(testFile, "r");
+            DataSource dataSource = new FileDataSource(raf);
 
-
-            while (raf.getFilePointer() < raf.length())
+            while (dataSource.position() < dataSource.size())
             {
-                System.out.println("pageHeader starts at:" + raf.getFilePointer());
-                OggPageHeader pageHeader = OggPageHeader.read(raf);
+                System.out.println("pageHeader starts at:" + dataSource.position());
+                OggPageHeader pageHeader = OggPageHeader.read(dataSource);
                 System.out.println("pageHeader finishes at:" + raf.getFilePointer());
                 System.out.println(pageHeader + "\n");
-                raf.seek(raf.getFilePointer() + pageHeader.getPageLength());
+                dataSource.position(dataSource.position() + pageHeader.getPageLength());
                 count++;
             }
-            assertEquals(raf.length(), raf.getFilePointer());
+            assertEquals(dataSource.size(), dataSource.position());
 
         }
         catch (Exception e)

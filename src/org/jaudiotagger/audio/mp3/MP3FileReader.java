@@ -4,27 +4,27 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.audio.generic.AudioFileReader;
+import org.jaudiotagger.audio.generic.AudioFileReader3;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 
 /**
  * Read Mp3 Info (retrofitted to entagged ,done differently to entagged which is why some methods throw RuntimeException)
  * because done elsewhere
  */
-public class MP3FileReader extends AudioFileReader
+public class MP3FileReader extends AudioFileReader3
 {
-    protected GenericAudioHeader getEncodingInfo(RandomAccessFile raf) throws CannotReadException, IOException
+    protected GenericAudioHeader getEncodingInfo(DataSource dataSource) throws CannotReadException, IOException
     {
         throw new RuntimeException("MP3FileReader.getEncodingInfo should be called");
     }
 
-    protected Tag getTag(RandomAccessFile raf) throws CannotReadException, IOException
+    protected Tag getTag(DataSource dataSource) throws CannotReadException, IOException
     {
         throw new RuntimeException("MP3FileReader.getEncodingInfo should be called");
     }

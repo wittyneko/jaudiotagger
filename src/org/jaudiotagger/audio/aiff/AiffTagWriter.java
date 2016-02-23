@@ -22,6 +22,7 @@ import org.jaudiotagger.audio.aiff.chunk.AiffChunkSummary;
 import org.jaudiotagger.audio.aiff.chunk.AiffChunkType;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.iff.Chunk;
 import org.jaudiotagger.audio.iff.ChunkHeader;
@@ -67,7 +68,7 @@ public class AiffTagWriter
         {
             //Find AiffTag (if any)
             AiffTagReader im = new AiffTagReader();
-            return im.read(file);
+            return im.read(new FileDataSource(file));
         }
         catch (CannotReadException ex)
         {

@@ -19,12 +19,13 @@
 package org.jaudiotagger.audio.wav;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.Utils;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
-import static org.jaudiotagger.audio.iff.IffHeaderChunk.*;
+
+import static org.jaudiotagger.audio.iff.IffHeaderChunk.HEADER_LENGTH;
 
 /**
  * Processes the Wav Header
@@ -36,13 +37,13 @@ public class WavRIFFHeader
     public static final String RIFF_SIGNATURE = "RIFF";
     public static final String WAVE_SIGNATURE = "WAVE";
 
-    public static boolean isValidHeader(RandomAccessFile raf) throws IOException, CannotReadException
+    public static boolean isValidHeader(DataSource dataSource) throws IOException, CannotReadException
     {
-        if (raf.length() < HEADER_LENGTH)
+        if (dataSource.size() < HEADER_LENGTH)
         {
             throw new CannotReadException("This is not a WAV File (<12 bytes)");
         }
-        ByteBuffer headerBuffer = Utils.readFileDataIntoBufferLE(raf, HEADER_LENGTH);
+        ByteBuffer headerBuffer = Utils.readFileDataIntoBufferLE(dataSource, HEADER_LENGTH);
         if(Utils.readFourBytesAsChars(headerBuffer).equals(RIFF_SIGNATURE))
         {
             headerBuffer.getInt(); //Size

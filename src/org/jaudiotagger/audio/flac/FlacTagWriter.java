@@ -21,6 +21,7 @@ package org.jaudiotagger.audio.flac;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.audio.flac.metadatablock.*;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.flac.FlacTag;
@@ -105,7 +106,7 @@ public class FlacTagWriter
                     {
                         case STREAMINFO:
                         {
-                            blockInfo.streamInfoBlock = new MetadataBlock(mbh,new MetadataBlockDataStreamInfo(mbh, raf));
+                            blockInfo.streamInfoBlock = new MetadataBlock(mbh,new MetadataBlockDataStreamInfo(mbh, new FileDataSource(raf)));
                             break;
                         }
 

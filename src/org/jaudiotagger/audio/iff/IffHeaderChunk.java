@@ -1,5 +1,7 @@
 package org.jaudiotagger.audio.iff;
 
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 
 import java.io.IOException;
@@ -28,26 +30,23 @@ public class IffHeaderChunk
      */
     public static void ensureOnEqualBoundary(final RandomAccessFile raf,ChunkHeader chunkHeader) throws IOException
     {
-        if (Utils.isOddLength(chunkHeader.getSize()))
-        {
-            // Must come out to an even byte boundary unless at end of file
-            if(raf.getFilePointer()<raf.length())
-            {
-                logger.config("Skipping Byte because on odd boundary");
-                raf.skipBytes(1);
-            }
-        }
+        ensureOnEqualBoundary(new FileDataSource(raf), chunkHeader);
     }
 
     public static void ensureOnEqualBoundary(FileChannel fc,ChunkHeader chunkHeader) throws IOException
     {
+        ensureOnEqualBoundary(new FileDataSource(fc), chunkHeader);
+    }
+
+    public static void ensureOnEqualBoundary(DataSource dataSource, ChunkHeader chunkHeader) throws IOException
+    {
         if (Utils.isOddLength(chunkHeader.getSize()))
         {
             // Must come out to an even byte boundary unless at end of file
-            if(fc.position()<fc.size())
+            if(dataSource.position() < dataSource.size())
             {
                 logger.config("Skipping Byte because on odd boundary");
-                fc.position(fc.position() + 1);
+                dataSource.position(dataSource.position() + 1);
             }
         }
     }

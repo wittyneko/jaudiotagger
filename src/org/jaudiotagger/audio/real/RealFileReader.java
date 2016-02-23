@@ -1,7 +1,8 @@
 package org.jaudiotagger.audio.real;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.generic.AudioFileReader;
+import org.jaudiotagger.audio.generic.AudioFileReader3;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.tag.FieldDataInvalidException;
@@ -10,19 +11,18 @@ import org.jaudiotagger.tag.Tag;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 
 /**
  * Real Media File Format: Major Chunks: .RMF PROP MDPR CONT DATA INDX
  */
-public class RealFileReader extends AudioFileReader
+public class RealFileReader extends AudioFileReader3
 {
 
     @Override
-    protected GenericAudioHeader getEncodingInfo(RandomAccessFile raf) throws CannotReadException, IOException
+    protected GenericAudioHeader getEncodingInfo(DataSource dataSource) throws CannotReadException, IOException
     {
         final GenericAudioHeader rv = new GenericAudioHeader();
-        final RealChunk prop = findPropChunk(raf);
+        final RealChunk prop = findPropChunk(dataSource);
         final DataInputStream dis = prop.getDataInputStream();
         final int objVersion = Utils.readUint16(dis);
         if (objVersion == 0)
@@ -45,26 +45,26 @@ public class RealFileReader extends AudioFileReader
         return rv;
     }
 
-    private RealChunk findPropChunk(RandomAccessFile raf) throws IOException, CannotReadException
+    private RealChunk findPropChunk(DataSource dataSource) throws IOException, CannotReadException
     {
-        final RealChunk rmf = RealChunk.readChunk(raf);
-        final RealChunk prop = RealChunk.readChunk(raf);
+        final RealChunk rmf = RealChunk.readChunk(dataSource);
+        final RealChunk prop = RealChunk.readChunk(dataSource);
         return prop;
     }
 
-    private RealChunk findContChunk(RandomAccessFile raf) throws IOException, CannotReadException
+    private RealChunk findContChunk(DataSource dataSource) throws IOException, CannotReadException
     {
-        final RealChunk rmf = RealChunk.readChunk(raf);
-        final RealChunk prop = RealChunk.readChunk(raf);
-        RealChunk rv = RealChunk.readChunk(raf);
-        while (!rv.isCONT()) rv = RealChunk.readChunk(raf);
+        final RealChunk rmf = RealChunk.readChunk(dataSource);
+        final RealChunk prop = RealChunk.readChunk(dataSource);
+        RealChunk rv = RealChunk.readChunk(dataSource);
+        while (!rv.isCONT()) rv = RealChunk.readChunk(dataSource);
         return rv;
     }
 
     @Override
-    protected Tag getTag(RandomAccessFile raf) throws CannotReadException, IOException
+    protected Tag getTag(DataSource dataSource) throws CannotReadException, IOException
     {
-        final RealChunk cont = findContChunk(raf);
+        final RealChunk cont = findContChunk(dataSource);
         final DataInputStream dis = cont.getDataInputStream();
         final String title = Utils.readString(dis, Utils.readUint16(dis));
         final String author = Utils.readString(dis, Utils.readUint16(dis));

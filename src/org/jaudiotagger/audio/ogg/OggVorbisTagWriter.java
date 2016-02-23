@@ -21,6 +21,7 @@ package org.jaudiotagger.audio.ogg;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.ogg.util.OggCRCFactory;
 import org.jaudiotagger.audio.ogg.util.OggPageHeader;
@@ -53,7 +54,7 @@ public class OggVorbisTagWriter
     {
         try
         {
-            reader.read(raf);
+            reader.read(new FileDataSource(raf));
         }
         catch (CannotReadException e)
         {

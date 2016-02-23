@@ -290,6 +290,13 @@ public class Utils
         return ByteBuffer.wrap(buf8).getLong();
     }
 
+    public static long readUint32(final DataSource dataSource) throws IOException
+    {
+        final byte[] buf8 = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+        dataSource.readFully(buf8, 4, 4);
+        return ByteBuffer.wrap(buf8).getLong();
+    }
+
     /**
      * Read a 16-bit big-endian unsigned integer.
      *
@@ -310,6 +317,16 @@ public class Utils
     {
         final byte[] buf = new byte[charsToRead];
         di.readFully(buf);
+        return new String(buf, US_ASCII);
+    }
+
+    /**
+     * Read a string of a specified number of ASCII bytes.
+     */
+    public static String readString(final DataSource dataSource, final int charsToRead) throws IOException
+    {
+        final byte[] buf = new byte[charsToRead];
+        dataSource.readFully(buf);
         return new String(buf, US_ASCII);
     }
 
@@ -500,7 +517,7 @@ public class Utils
      */
     public static ByteBuffer readFileDataIntoBufferLE(final RandomAccessFile file, final int size) throws IOException
     {
-        return readFileDataIntoBufferLE(file.getChannel(), size);
+        return readFileDataIntoBufferLE(new FileDataSource(file), size);
     }
 
     /**
@@ -512,8 +529,13 @@ public class Utils
      */
     public static ByteBuffer readFileDataIntoBufferLE(FileChannel fc, final int size) throws IOException
     {
+        return readFileDataIntoBufferLE(new FileDataSource(fc), size);
+    }
+
+    public static ByteBuffer readFileDataIntoBufferLE(final DataSource dataSource, final int size) throws IOException
+    {
         final ByteBuffer tagBuffer = ByteBuffer.allocateDirect(size);
-        fc.read(tagBuffer);
+        dataSource.read(tagBuffer);
         tagBuffer.position(0);
         tagBuffer.order(ByteOrder.LITTLE_ENDIAN);
         return tagBuffer;

@@ -1,11 +1,11 @@
 package org.jaudiotagger.audio.aiff;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.logging.Hex;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.logging.Logger;
@@ -68,6 +68,35 @@ public class AiffFileHeader
         else
         {
             throw new CannotReadException(fileName + "Not an AIFF file: incorrect signature " + signature);
+        }
+    }
+
+    public long readHeader(DataSource dataSource, final AiffAudioHeader aiffAudioHeader) throws IOException, CannotReadException
+    {
+        final ByteBuffer headerData = ByteBuffer.allocateDirect(HEADER_LENGTH);
+        headerData.order(BIG_ENDIAN);
+        final int bytesRead = dataSource.read(headerData);
+        headerData.position(0);
+
+        if (bytesRead < HEADER_LENGTH)
+        {
+            throw new IOException("AIFF:Unable to read required number of databytes read:" + bytesRead + ":required:" + HEADER_LENGTH);
+        }
+
+        final String signature = Utils.readFourBytesAsChars(headerData);
+        if(FORM.equals(signature))
+        {
+            // read chunk size
+            final long chunkSize  = headerData.getInt();
+            logger.severe("Reading AIFF header size:" + chunkSize + " (" + Hex.asHex(chunkSize)+ ")");
+
+            readFileType(headerData, aiffAudioHeader);
+            // subtract the file type length from the chunk size to get remaining number of bytes
+            return chunkSize - TYPE_LENGTH;
+        }
+        else
+        {
+            throw new CannotReadException("Not an AIFF file: incorrect signature " + signature);
         }
     }
 
