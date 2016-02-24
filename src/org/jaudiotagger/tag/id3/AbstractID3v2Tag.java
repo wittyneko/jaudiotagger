@@ -1156,111 +1156,49 @@ public abstract class AbstractID3v2Tag extends AbstractID3Tag implements Tag
      * the tag header  and return the size of the tag (including header), if no such tag exists return
      * zero.
      *
-     * @param file
+     * @param dataSource
      * @return the end of the tag in the file or zero if no tag exists.
      * @throws java.io.IOException
      */
-    public static long getV2TagSizeIfExists(File file) throws IOException
-    {
-        FileInputStream fis = null;
-        FileChannel fc = null;
-        ByteBuffer bb = null;
-        try
-        {
-            //Files
-            fis = new FileInputStream(file);
-            fc = fis.getChannel();
-
-            //Read possible Tag header  Byte Buffer
-            bb = ByteBuffer.allocate(TAG_HEADER_LENGTH);
-            fc.read(bb);
-            bb.flip();
-            if (bb.limit() < (TAG_HEADER_LENGTH))
-            {
-                return 0;
-            }
-        }
-        finally
-        {
-            if (fc != null)
-            {
-                fc.close();
-            }
-
-            if (fis != null)
-            {
-                fis.close();
-            }
-        }
-
-        //ID3 identifier
-        byte[] tagIdentifier = new byte[FIELD_TAGID_LENGTH];
-        bb.get(tagIdentifier, 0, FIELD_TAGID_LENGTH);
-        if (!(Arrays.equals(tagIdentifier, TAG_ID)))
-        {
-            return 0;
-        }
-
-        //Is it valid Major Version
-        byte majorVersion = bb.get();
-        if ((majorVersion != ID3v22Tag.MAJOR_VERSION) && (majorVersion != ID3v23Tag.MAJOR_VERSION) && (majorVersion != ID3v24Tag.MAJOR_VERSION))
-        {
-            return 0;
-        }
-
-        //Skip Minor Version
-        bb.get();
-
-        //Skip Flags
-        bb.get();
-
-        //Get size as recorded in frame header
-        int frameSize = ID3SyncSafeInteger.bufferToValue(bb);
-
-        //addField header size to frame size
-        frameSize += TAG_HEADER_LENGTH;
-        return frameSize;
-    }
-
     public static long getV2TagSizeIfExists(DataSource dataSource) throws IOException
     {
+        try {
+            //Read possible Tag header  Byte Buffer
+            ByteBuffer bb = ByteBuffer.allocate(TAG_HEADER_LENGTH);
+            dataSource.read(bb);
+            bb.flip();
+            if (bb.limit() < (TAG_HEADER_LENGTH)) {
+                return 0;
+            }
 
-        //Read possible Tag header  Byte Buffer
-        ByteBuffer bb = ByteBuffer.allocate(TAG_HEADER_LENGTH);
-        dataSource.read(bb);
-        bb.flip();
-        if (bb.limit() < (TAG_HEADER_LENGTH))
-        {
-            return 0;
+            //ID3 identifier
+            byte[] tagIdentifier = new byte[FIELD_TAGID_LENGTH];
+            bb.get(tagIdentifier, 0, FIELD_TAGID_LENGTH);
+            if (!(Arrays.equals(tagIdentifier, TAG_ID))) {
+                return 0;
+            }
+
+            //Is it valid Major Version
+            byte majorVersion = bb.get();
+            if ((majorVersion != ID3v22Tag.MAJOR_VERSION) && (majorVersion != ID3v23Tag.MAJOR_VERSION) && (majorVersion != ID3v24Tag.MAJOR_VERSION)) {
+                return 0;
+            }
+
+            //Skip Minor Version
+            bb.get();
+
+            //Skip Flags
+            bb.get();
+
+            //Get size as recorded in frame header
+            int frameSize = ID3SyncSafeInteger.bufferToValue(bb);
+
+            //addField header size to frame size
+            frameSize += TAG_HEADER_LENGTH;
+            return frameSize;
+        }finally {
+            dataSource.position(0);
         }
-
-        //ID3 identifier
-        byte[] tagIdentifier = new byte[FIELD_TAGID_LENGTH];
-        bb.get(tagIdentifier, 0, FIELD_TAGID_LENGTH);
-        if (!(Arrays.equals(tagIdentifier, TAG_ID)))
-        {
-            return 0;
-        }
-
-        //Is it valid Major Version
-        byte majorVersion = bb.get();
-        if ((majorVersion != ID3v22Tag.MAJOR_VERSION) && (majorVersion != ID3v23Tag.MAJOR_VERSION) && (majorVersion != ID3v24Tag.MAJOR_VERSION))
-        {
-            return 0;
-        }
-
-        //Skip Minor Version
-        bb.get();
-
-        //Skip Flags
-        bb.get();
-
-        //Get size as recorded in frame header
-        int frameSize = ID3SyncSafeInteger.bufferToValue(bb);
-
-        //addField header size to frame size
-        frameSize += TAG_HEADER_LENGTH;
-        return frameSize;
     }
 
     /**

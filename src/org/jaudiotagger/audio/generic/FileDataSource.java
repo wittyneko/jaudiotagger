@@ -34,6 +34,11 @@ public class FileDataSource extends DataSource {
     }
 
     @Override
+    public int read(ByteBuffer dst, long position) throws IOException {
+        return fc.read(dst, position);
+    }
+
+    @Override
     public long size() throws IOException {
         return fc.size();
     }

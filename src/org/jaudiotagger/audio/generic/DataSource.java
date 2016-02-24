@@ -12,6 +12,8 @@ public abstract class DataSource implements Closeable {
 
     public abstract int read(final ByteBuffer byteBuffer) throws IOException;
 
+    public abstract int read(ByteBuffer dst, long position) throws IOException;
+
     public abstract long size() throws IOException;
 
     public abstract long position() throws IOException;
@@ -33,6 +35,10 @@ public abstract class DataSource implements Closeable {
 
     public int read(byte[] b) throws IOException {
         return read(ByteBuffer.wrap(b));
+    }
+
+    public int read(byte[] b, int offset, int length) throws IOException {
+        return read(ByteBuffer.wrap(b, offset, length));
     }
 
     public byte readByte() throws IOException{

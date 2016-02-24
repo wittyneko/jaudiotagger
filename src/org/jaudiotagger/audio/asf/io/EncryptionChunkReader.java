@@ -22,9 +22,9 @@ import org.jaudiotagger.audio.asf.data.Chunk;
 import org.jaudiotagger.audio.asf.data.EncryptionChunk;
 import org.jaudiotagger.audio.asf.data.GUID;
 import org.jaudiotagger.audio.asf.util.Utils;
+import org.jaudiotagger.audio.generic.DataSource;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigInteger;
 
 /**
@@ -65,10 +65,10 @@ class EncryptionChunkReader implements ChunkReader {
     /**
      * {@inheritDoc}
      */
-    public Chunk read(final GUID guid, final InputStream stream,
+    public Chunk read(final GUID guid, final DataSource dataSource,
             final long chunkStart) throws IOException {
         EncryptionChunk result;
-        final BigInteger chunkLen = Utils.readBig64(stream);
+        final BigInteger chunkLen = Utils.readBig64(dataSource);
         result = new EncryptionChunk(chunkLen);
 
         // Can't be interpreted
@@ -85,34 +85,34 @@ class EncryptionChunkReader implements ChunkReader {
 
         // Secret Data length
         int fieldLength;
-        fieldLength = (int) Utils.readUINT32(stream);
+        fieldLength = (int) Utils.readUINT32(dataSource);
         // Secret Data
         secretData = new byte[fieldLength + 1];
-        stream.read(secretData, 0, fieldLength);
+        dataSource.read(secretData, 0, fieldLength);
         secretData[fieldLength] = 0;
 
         // Protection type Length
         fieldLength = 0;
-        fieldLength = (int) Utils.readUINT32(stream);
+        fieldLength = (int) Utils.readUINT32(dataSource);
         // Protection Data Length
         protectionType = new byte[fieldLength + 1];
-        stream.read(protectionType, 0, fieldLength);
+        dataSource.read(protectionType, 0, fieldLength);
         protectionType[fieldLength] = 0;
 
         // Key ID length
         fieldLength = 0;
-        fieldLength = (int) Utils.readUINT32(stream);
+        fieldLength = (int) Utils.readUINT32(dataSource);
         // Key ID
         keyID = new byte[fieldLength + 1];
-        stream.read(keyID, 0, fieldLength);
+        dataSource.read(keyID, 0, fieldLength);
         keyID[fieldLength] = 0;
 
         // License URL length
         fieldLength = 0;
-        fieldLength = (int) Utils.readUINT32(stream);
+        fieldLength = (int) Utils.readUINT32(dataSource);
         // License URL
         licenseURL = new byte[fieldLength + 1];
-        stream.read(licenseURL, 0, fieldLength);
+        dataSource.read(licenseURL, 0, fieldLength);
         licenseURL[fieldLength] = 0;
 
         result.setSecretData(new String(secretData));
