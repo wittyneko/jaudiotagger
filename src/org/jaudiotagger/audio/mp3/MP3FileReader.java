@@ -4,6 +4,7 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.audio.generic.AudioFileInfo;
 import org.jaudiotagger.audio.generic.AudioFileReader3;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
@@ -29,6 +30,18 @@ public class MP3FileReader extends AudioFileReader3
         throw new RuntimeException("MP3FileReader.getEncodingInfo should be called");
     }
 
+    @Override
+    public AudioFileInfo getAudioFileInfo(DataSource dataSource) throws CannotReadException, IOException {
+        try {
+            AudioFile mp3File = read(dataSource);
+            AudioFileInfo audioFileInfo = new AudioFileInfo(mp3File.getAudioHeader());
+            audioFileInfo.setTag(mp3File.getTag());
+            return audioFileInfo;
+        }catch (Exception e){
+            throw new CannotReadException("Cannot read mp3 file information", e);
+        }
+    }
+
     /**
      * @param f
      * @return
@@ -37,6 +50,12 @@ public class MP3FileReader extends AudioFileReader3
     public AudioFile read(File f) throws IOException, TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException
     {
         MP3File mp3File = new MP3File(f, MP3File.LOAD_IDV1TAG | MP3File.LOAD_IDV2TAG, true);
+        return mp3File;
+    }
+
+    public AudioFile read(DataSource dataSource) throws IOException, TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException
+    {
+        MP3File mp3File = new MP3File(dataSource, MP3File.LOAD_IDV1TAG | MP3File.LOAD_IDV2TAG);
         return mp3File;
     }
 

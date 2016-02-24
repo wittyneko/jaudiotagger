@@ -1,5 +1,6 @@
 package org.jaudiotagger.audio.generic;
 
+import org.jaudiotagger.audio.AudioHeader;
 import org.jaudiotagger.tag.Tag;
 
 /**
@@ -7,15 +8,15 @@ import org.jaudiotagger.tag.Tag;
  */
 public class AudioFileInfo {
 
-    private final GenericAudioHeader genericAudioHeader;
+    private final AudioHeader audioHeader;
     private Tag tag;
 
-    public AudioFileInfo(GenericAudioHeader genericAudioHeader) {
-        this.genericAudioHeader = genericAudioHeader;
+    public AudioFileInfo(AudioHeader audioHeader) {
+        this.audioHeader = audioHeader;
     }
 
-    public GenericAudioHeader getGenericAudioHeader() {
-        return genericAudioHeader;
+    public AudioHeader getAudioHeader() {
+        return audioHeader;
     }
 
     public Tag getTag() {

@@ -18,9 +18,10 @@ public abstract class AudioFileReader3 extends AudioFileReader2
     protected abstract Tag getTag(DataSource dataSource) throws CannotReadException, IOException;
 
     public AudioFileInfo getAudioFileInfo(DataSource dataSource) throws CannotReadException, IOException {
+        dataSource.position(0);
         GenericAudioHeader genericAudioHeader = getEncodingInfo(dataSource);
+        dataSource.position(0);
         Tag tag = getTag(dataSource);
-
         AudioFileInfo audioFileInfo = new AudioFileInfo(genericAudioHeader);
         audioFileInfo.setTag(tag);
 

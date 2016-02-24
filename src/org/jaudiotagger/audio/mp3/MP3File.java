@@ -198,7 +198,7 @@ public class MP3File extends AudioFile
                     logger.config("Attempting to read id3v2tags");
                     try
                     {
-                        this.setID3v2Tag(new ID3v24Tag(bb, file.getName()));
+                        this.setID3v2Tag(new ID3v24Tag(bb, file != null? file.getName() : ""));
                     }
                     catch (TagNotFoundException ex)
                     {
@@ -209,7 +209,7 @@ public class MP3File extends AudioFile
                     {
                         if (id3v2tag == null)
                         {
-                            this.setID3v2Tag(new ID3v23Tag(bb, file.getName()));
+                            this.setID3v2Tag(new ID3v23Tag(bb, file != null? file.getName() : ""));
                         }
                     }
                     catch (TagNotFoundException ex)
@@ -221,7 +221,7 @@ public class MP3File extends AudioFile
                     {
                         if (id3v2tag == null)
                         {
-                            this.setID3v2Tag(new ID3v22Tag(bb, file.getName()));
+                            this.setID3v2Tag(new ID3v22Tag(bb, file != null? file.getName() : ""));
                         }
                     }
                     catch (TagNotFoundException ex)
