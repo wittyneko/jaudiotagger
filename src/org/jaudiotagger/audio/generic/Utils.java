@@ -598,4 +598,15 @@ public class Utils
         }
         return false;
     }
+
+    public static void closeQuietly(final DataSource dataSource){
+        try{
+            if (dataSource != null) {
+                dataSource.close();
+            }
+        }catch (Exception e){
+            // Ignore
+        }
+    }
+
 }

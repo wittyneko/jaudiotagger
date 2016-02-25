@@ -4,18 +4,20 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 /**
+ * <p> An in memory {@code DataSource}
+ *
  * @author Silvano Riz
  */
 public class MemoryDataSource extends DataSource {
 
     private final ByteBuffer data;
 
-    public MemoryDataSource(byte[] data) {
+    public MemoryDataSource(final byte[] data) {
         this.data = ByteBuffer.wrap(data);
     }
 
-    public MemoryDataSource(ByteBuffer buffer) {
-        this.data = buffer;
+    public MemoryDataSource(final ByteBuffer data) {
+        this.data = data;
     }
 
     @Override
@@ -36,22 +38,6 @@ public class MemoryDataSource extends DataSource {
     }
 
     @Override
-    public int read(ByteBuffer dst, long position) throws IOException {
-        if (position < 0){
-            throw new IllegalArgumentException("Negative position");
-        }
-        if (position > data.position()){
-            return -1;
-        }
-
-        int currentPosition = data.position();
-        data.position((int)position);
-        int bytesRead = read(dst);
-        data.position(currentPosition);
-        return bytesRead;
-    }
-
-    @Override
     public long size() throws IOException {
         return data.capacity();
     }
@@ -66,6 +52,11 @@ public class MemoryDataSource extends DataSource {
         data.position(longToIntOrThrow(newPosition));
     }
 
+    @Override
+    public void close() throws IOException {
+        // Nothing to do...
+    }
+
     private static int longToIntOrThrow(long aLong) {
         if (aLong > Integer.MAX_VALUE || aLong < Integer.MIN_VALUE) {
             throw new RuntimeException("Cannot cast " + aLong + " to an integer. Expected range is (" + Integer.MIN_VALUE + ".." +Integer.MAX_VALUE +")");
@@ -73,8 +64,4 @@ public class MemoryDataSource extends DataSource {
         return (int) aLong;
     }
 
-    @Override
-    public void close() throws IOException {
-        // Nothing to do...
-    }
 }

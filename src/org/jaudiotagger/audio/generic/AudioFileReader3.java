@@ -13,18 +13,47 @@ import java.nio.file.Path;
 public abstract class AudioFileReader3 extends AudioFileReader2
 {
 
-    protected abstract GenericAudioHeader getEncodingInfo(DataSource dataSource) throws CannotReadException, IOException;
+    /**
+     * <p> Reads the audio file header information.
+     *
+     * @param dataSource The audio file data source
+     * @return The audio file header information
+     * @throws CannotReadException If the audio file cannot be read
+     * @throws IOException If an I/O error occurs
+     */
+    protected abstract GenericAudioHeader getEncodingInfo(final DataSource dataSource) throws CannotReadException, IOException;
 
-    protected abstract Tag getTag(DataSource dataSource) throws CannotReadException, IOException;
+    /**
+     * <p> Reads the audio file tag information.
+     *
+     * @param dataSource The audio file data source
+     * @return The audio file tag information
+     * @throws CannotReadException If the audio file cannot be read
+     * @throws IOException If an I/O error occurs
+     */
+    protected abstract Tag getTag(final DataSource dataSource) throws CannotReadException, IOException;
 
-    public AudioFileInfo getAudioFileInfo(DataSource dataSource) throws CannotReadException, IOException {
+    /**
+     * <p> Reads the audio file information.
+     *
+     * @param dataSource The audio file data source
+     * @return The audio file information
+     * @throws CannotReadException If the audio file cannot be read
+     * @throws IOException If an I/O error occurs
+     */
+    public AudioFileInfo getAudioFileInfo(final DataSource dataSource) throws CannotReadException, IOException {
+
+        // Read the audio header
         dataSource.position(0);
-        GenericAudioHeader genericAudioHeader = getEncodingInfo(dataSource);
+        final GenericAudioHeader genericAudioHeader = getEncodingInfo(dataSource);
+
+        // Read the tag
         dataSource.position(0);
-        Tag tag = getTag(dataSource);
-        AudioFileInfo audioFileInfo = new AudioFileInfo(genericAudioHeader);
+        final Tag tag = getTag(dataSource);
+
+        // Compose the file info and return it.
+        final AudioFileInfo audioFileInfo = new AudioFileInfo(genericAudioHeader);
         audioFileInfo.setTag(tag);
-
         return audioFileInfo;
     }
 

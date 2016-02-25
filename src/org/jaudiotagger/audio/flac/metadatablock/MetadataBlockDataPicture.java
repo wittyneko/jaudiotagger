@@ -109,8 +109,8 @@ public class MetadataBlockDataPicture implements MetadataBlockData, TagField
     /**
      * Construct picture block by reading from file, the header informs us how many bytes we should be reading from
      *
-     * @param header
-     * @param dataSource
+     * @param header The metadata block header
+     * @param dataSource The data source
      * @throws java.io.IOException
      * @throws org.jaudiotagger.tag.InvalidFrameException
      */
@@ -125,8 +125,6 @@ public class MetadataBlockDataPicture implements MetadataBlockData, TagField
         }
         rawdata.rewind();
         initFromByteBuffer(rawdata);
-
-
     }
 
     /**

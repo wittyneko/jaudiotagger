@@ -6,56 +6,74 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 
 /**
+ * <p> A File {@code DataSource}.
+ *
  * @author Silvano Riz
  */
 public class FileDataSource extends DataSource {
 
-    private final FileChannel fc;
+    private final FileChannel fileChannel;
+    private final String fileName;
 
-    public FileDataSource(final File f) throws FileNotFoundException {
-        this(new FileInputStream(f).getChannel());
+    public FileDataSource(final File file) throws FileNotFoundException {
+        this(new FileInputStream(file).getChannel(), file.getAbsolutePath());
+    }
+
+    public FileDataSource(final RandomAccessFile raf, final String fileName) throws FileNotFoundException {
+        this(raf.getChannel(), fileName);
     }
 
     public FileDataSource(final RandomAccessFile raf) throws FileNotFoundException {
-        this(raf.getChannel());
-    }
-
-    public FileDataSource(final FileChannel fc) throws FileNotFoundException {
-        this.fc = fc;
+        this(raf.getChannel(), null);
     }
 
     public FileDataSource(final Path path) throws IOException {
-        this(FileChannel.open(path));
+        this(FileChannel.open(path), path.toString());
+    }
+
+    public FileDataSource(final FileChannel fileChannel, final String fileName) throws FileNotFoundException {
+        this.fileChannel = fileChannel;
+        this.fileName = fileName != null ? fileName : "unknown file";
+    }
+
+    public FileDataSource(final FileChannel fileChannel) throws FileNotFoundException {
+        this(fileChannel, null);
     }
 
     @Override
     public int read(final ByteBuffer byteBuffer) throws IOException {
-        return fc.read(byteBuffer);
+        return fileChannel.read(byteBuffer);
     }
 
     @Override
     public int read(ByteBuffer dst, long position) throws IOException {
-        return fc.read(dst, position);
+        return fileChannel.read(dst, position);
     }
 
     @Override
     public long size() throws IOException {
-        return fc.size();
+        return fileChannel.size();
     }
 
     @Override
     public long position() throws IOException {
-        return fc.position();
+        return fileChannel.position();
     }
 
     @Override
     public void position(final long newPosition) throws IOException {
-        fc.position(newPosition);
+        fileChannel.position(newPosition);
     }
 
     @Override
     public void close() throws IOException {
-        fc.close();
+        fileChannel.close();
     }
 
+    @Override
+    public String toString() {
+        return "FileDataSource{" +
+                "file=" + fileName +
+                '}';
+    }
 }

@@ -22,6 +22,7 @@ import org.jaudiotagger.audio.aiff.chunk.AiffChunkSummary;
 import org.jaudiotagger.audio.aiff.chunk.AiffChunkType;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.iff.Chunk;
@@ -64,15 +65,19 @@ public class AiffTagWriter
      */
     private AiffTag getExistingMetadata(Path file) throws IOException, CannotWriteException
     {
+        DataSource dataSource = null;
         try
         {
             //Find AiffTag (if any)
+            dataSource = new FileDataSource(file);
             AiffTagReader im = new AiffTagReader();
-            return im.read(new FileDataSource(file));
+            return im.read(dataSource);
         }
         catch (CannotReadException ex)
         {
             throw new CannotWriteException(file + " Failed to read file");
+        }finally {
+            Utils.closeQuietly(dataSource);
         }
     }
 

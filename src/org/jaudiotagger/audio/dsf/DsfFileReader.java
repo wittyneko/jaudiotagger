@@ -47,12 +47,12 @@ public class DsfFileReader extends AudioFileReader3
             }
             else
             {
-                throw new CannotReadException("Not a valid dsf file. Content does not include 'fmt ' chunk");
+                throw new CannotReadException("Not a valid dsf file. Content does not include 'fmt ' chunk. DataSource:" + dataSource);
             }
         }
         else
         {
-            throw new CannotReadException("Not a valid dsf file. Content does not start with 'DSD '");
+            throw new CannotReadException("Not a valid dsf file. Content does not start with 'DSD '. DataSource:" + dataSource);
         }
 
     }
@@ -61,7 +61,6 @@ public class DsfFileReader extends AudioFileReader3
     protected Tag getTag(DataSource dataSource) throws CannotReadException, IOException
     {
 
-
         DsdChunk dsd = DsdChunk.readChunk(Utils.readFileDataIntoBufferLE(dataSource, DsdChunk.DSD_HEADER_LENGTH));
         if (dsd != null)
         {
@@ -69,7 +68,7 @@ public class DsfFileReader extends AudioFileReader3
         }
         else
         {
-            throw new CannotReadException("Not a valid dsf file. Content does not start with 'DSD '.");
+            throw new CannotReadException("Not a valid dsf file. Content does not start with 'DSD '. DataSource:" + dataSource);
         }
 
     }
@@ -78,7 +77,7 @@ public class DsfFileReader extends AudioFileReader3
      * Reads the ID3v2 tag starting at the {@code tagOffset} position in the
      * supplied file.
      *
-     * @param dataSource the filechannel from which to read
+     * @param dataSource the dataSource.
      * @param dsd  the dsd chunk
      * @return the read tag or an empty tag if something went wrong. Never
      * <code>null</code>.
@@ -104,24 +103,24 @@ public class DsfFileReader extends AudioFileReader3
                         case ID3v24Tag.MAJOR_VERSION:
                             return new ID3v24Tag(id3Chunk.getDataBuffer(), "");
                         default:
-                            logger.log(Level.WARNING, "Unknown ID3v2 version " + version + ". Returning an empty ID3v2 Tag.");
+                            logger.log(Level.WARNING, "Unknown ID3v2 version " + version + ". Returning an empty ID3v2 Tag. DataSource:" + dataSource);
                             return null;
                     }
                 }
                 catch (TagException e)
                 {
-                    throw new CannotReadException("Could not read ID3v2 tag:corruption");
+                    throw new CannotReadException("Could not read ID3v2 tag:corruption. DataSource:" + dataSource);
                 }
             }
             else
             {
-                logger.log(Level.WARNING, "No existing ID3 tag(1)");
+                logger.log(Level.WARNING, "No existing ID3 tag(1). DataSource:" + dataSource);
                 return null;
             }
         }
         else
         {
-            logger.log(Level.WARNING, "No existing ID3 tag(2)");
+            logger.log(Level.WARNING, "No existing ID3 tag(2). DataSource:" + dataSource);
             return   null;
         }
     }
