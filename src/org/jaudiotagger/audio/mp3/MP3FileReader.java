@@ -33,6 +33,7 @@ public class MP3FileReader extends AudioFileReader3
     @Override
     public AudioFileInfo getAudioFileInfo(DataSource dataSource) throws CannotReadException, IOException {
         try {
+            // XXX - Here I'm creating the file, it would be nice to have the getTag and getEncodingInfo
             AudioFile mp3File = read(dataSource);
             AudioFileInfo audioFileInfo = new AudioFileInfo(mp3File.getAudioHeader());
             audioFileInfo.setTag(mp3File.getTag());
@@ -43,16 +44,34 @@ public class MP3FileReader extends AudioFileReader3
     }
 
     /**
-     * @param f
-     * @return
+     * <p> Parses the mp3 file
+     *
+     * @param file The mp3 file
+     * @return The parsed file
+     * @throws IOException
+     * @throws TagException
+     * @throws ReadOnlyFileException
+     * @throws CannotReadException
+     * @throws InvalidAudioFrameException
      */
     //Override because we read mp3s differently to the entagged code
-    public AudioFile read(File f) throws IOException, TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException
+    public AudioFile read(File file) throws IOException, TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException
     {
-        MP3File mp3File = new MP3File(f, MP3File.LOAD_IDV1TAG | MP3File.LOAD_IDV2TAG, true);
+        MP3File mp3File = new MP3File(file, MP3File.LOAD_IDV1TAG | MP3File.LOAD_IDV2TAG, true);
         return mp3File;
     }
 
+    /**
+     * <p> Parses the mp3 file
+     *
+     * @param dataSource The datasource
+     * @return The parsed file
+     * @throws IOException
+     * @throws TagException
+     * @throws ReadOnlyFileException
+     * @throws CannotReadException
+     * @throws InvalidAudioFrameException
+     */
     public AudioFile read(DataSource dataSource) throws IOException, TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException
     {
         MP3File mp3File = new MP3File(dataSource, MP3File.LOAD_IDV1TAG | MP3File.LOAD_IDV2TAG);
@@ -60,18 +79,18 @@ public class MP3FileReader extends AudioFileReader3
     }
 
     /**
-     * Read
+     * <p> Parses the mp3 file and checks the file is writable.
      *
-     * @param f
-     * @return
+     * @param file The mp3 file
+     * @return The parsed file
      * @throws ReadOnlyFileException thrown if the file is not writable
      * @throws org.jaudiotagger.tag.TagException
      * @throws java.io.IOException
      * @throws org.jaudiotagger.audio.exceptions.InvalidAudioFrameException
      */
-    public AudioFile readMustBeWritable(File f) throws IOException, TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException
+    public AudioFile readMustBeWritable(File file) throws IOException, TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException
     {
-        MP3File mp3File = new MP3File(f, MP3File.LOAD_IDV1TAG | MP3File.LOAD_IDV2TAG, false);
+        MP3File mp3File = new MP3File(file, MP3File.LOAD_IDV1TAG | MP3File.LOAD_IDV2TAG, false);
         return mp3File;
     }
 

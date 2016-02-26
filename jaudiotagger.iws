@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6ab1c14-6cd1-42fd-af1f-7ac1a83b7f78" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jaudiotagger.iml" afterPath="$PROJECT_DIR$/jaudiotagger.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jaudiotagger.ipr" afterPath="$PROJECT_DIR$/jaudiotagger.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jaudiotagger.iws" afterPath="$PROJECT_DIR$/jaudiotagger.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffInfoReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffInfoReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffTagReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffTagReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/dsf/DsfFileWriter.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/dsf/DsfFileWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileReader3.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileReader3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/DataSource.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/DataSource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/FileDataSource.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/FileDataSource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/MemoryDataSource.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/MemoryDataSource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/Utils.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/Utils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/real/RealChunk.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/real/RealChunk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/real/RealFileReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/real/RealFileReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/generic/DataSourceFunctionalTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/generic/DataSourceFunctionalTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/generic/UtilsTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/generic/UtilsTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3FileReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3FileReader.java" />
     </list>
     <ignored path="jaudiotagger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -97,20 +84,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MP3FileReader.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MP3FileReader.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3FileReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="57" column="33" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
+            <state vertical-scroll-proportion="1.5066965">
+              <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MP3File.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MP3File.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3File.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.65178573">
+            <state vertical-scroll-proportion="0.0">
               <caret line="457" column="61" selection-start-line="457" selection-start-column="50" selection-end-line="457" selection-end-column="61" />
               <folding />
             </state>
@@ -180,7 +167,6 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisWriteTagTest.java" />
         <option value="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileInfo.java" />
-        <option value="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3FileReader.java" />
         <option value="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3File.java" />
         <option value="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacStreamReader.java" />
         <option value="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataApplication.java" />
@@ -215,6 +201,7 @@
         <option value="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/Utils.java" />
         <option value="$PROJECT_DIR$/src/org/jaudiotagger/audio/dsf/DsfFileWriter.java" />
         <option value="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileReader3.java" />
+        <option value="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3FileReader.java" />
       </list>
     </option>
   </component>
@@ -1122,13 +1109,7 @@
       <updated>1410537432863</updated>
       <workItem from="1456157137709" duration="52006000" />
       <workItem from="1456413736424" duration="6135000" />
-      <workItem from="1456480049585" duration="17479000" />
-    </task>
-    <task id="LOCAL-00004" summary="https://bitbucket.org/ijabz/jaudiotagger/issues/30/support-for-aiff-format&#10;Added support for writing&#10;Refactored existing AIFF code&#10;Made some general modifications for tagwriting">
-      <created>1442438750938</created>
-      <option name="number" value="00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1442438750938</updated>
+      <workItem from="1456480049585" duration="18026000" />
     </task>
     <task id="LOCAL-00005" summary="Add test and some code tidy up for Dsf Read">
       <created>1442482096593</created>
@@ -1418,7 +1399,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456493262956</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Added unit tests for the datasource">
+      <created>1456501552626</created>
+      <option name="number" value="00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1456501552627</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1454,7 +1441,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75620000" />
+    <option name="totallyTimeSpent" value="76167000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1022" extended-state="6" />
@@ -2030,18 +2017,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3FileReader.java">
+    <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3File.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="33" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
+          <caret line="457" column="61" selection-start-line="457" selection-start-column="50" selection-end-line="457" selection-end-column="61" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3File.java">
+    <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3FileReader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65178573">
-          <caret line="457" column="61" selection-start-line="457" selection-start-column="50" selection-end-line="457" selection-end-column="61" />
+        <state vertical-scroll-proportion="1.5066965">
+          <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
           <folding />
         </state>
       </provider>
