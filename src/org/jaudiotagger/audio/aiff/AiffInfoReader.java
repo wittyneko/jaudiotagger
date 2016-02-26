@@ -84,7 +84,7 @@ public class AiffInfoReader extends AiffChunkReader
         }
         else
         {
-            dataSource.position(dataSource.position() + chunkHeader.getSize());
+            dataSource.boundarySafePosition(dataSource.position() + chunkHeader.getSize());
         }
         IffHeaderChunk.ensureOnEqualBoundary(dataSource, chunkHeader);
         return true;

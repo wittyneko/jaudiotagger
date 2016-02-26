@@ -49,6 +49,7 @@ public class MemoryDataSource extends DataSource {
 
     @Override
     public void position(long newPosition) throws IOException {
+        checkPosition(newPosition);
         data.position(longToIntOrThrow(newPosition));
     }
 

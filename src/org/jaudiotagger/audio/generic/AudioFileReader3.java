@@ -59,21 +59,29 @@ public abstract class AudioFileReader3 extends AudioFileReader2
 
     @Override
     protected GenericAudioHeader getEncodingInfo(Path path) throws CannotReadException, IOException {
-        return getEncodingInfo(new FileDataSource(path));
+        try (DataSource dataSource = new FileDataSource(path)) {
+            return getEncodingInfo(dataSource);
+        }
     }
 
     @Override
     protected GenericAudioHeader getEncodingInfo(RandomAccessFile raf) throws CannotReadException, IOException {
-        return getEncodingInfo(new FileDataSource(raf));
+        try (DataSource dataSource = new FileDataSource(raf)) {
+            return getEncodingInfo(dataSource);
+        }
     }
 
     @Override
     protected Tag getTag(Path path) throws CannotReadException, IOException {
-        return getTag(new FileDataSource(path));
+        try (DataSource dataSource = new FileDataSource(path)) {
+            return getTag(dataSource);
+        }
     }
 
     @Override
-    protected Tag getTag(RandomAccessFile file) throws CannotReadException, IOException {
-        return getTag(new FileDataSource(file));
+    protected Tag getTag(RandomAccessFile raf) throws CannotReadException, IOException {
+        try (DataSource dataSource = new FileDataSource(raf)) {
+            return getTag(dataSource);
+        }
     }
 }

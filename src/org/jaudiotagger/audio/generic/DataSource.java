@@ -78,15 +78,12 @@ public abstract class DataSource implements Closeable {
      *     The position is NOT updated.
      *
      * @param destination Where the bytes are read into.
-     * @param position The position from where start reading. It must be positive.
+     * @param position The position from where start reading. It must be between 0 and the datasource size
      * @return The actual number of bytes read. -1 if the an EOF is encountered in either the source or the destination
      * @throws IOException If an I/O error occurs
      */
     public int read(final ByteBuffer destination, final long position) throws IOException {
-        if (position < 0){
-            throw new IllegalArgumentException("Negative position");
-        }
-
+        checkPosition(position);
         final long currentPosition = position();
         position(Math.min(size(), position));
         final int bytesRead = read(destination);
@@ -185,6 +182,33 @@ public abstract class DataSource implements Closeable {
             if (bytesRead == -1){
                 throw new EOFException("");
             }
+        }
+    }
+
+    /**
+     * <p> Sets the reading position to the new position. Differently from {@link #position(long)} this method is accepting
+     *     negative positions and positions beyond the size of the datasource.
+     *     If the position is negative, it will be set to 0, while if is beyond the size it will be set to the size value.
+     *
+     * @param newPosition The new position
+     * @throws IOException If an I/O error occurs
+     */
+    public void boundarySafePosition(final long newPosition) throws IOException {
+        position(Math.max(0, Math.min(size(), newPosition)));
+    }
+
+    /**
+     * <p> Check that the position is between 0 and the size. If not is throwing an IllegalArgumentException
+     *
+     * @param position The position to check
+     * @throws IOException If an I/O error occurs
+     */
+    protected void checkPosition(long position) throws IOException {
+        if (position > size()){
+            throw new IllegalArgumentException("Cannot read. Size: " + size() + ", position: " + position);
+        }
+        if (position < 0){
+            throw new IllegalArgumentException("Cannot read. Negative position: " + position);
         }
     }
 }

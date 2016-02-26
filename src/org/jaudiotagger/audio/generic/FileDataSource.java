@@ -53,6 +53,7 @@ public class FileDataSource extends DataSource {
 
     @Override
     public int read(ByteBuffer dst, long position) throws IOException {
+        checkPosition(position);
         return fileChannel.read(dst, position);
     }
 
@@ -68,9 +69,7 @@ public class FileDataSource extends DataSource {
 
     @Override
     public void position(final long newPosition) throws IOException {
-        if (newPosition > size()){
-            throw new IllegalArgumentException();
-        }
+        checkPosition(newPosition);
         fileChannel.position(newPosition);
     }
 

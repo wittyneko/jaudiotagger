@@ -2,8 +2,6 @@ package org.jaudiotagger.audio.generic;
 
 import junit.framework.TestCase;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -17,16 +15,12 @@ public class UtilsTest  extends TestCase {
     
     public void testReadUInt16 () {
         try {
-            byte[] maxUnsignedBuf = { (byte) 0XFF, (byte) 0XFF };
-            ByteArrayInputStream ins = new ByteArrayInputStream (maxUnsignedBuf);
-            DataInputStream dis = new DataInputStream (ins);
-            int val = Utils.readUint16(dis);
+            DataSource dataSources = new MemoryDataSource(new byte[]{(byte)0XFF, (byte)0XFF});
+            int val = Utils.readUint16(dataSources);
             assertEquals (val, 0XFFFF);
 
-            byte[] smallIntBuf = { (byte) 0X01, (byte) 0X10 };
-            ins = new ByteArrayInputStream (smallIntBuf);
-            dis = new DataInputStream (ins);
-            val = Utils.readUint16(dis);
+            DataSource dataSources1 = new MemoryDataSource(new byte[]{(byte)0X01, (byte)0X10});
+            val = Utils.readUint16(dataSources1);
             assertEquals (val, 0X0110);
         }
         catch (IOException e) {
@@ -36,16 +30,12 @@ public class UtilsTest  extends TestCase {
 
     public void testReadUInt32 () {
         try {
-            byte[] maxUnsignedBuf = { (byte) 0XFF, (byte) 0XFF, (byte) 0XFF, (byte) 0XFF };
-            ByteArrayInputStream ins = new ByteArrayInputStream (maxUnsignedBuf);
-            DataInputStream dis = new DataInputStream (ins);
-            long val = Utils.readUint32(dis);
+            DataSource dataSources = new MemoryDataSource(new byte[]{(byte) 0XFF, (byte) 0XFF, (byte) 0XFF, (byte) 0XFF});
+            long val = Utils.readUint32(dataSources);
             assertEquals (val, 0XFFFFFFFFL);
 
-            byte[] smallIntBuf = { (byte) 0X03, (byte) 0XFF, (byte) 0X01, (byte) 0X12 };
-            ins = new ByteArrayInputStream (smallIntBuf);
-            dis = new DataInputStream (ins);
-            val = Utils.readUint32(dis);
+            DataSource dataSources1 = new MemoryDataSource(new byte[]{(byte) 0X03, (byte) 0XFF, (byte) 0X01, (byte) 0X12});
+            val = Utils.readUint32(dataSources1);
             assertEquals (val, 0X03FF0112);
         }
         catch (IOException e) {
@@ -55,10 +45,8 @@ public class UtilsTest  extends TestCase {
     
     public void testReadString () {
         try {
-            byte [] strBuf = { (byte) 'A', (byte) '=', (byte) '1', (byte) '+', (byte) '7' };
-            ByteArrayInputStream ins = new ByteArrayInputStream (strBuf);
-            DataInputStream dis = new DataInputStream (ins);
-            String s = Utils.readString(dis,  5);
+            DataSource dataSource = new MemoryDataSource(new byte[] { (byte) 'A', (byte) '=', (byte) '1', (byte) '+', (byte) '7' });
+            String s = Utils.readString(dataSource,  5);
             assertEquals ("A=1+7", s);
         }
         catch (IOException e) {

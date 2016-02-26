@@ -74,6 +74,17 @@ public class DataSourceFunctionalTest {
         assertNotNull(expected);
         assertTrue(expected instanceof IllegalArgumentException);
 
+        // BOUNDARY SAFE POSITION
+        System.out.println("Test size() operation");
+        dataSource.boundarySafePosition(-1);
+        assertEquals(0, dataSource.position());
+
+        dataSource.boundarySafePosition(10);
+        assertEquals(10, dataSource.position());
+
+        dataSource.boundarySafePosition(DATA.length + 1);
+        assertEquals(DATA.length, dataSource.position());
+
         expected = null;
         try{
             dataSource.position(-1); // before the start -> Exception
@@ -231,7 +242,14 @@ public class DataSourceFunctionalTest {
         assertNotNull(expected);
         assertTrue(expected instanceof IllegalArgumentException);
 
-        assertEquals ( -1, dataSource.read(destinationByteBuffer1, DATA.length + 1));
+        expected = null;
+        try{
+            dataSource.read(destinationByteBuffer1, DATA.length + 1);
+        }catch (Exception e){
+            expected = e;
+        }
+        assertNotNull(expected);
+        assertTrue(expected instanceof IllegalArgumentException);
 
         // READ INTO array
         System.out.println("Test int read(final byte[] destinationFully) operation");

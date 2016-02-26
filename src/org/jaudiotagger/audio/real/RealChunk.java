@@ -2,10 +2,9 @@ package org.jaudiotagger.audio.real;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.MemoryDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
 
 public class RealChunk {
@@ -49,8 +48,8 @@ public class RealChunk {
         this.bytes = bytes;
     }
 
-    public DataInputStream getDataInputStream() {
-        return new DataInputStream(new ByteArrayInputStream(getBytes()));
+    public DataSource getDataInputStream() {
+        return new MemoryDataSource(bytes);
     }
 
     public boolean isCONT() {

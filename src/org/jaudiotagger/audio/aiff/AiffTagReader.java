@@ -129,7 +129,7 @@ public class AiffTagReader extends AiffChunkReader
         {
             logger.config("Skipping Chunk:" + chunkHeader.getID() + ":" + chunkHeader.getSize() + ":dataSource:" + dataSource);
             aiffTag.addChunkSummary(new ChunkSummary(chunkHeader.getID(), chunkHeader.getStartLocationInFile(), chunkHeader.getSize()));
-            dataSource.position(dataSource.position() + chunkHeader.getSize());
+            dataSource.boundarySafePosition(dataSource.position() + chunkHeader.getSize());
         }
         IffHeaderChunk.ensureOnEqualBoundary(dataSource, chunkHeader);
         return true;

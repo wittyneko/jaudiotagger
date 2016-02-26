@@ -9,7 +9,6 @@ import org.jaudiotagger.tag.FieldDataInvalidException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 
 /**
@@ -23,21 +22,21 @@ public class RealFileReader extends AudioFileReader3
     {
         final GenericAudioHeader rv = new GenericAudioHeader();
         final RealChunk prop = findPropChunk(dataSource);
-        final DataInputStream dis = prop.getDataInputStream();
-        final int objVersion = Utils.readUint16(dis);
+        final DataSource propDataSource = prop.getDataInputStream();
+        final int objVersion = Utils.readUint16(propDataSource);
         if (objVersion == 0)
         {
-            final long maxBitRate = Utils.readUint32(dis) / 1000;
-            final long avgBitRate = Utils.readUint32(dis) / 1000;
-            final long maxPacketSize = Utils.readUint32(dis);
-            final long avgPacketSize = Utils.readUint32(dis);
-            final long packetCnt = Utils.readUint32(dis);
-            final int duration = (int)Utils.readUint32(dis) / 1000;
-            final long preroll = Utils.readUint32(dis);
-            final long indexOffset = Utils.readUint32(dis);
-            final long dataOffset = Utils.readUint32(dis);
-            final int numStreams = Utils.readUint16(dis);
-            final int flags = Utils.readUint16(dis);
+            final long maxBitRate = Utils.readUint32(propDataSource) / 1000;
+            final long avgBitRate = Utils.readUint32(propDataSource) / 1000;
+            final long maxPacketSize = Utils.readUint32(propDataSource);
+            final long avgPacketSize = Utils.readUint32(propDataSource);
+            final long packetCnt = Utils.readUint32(propDataSource);
+            final int duration = (int)Utils.readUint32(propDataSource) / 1000;
+            final long preroll = Utils.readUint32(propDataSource);
+            final long indexOffset = Utils.readUint32(propDataSource);
+            final long dataOffset = Utils.readUint32(propDataSource);
+            final int numStreams = Utils.readUint16(propDataSource);
+            final int flags = Utils.readUint16(propDataSource);
             rv.setBitRate((int) avgBitRate);
             rv.setPreciseLength(duration);
             rv.setVariableBitRate(maxBitRate != avgBitRate);
@@ -65,11 +64,11 @@ public class RealFileReader extends AudioFileReader3
     protected Tag getTag(DataSource dataSource) throws CannotReadException, IOException
     {
         final RealChunk cont = findContChunk(dataSource);
-        final DataInputStream dis = cont.getDataInputStream();
-        final String title = Utils.readString(dis, Utils.readUint16(dis));
-        final String author = Utils.readString(dis, Utils.readUint16(dis));
-        final String copyright = Utils.readString(dis, Utils.readUint16(dis));
-        final String comment = Utils.readString(dis, Utils.readUint16(dis));
+        final DataSource contDataSource = cont.getDataInputStream();
+        final String title = Utils.readString(contDataSource, Utils.readUint16(contDataSource));
+        final String author = Utils.readString(contDataSource, Utils.readUint16(contDataSource));
+        final String copyright = Utils.readString(contDataSource, Utils.readUint16(contDataSource));
+        final String comment = Utils.readString(contDataSource, Utils.readUint16(contDataSource));
         final RealTag rv = new RealTag();
         // NOTE: frequently these fields are off-by-one, thus the crazy
         // logic below...
