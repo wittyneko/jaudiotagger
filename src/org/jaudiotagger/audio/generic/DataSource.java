@@ -86,12 +86,9 @@ public abstract class DataSource implements Closeable {
         if (position < 0){
             throw new IllegalArgumentException("Negative position");
         }
-        if (position > position()){
-            return -1;
-        }
 
         final long currentPosition = position();
-        position((int)position);
+        position(Math.min(size(), position));
         final int bytesRead = read(destination);
         position(currentPosition);
         return bytesRead;

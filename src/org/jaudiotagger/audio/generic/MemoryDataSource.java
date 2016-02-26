@@ -26,7 +26,7 @@ public class MemoryDataSource extends DataSource {
             return -1;
         }
         int size = Math.min(byteBuffer.remaining(), data.remaining());
-        if (byteBuffer.hasArray()) {
+        if (data.hasArray()) {
             byteBuffer.put(data.array(), data.position(), size);
             data.position(data.position() + size);
         } else {
@@ -57,11 +57,10 @@ public class MemoryDataSource extends DataSource {
         // Nothing to do...
     }
 
-    private static int longToIntOrThrow(long aLong) {
+    static int longToIntOrThrow(long aLong) {
         if (aLong > Integer.MAX_VALUE || aLong < Integer.MIN_VALUE) {
-            throw new RuntimeException("Cannot cast " + aLong + " to an integer. Expected range is (" + Integer.MIN_VALUE + ".." +Integer.MAX_VALUE +")");
+            throw new IllegalStateException("Cannot cast " + aLong + " to an integer. Expected range is (" + Integer.MIN_VALUE + ".." +Integer.MAX_VALUE +")");
         }
         return (int) aLong;
     }
-
 }

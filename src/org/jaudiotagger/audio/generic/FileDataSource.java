@@ -12,6 +12,8 @@ import java.nio.file.Path;
  */
 public class FileDataSource extends DataSource {
 
+    static final String NO_NAME = "unknown file";
+
     private final FileChannel fileChannel;
     private final String fileName;
 
@@ -40,6 +42,10 @@ public class FileDataSource extends DataSource {
         this(fileChannel, null);
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
     @Override
     public int read(final ByteBuffer byteBuffer) throws IOException {
         return fileChannel.read(byteBuffer);
@@ -62,6 +68,9 @@ public class FileDataSource extends DataSource {
 
     @Override
     public void position(final long newPosition) throws IOException {
+        if (newPosition > size()){
+            throw new IllegalArgumentException();
+        }
         fileChannel.position(newPosition);
     }
 
