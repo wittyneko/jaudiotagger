@@ -35,19 +35,19 @@ import java.util.GregorianCalendar;
 
 /**
  * Some static Methods which are used in several Classes. <br>
- * 
+ *
  * @author Christian Laireiter
  */
-public class Utils {
+public class Utils
+{
 
     public static final long DIFF_BETWEEN_ASF_DATE_AND_JAVA_DATE = 11644470000000l;
     /**
      * Stores the default line separator of the current underlying system.
      */
-    public final static String LINE_SEPARATOR = System
-            .getProperty("line.separator"); //$NON-NLS-1$
+    public final static String LINE_SEPARATOR = System.getProperty("line.separator"); //$NON-NLS-1$
     /**
-     * 
+     *
      */
     private static final int MAXIMUM_STRING_LENGTH_ALLOWED = 32766;
 
@@ -55,31 +55,32 @@ public class Utils {
      * This method checks given string will not exceed limit in bytes[] when
      * converted UTF-16LE encoding (2 bytes per character) and checks whether
      * the length doesn't exceed 65535 bytes. <br>
-     * 
-     * @param value
-     *            The string to check.
-     * @throws IllegalArgumentException
-     *             If byte representation takes more than 65535 bytes.
+     *
+     * @param value The string to check.
+     * @throws IllegalArgumentException If byte representation takes more than 65535 bytes.
      */
-    public static void checkStringLengthNullSafe(String value)
-            throws IllegalArgumentException {
-        if (value != null) {
-            if (value.length() > MAXIMUM_STRING_LENGTH_ALLOWED) {
-                throw new IllegalArgumentException(
-                        ErrorMessage.WMA_LENGTH_OF_STRING_IS_TOO_LARGE
-                                .getMsg((value.length() * 2)));
+    public static void checkStringLengthNullSafe(String value) throws IllegalArgumentException
+    {
+        if (value != null)
+        {
+            if (value.length() > MAXIMUM_STRING_LENGTH_ALLOWED)
+            {
+                throw new IllegalArgumentException(ErrorMessage.WMA_LENGTH_OF_STRING_IS_TOO_LARGE.getMsg((value.length() * 2))
+                );
             }
         }
     }
 
     /**
-     * 
      * @param value String to check for null
      * @return true unless string is too long
      */
-    public static boolean isStringLengthValidNullSafe(String value) {
-        if (value != null) {
-            if (value.length() > MAXIMUM_STRING_LENGTH_ALLOWED) {
+    public static boolean isStringLengthValidNullSafe(String value)
+    {
+        if (value != null)
+        {
+            if (value.length() > MAXIMUM_STRING_LENGTH_ALLOWED)
+            {
                 return false;
             }
         }
@@ -89,31 +90,29 @@ public class Utils {
     /**
      * effectively copies a specified amount of bytes from one stream to
      * another.
-     * 
-     * @param source
-     *            stream to read from
-     * @param dest
-     *            stream to write to
-     * @param amount
-     *            amount of bytes to copy
-     * @throws IOException
-     *             on I/O errors, and if the source stream depletes before all
-     *             bytes have been copied.
+     *
+     * @param source stream to read from
+     * @param dest   stream to write to
+     * @param amount amount of bytes to copy
+     * @throws IOException on I/O errors, and if the source stream depletes before all
+     *                     bytes have been copied.
      */
-    public static void copy(InputStream source, OutputStream dest, long amount)
-            throws IOException {
+    public static void copy(InputStream source, OutputStream dest, long amount) throws IOException
+    {
         byte[] buf = new byte[8192];
         long copied = 0;
-        while (copied < amount) {
+        while (copied < amount)
+        {
             int toRead = 8192;
-            if ((amount - copied) < 8192) {
+            if ((amount - copied) < 8192)
+            {
                 toRead = (int) (amount - copied);
             }
             int read = source.read(buf, 0, toRead);
-            if (read == -1) {
-                throw new IOException(
-                        "Inputstream has to continue for another "
-                                + (amount - copied) + " bytes.");
+            if (read == -1)
+            {
+                throw new IOException("Inputstream has to continue for another " + (amount - copied) + " bytes."
+                );
             }
             dest.write(buf, 0, read);
             copied += read;
@@ -122,19 +121,17 @@ public class Utils {
 
     /**
      * Copies all of the source to the destination.<br>
-     * 
-     * @param source
-     *            source to read from
-     * @param dest
-     *            stream to write to
-     * @throws IOException
-     *             on I/O errors.
+     *
+     * @param source source to read from
+     * @param dest   stream to write to
+     * @throws IOException on I/O errors.
      */
-    public static void flush(final InputStream source, final OutputStream dest)
-            throws IOException {
+    public static void flush(final InputStream source, final OutputStream dest) throws IOException
+    {
         final byte[] buf = new byte[8192];
         int read;
-        while ((read = source.read(buf)) != -1) {
+        while ((read = source.read(buf)) != -1)
+        {
             dest.write(buf, 0, read);
         }
     }
@@ -147,18 +144,18 @@ public class Utils {
      * of the value, ignoring the original type of value, since java
      * automatically performs transformations. <br>
      * <b>Warning: </b> This method works with unsigned numbers only.
-     * 
-     * @param value
-     *            The value to be written into the result.
-     * @param byteCount
-     *            The number of bytes the array has got.
+     *
+     * @param value     The value to be written into the result.
+     * @param byteCount The number of bytes the array has got.
      * @return A byte[] with the size of <code>byteCount</code> containing the
-     *         lower byte values of <code>value</code>.
+     * lower byte values of <code>value</code>.
      */
-    public static byte[] getBytes(final long value, final int byteCount) {
+    public static byte[] getBytes(final long value, final int byteCount)
+    {
         byte[] result = new byte[byteCount];
-        for (int i = 0; i < result.length; i ++) {
-            result[i] = (byte) ((value >>> (i*8)) & 0xFF);
+        for (int i = 0; i < result.length; i++)
+        {
+            result[i] = (byte) ((value >>> (i * 8)) & 0xFF);
         }
         return result;
     }
@@ -166,14 +163,13 @@ public class Utils {
     /**
      * Convenience method to convert the given string into a byte sequence which
      * has the format of the charset given.
-     * 
-     * @param source
-     *            string to convert.
-     * @param charset
-     *            charset to apply
+     *
+     * @param source  string to convert.
+     * @param charset charset to apply
      * @return the source's binary representation according to the charset.
      */
-    public static byte[] getBytes(final String source, final Charset charset) {
+    public static byte[] getBytes(final String source, final Charset charset)
+    {
         assert charset != null;
         assert source != null;
         final ByteBuffer encoded = charset.encode(source);
@@ -187,7 +183,7 @@ public class Utils {
      * Since date values in ASF files are given in 100 ns steps since first
      * january of 1601 a little conversion must be done. <br>
      * This method converts a date given in described manner to a calendar.
-     * 
+     *
      * @param fileTime
      *            Time in 100ns since 1 jan 1601
      * @return Calendar holding the date representation.
@@ -213,11 +209,11 @@ public class Utils {
     /**
      * Date values in ASF files are given in 100 ns (10 exp -4) steps since first
      *
-     * @param fileTime
-     *            Time in 100ns since 1 jan 1601
+     * @param fileTime Time in 100ns since 1 jan 1601
      * @return Calendar holding the date representation.
      */
-    public static GregorianCalendar getDateOf(final BigInteger fileTime) {
+    public static GregorianCalendar getDateOf(final BigInteger fileTime)
+    {
         final GregorianCalendar result = new GregorianCalendar();
 
         // Divide by 10 to convert from -4 to -3 (millisecs)
@@ -231,12 +227,12 @@ public class Utils {
     /**
      * Tests if the given string is <code>null</code> or just contains
      * whitespace characters.
-     * 
-     * @param toTest
-     *            String to test.
+     *
+     * @param toTest String to test.
      * @return see description.
      */
-    public static boolean isBlank(String toTest) {
+    public static boolean isBlank(String toTest)
+    {
         if (toTest == null)
         {
             return true;
@@ -244,7 +240,7 @@ public class Utils {
 
         for (int i = 0; i < toTest.length(); i++)
         {
-            if(!Character.isWhitespace(toTest.charAt(i)))
+            if (!Character.isWhitespace(toTest.charAt(i)))
             {
                 return false;
             }
@@ -255,44 +251,23 @@ public class Utils {
     /**
      * Reads 8 bytes from stream and interprets them as a UINT64 which is
      * returned as {@link BigInteger}.<br>
-     * 
-     * @param dataSource
-     *            stream to readm from.
+     *
+     * @param dataSource stream to readm from.
      * @return a BigInteger which represents the read 8 bytes value.
      * @throws IOException if problem reading bytes
      */
-    public static BigInteger readBig64(DataSource dataSource) throws IOException {
+    public static BigInteger readBig64(DataSource dataSource) throws IOException
+    {
         byte[] bytes = new byte[8];
         byte[] oa = new byte[8];
         int read = dataSource.read(bytes);
-        if (read != 8) {
+        if (read != 8)
+        {
             // 8 bytes mandatory.
             throw new EOFException();
         }
-        for (int i = 0; i < bytes.length; i++) {
-            oa[7 - i] = bytes[i];
-        }
-        return new BigInteger(oa);
-    }
-
-    /**
-     * Reads 8 bytes from stream and interprets them as a UINT64 which is
-     * returned as {@link BigInteger}.<br>
-     *
-     * @param stream
-     *            stream to readm from.
-     * @return a BigInteger which represents the read 8 bytes value.
-     * @throws IOException if problem reading bytes
-     */
-    public static BigInteger readBig64(InputStream stream) throws IOException {
-        byte[] bytes = new byte[8];
-        byte[] oa = new byte[8];
-        int read = stream.read(bytes);
-        if (read != 8) {
-            // 8 bytes mandatory.
-            throw new EOFException();
-        }
-        for (int i = 0; i < bytes.length; i++) {
+        for (int i = 0; i < bytes.length; i++)
+        {
             oa[7 - i] = bytes[i];
         }
         return new BigInteger(oa);
@@ -300,17 +275,14 @@ public class Utils {
 
     /**
      * Reads <code>size</code> bytes from the stream.<br>
-     * 
-     * @param dataSource
-     *            stream to read from.
-     * @param size
-     *            amount of bytes to read.
+     *
+     * @param dataSource stream to read from.
+     * @param size   amount of bytes to read.
      * @return the read bytes.
-     * @throws IOException
-     *             on I/O errors.
+     * @throws IOException on I/O errors.
      */
-    public static byte[] readBinary(DataSource dataSource, long size)
-            throws IOException {
+    public static byte[] readBinary(DataSource dataSource, long size) throws IOException
+    {
         byte[] result = new byte[(int) size];
         dataSource.read(result);
         return result;
@@ -321,61 +293,30 @@ public class Utils {
      * characters it consists of. <br>
      * The stream must be at the number of characters. This number contains the
      * terminating zero character (UINT16).
-     * 
-     * @param dataSource
-     *            Input source
+     *
+     * @param dataSource Input source
      * @return String
-     * @throws IOException
-     *             read errors
+     * @throws IOException read errors
      */
-    public static String readCharacterSizedString(DataSource dataSource)
-            throws IOException {
+    public static String readCharacterSizedString(DataSource dataSource) throws IOException
+    {
         StringBuilder result = new StringBuilder();
         int strLen = readUINT16(dataSource);
         int character = dataSource.read();
         character |= dataSource.read() << 8;
-        do {
-            if (character != 0) {
+        do
+        {
+            if (character != 0)
+            {
                 result.append((char) character);
                 character = dataSource.read();
                 character |= dataSource.read() << 8;
             }
-        } while (character != 0 || (result.length() + 1) > strLen);
-        if (strLen != (result.length() + 1)) {
-            throw new IllegalStateException(
-                    "Invalid Data for current interpretation"); //$NON-NLS-1$
         }
-        return result.toString();
-    }
-
-    /**
-     * This method reads a UTF-16 String, which length is given on the number of
-     * characters it consists of. <br>
-     * The stream must be at the number of characters. This number contains the
-     * terminating zero character (UINT16).
-     *
-     * @param stream
-     *            Input source
-     * @return String
-     * @throws IOException
-     *             read errors
-     */
-    public static String readCharacterSizedString(InputStream stream)
-            throws IOException {
-        StringBuilder result = new StringBuilder();
-        int strLen = readUINT16(stream);
-        int character = stream.read();
-        character |= stream.read() << 8;
-        do {
-            if (character != 0) {
-                result.append((char) character);
-                character = stream.read();
-                character |= stream.read() << 8;
-            }
-        } while (character != 0 || (result.length() + 1) > strLen);
-        if (strLen != (result.length() + 1)) {
-            throw new IllegalStateException(
-                    "Invalid Data for current interpretation"); //$NON-NLS-1$
+        while (character != 0 || (result.length() + 1) > strLen);
+        if (strLen != (result.length() + 1))
+        {
+            throw new IllegalStateException("Invalid Data for current interpretation"); //$NON-NLS-1$
         }
         return result.toString();
     }
@@ -386,27 +327,25 @@ public class Utils {
      * be known. <br>
      * The ASF specification recommends that those strings end with a
      * terminating zero. However it also says that it is not always the case.
-     * 
-     * @param dataSource
-     *            Input source
-     * @param strLen
-     *            Number of bytes the String may take.
+     *
+     * @param dataSource Input source
+     * @param strLen Number of bytes the String may take.
      * @return read String.
-     * @throws IOException
-     *             read errors.
+     * @throws IOException read errors.
      */
-    public static String readFixedSizeUTF16Str(DataSource dataSource, int strLen)
-            throws IOException {
+    public static String readFixedSizeUTF16Str(InputStream dataSource, int strLen) throws IOException
+    {
         byte[] strBytes = new byte[strLen];
         try{
-        dataSource.readFully(strBytes);
-            if (strBytes.length >= 2) {
+            dataSource.readFully(strBytes);
+            if (strBytes.length >= 2)
+            {
                 /*
                  * Zero termination is recommended but optional. So check and
                  * if, remove.
                  */
-                if (strBytes[strBytes.length - 1] == 0
-                        && strBytes[strBytes.length - 2] == 0) {
+                if (strBytes[strBytes.length - 1] == 0 && strBytes[strBytes.length - 2] == 0)
+                {
                     byte[] copy = new byte[strBytes.length - 2];
                     System.arraycopy(strBytes, 0, copy, 0, strBytes.length - 2);
                     strBytes = copy;
@@ -416,31 +355,6 @@ public class Utils {
         }catch (EOFException e){
             throw new IllegalStateException("Couldn't read the necessary amount of bytes.", e);
         }
-
-    }
-
-    /**
-     * This Method reads a GUID (which is a 16 byte long sequence) from the
-     * given <code>raf</code> and creates a wrapper. <br>
-     * <b>Warning </b>: <br>
-     * There is no way of telling if a byte sequence is a guid or not. The next
-     * 16 bytes will be interpreted as a guid, whether it is or not.
-     * 
-     * @param dataSource
-     *            Input source.
-     * @return A class wrapping the guid.
-     * @throws IOException
-     *             happens when the file ends before guid could be extracted.
-     */
-    public static GUID readGUID(DataSource dataSource) throws IOException {
-        if (dataSource == null) {
-            throw new IllegalArgumentException("Argument must not be null"); //$NON-NLS-1$
-        }
-        int[] binaryGuid = new int[GUID.GUID_LENGTH];
-        for (int i = 0; i < binaryGuid.length; i++) {
-            binaryGuid[i] = dataSource.read();
-        }
-        return new GUID(binaryGuid);
     }
 
     /**
@@ -450,19 +364,20 @@ public class Utils {
      * There is no way of telling if a byte sequence is a guid or not. The next
      * 16 bytes will be interpreted as a guid, whether it is or not.
      *
-     * @param stream
-     *            Input source.
+     * @param dataSource Input source.
      * @return A class wrapping the guid.
-     * @throws IOException
-     *             happens when the file ends before guid could be extracted.
+     * @throws IOException happens when the file ends before guid could be extracted.
      */
-    public static GUID readGUID(InputStream stream) throws IOException {
-        if (stream == null) {
+    public static GUID readGUID(DataSource dataSource) throws IOException
+    {
+        if (dataSource == null)
+        {
             throw new IllegalArgumentException("Argument must not be null"); //$NON-NLS-1$
         }
         int[] binaryGuid = new int[GUID.GUID_LENGTH];
-        for (int i = 0; i < binaryGuid.length; i++) {
-            binaryGuid[i] = stream.read();
+        for (int i = 0; i < binaryGuid.length; i++)
+        {
+            binaryGuid[i] = dataSource.read();
         }
         return new GUID(binaryGuid);
     }
@@ -470,88 +385,30 @@ public class Utils {
 
     /**
      * Reads 2 bytes from stream and interprets them as UINT16.<br>
-     * 
-     * @param dataSource
-     *            stream to read from.
+     *
+     * @param dataSource stream to read from.
      * @return UINT16 value
-     * @throws IOException
-     *             on I/O Errors.
+     * @throws IOException on I/O Errors.
      */
-    public static int readUINT16(DataSource dataSource) throws IOException {
+    public static int readUINT16(DataSource dataSource) throws IOException
+    {
         int result = dataSource.read();
         result |= dataSource.read() << 8;
         return result;
     }
 
     /**
-     * Reads 2 bytes from stream and interprets them as UINT16.<br>
-     *
-     * @param stream
-     *            stream to read from.
-     * @return UINT16 value
-     * @throws IOException
-     *             on I/O Errors.
-     */
-    public static int readUINT16(InputStream stream) throws IOException {
-        int result = stream.read();
-        result |= stream.read() << 8;
-        return result;
-    }
-
-    /**
-     * Reads 4 bytes from stream and interprets them as UINT32.<br>
-     * 
-     * @param dataSource
-     *            stream to read from.
-     * @return UINT32 value
-     * @throws IOException
-     *             on I/O Errors.
-     */
-    public static long readUINT32(DataSource dataSource) throws IOException {
-        long result = 0;
-        for (int i = 0; i <= 24; i += 8) {
-            // Warning, always cast to long here. Otherwise it will be
-            // shifted as int, which may produce a negative value, which will
-            // then be extended to long and assign the long variable a negative
-            // value.
-            result |= (long) dataSource.read() << i;
-        }
-        return result;
-    }
-
-    /**
      * Reads 4 bytes from stream and interprets them as UINT32.<br>
      *
-     * @param stream
-     *            stream to read from.
+     * @param dataSource stream to read from.
      * @return UINT32 value
-     * @throws IOException
-     *             on I/O Errors.
+     * @throws IOException on I/O Errors.
      */
-    public static long readUINT32(InputStream stream) throws IOException {
+    public static long readUINT32(DataSource dataSource) throws IOException
+    {
         long result = 0;
-        for (int i = 0; i <= 24; i += 8) {
-            // Warning, always cast to long here. Otherwise it will be
-            // shifted as int, which may produce a negative value, which will
-            // then be extended to long and assign the long variable a negative
-            // value.
-            result |= (long) stream.read() << i;
-        }
-        return result;
-    }
-
-    /**
-     * Reads long as little endian.
-     * 
-     * @param dataSource
-     *            Data source
-     * @return long value
-     * @throws IOException
-     *             read error, or eof is reached before long is completed
-     */
-    public static long readUINT64(DataSource dataSource) throws IOException {
-        long result = 0;
-        for (int i = 0; i <= 56; i += 8) {
+        for (int i = 0; i <= 24; i += 8)
+        {
             // Warning, always cast to long here. Otherwise it will be
             // shifted as int, which may produce a negative value, which will
             // then be extended to long and assign the long variable a negative
@@ -564,20 +421,20 @@ public class Utils {
     /**
      * Reads long as little endian.
      *
-     * @param stream
-     *            Data source
+     * @param dataSource Data source
      * @return long value
-     * @throws IOException
-     *             read error, or eof is reached before long is completed
+     * @throws IOException read error, or eof is reached before long is completed
      */
-    public static long readUINT64(InputStream stream) throws IOException {
+    public static long readUINT64(DataSource dataSource) throws IOException
+    {
         long result = 0;
-        for (int i = 0; i <= 56; i += 8) {
+        for (int i = 0; i <= 56; i += 8)
+        {
             // Warning, always cast to long here. Otherwise it will be
             // shifted as int, which may produce a negative value, which will
             // then be extended to long and assign the long variable a negative
             // value.
-            result |= (long) stream.read() << i;
+            result |= (long) dataSource.read() << i;
         }
         return result;
     }
@@ -586,7 +443,7 @@ public class Utils {
      * This method reads a UTF-16 encoded String, beginning with a 16-bit value
      * representing the number of bytes needed. The String is terminated with as
      * 16-bit ZERO. <br>
-     * 
+     *
      * @param dataSource
      *            Input source
      * @return read String.
@@ -619,22 +476,24 @@ public class Utils {
      * representing the number of bytes needed. The String is terminated with as
      * 16-bit ZERO. <br>
      *
-     * @param stream
-     *            Input source
+     * @param stream Input source
      * @return read String.
-     * @throws IOException
-     *             read errors.
+     * @throws IOException read errors.
      */
-    public static String readUTF16LEStr(InputStream stream) throws IOException {
+    public static String readUTF16LEStr(InputStream stream) throws IOException
+    {
         int strLen = readUINT16(stream);
         byte[] buf = new byte[strLen];
         int read = stream.read(buf);
-        if (read == strLen || (strLen == 0 && read == -1)) {
+        if (read == strLen || (strLen == 0 && read == -1))
+        {
             /*
              * Check on zero termination
              */
-            if (buf.length >= 2) {
-                if (buf[buf.length - 1] == 0 && buf[buf.length - 2] == 0) {
+            if (buf.length >= 2)
+            {
+                if (buf[buf.length - 1] == 0 && buf[buf.length - 2] == 0)
+                {
                     byte[] copy = new byte[buf.length - 2];
                     System.arraycopy(buf, 0, copy, 0, buf.length - 2);
                     buf = copy;
@@ -642,27 +501,25 @@ public class Utils {
             }
             return new String(buf, AsfHeader.ASF_CHARSET.name());
         }
-        throw new IllegalStateException(
-                "Invalid Data for current interpretation"); //$NON-NLS-1$
+        throw new IllegalStateException("Invalid Data for current interpretation"); //$NON-NLS-1$
     }
 
     /**
      * Writes the given value as UINT16 into the stream.
-     * 
-     * @param number
-     *            value to write.
-     * @param out
-     *            stream to write into.
-     * @throws IOException
-     *             On I/O errors
+     *
+     * @param number value to write.
+     * @param out    stream to write into.
+     * @throws IOException On I/O errors
      */
-    public static void writeUINT16(int number, OutputStream out)
-            throws IOException {
-        if (number < 0) {
+    public static void writeUINT16(int number, OutputStream out) throws IOException
+    {
+        if (number < 0)
+        {
             throw new IllegalArgumentException("positive value expected."); //$NON-NLS-1$
         }
         byte[] toWrite = new byte[2];
-        for (int i = 0; i <= 8; i += 8) {
+        for (int i = 0; i <= 8; i += 8)
+        {
             toWrite[i / 8] = (byte) ((number >> i) & 0xFF);
         }
         out.write(toWrite);
@@ -670,21 +527,20 @@ public class Utils {
 
     /**
      * Writes the given value as UINT32 into the stream.
-     * 
-     * @param number
-     *            value to write.
-     * @param out
-     *            stream to write into.
-     * @throws IOException
-     *             On I/O errors
+     *
+     * @param number value to write.
+     * @param out    stream to write into.
+     * @throws IOException On I/O errors
      */
-    public static void writeUINT32(long number, OutputStream out)
-            throws IOException {
-        if (number < 0) {
+    public static void writeUINT32(long number, OutputStream out) throws IOException
+    {
+        if (number < 0)
+        {
             throw new IllegalArgumentException("positive value expected."); //$NON-NLS-1$
         }
         byte[] toWrite = new byte[4];
-        for (int i = 0; i <= 24; i += 8) {
+        for (int i = 0; i <= 24; i += 8)
+        {
             toWrite[i / 8] = (byte) ((number >> i) & 0xFF);
         }
         out.write(toWrite);
@@ -692,21 +548,20 @@ public class Utils {
 
     /**
      * Writes the given value as UINT64 into the stream.
-     * 
-     * @param number
-     *            value to write.
-     * @param out
-     *            stream to write into.
-     * @throws IOException
-     *             On I/O errors
+     *
+     * @param number value to write.
+     * @param out    stream to write into.
+     * @throws IOException On I/O errors
      */
-    public static void writeUINT64(long number, OutputStream out)
-            throws IOException {
-        if (number < 0) {
+    public static void writeUINT64(long number, OutputStream out) throws IOException
+    {
+        if (number < 0)
+        {
             throw new IllegalArgumentException("positive value expected."); //$NON-NLS-1$
         }
         byte[] toWrite = new byte[8];
-        for (int i = 0; i <= 56; i += 8) {
+        for (int i = 0; i <= 56; i += 8)
+        {
             toWrite[i / 8] = (byte) ((number >> i) & 0xFF);
         }
         out.write(toWrite);

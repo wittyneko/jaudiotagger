@@ -24,6 +24,7 @@ import org.jaudiotagger.audio.generic.Utils;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.channels.FileChannel;
 import java.util.logging.Logger;
 
 /**
@@ -73,7 +74,7 @@ public class MetadataBlockDataStreamInfo  implements MetadataBlockData
         {
             throw new IOException("Unable to read required number of bytes, read:" + bytesRead + ":required:" + header.getDataLength());
         }
-        rawdata.rewind();
+        rawdata.flip();
 
         minBlockSize    = Utils.u(rawdata.getShort());
         maxBlockSize    = Utils.u(rawdata.getShort());
@@ -86,7 +87,7 @@ public class MetadataBlockDataStreamInfo  implements MetadataBlockData
         md5             = readMd5();
         trackLength     = (float) ((double) noOfSamples / samplingRate);
         samplingRatePerChannel = samplingRate / noOfChannels;
-
+        rawdata.rewind();
     }
 
     private String readMd5()
@@ -106,14 +107,14 @@ public class MetadataBlockDataStreamInfo  implements MetadataBlockData
     /**
      * @return the rawdata as it will be written to file
      */
-    public byte[] getBytes()
+    public ByteBuffer getBytes()
     {
-        return rawdata.array();
+        return rawdata;
     }
 
     public int getLength()
     {
-        return getBytes().length;
+        return rawdata.limit();
     }
 
     

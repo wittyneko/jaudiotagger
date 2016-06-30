@@ -57,7 +57,7 @@ public class AiffFileHeader
         {
             // read chunk size
             final long chunkSize  = headerData.getInt();
-            logger.severe("Reading AIFF header size:" + chunkSize + " (" + Hex.asHex(chunkSize)+ ")");
+            logger.severe("Reading AIFF header size:" + Hex.asDecAndHex(chunkSize));
 
             readFileType(headerData, aiffAudioHeader);
             // subtract the file type length from the chunk size to get remaining number of bytes

@@ -497,12 +497,44 @@ public class Utils
         return n & 0xff;
     }
 
+    /**
+     *
+     * @param fc
+     * @param size
+     * @return
+     * @throws IOException
+     */
+    public static ByteBuffer readFileDataIntoBufferLE(FileChannel fc, final int size) throws IOException
+    {
+        final ByteBuffer tagBuffer = ByteBuffer.allocateDirect(size);
+        fc.read(tagBuffer);
+        tagBuffer.position(0);
+        tagBuffer.order(ByteOrder.LITTLE_ENDIAN);
+        return tagBuffer;
+    }
+
     public static ByteBuffer readFileDataIntoBufferLE(final DataSource dataSource, final int size) throws IOException
     {
         final ByteBuffer tagBuffer = ByteBuffer.allocateDirect(size);
         dataSource.read(tagBuffer);
         tagBuffer.position(0);
         tagBuffer.order(ByteOrder.LITTLE_ENDIAN);
+        return tagBuffer;
+    }
+
+    /**
+     *
+     * @param fc
+     * @param size
+     * @return
+     * @throws IOException
+     */
+    public static ByteBuffer readFileDataIntoBufferBE(FileChannel fc, final int size) throws IOException
+    {
+        final ByteBuffer tagBuffer = ByteBuffer.allocateDirect(size);
+        fc.read(tagBuffer);
+        tagBuffer.position(0);
+        tagBuffer.order(ByteOrder.BIG_ENDIAN);
         return tagBuffer;
     }
 

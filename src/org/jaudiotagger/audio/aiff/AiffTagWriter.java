@@ -22,6 +22,7 @@ import org.jaudiotagger.audio.aiff.chunk.AiffChunkSummary;
 import org.jaudiotagger.audio.aiff.chunk.AiffChunkType;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
+import org.jaudiotagger.audio.exceptions.NoWritePermissionsException;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
@@ -39,6 +40,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.logging.Logger;
@@ -343,6 +345,10 @@ public class AiffTagWriter
             {
                 rewriteRiffHeaderSize(fc);
             }
+        }
+        catch(AccessDeniedException ade)
+        {
+            throw new NoWritePermissionsException(file + ":" + ade.getMessage());
         }
         catch(IOException ioe)
         {

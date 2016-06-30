@@ -26,7 +26,7 @@ public class AiffInfoReader extends AiffChunkReader
     protected GenericAudioHeader read(DataSource dataSource) throws CannotReadException, IOException
     {
 
-            logger.config("Reading AIFF file size:" + dataSource.size() + " (" + Hex.asHex(dataSource.size()) + ")");
+            logger.config("Reading AIFF file size:" + Hex.asDecAndHex(dataSource.size()));
             AiffAudioHeader aiffAudioHeader = new AiffAudioHeader();
             final AiffFileHeader fileHeader = new AiffFileHeader();
             long noOfBytes = fileHeader.readHeader(dataSource, aiffAudioHeader);
@@ -62,7 +62,7 @@ public class AiffInfoReader extends AiffChunkReader
      *
      * @return {@code false}, if we were not able to read a valid chunk id
      */
-    private boolean readChunk(DataSource dataSource, AiffAudioHeader aiffAudioHeader) throws IOException
+    private boolean readChunk(DataSource dataSource, AiffAudioHeader aiffAudioHeader) throws IOException, CannotReadException
     {
         logger.config("Reading Info Chunk");
         final Chunk chunk;
@@ -84,6 +84,13 @@ public class AiffInfoReader extends AiffChunkReader
         }
         else
         {
+            if(chunkHeader.getSize() < 0)
+            {
+                String msg = "Not a valid header, unable to read a sensible size:Header"
+                        + chunkHeader.getID()+"Size:"+chunkHeader.getSize();
+                logger.severe(msg);
+                throw new CannotReadException(msg);
+            }
             dataSource.boundarySafePosition(dataSource.position() + chunkHeader.getSize());
         }
         IffHeaderChunk.ensureOnEqualBoundary(dataSource, chunkHeader);

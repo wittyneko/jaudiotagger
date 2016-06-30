@@ -28,6 +28,9 @@ import org.jaudiotagger.tag.vorbiscomment.VorbisCommentReader;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentTag;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -49,9 +52,9 @@ public class FlacTagReader
         FlacStreamReader flacStream = new FlacStreamReader(dataSource);
         flacStream.findStream();
 
-        //Hold the metadata
-        VorbisCommentTag tag = null;
-        List<MetadataBlockDataPicture> images = new ArrayList<MetadataBlockDataPicture>();
+            //Hold the metadata
+            VorbisCommentTag tag = null;
+            List<MetadataBlockDataPicture> images = new ArrayList<MetadataBlockDataPicture>();
 
         //Seems like we have a valid stream
         boolean isLastBlock = false;
@@ -61,7 +64,7 @@ public class FlacTagReader
             {
                 logger.config("Looking for MetaBlockHeader at:" + dataSource.position());
             }
-            
+
             //Read the header
             MetadataBlockHeader mbh = MetadataBlockHeader.readHeader(dataSource);
             if(mbh==null)
@@ -103,7 +106,7 @@ public class FlacTagReader
                             logger.warning("Unable to read picture metablock, ignoring" + ive.getMessage());
                         }
 
-                        break;
+                            break;
 
                     //This is not a metadata block we are interested in so we skip to next block
                     default:
@@ -118,14 +121,15 @@ public class FlacTagReader
             isLastBlock = mbh.isLastBlock();
         }
 
-        //Note there may not be either a tag or any images, no problem this is valid however to make it easier we
-        //just initialize Flac with an empty VorbisTag
-        if (tag == null)
-        {
-            tag = VorbisCommentTag.createNewTag();
+            //Note there may not be either a tag or any images, no problem this is valid however to make it easier we
+            //just initialize Flac with an empty VorbisTag
+            if (tag == null)
+            {
+                tag = VorbisCommentTag.createNewTag();
+            }
+            FlacTag flacTag = new FlacTag(tag, images);
+            return flacTag;
         }
-        FlacTag flacTag = new FlacTag(tag, images);
-        return flacTag;
     }
 }
 

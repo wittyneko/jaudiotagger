@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
@@ -170,7 +171,7 @@ public class MetadataBlockDataPicture implements MetadataBlockData, TagField
         return new String(tempbuffer, charset);
     }
 
-    public byte[] getBytes()
+    public ByteBuffer getBytes()
     {
         try
         {
@@ -186,7 +187,7 @@ public class MetadataBlockDataPicture implements MetadataBlockData, TagField
             baos.write(Utils.getSizeBEInt32(indexedColouredCount));
             baos.write(Utils.getSizeBEInt32(imageData.length));
             baos.write(imageData);
-            return baos.toByteArray();
+            return ByteBuffer.wrap(baos.toByteArray());
 
         }
         catch (IOException ioe)
@@ -197,7 +198,7 @@ public class MetadataBlockDataPicture implements MetadataBlockData, TagField
 
     public int getLength()
     {
-        return getBytes().length;
+        return getBytes().limit();
     }
 
     public int getPictureType()
@@ -305,7 +306,7 @@ public class MetadataBlockDataPicture implements MetadataBlockData, TagField
      */
     public byte[] getRawContent() throws UnsupportedEncodingException
     {
-        return getBytes();
+        return getBytes().array();
     }
 
     /**

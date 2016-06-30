@@ -30,6 +30,7 @@ import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
@@ -246,6 +247,10 @@ public class Mp4BoxHeader
         return StandardCharsets.UTF_8;
     }
 
+    public static Mp4BoxHeader seekWithinLevel(FileChannel fc, String id) throws IOException
+    {
+        return seekWithinLevel(new FileDataSource(fc), id);
+    }
 
     /**
      * Seek for box with the specified id starting from the current location of filepointer,
@@ -255,16 +260,11 @@ public class Mp4BoxHeader
      * if we are at the start of a child box even if it not the required box as long as the box we are
      * looking for is the same level (or the level above in some cases).
      *
-     * @param raf
+     * @param dataSource
      * @param id
      * @throws java.io.IOException
      * @return
      */
-    public static Mp4BoxHeader seekWithinLevel(RandomAccessFile raf, String id) throws IOException
-    {
-        return seekWithinLevel(new FileDataSource(raf), id);
-    }
-
     public static Mp4BoxHeader seekWithinLevel(DataSource dataSource, String id) throws IOException
     {
         logger.finer("Started searching for:" + id + " in file at:" + dataSource.position());

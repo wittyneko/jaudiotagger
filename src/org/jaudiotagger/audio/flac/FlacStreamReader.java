@@ -3,11 +3,12 @@ package org.jaudiotagger.audio.flac;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
+import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
 import java.util.logging.Logger;
 
 /**
@@ -23,15 +24,18 @@ public class FlacStreamReader
     public static final String FLAC_STREAM_IDENTIFIER = "fLaC";
 
     private DataSource dataSource;
+    private String loggingName;
     private int startOfFlacInFile;
 
     /**
      * Create instance for holding stream info
-     * @param raf
+     * @param fc
+     * @param loggingName
      */
-    public FlacStreamReader(RandomAccessFile raf) throws IOException
+    public FlacStreamReader(FileChannel fc, String loggingName)
     {
         this.dataSource = new FileDataSource(raf);
+        this.loggingName =loggingName;
     }
 
     public FlacStreamReader(DataSource dataSource)
@@ -51,7 +55,7 @@ public class FlacStreamReader
         if (dataSource.size() == 0)
         {
             //Empty File
-            throw new CannotReadException("Error: File empty");
+            throw new CannotReadException("Error: File empty"+ " " + loggingName);
         }
         dataSource.position(0);
 
@@ -68,7 +72,7 @@ public class FlacStreamReader
             startOfFlacInFile = (int) (dataSource.position() - FLAC_STREAM_IDENTIFIER_LENGTH);
             return;
         }
-        throw new CannotReadException(ErrorMessage.FLAC_NO_FLAC_HEADER_FOUND.getMsg());
+        throw new CannotReadException(loggingName + ErrorMessage.FLAC_NO_FLAC_HEADER_FOUND.getMsg());
     }
 
     private boolean isId3v2Tag() throws IOException

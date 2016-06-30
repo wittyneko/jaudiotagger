@@ -73,7 +73,9 @@ public class AiffTagReader extends AiffChunkReader
         {
             return false;
         }
-        logger.config("Reading Chunk:" + chunkHeader.getID() + ":starting at:" + chunkHeader.getStartLocationInFile() + "(" + Hex.asHex(chunkHeader.getStartLocationInFile()) + ")" + ":sizeIncHeader:" + (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE) + ":dataSource:" + dataSource);
+        logger.config("Reading Chunk:" + chunkHeader.getID() + ":starting at:"
+                + Hex.asDecAndHex(chunkHeader.getStartLocationInFile())
+                + ":sizeIncHeader:" + (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE) + ":dataSource:" + dataSource);
 
         long startLocationOfId3TagInFile = dataSource.position();
         AiffChunkType chunkType = AiffChunkType.get(chunkHeader.getID());
@@ -93,15 +95,22 @@ public class AiffTagReader extends AiffChunkReader
             }
             //else otherwise we discard because the first one found is the one that will be used by other apps
             {
-                logger.warning("Ignoring ID3Tag because already have one:" + chunkHeader.getID() + ":" + (chunkHeader.getStartLocationInFile() - 1) + "(" + Hex.asHex(chunkHeader.getStartLocationInFile()) + ")" + ":sizeIncHeader:" + (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE) + ":dataSource:" + dataSource);
+                logger.warning("Ignoring ID3Tag because already have one:"
+                        + chunkHeader.getID() + ":"
+                        + chunkHeader.getStartLocationInFile()
+                        + Hex.asDecAndHex(chunkHeader.getStartLocationInFile() - 1)
+                        + ":sizeIncHeader:" + (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE)
+                        + ":dataSource:" + dataSource);
             }
         }
         //Special handling to recognise ID3Tags written on odd boundary because original preceding chunk odd length but
         //didn't write padding byte
         else if(chunkType!=null && chunkType== AiffChunkType.CORRUPT_TAG_LATE)
         {
-            logger.warning("Found Corrupt ID3 Chunk, starting at Odd Location:" + chunkHeader.getID() + ":" + (chunkHeader.getStartLocationInFile() - 1) + "(" + Hex.asHex(chunkHeader.getStartLocationInFile()) + ")"
-                    + ":sizeIncHeader:"+ (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE) + ":dataSource:" + dataSource);
+            logger.warning("Found Corrupt ID3 Chunk, starting at Odd Location:" + chunkHeader.getID() + ":"
+                    + Hex.asDecAndHex(chunkHeader.getStartLocationInFile() - 1)
+                    + ":sizeIncHeader:"+ (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE)
+                    + ":dataSource:" + dataSource);
 
             //We only want to know if first metadata tag is misaligned
             if(aiffTag.getID3Tag()==null)
@@ -114,8 +123,10 @@ public class AiffTagReader extends AiffChunkReader
         //Other Special handling for ID3Tags
         else if(chunkType!=null && chunkType== AiffChunkType.CORRUPT_TAG_EARLY)
         {
-            logger.warning("Found Corrupt ID3 Chunk, starting at Odd Location:" + chunkHeader.getID() + ":" + (chunkHeader.getStartLocationInFile() + 1) + "(" + Hex.asHex(chunkHeader.getStartLocationInFile()) + ")"
-                    + ":sizeIncHeader:"+ (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE) + ":dataSource:" + dataSource);
+            logger.warning("Found Corrupt ID3 Chunk, starting at Odd Location:" + chunkHeader.getID()
+                    + ":" + Hex.asDecAndHex(chunkHeader.getStartLocationInFile())
+                    + ":sizeIncHeader:"+ (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE)
+                    + ":dataSource:" + dataSource);
 
             //We only want to know if first metadata tag is misaligned
             if(aiffTag.getID3Tag()==null)

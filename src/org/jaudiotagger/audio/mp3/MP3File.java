@@ -26,9 +26,11 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.NoWritePermissionsException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
+import org.jaudiotagger.audio.exceptions.UnableToModifyFileException;
 import org.jaudiotagger.audio.generic.Permissions;
 import org.jaudiotagger.logging.*;
 import org.jaudiotagger.tag.Tag;
@@ -896,6 +898,7 @@ public class MP3File extends AudioFile
     /**
      * Overridden for compatibility with merged code
      *
+     * @throws NoWritePermissionsException if the file could not be written to due to file permissions
      * @throws CannotWriteException
      */
     public void commit() throws CannotWriteException
@@ -903,6 +906,10 @@ public class MP3File extends AudioFile
         try
         {
             save();
+        }
+        catch (UnableToModifyFileException umfe)
+        {
+            throw new NoWritePermissionsException(umfe);
         }
         catch (IOException ioe)
         {
@@ -929,7 +936,7 @@ public class MP3File extends AudioFile
             throw new IOException(ErrorMessage.GENERAL_WRITE_FAILED_BECAUSE_FILE_NOT_FOUND.getMsg(file.getName()));
         }
 
-        if (!Files.isWritable(path))
+        if (TagOptionSingleton.getInstance().isCheckIsWritable() && !Files.isWritable(path))
         {
             logger.severe(Permissions.displayPermissions(path));
             logger.severe(ErrorMessage.GENERAL_WRITE_FAILED.getMsg(file.getName()));

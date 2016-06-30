@@ -19,6 +19,8 @@
 package org.jaudiotagger.audio.dsf;
 
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
+import org.jaudiotagger.audio.exceptions.NoWritePermissionsException;
+import org.jaudiotagger.audio.generic.AudioFileWriter;
 import org.jaudiotagger.audio.generic.AudioFileWriter2;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
@@ -31,6 +33,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
@@ -78,6 +81,10 @@ public class DsfFileWriter extends AudioFileWriter2
                     fc.write(dsd.write());
                 }
             }
+        }
+        catch(AccessDeniedException ade)
+        {
+            throw new NoWritePermissionsException(file + ":" + ade.getMessage());
         }
         catch(IOException ioe)
         {
