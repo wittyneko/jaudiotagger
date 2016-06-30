@@ -28,7 +28,6 @@ import org.jaudiotagger.logging.ErrorMessage;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.channels.FileChannel;
 import java.util.logging.Logger;
 
 /**
@@ -88,7 +87,6 @@ public class Mp4InfoReader
 
     public GenericAudioHeader read(DataSource dataSource) throws CannotReadException, IOException
     {
-        FileChannel fc = raf.getChannel();
         Mp4AudioHeader info = new Mp4AudioHeader();
 
         //File Identification

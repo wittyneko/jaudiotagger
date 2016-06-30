@@ -38,8 +38,8 @@ public class WavFileReader extends AudioFileReader3
 
     }
 
-    private WavInfoReader ir = new WavInfoReader();
-    private WavTagReader  iw = new WavTagReader();
+    private WavInfoReader ir = new WavInfoReader("");
+    private WavTagReader  iw = new WavTagReader("");
 
     @Override
     protected GenericAudioHeader getEncodingInfo(DataSource dataSource) throws CannotReadException, IOException

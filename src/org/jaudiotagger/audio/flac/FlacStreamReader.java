@@ -3,7 +3,6 @@ package org.jaudiotagger.audio.flac;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
-import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 
@@ -32,9 +31,9 @@ public class FlacStreamReader
      * @param fc
      * @param loggingName
      */
-    public FlacStreamReader(FileChannel fc, String loggingName)
+    public FlacStreamReader(FileChannel fc, String loggingName) throws IOException
     {
-        this.dataSource = new FileDataSource(raf);
+        this.dataSource = new FileDataSource(fc);
         this.loggingName =loggingName;
     }
 

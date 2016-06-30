@@ -138,9 +138,6 @@ abstract class ChunkContainerReader<ChunkType extends ChunkContainer> implements
      */
     public ChunkType read(final GUID guid, final DataSource dataSource, final long chunkStart) throws IOException, IllegalArgumentException
     {
-        // TODO -
-        checkStream(stream);
-        final CountingInputStream cis = new CountingInputStream(stream);
         if (!Arrays.asList(getApplyingIds()).contains(guid))
         {
             throw new IllegalArgumentException("provided GUID is not supported by this reader.");

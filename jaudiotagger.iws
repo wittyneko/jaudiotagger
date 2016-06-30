@@ -2,149 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6ab1c14-6cd1-42fd-af1f-7ac1a83b7f78" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/testdata/bug153.wav" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/exceptions/NoReadPermissionsException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/exceptions/NoWritePermissionsException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavCleaner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavSaveOrder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/FilePermissionsTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue146Test.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataNewTagsId3BeforeInfoTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataNewTagsTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataNewTagsInfobeforeId3Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CHANGES.txt" afterPath="$PROJECT_DIR$/CHANGES.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jaudiotagger.iws" afterPath="$PROJECT_DIR$/jaudiotagger.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/AudioFile.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/AudioFile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/AudioFileIO.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/AudioFileIO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffFileHeader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffFileHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffInfoReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffInfoReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffTagReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffTagReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffTagWriter.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/aiff/AiffTagWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/AsfFileReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/AsfFileReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/AsfFileWriter.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/AsfFileWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/AsfExtendedHeader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/AsfExtendedHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/AsfHeader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/AsfHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/AudioStreamChunk.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/AudioStreamChunk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/Chunk.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/Chunk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/ChunkContainer.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/ChunkContainer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/ContainerType.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/ContainerType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/ContentBranding.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/ContentBranding.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/ContentDescription.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/ContentDescription.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/EncodingChunk.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/EncodingChunk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/EncryptionChunk.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/EncryptionChunk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/FileHeader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/FileHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/GUID.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/GUID.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/GUIDFormatException.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/GUIDFormatException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/LanguageList.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/LanguageList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/MetadataContainer.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/MetadataContainer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/MetadataContainerFactory.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/MetadataContainerFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/MetadataDescriptor.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/MetadataDescriptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/StreamBitratePropertiesChunk.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/StreamBitratePropertiesChunk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/StreamChunk.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/StreamChunk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/VideoStreamChunk.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/data/VideoStreamChunk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/AsfExtHeaderModifier.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/AsfExtHeaderModifier.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/AsfExtHeaderReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/AsfExtHeaderReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/AsfHeaderReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/AsfHeaderReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/AsfStreamer.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/AsfStreamer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ChunkContainerReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ChunkContainerReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ChunkHeaderReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ChunkHeaderReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ChunkModifier.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ChunkModifier.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ChunkReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ChunkReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ChunkRemover.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ChunkRemover.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ContentBrandingReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ContentBrandingReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ContentDescriptionReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ContentDescriptionReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/CountingInputStream.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/CountingInputStream.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/CountingOutputstream.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/CountingOutputstream.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/EncodingChunkReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/EncodingChunkReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/EncryptionChunkReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/EncryptionChunkReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/FileHeaderReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/FileHeaderReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/FullRequestInputStream.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/FullRequestInputStream.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/LanguageListReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/LanguageListReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/MetadataReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/MetadataReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ModificationResult.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/ModificationResult.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/RandomAccessFileInputstream.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/RandomAccessFileInputstream.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/RandomAccessFileOutputStream.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/RandomAccessFileOutputStream.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/StreamBitratePropertiesReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/StreamBitratePropertiesReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/StreamChunkReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/StreamChunkReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/WriteableChunk.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/WriteableChunk.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/WriteableChunkModifer.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/io/WriteableChunkModifer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/util/ChunkPositionComparator.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/util/ChunkPositionComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/util/TagConverter.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/util/TagConverter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/util/Utils.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/asf/util/Utils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/dsf/DsfFileWriter.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/dsf/DsfFileWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/exceptions/UnableToModifyFileException.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/exceptions/UnableToModifyFileException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacFileWriter.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacFileWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacInfoReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacInfoReader.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacStreamReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacStreamReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacTagCreator.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacTagCreator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacTagReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacTagReader.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacTagWriter.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/FlacTagWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockData.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataApplication.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataCueSheet.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataCueSheet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataPadding.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataPadding.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataPicture.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataPicture.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataSeekTable.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataSeekTable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataStreamInfo.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataStreamInfo.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockHeader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileReader2.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileReader2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileWriter.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileWriter2.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileWriter2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/GenericTag.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/GenericTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/Utils.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/Utils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/iff/ChunkSummary.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/iff/ChunkSummary.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3File.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp3/MP3File.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp4/Mp4InfoReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp4/Mp4InfoReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp4/Mp4TagReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp4/Mp4TagReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp4/atom/Mp4BoxHeader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp4/atom/Mp4BoxHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp4/atom/Mp4StcoBox.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/mp4/atom/Mp4StcoBox.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavCleaner.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavCleaner.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavFileReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavFileReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavFileWriter.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavFileWriter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavInfoReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavInfoReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavOptions.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavOptions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavSaveOptions.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavSaveOptions.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavTagReader.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavTagReader.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavTagWriter.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/WavTagWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/chunk/WavInfoIdentifier.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/audio/wav/chunk/WavInfoIdentifier.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/logging/ErrorMessage.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/logging/ErrorMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/logging/FileSystemMessage.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/logging/FileSystemMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/logging/Hex.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/logging/Hex.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/FieldKey.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/FieldKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/TagOptionSingleton.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/TagOptionSingleton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/aiff/AiffTag.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/aiff/AiffTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/asf/AsfFieldKey.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/asf/AsfFieldKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/asf/AsfTag.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/asf/AsfTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/datatype/TCONString.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/datatype/TCONString.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/datatype/TextEncodedStringSizeTerminated.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/datatype/TextEncodedStringSizeTerminated.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/AbstractID3v2Tag.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/AbstractID3v2Tag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v22FieldKey.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v22FieldKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v22Frames.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v22Frames.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v23FieldKey.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v23FieldKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v23Frames.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v23Frames.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v24FieldKey.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v24FieldKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v24Frames.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/ID3v24Frames.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/framebody/FrameBodyTXXX.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/id3/framebody/FrameBodyTXXX.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/mp4/Mp4FieldKey.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/mp4/Mp4FieldKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/mp4/Mp4Tag.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/mp4/Mp4Tag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/vorbiscomment/VorbisCommentFieldKey.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/vorbiscomment/VorbisCommentFieldKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/vorbiscomment/VorbisCommentTag.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/vorbiscomment/VorbisCommentTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/wav/WavInfoTag.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/wav/WavInfoTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jaudiotagger/tag/wav/WavTag.java" afterPath="$PROJECT_DIR$/src/org/jaudiotagger/tag/wav/WavTag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/dsf/DsfAudioFileTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/dsf/DsfAudioFileTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/flac/FlacHeaderTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/flac/FlacHeaderTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/wav/WavSimpleTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/wav/WavSimpleTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue084Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue084Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue173Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue173Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue298Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue298Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue411Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue411Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/aiff/AiffAudioTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/aiff/AiffAudioTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/dsf/DsfAudioFileTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/dsf/DsfAudioFileTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/flac/FlacWriteTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/flac/FlacWriteTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v22TagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v22TagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v23TagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v23TagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v24TagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v24TagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testdata/testfiles.txt" afterPath="$PROJECT_DIR$/testdata/testfiles.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/FilePermissionsTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/FilePermissionsTest.java" />
     </list>
     <ignored path="jaudiotagger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1160,13 +1032,7 @@
       <workItem from="1456157137709" duration="52006000" />
       <workItem from="1456413736424" duration="6135000" />
       <workItem from="1456480049585" duration="18026000" />
-      <workItem from="1467272240693" duration="7669000" />
-    </task>
-    <task id="LOCAL-00005" summary="Add test and some code tidy up for Dsf Read">
-      <created>1442482096593</created>
-      <option name="number" value="00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1442482096593</updated>
+      <workItem from="1467272240693" duration="7862000" />
     </task>
     <task id="LOCAL-00006" summary="Dsf format:More COde tidyup/simplification">
       <created>1442484250714</created>
@@ -1456,7 +1322,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456501552627</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Merge branch 'master' of https://bitbucket.org/ijabz/jaudiotagger&#10;&#10;# Conflicts:&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffFileHeader.java&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffInfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffTagReader.java&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffTagWriter.java&#10;#&#9;src/org/jaudiotagger/audio/asf/AsfFileReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/AsfExtHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/AsfHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ChunkContainerReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ChunkHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ContentBrandingReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ContentDescriptionReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/EncodingChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/EncryptionChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/FileHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/LanguageListReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/MetadataReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/StreamBitratePropertiesReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/StreamChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/util/Utils.java&#10;#&#9;src/org/jaudiotagger/audio/dsf/DsfFileWriter.java&#10;#&#9;src/org/jaudiotagger/audio/dsf/FmtChunk.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacFileReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacInfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacStreamReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacTagReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacTagWriter.java&#10;#&#9;src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataPicture.java&#10;#&#9;src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataStreamInfo.java&#10;#&#9;src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockHeader.java&#10;#&#9;src/org/jaudiotagger/audio/generic/Utils.java&#10;#&#9;src/org/jaudiotagger/audio/mp3/MP3File.java&#10;#&#9;src/org/jaudiotagger/audio/mp4/Mp4InfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/mp4/Mp4TagReader.java&#10;#&#9;src/org/jaudiotagger/audio/mp4/atom/Mp4BoxHeader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavFileReader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavInfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavRIFFHeader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavTagReader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavTagWriter.java&#10;">
+      <created>1467281464983</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1467281464983</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1492,7 +1364,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83836000" />
+    <option name="totallyTimeSpent" value="84029000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1022" extended-state="6" />
@@ -1576,7 +1448,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix made to AiffTag.delete() to not depdn on previous read to find location of tag before deletion" />
     <MESSAGE value="Tidyup Wav" />
     <MESSAGE value="Added aiff test file, and updated tests to use it" />
     <MESSAGE value="Added basic suport for reading Wav INFO metadata chunk (written by MediaMonkey) into Tag" />
@@ -1601,7 +1472,8 @@
     <MESSAGE value="Made mp3 and asf readers work with the DataSource. Still to finalize the code, but all tests are passing" />
     <MESSAGE value="Reset the datasource between tag and header extraction when reading the AudioFileInfo. &#10;Fixed NullPointer when file is not provided in the MP3 file reader" />
     <MESSAGE value="Added unit tests for the datasource" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added unit tests for the datasource" />
+    <MESSAGE value="Merge branch 'master' of https://bitbucket.org/ijabz/jaudiotagger&#10;&#10;# Conflicts:&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffFileHeader.java&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffInfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffTagReader.java&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffTagWriter.java&#10;#&#9;src/org/jaudiotagger/audio/asf/AsfFileReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/AsfExtHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/AsfHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ChunkContainerReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ChunkHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ContentBrandingReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ContentDescriptionReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/EncodingChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/EncryptionChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/FileHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/LanguageListReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/MetadataReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/StreamBitratePropertiesReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/StreamChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/util/Utils.java&#10;#&#9;src/org/jaudiotagger/audio/dsf/DsfFileWriter.java&#10;#&#9;src/org/jaudiotagger/audio/dsf/FmtChunk.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacFileReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacInfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacStreamReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacTagReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacTagWriter.java&#10;#&#9;src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataPicture.java&#10;#&#9;src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataStreamInfo.java&#10;#&#9;src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockHeader.java&#10;#&#9;src/org/jaudiotagger/audio/generic/Utils.java&#10;#&#9;src/org/jaudiotagger/audio/mp3/MP3File.java&#10;#&#9;src/org/jaudiotagger/audio/mp4/Mp4InfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/mp4/Mp4TagReader.java&#10;#&#9;src/org/jaudiotagger/audio/mp4/atom/Mp4BoxHeader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavFileReader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavInfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavRIFFHeader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavTagReader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavTagWriter.java&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://bitbucket.org/ijabz/jaudiotagger&#10;&#10;# Conflicts:&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffFileHeader.java&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffInfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffTagReader.java&#10;#&#9;src/org/jaudiotagger/audio/aiff/AiffTagWriter.java&#10;#&#9;src/org/jaudiotagger/audio/asf/AsfFileReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/AsfExtHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/AsfHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ChunkContainerReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ChunkHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ContentBrandingReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/ContentDescriptionReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/EncodingChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/EncryptionChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/FileHeaderReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/LanguageListReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/MetadataReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/StreamBitratePropertiesReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/io/StreamChunkReader.java&#10;#&#9;src/org/jaudiotagger/audio/asf/util/Utils.java&#10;#&#9;src/org/jaudiotagger/audio/dsf/DsfFileWriter.java&#10;#&#9;src/org/jaudiotagger/audio/dsf/FmtChunk.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacFileReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacInfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacStreamReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacTagReader.java&#10;#&#9;src/org/jaudiotagger/audio/flac/FlacTagWriter.java&#10;#&#9;src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataPicture.java&#10;#&#9;src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockDataStreamInfo.java&#10;#&#9;src/org/jaudiotagger/audio/flac/metadatablock/MetadataBlockHeader.java&#10;#&#9;src/org/jaudiotagger/audio/generic/Utils.java&#10;#&#9;src/org/jaudiotagger/audio/mp3/MP3File.java&#10;#&#9;src/org/jaudiotagger/audio/mp4/Mp4InfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/mp4/Mp4TagReader.java&#10;#&#9;src/org/jaudiotagger/audio/mp4/atom/Mp4BoxHeader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavFileReader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavInfoReader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavRIFFHeader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavTagReader.java&#10;#&#9;src/org/jaudiotagger/audio/wav/WavTagWriter.java&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1651,6 +1523,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.2642369">
           <caret line="113" column="21" selection-start-line="113" selection-start-column="18" selection-end-line="113" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1666,6 +1539,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17123288">
           <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1673,6 +1547,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4280822">
           <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="57" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1680,6 +1555,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15410958">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1811,6 +1687,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.18835616">
           <caret line="25" column="47" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>

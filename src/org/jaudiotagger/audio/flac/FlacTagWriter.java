@@ -105,7 +105,7 @@ public class FlacTagWriter
                         {
                             case STREAMINFO:
                             {
-                                blockInfo.streamInfoBlock = new MetadataBlock(mbh, new MetadataBlockDataStreamInfo(mbh, fc));
+                                blockInfo.streamInfoBlock = new MetadataBlock(mbh, new MetadataBlockDataStreamInfo(mbh, new FileDataSource(fc)));
                                 break;
                             }
 

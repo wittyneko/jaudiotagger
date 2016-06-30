@@ -35,8 +35,6 @@ import org.jaudiotagger.tag.wav.WavTag;
 
 import java.io.IOException;
 import java.nio.ByteOrder;
-import java.nio.channels.FileChannel;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
 /**
@@ -212,7 +210,7 @@ public class WavTagReader
             dataSource.position(dataSource.position() + chunkHeader.getSize());
             if(dataSource.position()>dataSource.size())
             {
-                String msg = loggingName + " Failed to move to invalid position to " + fc.position() + " because file length is only " + fc.size()
+                String msg = loggingName + " Failed to move to invalid position to " + dataSource.position() + " because file length is only " + dataSource.size()
                         + " indicates invalid chunk";
                 logger.severe(msg);
                 throw new CannotReadException(msg);

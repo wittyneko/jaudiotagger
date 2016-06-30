@@ -1,6 +1,8 @@
 package org.jaudiotagger.audio.wav;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.iff.Chunk;
 import org.jaudiotagger.audio.iff.ChunkHeader;
 import org.jaudiotagger.audio.iff.IffHeaderChunk;
@@ -54,7 +56,8 @@ public class WavCleaner
     {
         try(FileChannel fc = FileChannel.open(path, StandardOpenOption.WRITE, StandardOpenOption.READ))
         {
-            if(WavRIFFHeader.isValidHeader(fc))
+            DataSource dataSource = new FileDataSource(fc);
+            if(WavRIFFHeader.isValidHeader(dataSource))
             {
                 while (fc.position() < fc.size())
                 {

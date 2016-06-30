@@ -52,7 +52,7 @@ public class MetadataBlockHeader
      */
     public static MetadataBlockHeader readHeader(FileChannel fc) throws CannotReadException, IOException
     {
-        return readHeader(new FileDataSource(raf));
+        return readHeader(new FileDataSource(fc));
     }
 
     public static MetadataBlockHeader readHeader(DataSource dataSource) throws CannotReadException, IOException
