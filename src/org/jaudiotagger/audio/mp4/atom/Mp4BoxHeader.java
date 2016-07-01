@@ -20,6 +20,8 @@ package org.jaudiotagger.audio.mp4.atom;
 
 import org.jaudiotagger.audio.exceptions.InvalidBoxHeaderException;
 import org.jaudiotagger.audio.exceptions.NullBoxIdException;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.logging.ErrorMessage;
 
@@ -245,6 +247,10 @@ public class Mp4BoxHeader
         return StandardCharsets.UTF_8;
     }
 
+    public static Mp4BoxHeader seekWithinLevel(FileChannel fc, String id) throws IOException
+    {
+        return seekWithinLevel(new FileDataSource(fc), id);
+    }
 
     /**
      * Seek for box with the specified id starting from the current location of filepointer,
@@ -254,18 +260,18 @@ public class Mp4BoxHeader
      * if we are at the start of a child box even if it not the required box as long as the box we are
      * looking for is the same level (or the level above in some cases).
      *
-     * @param fc
+     * @param dataSource
      * @param id
      * @throws java.io.IOException
      * @return
      */
-    public static Mp4BoxHeader seekWithinLevel(FileChannel fc, String id) throws IOException
+    public static Mp4BoxHeader seekWithinLevel(DataSource dataSource, String id) throws IOException
     {
-        logger.finer("Started searching for:" + id + " in file at:" + fc.position());
+        logger.finer("Started searching for:" + id + " in file at:" + dataSource.position());
 
         Mp4BoxHeader boxHeader = new Mp4BoxHeader();
         ByteBuffer headerBuffer = ByteBuffer.allocate(HEADER_LENGTH);
-        int bytesRead = fc.read(headerBuffer);
+        int bytesRead = dataSource.read(headerBuffer);
         if (bytesRead != HEADER_LENGTH)
         {
             return null;
@@ -274,20 +280,21 @@ public class Mp4BoxHeader
         boxHeader.update(headerBuffer);
         while (!boxHeader.getId().equals(id))
         {
-            logger.finer("Found:" + boxHeader.getId() + " Still searching for:" + id + " in file at:" + fc.position());
+            logger.finer("Found:" + boxHeader.getId() + " Still searching for:" + id + " in file at:" + dataSource.position());
 
             //Something gone wrong probably not at the start of an atom so return null;
             if (boxHeader.getLength() < Mp4BoxHeader.HEADER_LENGTH)
             {
                 return null;
             }
-            fc.position(fc.position() + boxHeader.getDataLength());
-            if (fc.position() > fc.size())
+            long noOfBytesSkipped = dataSource.skip(boxHeader.getDataLength());
+            logger.finer("Skipped:" + noOfBytesSkipped);
+            if (noOfBytesSkipped < boxHeader.getDataLength())
             {
                 return null;
             }
             headerBuffer.rewind();
-            bytesRead = fc.read(headerBuffer);
+            bytesRead = dataSource.read(headerBuffer);
             logger.finer("Header Bytes Read:" + bytesRead);
             headerBuffer.rewind();
             if (bytesRead == Mp4BoxHeader.HEADER_LENGTH)
@@ -301,7 +308,6 @@ public class Mp4BoxHeader
         }
         return boxHeader;
     }
-
 
     /**
      * Seek for box with the specified id starting from the current location of filepointer,

@@ -3,10 +3,11 @@ package org.jaudiotagger.audio.asf.io;
 import junit.framework.TestCase;
 import org.jaudiotagger.audio.asf.data.*;
 import org.jaudiotagger.audio.asf.util.Utils;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Collection;
@@ -61,26 +62,30 @@ public final class AsfHeaderUtils extends TestCase
 
     public static byte[] getFirstChunk(File file, GUID chunkGUID)
             throws IOException {
-        RandomAccessFile asfFile = null;
+        DataSource dataSource = null;
         try
         {
-            asfFile = new RandomAccessFile(file,"r");
+            dataSource = new FileDataSource(file);
             byte[] result = new byte[0];
-            AsfHeader readHeader = AsfHeaderReader.readHeader(asfFile);
+            AsfHeader readHeader = AsfHeaderReader.readHeader(dataSource);
             Chunk found = findChunk(readHeader.getChunks(), chunkGUID);
             if (found != null) {
                 byte[] tmp = new byte[(int) found.getChunkLength().longValue()];
-                asfFile.seek(found.getPosition());
-                asfFile.readFully(tmp);
+                dataSource.position(found.getPosition());
+                dataSource.readFully(tmp);
                 result = tmp;                
             }
             return result;
         }
         finally
         {
-            asfFile.close();
+            if (dataSource != null) {
+                dataSource.close();
+            }
         }
     }
+
+
 
     public static MetadataContainer readContainer(File file, ContainerType type)
             throws IOException {

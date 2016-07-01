@@ -4,6 +4,7 @@ import org.jaudiotagger.audio.asf.data.Chunk;
 import org.jaudiotagger.audio.asf.data.ChunkContainer;
 import org.jaudiotagger.audio.asf.data.GUID;
 import org.jaudiotagger.audio.asf.util.Utils;
+import org.jaudiotagger.audio.generic.DataSource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,7 +41,7 @@ abstract class ChunkContainerReader<ChunkType extends ChunkContainer> implements
     /**
      * If <code>true</code> due to a {@linkplain #register(Class) registered}
      * chunk reader, all {@link InputStream} objects passed to
-     * {@link #read(GUID, InputStream, long)} must support mark/reset.
+     * {@link #read(GUID, DataSource, long)} must support mark/reset.
      */
     protected boolean hasFailingReaders = false;
 
@@ -83,7 +84,7 @@ abstract class ChunkContainerReader<ChunkType extends ChunkContainer> implements
     }
 
     /**
-     * This method is called by {@link #read(GUID, InputStream, long)} in order
+     * This method is called by {@link #read(GUID, DataSource, long)} in order
      * to create the resulting object. Implementations of this class should now
      * return a new instance of their implementation specific result <b>AND</b>
      * all data should be read, until the list of chunks starts. (The
@@ -91,11 +92,11 @@ abstract class ChunkContainerReader<ChunkType extends ChunkContainer> implements
      *
      * @param streamPosition position of the stream, the chunk starts.
      * @param chunkLength    the length of the chunk (from chunk header)
-     * @param stream         to read the implementation specific information.
+     * @param dataSource         to read the implementation specific information.
      * @return instance of the implementations result.
      * @throws IOException On I/O Errors and Invalid data.
      */
-    abstract protected ChunkType createContainer(long streamPosition, BigInteger chunkLength, InputStream stream) throws IOException;
+    abstract protected ChunkType createContainer(long streamPosition, BigInteger chunkLength, DataSource dataSource) throws IOException;
 
     /**
      * Gets a configured {@linkplain ChunkReader reader} instance for ASF
@@ -125,7 +126,7 @@ abstract class ChunkContainerReader<ChunkType extends ChunkContainer> implements
      * This Method implements the reading of a chunk container.<br>
      *
      * @param guid       GUID of the currently read container.
-     * @param stream     Stream which contains the chunk container.
+     * @param dataSource Stream which contains the chunk container.
      * @param chunkStart The start of the chunk container from stream start.<br>
      *                   For direct file streams one can assume <code>0</code> here.
      * @return <code>null</code> if no valid data found, else a Wrapper
@@ -135,23 +136,22 @@ abstract class ChunkContainerReader<ChunkType extends ChunkContainer> implements
      *                                  {@linkplain ChunkReader#canFail() fail} and the stream source
      *                                  doesn't support mark/reset.
      */
-    public ChunkType read(final GUID guid, final InputStream stream, final long chunkStart) throws IOException, IllegalArgumentException
+    public ChunkType read(final GUID guid, final DataSource dataSource, final long chunkStart) throws IOException, IllegalArgumentException
     {
-        checkStream(stream);
-        final CountingInputStream cis = new CountingInputStream(stream);
         if (!Arrays.asList(getApplyingIds()).contains(guid))
         {
             throw new IllegalArgumentException("provided GUID is not supported by this reader.");
         }
         // For Know the file pointer pointed to an ASF header chunk.
-        final BigInteger chunkLen = Utils.readBig64(cis);
+        final BigInteger chunkLen = Utils.readBig64(dataSource);
         /*
          * now read implementation specific information until the chunk
          * collection starts and create the resulting object.
          */
-        final ChunkType result = createContainer(chunkStart, chunkLen, cis);
+        final ChunkType result = createContainer(chunkStart, chunkLen, dataSource);
         // 16 bytes have already been for providing the GUID
-        long currentPosition = chunkStart + cis.getReadCount() + 16;
+        //System.out.println("--------> chunkStart: " + chunkStart + ", cis.getReadCount():" + dataSource.position());
+        long currentPosition = dataSource.position();//chunkStart + dataSource.position() + 16;
 
         final HashSet<GUID> alreadyRead = new HashSet<GUID>();
         /*
@@ -159,32 +159,33 @@ abstract class ChunkContainerReader<ChunkType extends ChunkContainer> implements
          */
         while (currentPosition < result.getChunkEnd())
         {
-            final GUID currentGUID = Utils.readGUID(cis);
+            final GUID currentGUID = Utils.readGUID(dataSource);
             final boolean skip = this.eachChunkOnce && (!isReaderAvailable(currentGUID) || !alreadyRead.add(currentGUID));
             Chunk chunk;
             /*
              * If one reader tells it could fail (new method), then check the
              * input stream for mark/reset. And use it if failed.
              */
+            long mark = -1;
             if (!skip && isReaderAvailable(currentGUID))
             {
                 final ChunkReader reader = getReader(currentGUID);
                 if (reader.canFail())
                 {
-                    cis.mark(READ_LIMIT);
+                    mark = dataSource.position();
                 }
-                chunk = getReader(currentGUID).read(currentGUID, cis, currentPosition);
+                chunk = getReader(currentGUID).read(currentGUID, dataSource, currentPosition);
             }
             else
             {
-                chunk = ChunkHeaderReader.getInstance().read(currentGUID, cis, currentPosition);
+                chunk = ChunkHeaderReader.getInstance().read(currentGUID, dataSource, currentPosition);
             }
             if (chunk == null)
             {
                 /*
                  * Reader failed
                  */
-                cis.reset();
+                dataSource.position(mark);
             }
             else
             {
@@ -192,10 +193,12 @@ abstract class ChunkContainerReader<ChunkType extends ChunkContainer> implements
                 {
                     result.addChunk(chunk);
                 }
-                currentPosition = chunk.getChunkEnd();
+                dataSource.position(chunk.getChunkEnd());
+                currentPosition = dataSource.position();
+                // TODO -  fix this assert
                 // Always take into account, that 16 bytes have been read prior
                 // to calling this method
-                assert cis.getReadCount() + chunkStart + 16 == currentPosition;
+                //assert dataSource.position() + chunkStart == currentPosition;
             }
         }
 

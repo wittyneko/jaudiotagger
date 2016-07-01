@@ -3,6 +3,7 @@ package org.jaudiotagger.tag.id3;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.logging.Hex;
 import org.jaudiotagger.tag.Tag;
@@ -52,7 +53,7 @@ public class UnsynchronizationTest extends AbstractTestCase
         mp3File = new MP3File(testFile);
         v24tag = (ID3v24Tag) mp3File.getID3v2Tag();
         assertFalse(v24tag.isUnsynchronization());
-        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(testFile), mp3File.getMP3AudioHeader().getMp3StartByte());
+        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(new FileDataSource(testFile)), mp3File.getMP3AudioHeader().getMp3StartByte());
 
 
         v24TitleFrame = (ID3v24Frame) v24tag.getFrame(ID3v24Frames.FRAME_ID_TITLE);
@@ -71,7 +72,7 @@ public class UnsynchronizationTest extends AbstractTestCase
         mp3File = new MP3File(testFile);
         v24tag = (ID3v24Tag) mp3File.getID3v2Tag();
         assertFalse(v24tag.isUnsynchronization());
-        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(testFile), mp3File.getMP3AudioHeader().getMp3StartByte());
+        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(new FileDataSource(testFile)), mp3File.getMP3AudioHeader().getMp3StartByte());
 
         //this does not need unsynchronizing, even though now enabled
         v24TitleFrame = (ID3v24Frame) v24tag.getFrame(ID3v24Frames.FRAME_ID_TITLE);
@@ -108,7 +109,7 @@ public class UnsynchronizationTest extends AbstractTestCase
         mp3File = new MP3File(testFile);
         v23tag = (ID3v23Tag) mp3File.getID3v2Tag();
         assertFalse(v23tag.isUnsynchronization());
-        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(testFile), mp3File.getMP3AudioHeader().getMp3StartByte());
+        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(new FileDataSource(testFile)), mp3File.getMP3AudioHeader().getMp3StartByte());
 
         //Enable unsynchronization and write mp3 back to file, only APIC requires unsynchronization
         TagOptionSingleton.getInstance().setUnsyncTags(true);
@@ -116,7 +117,7 @@ public class UnsynchronizationTest extends AbstractTestCase
         mp3File = new MP3File(testFile);
         v23tag = (ID3v23Tag) mp3File.getID3v2Tag();
         assertTrue(v23tag.isUnsynchronization());
-        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(testFile), mp3File.getMP3AudioHeader().getMp3StartByte());
+        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(new FileDataSource(testFile)), mp3File.getMP3AudioHeader().getMp3StartByte());
 
 
     }
@@ -145,7 +146,7 @@ public class UnsynchronizationTest extends AbstractTestCase
         mp3File = new MP3File(testFile);
         v22tag = (ID3v22Tag) mp3File.getID3v2Tag();
         assertFalse(v22tag.isUnsynchronization());
-        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(testFile), mp3File.getMP3AudioHeader().getMp3StartByte());
+        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(new FileDataSource(testFile)), mp3File.getMP3AudioHeader().getMp3StartByte());
 
         //Enable unsynchronization and write mp3 back to file , only APIC requires unsynchronization
         TagOptionSingleton.getInstance().setUnsyncTags(true);
@@ -153,7 +154,7 @@ public class UnsynchronizationTest extends AbstractTestCase
         mp3File = new MP3File(testFile);
         v22tag = (ID3v22Tag) mp3File.getID3v2Tag();
         assertTrue(v22tag.isUnsynchronization());
-        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(testFile), mp3File.getMP3AudioHeader().getMp3StartByte());
+        assertEquals(AbstractID3v2Tag.getV2TagSizeIfExists(new FileDataSource(testFile)), mp3File.getMP3AudioHeader().getMp3StartByte());
     }
 
     /**

@@ -1,5 +1,7 @@
 package org.jaudiotagger.audio.iff;
 
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 
 import java.io.IOException;
@@ -34,15 +36,7 @@ public class ChunkHeader
      */
     public boolean readHeader(final FileChannel fc) throws IOException
     {
-        ByteBuffer header = ByteBuffer.allocate(CHUNK_HEADER_SIZE);
-        startLocationInFile = fc.position();
-        fc.read(header);
-        header.order(byteOrder);
-        header.position(0);
-        this.chunkId  = Utils.readFourBytesAsChars(header);
-        this.size = header.getInt();
-
-        return true;
+        return readHeader(new FileDataSource(fc));
     }
 
     /**
@@ -52,9 +46,14 @@ public class ChunkHeader
      */
     public boolean readHeader(final RandomAccessFile raf) throws IOException
     {
+        return readHeader(new FileDataSource(raf));
+    }
+
+    public boolean readHeader(final DataSource dataSource) throws IOException
+    {
         ByteBuffer header = ByteBuffer.allocate(CHUNK_HEADER_SIZE);
-        startLocationInFile = raf.getFilePointer();
-        raf.getChannel().read(header);
+        startLocationInFile = dataSource.position();
+        dataSource.read(header);
         header.order(byteOrder);
         header.position(0);
         this.chunkId  = Utils.readFourBytesAsChars(header);

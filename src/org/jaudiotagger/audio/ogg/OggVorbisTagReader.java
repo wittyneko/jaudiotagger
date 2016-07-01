@@ -20,6 +20,7 @@
 package org.jaudiotagger.audio.ogg;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.ogg.util.OggPageHeader;
 import org.jaudiotagger.audio.ogg.util.VorbisHeader;
 import org.jaudiotagger.audio.ogg.util.VorbisPacketType;
@@ -60,15 +61,15 @@ public class OggVorbisTagReader
      *
      * <p>Read the CommenyTag, within an OggVorbis file the VorbisCommentTag is mandatory
      *
-     * @param raf
+     * @param dataSource
      * @return
      * @throws CannotReadException
      * @throws IOException
      */
-    public Tag read(RandomAccessFile raf) throws CannotReadException, IOException
+    public Tag read(DataSource dataSource) throws CannotReadException, IOException
     {
         logger.config("Starting to read ogg vorbis tag from file:");
-        byte[] rawVorbisCommentData = readRawPacketData(raf);
+        byte[] rawVorbisCommentData = readRawPacketData(dataSource);
 
         //Begin tag reading
         VorbisCommentTag tag = vorbisCommentReader.read(rawVorbisCommentData, true);
@@ -79,47 +80,47 @@ public class OggVorbisTagReader
     /**
      * Retrieve the Size of the VorbisComment packet including the oggvorbis header
      *
-     * @param raf
+     * @param dataSource
      * @return
      * @throws CannotReadException
      * @throws IOException
      */
-    public int readOggVorbisRawSize(RandomAccessFile raf) throws CannotReadException, IOException
+    public int readOggVorbisRawSize(DataSource dataSource) throws CannotReadException, IOException
     {
-        byte[] rawVorbisCommentData = readRawPacketData(raf);
+        byte[] rawVorbisCommentData = readRawPacketData(dataSource);
         return rawVorbisCommentData.length + VorbisHeader.FIELD_PACKET_TYPE_LENGTH + VorbisHeader.FIELD_CAPTURE_PATTERN_LENGTH;
     }
 
     /**
      * Retrieve the raw VorbisComment packet data, does not include the OggVorbis header
      *
-     * @param raf
+     * @param dataSource
      * @return
      * @throws CannotReadException if unable to find vorbiscomment header
      * @throws IOException
      */
-    public byte[] readRawPacketData(RandomAccessFile raf) throws CannotReadException, IOException
+    public byte[] readRawPacketData(DataSource dataSource) throws CannotReadException, IOException
     {
         logger.fine("Read 1st page");
         //1st page = codec infos
-        OggPageHeader pageHeader = OggPageHeader.read(raf);
+        OggPageHeader pageHeader = OggPageHeader.read(dataSource);
         //Skip over data to end of page header 1
-        raf.seek(raf.getFilePointer() + pageHeader.getPageLength());
+        dataSource.position(dataSource.position() + pageHeader.getPageLength());
 
         logger.fine("Read 2nd page");
         //2nd page = comment, may extend to additional pages or not , may also have setup header
-        pageHeader = OggPageHeader.read(raf);
+        pageHeader = OggPageHeader.read(dataSource);
 
         //Now at start of packets on page 2 , check this is the vorbis comment header 
         byte[] b = new byte[VorbisHeader.FIELD_PACKET_TYPE_LENGTH + VorbisHeader.FIELD_CAPTURE_PATTERN_LENGTH];
-        raf.read(b);
+        dataSource.read(b);
         if (!isVorbisCommentHeader(b))
         {
             throw new CannotReadException("Cannot find comment block (no vorbiscomment header)");
         }
 
         //Convert the comment raw data which maybe over many pages back into raw packet
-        byte[] rawVorbisCommentData = convertToVorbisCommentPacket(pageHeader, raf);
+        byte[] rawVorbisCommentData = convertToVorbisCommentPacket(pageHeader, dataSource);
         return rawVorbisCommentData;
     }
 
@@ -154,16 +155,16 @@ public class OggVorbisTagReader
      * The Vorbis Comment may span multiple pages so we we need to identify the pages they contain and then
      * extract the packet data from the pages
      * @param startVorbisCommentPage
-     * @param raf
+     * @param dataSource
      * @throws org.jaudiotagger.audio.exceptions.CannotReadException
      * @throws java.io.IOException
      * @return
      */
-    private byte[] convertToVorbisCommentPacket(OggPageHeader startVorbisCommentPage, RandomAccessFile raf) throws IOException, CannotReadException
+    private byte[] convertToVorbisCommentPacket(OggPageHeader startVorbisCommentPage, DataSource dataSource) throws IOException, CannotReadException
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] b = new byte[startVorbisCommentPage.getPacketList().get(0).getLength() - (VorbisHeader.FIELD_PACKET_TYPE_LENGTH + VorbisHeader.FIELD_CAPTURE_PATTERN_LENGTH)];
-        raf.read(b);
+        dataSource.read(b);
         baos.write(b);
 
         //Because there is at least one other packet (SetupHeaderPacket) this means the Comment Packet has finished
@@ -186,9 +187,9 @@ public class OggVorbisTagReader
         while (true)
         {
             logger.config("Reading next page");
-            OggPageHeader nextPageHeader = OggPageHeader.read(raf);
+            OggPageHeader nextPageHeader = OggPageHeader.read(dataSource);
             b = new byte[nextPageHeader.getPacketList().get(0).getLength()];
-            raf.read(b);
+            dataSource.read(b);
             baos.write(b);
 
             //Because there is at least one other packet (SetupHeaderPacket) this means the Comment Packet has finished

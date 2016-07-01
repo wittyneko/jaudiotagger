@@ -3,6 +3,7 @@ package org.jaudiotagger.issues;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.mp4.Mp4AtomTree;
 import org.jaudiotagger.tag.FieldKey;
 
@@ -29,7 +30,7 @@ public class Issue463Test extends AbstractTestCase
 
             File testFile = AbstractTestCase.copyAudioToTmp("test116.m4a");
             RandomAccessFile raf = new RandomAccessFile(testFile,"r");
-            Mp4AtomTree tree = new Mp4AtomTree(raf,false);
+            Mp4AtomTree tree = new Mp4AtomTree(new FileDataSource(raf),false);
             tree.printAtomTree();
             raf.close();
 
@@ -42,7 +43,7 @@ public class Issue463Test extends AbstractTestCase
             af.commit();
 
             raf = new RandomAccessFile(testFile,"r");
-            tree = new Mp4AtomTree(raf,false);
+            tree = new Mp4AtomTree(new FileDataSource(raf),false);
             tree.printAtomTree();
             raf.close();
 

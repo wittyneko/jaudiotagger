@@ -20,6 +20,7 @@ package org.jaudiotagger.audio.asf.util;
 
 import org.jaudiotagger.audio.asf.data.AsfHeader;
 import org.jaudiotagger.audio.asf.data.GUID;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.logging.ErrorMessage;
 
 import java.io.EOFException;
@@ -251,15 +252,15 @@ public class Utils
      * Reads 8 bytes from stream and interprets them as a UINT64 which is
      * returned as {@link BigInteger}.<br>
      *
-     * @param stream stream to readm from.
+     * @param dataSource stream to readm from.
      * @return a BigInteger which represents the read 8 bytes value.
      * @throws IOException if problem reading bytes
      */
-    public static BigInteger readBig64(InputStream stream) throws IOException
+    public static BigInteger readBig64(DataSource dataSource) throws IOException
     {
         byte[] bytes = new byte[8];
         byte[] oa = new byte[8];
-        int read = stream.read(bytes);
+        int read = dataSource.read(bytes);
         if (read != 8)
         {
             // 8 bytes mandatory.
@@ -272,18 +273,42 @@ public class Utils
         return new BigInteger(oa);
     }
 
+
+    /**
+     * Reads 8 bytes from stream and interprets them as a UINT64 which is
+     * returned as {@link BigInteger}.<br>
+     *
+     * @param stream
+     *            stream to readm from.
+     * @return a BigInteger which represents the read 8 bytes value.
+     * @throws IOException if problem reading bytes
+     */
+    public static BigInteger readBig64(InputStream stream) throws IOException {
+        byte[] bytes = new byte[8];
+        byte[] oa = new byte[8];
+        int read = stream.read(bytes);
+        if (read != 8) {
+            // 8 bytes mandatory.
+            throw new EOFException();
+        }
+        for (int i = 0; i < bytes.length; i++) {
+            oa[7 - i] = bytes[i];
+        }
+        return new BigInteger(oa);
+    }
+
     /**
      * Reads <code>size</code> bytes from the stream.<br>
      *
-     * @param stream stream to read from.
+     * @param dataSource stream to read from.
      * @param size   amount of bytes to read.
      * @return the read bytes.
      * @throws IOException on I/O errors.
      */
-    public static byte[] readBinary(InputStream stream, long size) throws IOException
+    public static byte[] readBinary(DataSource dataSource, long size) throws IOException
     {
         byte[] result = new byte[(int) size];
-        stream.read(result);
+        dataSource.read(result);
         return result;
     }
 
@@ -293,29 +318,62 @@ public class Utils
      * The stream must be at the number of characters. This number contains the
      * terminating zero character (UINT16).
      *
-     * @param stream Input source
+     * @param dataSource Input source
      * @return String
      * @throws IOException read errors
      */
-    public static String readCharacterSizedString(InputStream stream) throws IOException
+    public static String readCharacterSizedString(DataSource dataSource) throws IOException
     {
         StringBuilder result = new StringBuilder();
-        int strLen = readUINT16(stream);
-        int character = stream.read();
-        character |= stream.read() << 8;
+        int strLen = readUINT16(dataSource);
+        int character = dataSource.read();
+        character |= dataSource.read() << 8;
         do
         {
             if (character != 0)
             {
                 result.append((char) character);
-                character = stream.read();
-                character |= stream.read() << 8;
+                character = dataSource.read();
+                character |= dataSource.read() << 8;
             }
         }
         while (character != 0 || (result.length() + 1) > strLen);
         if (strLen != (result.length() + 1))
         {
             throw new IllegalStateException("Invalid Data for current interpretation"); //$NON-NLS-1$
+        }
+        return result.toString();
+    }
+
+
+    /**
+     * This method reads a UTF-16 String, which length is given on the number of
+     * characters it consists of. <br>
+     * The stream must be at the number of characters. This number contains the
+     * terminating zero character (UINT16).
+     *
+     * @param stream
+     *            Input source
+     * @return String
+     * @throws IOException
+     *             read errors
+     */
+    public static String readCharacterSizedString(InputStream stream)
+            throws IOException {
+        StringBuilder result = new StringBuilder();
+        int strLen = readUINT16(stream);
+        int character = stream.read();
+        character |= stream.read() << 8;
+        do {
+            if (character != 0) {
+                result.append((char) character);
+                character = stream.read();
+                character |= stream.read() << 8;
+            }
+        } while (character != 0 || (result.length() + 1) > strLen);
+        if (strLen != (result.length() + 1)) {
+            throw new IllegalStateException(
+                    "Invalid Data for current interpretation"); //$NON-NLS-1$
         }
         return result.toString();
     }
@@ -327,17 +385,16 @@ public class Utils
      * The ASF specification recommends that those strings end with a
      * terminating zero. However it also says that it is not always the case.
      *
-     * @param stream Input source
+     * @param dataSource Input source
      * @param strLen Number of bytes the String may take.
      * @return read String.
      * @throws IOException read errors.
      */
-    public static String readFixedSizeUTF16Str(InputStream stream, int strLen) throws IOException
+    public static String readFixedSizeUTF16Str(DataSource dataSource, int strLen) throws IOException
     {
         byte[] strBytes = new byte[strLen];
-        int read = stream.read(strBytes);
-        if (read == strBytes.length)
-        {
+        try{
+            dataSource.readFully(strBytes);
             if (strBytes.length >= 2)
             {
                 /*
@@ -352,8 +409,9 @@ public class Utils
                 }
             }
             return new String(strBytes, "UTF-16LE");
+        }catch (EOFException e){
+            throw new IllegalStateException("Couldn't read the necessary amount of bytes.", e);
         }
-        throw new IllegalStateException("Couldn't read the necessary amount of bytes.");
     }
 
     /**
@@ -363,33 +421,73 @@ public class Utils
      * There is no way of telling if a byte sequence is a guid or not. The next
      * 16 bytes will be interpreted as a guid, whether it is or not.
      *
-     * @param stream Input source.
+     * @param dataSource Input source.
      * @return A class wrapping the guid.
      * @throws IOException happens when the file ends before guid could be extracted.
      */
-    public static GUID readGUID(InputStream stream) throws IOException
+    public static GUID readGUID(DataSource dataSource) throws IOException
     {
-        if (stream == null)
+        if (dataSource == null)
         {
             throw new IllegalArgumentException("Argument must not be null"); //$NON-NLS-1$
         }
         int[] binaryGuid = new int[GUID.GUID_LENGTH];
         for (int i = 0; i < binaryGuid.length; i++)
         {
-            binaryGuid[i] = stream.read();
+            binaryGuid[i] = dataSource.read();
         }
         return new GUID(binaryGuid);
     }
 
     /**
+     * This Method reads a GUID (which is a 16 byte long sequence) from the
+     * given <code>raf</code> and creates a wrapper. <br>
+     * <b>Warning </b>: <br>
+     * There is no way of telling if a byte sequence is a guid or not. The next
+     * 16 bytes will be interpreted as a guid, whether it is or not.
+     *
+     * @param stream
+     *            Input source.
+     * @return A class wrapping the guid.
+     * @throws IOException
+     *             happens when the file ends before guid could be extracted.
+     */
+    public static GUID readGUID(InputStream stream) throws IOException {
+        if (stream == null) {
+            throw new IllegalArgumentException("Argument must not be null"); //$NON-NLS-1$
+        }
+        int[] binaryGuid = new int[GUID.GUID_LENGTH];
+        for (int i = 0; i < binaryGuid.length; i++) {
+            binaryGuid[i] = stream.read();
+        }
+        return new GUID(binaryGuid);
+    }
+
+
+    /**
      * Reads 2 bytes from stream and interprets them as UINT16.<br>
      *
-     * @param stream stream to read from.
+     * @param dataSource stream to read from.
      * @return UINT16 value
      * @throws IOException on I/O Errors.
      */
-    public static int readUINT16(InputStream stream) throws IOException
+    public static int readUINT16(DataSource dataSource) throws IOException
     {
+        int result = dataSource.read();
+        result |= dataSource.read() << 8;
+        return result;
+    }
+
+    /**
+     * Reads 2 bytes from stream and interprets them as UINT16.<br>
+     *
+     * @param stream
+     *            stream to read from.
+     * @return UINT16 value
+     * @throws IOException
+     *             on I/O Errors.
+     */
+    public static int readUINT16(InputStream stream) throws IOException {
         int result = stream.read();
         result |= stream.read() << 8;
         return result;
@@ -398,15 +496,36 @@ public class Utils
     /**
      * Reads 4 bytes from stream and interprets them as UINT32.<br>
      *
-     * @param stream stream to read from.
+     * @param dataSource stream to read from.
      * @return UINT32 value
      * @throws IOException on I/O Errors.
      */
-    public static long readUINT32(InputStream stream) throws IOException
+    public static long readUINT32(DataSource dataSource) throws IOException
     {
         long result = 0;
         for (int i = 0; i <= 24; i += 8)
         {
+            // Warning, always cast to long here. Otherwise it will be
+            // shifted as int, which may produce a negative value, which will
+            // then be extended to long and assign the long variable a negative
+            // value.
+            result |= (long) dataSource.read() << i;
+        }
+        return result;
+    }
+
+    /**
+     * Reads 4 bytes from stream and interprets them as UINT32.<br>
+     *
+     * @param stream
+     *            stream to read from.
+     * @return UINT32 value
+     * @throws IOException
+     *             on I/O Errors.
+     */
+    public static long readUINT32(InputStream stream) throws IOException {
+        long result = 0;
+        for (int i = 0; i <= 24; i += 8) {
             // Warning, always cast to long here. Otherwise it will be
             // shifted as int, which may produce a negative value, which will
             // then be extended to long and assign the long variable a negative
@@ -419,11 +538,11 @@ public class Utils
     /**
      * Reads long as little endian.
      *
-     * @param stream Data source
+     * @param dataSource Data source
      * @return long value
      * @throws IOException read error, or eof is reached before long is completed
      */
-    public static long readUINT64(InputStream stream) throws IOException
+    public static long readUINT64(DataSource dataSource) throws IOException
     {
         long result = 0;
         for (int i = 0; i <= 56; i += 8)
@@ -432,9 +551,62 @@ public class Utils
             // shifted as int, which may produce a negative value, which will
             // then be extended to long and assign the long variable a negative
             // value.
+            result |= (long) dataSource.read() << i;
+        }
+        return result;
+    }
+
+    /**
+     * Reads long as little endian.
+     *
+     * @param stream
+     *            Data source
+     * @return long value
+     * @throws IOException
+     *             read error, or eof is reached before long is completed
+     */
+    public static long readUINT64(InputStream stream) throws IOException {
+        long result = 0;
+        for (int i = 0; i <= 56; i += 8) {
+            // Warning, always cast to long here. Otherwise it will be
+            // shifted as int, which may produce a negative value, which will
+            // then be extended to long and assign the long variable a negative
+            // value.
             result |= (long) stream.read() << i;
         }
         return result;
+    }
+
+    /**
+     * This method reads a UTF-16 encoded String, beginning with a 16-bit value
+     * representing the number of bytes needed. The String is terminated with as
+     * 16-bit ZERO. <br>
+     *
+     * @param dataSource
+     *            Input source
+     * @return read String.
+     * @throws IOException
+     *             read errors.
+     */
+    public static String readUTF16LEStr(DataSource dataSource) throws IOException {
+        int strLen = readUINT16(dataSource);
+        byte[] buf = new byte[strLen];
+        int read = dataSource.read(buf);
+        if (read == strLen || (strLen == 0 && read == -1)) {
+            /*
+             * Check on zero termination
+             */
+            if (buf.length >= 2) {
+                if (buf[buf.length - 1] == 0 && buf[buf.length - 2] == 0) {
+                    byte[] copy = new byte[buf.length - 2];
+                    System.arraycopy(buf, 0, copy, 0, buf.length - 2);
+                    buf = copy;
+                }
+            }
+            return new String(buf, AsfHeader.ASF_CHARSET.name());
+        }
+        throw new IllegalStateException(
+                "Invalid Data for current interpretation"); //$NON-NLS-1$
     }
 
     /**

@@ -2,6 +2,7 @@ package org.jaudiotagger.audio.mp4;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.NullBoxIdException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.mp4.atom.Mp4BoxHeader;
 import org.jaudiotagger.audio.mp4.atom.Mp4MetaBox;
 import org.jaudiotagger.audio.mp4.atom.Mp4StcoBox;
@@ -11,9 +12,7 @@ import org.jaudiotagger.utils.tree.DefaultMutableTreeNode;
 import org.jaudiotagger.utils.tree.DefaultTreeModel;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -60,47 +59,44 @@ public class Mp4AtomTree
     /**
      * Create Atom Tree
      *
-     * @param raf
+     * @param dataSource
      * @throws IOException
      * @throws CannotReadException
      */
-    public Mp4AtomTree(RandomAccessFile raf) throws IOException, CannotReadException
+    public Mp4AtomTree(DataSource dataSource) throws IOException, CannotReadException
     {
-        buildTree(raf, true);
+        buildTree(dataSource, true);
     }
 
     /**
      * Create Atom Tree and maintain open channel to raf, should only be used if will continue
      * to use raf after this call, you will have to close raf yourself.
      *
-     * @param raf
+     * @param dataSource
      * @param closeOnExit to keep randomfileaccess open, only used when randomaccessfile already being used
      * @throws IOException
      * @throws CannotReadException
      */
-    public Mp4AtomTree(RandomAccessFile raf, boolean closeOnExit) throws IOException, CannotReadException
+    public Mp4AtomTree(DataSource dataSource, boolean closeOnExit) throws IOException, CannotReadException
     {
-        buildTree(raf, closeOnExit);
+        buildTree(dataSource, closeOnExit);
     }
 
     /**
      * Build a tree of the atoms in the file
      *
-     * @param raf
+     * @param dataSource
      * @param closeExit false to keep randomfileacces open, only used when randomaccessfile already being used
      * @return
      * @throws java.io.IOException
      * @throws org.jaudiotagger.audio.exceptions.CannotReadException
      */
-    public DefaultTreeModel buildTree(RandomAccessFile raf, boolean closeExit) throws IOException, CannotReadException
+    public DefaultTreeModel buildTree(DataSource dataSource, boolean closeExit) throws IOException, CannotReadException
     {
-        FileChannel fc = null;
         try
         {
-            fc = raf.getChannel();
-
             //make sure at start of file
-            fc.position(0);
+            dataSource.position(0);
 
             //Build up map of nodes
             rootNode = new DefaultMutableTreeNode();
@@ -108,11 +104,11 @@ public class Mp4AtomTree
 
             //Iterate though all the top level Nodes
             ByteBuffer headerBuffer = ByteBuffer.allocate(Mp4BoxHeader.HEADER_LENGTH);
-            while (fc.position() < fc.size())
+            while (dataSource.position() < dataSource.size())
             {
                 Mp4BoxHeader boxHeader = new Mp4BoxHeader();
-                headerBuffer.clear();          
-                fc.read(headerBuffer);
+                headerBuffer.clear();
+                dataSource.read(headerBuffer);
                 headerBuffer.rewind();
 
                 try
@@ -124,7 +120,7 @@ public class Mp4AtomTree
                     //If we only get this error after all the expected data has been found we allow it
                     if(moovNode!=null&mdatNode!=null)
                     {
-                        NullPadding np = new NullPadding(fc.position() - Mp4BoxHeader.HEADER_LENGTH,fc.size());
+                        NullPadding np = new NullPadding(dataSource.position() - Mp4BoxHeader.HEADER_LENGTH, dataSource.size());
                         DefaultMutableTreeNode trailingPaddingNode = new DefaultMutableTreeNode(np);
                         rootNode.add(trailingPaddingNode);
                         logger.warning(ErrorMessage.NULL_PADDING_FOUND_AT_END_OF_MP4.getMsg(np.getFilePos()));
@@ -137,7 +133,7 @@ public class Mp4AtomTree
                     }
                 }
                                    
-                boxHeader.setFilePos(fc.position() - Mp4BoxHeader.HEADER_LENGTH);
+                boxHeader.setFilePos(dataSource.position() - Mp4BoxHeader.HEADER_LENGTH);
                 DefaultMutableTreeNode newAtom = new DefaultMutableTreeNode(boxHeader);
 
                 //Go down moov
@@ -147,15 +143,15 @@ public class Mp4AtomTree
                     //and finish
                     if(moovNode!=null&mdatNode!=null)
                     {
-                        logger.warning(ErrorMessage.ADDITIONAL_MOOV_ATOM_AT_END_OF_MP4.getMsg(fc.position() - Mp4BoxHeader.HEADER_LENGTH));
+                        logger.warning(ErrorMessage.ADDITIONAL_MOOV_ATOM_AT_END_OF_MP4.getMsg(dataSource.position() - Mp4BoxHeader.HEADER_LENGTH));
                         break;
                     }
                     moovNode    = newAtom;
                     moovHeader  = boxHeader;
 
-                    long filePosStart = fc.position();
+                    long filePosStart = dataSource.position();
                     moovBuffer = ByteBuffer.allocate(boxHeader.getDataLength());
-                    int bytesRead = fc.read(moovBuffer);
+                    int bytesRead = dataSource.read(moovBuffer);
 
                     //If Moov atom is incomplete we are not going to be able to read this file properly
                     if(bytesRead < boxHeader.getDataLength())
@@ -165,7 +161,7 @@ public class Mp4AtomTree
                     }
                     moovBuffer.rewind();
                     buildChildrenOfNode(moovBuffer, newAtom);
-                    fc.position(filePosStart);
+                    dataSource.position(filePosStart);
                 }
                 else if (boxHeader.getId().equals(Mp4AtomIdentifier.FREE.getFieldName()))
                 {
@@ -185,7 +181,7 @@ public class Mp4AtomTree
                     mdatNodes.add(newAtom);
                 }
                 rootNode.add(newAtom);
-                fc.position(fc.position() + boxHeader.getDataLength());
+                dataSource.position(dataSource.position() + boxHeader.getDataLength());
             }
             return dataTree;
         }
@@ -200,7 +196,7 @@ public class Mp4AtomTree
 
             if (closeExit)
             {
-                fc.close();
+                dataSource.close();
             }
         }
     }

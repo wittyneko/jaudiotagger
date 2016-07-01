@@ -72,10 +72,10 @@ public class Utils
      * @param f The file whose extension is requested
      * @return The extension of the given file
      */
-	public static String getMagicExtension(final File f) throws IOException{
-		final String fileType = FileTypeUtil.getMagicFileType(f);
-		return FileTypeUtil.getMagicExt(fileType);
-	}
+    public static String getMagicExtension(final File f) throws IOException{
+        final String fileType = FileTypeUtil.getMagicFileType(f);
+        return FileTypeUtil.getMagicExt(fileType);
+    }
 
     /**
      * Computes a number whereby the 1st byte is the least signifcant and the last
@@ -279,37 +279,45 @@ public class Utils
     }
 
     /**
-     * Read a 32-bit big-endian unsigned integer using a DataInput.
+     * <p> Reads a 32-bit big-endian unsigned integer from the data source
      *
-     * Reads 4 bytes but returns as long
+     * @param dataSource The data source
+     * @return the 32-bit big-endian unsigned integer
+     * @throws IOException
      */
-    public static long readUint32(final DataInput di) throws IOException
+    public static long readUint32(final DataSource dataSource) throws IOException
     {
         final byte[] buf8 = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-        di.readFully(buf8, 4, 4);
+        dataSource.readFully(buf8, 4, 4);
         return ByteBuffer.wrap(buf8).getLong();
     }
 
     /**
-     * Read a 16-bit big-endian unsigned integer.
+     * <p> Reads a 16-bit big-endian unsigned integer from the data source
      *
-     * Reads 2 bytes but returns as an integer
+     * @param dataSource The data source
+     * @return the 16-bit big-endian unsigned integer
+     * @throws IOException
      */
-    public static int readUint16(final DataInput di) throws IOException
+    public static int readUint16(final DataSource dataSource) throws IOException
     {
         final byte[] buf = {0x00, 0x00, 0x00, 0x00};
-        di.readFully(buf, 2, 2);
+        dataSource.readFully(buf, 2, 2);
         return ByteBuffer.wrap(buf).getInt();
     }
 
-
     /**
-     * Read a string of a specified number of ASCII bytes.
+     * <p> Reads a string of a specified number of ASCII bytes.
+     *
+     * @param dataSource The data source
+     * @param charsToRead the number of bytes to read
+     * @return the String
+     * @throws IOException
      */
-    public static String readString(final DataInput di, final int charsToRead) throws IOException
+    public static String readString(final DataSource dataSource, final int charsToRead) throws IOException
     {
         final byte[] buf = new byte[charsToRead];
-        di.readFully(buf);
+        dataSource.readFully(buf);
         return new String(buf, US_ASCII);
     }
 
@@ -326,7 +334,7 @@ public class Utils
         final String filename = getMinBaseFilenameAllowedForTempFile(file);
         if(filename.length()<= MAX_BASE_TEMP_FILENAME_LENGTH)
         {
-           return filename;
+            return filename;
         }
         return filename.substring(0, MAX_BASE_TEMP_FILENAME_LENGTH);
     }
@@ -505,6 +513,15 @@ public class Utils
         return tagBuffer;
     }
 
+    public static ByteBuffer readFileDataIntoBufferLE(final DataSource dataSource, final int size) throws IOException
+    {
+        final ByteBuffer tagBuffer = ByteBuffer.allocateDirect(size);
+        dataSource.read(tagBuffer);
+        tagBuffer.position(0);
+        tagBuffer.order(ByteOrder.LITTLE_ENDIAN);
+        return tagBuffer;
+    }
+
     /**
      *
      * @param fc
@@ -520,6 +537,7 @@ public class Utils
         tagBuffer.order(ByteOrder.BIG_ENDIAN);
         return tagBuffer;
     }
+
     /**
      * Copy src file to dst file. FileChannels are used to maximize performance.
      *
@@ -559,4 +577,15 @@ public class Utils
         }
         return false;
     }
+
+    public static void closeQuietly(final DataSource dataSource){
+        try{
+            if (dataSource != null) {
+                dataSource.close();
+            }
+        }catch (Exception e){
+            // Ignore
+        }
+    }
+
 }

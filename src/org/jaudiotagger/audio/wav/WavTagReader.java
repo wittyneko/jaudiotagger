@@ -19,6 +19,7 @@
 package org.jaudiotagger.audio.wav;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.iff.Chunk;
 import org.jaudiotagger.audio.iff.ChunkHeader;
@@ -34,8 +35,6 @@ import org.jaudiotagger.tag.wav.WavTag;
 
 import java.io.IOException;
 import java.nio.ByteOrder;
-import java.nio.channels.FileChannel;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
 /**
@@ -55,31 +54,28 @@ public class WavTagReader
     /**
      * Read file and return tag metadata
      *
-     * @param path
+     * @param dataSource
      * @return
      * @throws CannotReadException
      * @throws IOException
      */
-    public WavTag read(Path path) throws CannotReadException, IOException
+    public WavTag read(DataSource dataSource) throws CannotReadException, IOException
     {
         logger.config(loggingName + " Read Tag:start");
         WavTag tag = new WavTag(TagOptionSingleton.getInstance().getWavOptions());
-        try(FileChannel fc = FileChannel.open(path))
+        if(WavRIFFHeader.isValidHeader(dataSource))
         {
-            if (WavRIFFHeader.isValidHeader(fc))
+            while (dataSource.position() < dataSource.size())
             {
-                while (fc.position() < fc.size())
+                if (!readChunk(dataSource, tag))
                 {
-                    if (!readChunk(fc, tag))
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
-            else
-            {
-                throw new CannotReadException(loggingName+ " Wav RIFF Header not valid");
-            }
+        }
+        else
+        {
+            throw new CannotReadException("Wav RIFF Header not valid");
         }
         createDefaultMetadataTagsIfMissing(tag);
         logger.config(loggingName + " Read Tag:end");
@@ -110,21 +106,22 @@ public class WavTagReader
      *
      * If the same chunk exists more than once in the file we would just use the last occurence
      *
+     * @param dataSource
      * @param tag
      * @return
      * @throws IOException
      */
-    protected boolean readChunk(FileChannel fc, WavTag tag)throws IOException, CannotReadException
+    protected boolean readChunk(DataSource dataSource, WavTag tag) throws IOException, CannotReadException
     {
         Chunk chunk;
         ChunkHeader chunkHeader = new ChunkHeader(ByteOrder.LITTLE_ENDIAN);
-        if (!chunkHeader.readHeader(fc))
+        if (!chunkHeader.readHeader(dataSource))
         {
             return false;
         }
 
         String id = chunkHeader.getID();
-        logger.config(loggingName + " Next Id is:" + id + ":FileLocation:" + fc.position() + ":Size:" + chunkHeader.getSize());
+        logger.config("Next Id is:" + id + ":FileLocation:" + dataSource.position() + ":Size:" + chunkHeader.getSize());
         final WavChunkType chunkType = WavChunkType.get(id);
         if (chunkType != null)
         {
@@ -134,7 +131,7 @@ public class WavTagReader
                     tag.addChunkSummary(new ChunkSummary(chunkHeader.getID(), chunkHeader.getStartLocationInFile(), chunkHeader.getSize()));
                     if(tag.getInfoTag()==null)
                     {
-                        chunk = new WavListChunk(Utils.readFileDataIntoBufferLE(fc, (int) chunkHeader.getSize()), chunkHeader, tag);
+                        chunk = new WavListChunk(Utils.readFileDataIntoBufferLE(dataSource, (int) chunkHeader.getSize()), chunkHeader, tag);
                         if (!chunk.readChunk())
                         {
                             return false;
@@ -155,14 +152,14 @@ public class WavTagReader
                     {
                         tag.setIncorrectlyAlignedTag(true);
                     }
-                    fc.position(fc.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
+                    dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
                     return true;
 
                 case ID3:
                     tag.addChunkSummary(new ChunkSummary(chunkHeader.getID(), chunkHeader.getStartLocationInFile(), chunkHeader.getSize()));
                     if(tag.getID3Tag()==null)
                     {
-                        chunk = new WavId3Chunk(Utils.readFileDataIntoBufferLE(fc, (int) chunkHeader.getSize()), chunkHeader, tag);
+                        chunk = new WavId3Chunk(Utils.readFileDataIntoBufferLE(dataSource, (int) chunkHeader.getSize()), chunkHeader, tag);
                         if (!chunk.readChunk())
                         {
                             return false;
@@ -182,7 +179,7 @@ public class WavTagReader
                     {
                         tag.setIncorrectlyAlignedTag(true);
                     }
-                    fc.position(fc.position() - (ChunkHeader.CHUNK_HEADER_SIZE - 1));
+                    dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
                     return true;
 
                 case CORRUPT_ID3_LATE:
@@ -191,12 +188,12 @@ public class WavTagReader
                     {
                         tag.setIncorrectlyAlignedTag(true);
                     }
-                    fc.position(fc.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
+                    dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
                     return true;
 
                 default:
                     tag.addChunkSummary(new ChunkSummary(chunkHeader.getID(), chunkHeader.getStartLocationInFile(), chunkHeader.getSize()));
-                    fc.position(fc.position() + chunkHeader.getSize());
+                    dataSource.skip((int)chunkHeader.getSize());
             }
         }
         //Unknown chunk type just skip
@@ -210,16 +207,16 @@ public class WavTagReader
                 throw new CannotReadException(msg);
             }
             logger.config(loggingName + " Skipping chunk bytes:" + chunkHeader.getSize() +"for"+chunkHeader.getID());
-            fc.position(fc.position() + chunkHeader.getSize());
-            if(fc.position()>fc.size())
+            dataSource.position(dataSource.position() + chunkHeader.getSize());
+            if(dataSource.position()>dataSource.size())
             {
-                String msg = loggingName + " Failed to move to invalid position to " + fc.position() + " because file length is only " + fc.size()
+                String msg = loggingName + " Failed to move to invalid position to " + dataSource.position() + " because file length is only " + dataSource.size()
                         + " indicates invalid chunk";
                 logger.severe(msg);
                 throw new CannotReadException(msg);
             }
         }
-        IffHeaderChunk.ensureOnEqualBoundary(fc, chunkHeader);
+        IffHeaderChunk.ensureOnEqualBoundary(dataSource, chunkHeader);
         return true;
     }
 }

@@ -19,6 +19,8 @@
 package org.jaudiotagger.audio.ogg.util;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
@@ -103,6 +105,46 @@ public class OggPageHeader
 
     private long startByte = 0;
 
+    public static OggPageHeader read(DataSource dataSource) throws IOException, CannotReadException
+    {
+        long start = dataSource.position();
+        logger.fine("Trying to read OggPage at:" + start);
+
+        byte[] b = new byte[OggPageHeader.CAPTURE_PATTERN.length];
+        dataSource.read(b);
+        if (!(Arrays.equals(b, OggPageHeader.CAPTURE_PATTERN)))
+        {
+            dataSource.position(start);
+            if(AbstractID3v2Tag.isId3Tag(dataSource))
+            {
+                logger.warning(ErrorMessage.OGG_CONTAINS_ID3TAG.getMsg(dataSource.position() - start));
+                dataSource.read(b);
+                if ((Arrays.equals(b, OggPageHeader.CAPTURE_PATTERN)))
+                {
+                    //Go to the end of the ID3 header
+                    start=dataSource.position() - OggPageHeader.CAPTURE_PATTERN.length;
+                }
+            }
+            else
+            {
+                throw new CannotReadException(ErrorMessage.OGG_HEADER_CANNOT_BE_FOUND.getMsg(new String(b)));
+            }
+        }
+
+        dataSource.position(start + OggPageHeader.FIELD_PAGE_SEGMENTS_POS);
+        int pageSegments = dataSource.readByte() & 0xFF; //unsigned
+        dataSource.position(start);
+
+        b = new byte[OggPageHeader.OGG_PAGE_HEADER_FIXED_LENGTH + pageSegments];
+        dataSource.read(b);
+
+
+        OggPageHeader pageHeader = new OggPageHeader(b);
+        pageHeader.setStartByte(start);
+        //Now just after PageHeader, ready for Packet Data
+        return pageHeader;
+    }
+
     /**
      * Read next PageHeader from Buffer
      *
@@ -145,42 +187,7 @@ public class OggPageHeader
      */
     public static OggPageHeader read(RandomAccessFile raf) throws IOException, CannotReadException
     {
-        long start = raf.getFilePointer();
-        logger.fine("Trying to read OggPage at:" + start);
-
-        byte[] b = new byte[OggPageHeader.CAPTURE_PATTERN.length];
-        raf.read(b);
-        if (!(Arrays.equals(b, OggPageHeader.CAPTURE_PATTERN)))
-        {
-            raf.seek(start);
-            if(AbstractID3v2Tag.isId3Tag(raf))
-            {
-                logger.warning(ErrorMessage.OGG_CONTAINS_ID3TAG.getMsg(raf.getFilePointer() - start));
-                raf.read(b);
-                if ((Arrays.equals(b, OggPageHeader.CAPTURE_PATTERN)))
-                {
-                    //Go to the end of the ID3 header
-                    start=raf.getFilePointer() - OggPageHeader.CAPTURE_PATTERN.length;
-                }
-            }
-            else
-            {
-                throw new CannotReadException(ErrorMessage.OGG_HEADER_CANNOT_BE_FOUND.getMsg(new String(b)));
-            }
-        }
-
-        raf.seek(start + OggPageHeader.FIELD_PAGE_SEGMENTS_POS);
-        int pageSegments = raf.readByte() & 0xFF; //unsigned
-        raf.seek(start);
-
-        b = new byte[OggPageHeader.OGG_PAGE_HEADER_FIXED_LENGTH + pageSegments];
-        raf.read(b);
-
-
-        OggPageHeader pageHeader = new OggPageHeader(b);
-        pageHeader.setStartByte(start);
-        //Now just after PageHeader, ready for Packet Data
-        return pageHeader;
+        return read(new FileDataSource(raf));
     }
 
     public OggPageHeader(byte[] b)

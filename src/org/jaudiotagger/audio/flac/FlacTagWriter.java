@@ -22,6 +22,7 @@ import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.audio.exceptions.NoWritePermissionsException;
 import org.jaudiotagger.audio.flac.metadatablock.*;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.flac.FlacTag;
@@ -110,7 +111,7 @@ public class FlacTagWriter
                         {
                             case STREAMINFO:
                             {
-                                blockInfo.streamInfoBlock = new MetadataBlock(mbh, new MetadataBlockDataStreamInfo(mbh, fc));
+                                blockInfo.streamInfoBlock = new MetadataBlock(mbh, new MetadataBlockDataStreamInfo(mbh, new FileDataSource(fc)));
                                 break;
                             }
 
@@ -214,8 +215,8 @@ public class FlacTagWriter
 
         MappedByteBuffer mappedFile = fc.map(MapMode.READ_WRITE, 0, totalTargetSize);
 
-		/* 
-		 * First shift data to the 'right' of the tag to the end of the file, whose position is currentEndOfTagsPosition 
+		/*
+		 * First shift data to the 'right' of the tag to the end of the file, whose position is currentEndOfTagsPosition
 		 */
         int currentEndOfTagsPosition = safeLongToInt((targetSizeBeforeAudioData - FlacTagCreator.DEFAULT_PADDING) - neededRoom + availableRoom);
         int lengthDiff = safeLongToInt(totalTargetSize - currentEndOfFilePosition);
@@ -229,7 +230,7 @@ public class FlacTagWriter
             mappedFile.position(currentPos + lengthDiff);
             mappedFile.put(buffer, 0, BLOCK_SIZE);
         }
-		
+
 		/*
 		 * Final movement of start bytes. This also covers cases where BLOCK_SIZE is larger than the audio data
 		 */
@@ -243,7 +244,7 @@ public class FlacTagWriter
         }
 
         DirectByteBufferUtils.release(mappedFile);
-		
+
 		/* Now overwrite the tag */
         writeTags(tag, fc, blockInfo, flacStream);
     }

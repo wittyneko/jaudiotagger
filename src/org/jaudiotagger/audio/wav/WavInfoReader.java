@@ -19,6 +19,7 @@
 package org.jaudiotagger.audio.wav;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.iff.Chunk;
@@ -31,8 +32,6 @@ import org.jaudiotagger.logging.Hex;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.channels.FileChannel;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
 /**
@@ -42,32 +41,28 @@ public class WavInfoReader
 {
     public static Logger logger = Logger.getLogger("org.jaudiotagger.audio.wav");
 
-
     private String loggingName;
     public WavInfoReader(String loggingName)
     {
         this.loggingName = loggingName;
     }
 
-    public GenericAudioHeader read(Path path) throws CannotReadException, IOException
+    public GenericAudioHeader read(DataSource dataSource) throws CannotReadException, IOException
     {
         GenericAudioHeader info = new GenericAudioHeader();
-        try(FileChannel fc = FileChannel.open(path))
+        if(WavRIFFHeader.isValidHeader(dataSource))
         {
-            if(WavRIFFHeader.isValidHeader(fc))
+            while (dataSource.position() < dataSource.size())
             {
-                while (fc.position() < fc.size())
+                if (!readChunk(dataSource, info))
                 {
-                    if (!readChunk(fc, info))
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
-            else
-            {
-                throw new CannotReadException(loggingName + " Wav RIFF Header not valid");
-            }
+        }
+        else
+        {
+            throw new CannotReadException(loggingName + " Wav RIFF Header not valid");
         }
         calculateTrackLength(info);
         return info;
@@ -104,11 +99,11 @@ public class WavInfoReader
     /**
      * Reads a Wav Chunk.
      */
-    protected boolean readChunk(FileChannel fc, GenericAudioHeader info) throws IOException, CannotReadException
+    protected boolean readChunk(DataSource dataSource, GenericAudioHeader info) throws IOException, CannotReadException
     {
         Chunk chunk;
         ChunkHeader chunkHeader = new ChunkHeader(ByteOrder.LITTLE_ENDIAN);
-        if (!chunkHeader.readHeader(fc))
+        if (!chunkHeader.readHeader(dataSource))
         {
             return false;
         }
@@ -126,7 +121,7 @@ public class WavInfoReader
             {
                 case FACT:
                 {
-                    ByteBuffer fmtChunkData = Utils.readFileDataIntoBufferLE(fc, (int) chunkHeader.getSize());
+                    ByteBuffer fmtChunkData = Utils.readFileDataIntoBufferLE(dataSource, (int) chunkHeader.getSize());
                     chunk = new WavFactChunk(fmtChunkData, chunkHeader, info);
                     if (!chunk.readChunk())
                     {
@@ -139,15 +134,15 @@ public class WavInfoReader
                 {
                     //We just need this value from header dont actually need to read data itself
                     info.setAudioDataLength(chunkHeader.getSize());
-                    info.setAudioDataStartPosition(fc.position());
-                    info.setAudioDataEndPosition(fc.position() + chunkHeader.getSize());
-                    fc.position(fc.position() + chunkHeader.getSize());
+                    info.setAudioDataStartPosition(dataSource.position());
+                    info.setAudioDataEndPosition(dataSource.position() + chunkHeader.getSize());
+                    dataSource.skip((int) chunkHeader.getSize());
                     break;
                 }
 
                 case FORMAT:
                 {
-                    ByteBuffer fmtChunkData = Utils.readFileDataIntoBufferLE(fc, (int) chunkHeader.getSize());
+                    ByteBuffer fmtChunkData = Utils.readFileDataIntoBufferLE(dataSource, (int) chunkHeader.getSize());
                     chunk = new WavFormatChunk(fmtChunkData, chunkHeader, info);
                     if (!chunk.readChunk())
                     {
@@ -158,13 +153,13 @@ public class WavInfoReader
 
                 case CORRUPT_LIST:
                     logger.severe(loggingName + " Found Corrupt LIST Chunk, starting at Odd Location:"+chunkHeader.getID()+":"+chunkHeader.getSize());
-                    fc.position(fc.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
+                    dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
                     return true;
 
                 //Dont need to do anything with these just skip
                 default:
                     logger.config(loggingName + " Skipping chunk bytes:" + chunkHeader.getSize());
-                    fc.position(fc.position() + chunkHeader.getSize());
+                    dataSource.position(dataSource.position() + chunkHeader.getSize());
             }
         }
         //Unknown chunk type just skip
@@ -179,16 +174,16 @@ public class WavInfoReader
             }
             logger.config(loggingName + " Skipping chunk bytes:" + chunkHeader.getSize() + " for " + chunkHeader.getID());
 
-            fc.position(fc.position() + chunkHeader.getSize());
-            if(fc.position()>fc.size())
+            dataSource.position(dataSource.position() + chunkHeader.getSize());
+            if(dataSource.position()>dataSource.size())
             {
-                String msg = loggingName + " Failed to move to invalid position to " + fc.position() + " because file length is only " + fc.size()
+                String msg = loggingName + " Failed to move to invalid position to " + dataSource.position() + " because file length is only " + dataSource.size()
                         + " indicates invalid chunk";
                 logger.severe(msg);
                 throw new CannotReadException(msg);
             }
         }
-        IffHeaderChunk.ensureOnEqualBoundary(fc, chunkHeader);
+        IffHeaderChunk.ensureOnEqualBoundary(dataSource, chunkHeader);
         return true;
     }
 

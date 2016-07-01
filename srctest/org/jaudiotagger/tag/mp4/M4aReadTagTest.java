@@ -4,9 +4,8 @@ import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotReadVideoException;
-import org.jaudiotagger.audio.exceptions.CannotWriteException;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.mp4.EncoderType;
 import org.jaudiotagger.audio.mp4.Mp4AtomTree;
 import org.jaudiotagger.audio.mp4.Mp4AudioHeader;
@@ -45,7 +44,7 @@ public class M4aReadTagTest extends TestCase
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
-            Mp4AtomTree tree = new Mp4AtomTree(new RandomAccessFile(testFile,"r"),false);
+            Mp4AtomTree tree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile,"r")),false);
             tree.printAtomTree();
 
             System.out.println(f.getAudioHeader());
@@ -760,7 +759,7 @@ public class M4aReadTagTest extends TestCase
            try
            {
                File testFile = AbstractTestCase.copyAudioToTmp("test7.mp4");
-               Mp4AtomTree tree = new Mp4AtomTree(new RandomAccessFile(testFile,"r"),false);
+               Mp4AtomTree tree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile,"r")),false);
                tree.printAtomTree();
 
                AudioFile f = AudioFileIO.read(testFile);
@@ -790,7 +789,7 @@ public class M4aReadTagTest extends TestCase
            try
            {
                File testFile = AbstractTestCase.copyAudioToTmp("test86.mp4");
-               Mp4AtomTree tree = new Mp4AtomTree(new RandomAccessFile(testFile,"r"),false);
+               Mp4AtomTree tree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile,"r")),false);
                tree.printAtomTree();
 
                AudioFile f = AudioFileIO.read(testFile);
@@ -819,7 +818,7 @@ public class M4aReadTagTest extends TestCase
         {
             File testFile = AbstractTestCase.copyAudioToTmp("test87.mp4");
 
-            Mp4AtomTree tree = new Mp4AtomTree(new RandomAccessFile(testFile,"r"),false);
+            Mp4AtomTree tree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile,"r")),false);
             tree.printAtomTree();
 
             AudioFile f = AudioFileIO.read(testFile);
@@ -1288,7 +1287,7 @@ public class M4aReadTagTest extends TestCase
             //Read Image
             File testFile = AbstractTestCase.copyAudioToTmp("test75.m4a");
             RandomAccessFile raf = new RandomAccessFile(testFile,"r");
-            Mp4Tag tagReader = new Mp4TagReader().read(raf);
+            Mp4Tag tagReader = new Mp4TagReader().read(new FileDataSource(raf));
             assertEquals("Rock",tagReader.getFirst(FieldKey.GENRE));
         }
         catch (IOException e)
@@ -1376,7 +1375,7 @@ public class M4aReadTagTest extends TestCase
             return;
         }
 
-        new Mp4AtomTree(new RandomAccessFile(orig,"r")).printAtomTree();
+        new Mp4AtomTree(new FileDataSource(new RandomAccessFile(orig,"r"))).printAtomTree();
         Exception exceptionCaught = null;
         try
         {

@@ -29,8 +29,7 @@ import org.jaudiotagger.audio.asf.util.Utils;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.audio.generic.AudioFileReader;
-import org.jaudiotagger.audio.generic.GenericAudioHeader;
+import org.jaudiotagger.audio.generic.*;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.asf.AsfTag;
@@ -45,7 +44,7 @@ import java.util.logging.Logger;
  *
  * @author Christian Laireiter
  */
-public class AsfFileReader extends AudioFileReader
+public class AsfFileReader extends AudioFileReader3
 {
 
     /**
@@ -136,13 +135,13 @@ public class AsfFileReader extends AudioFileReader
      * @see org.jaudiotagger.audio.generic.AudioFileReader#getEncodingInfo(java.io.RandomAccessFile)
      */
     @Override
-    protected GenericAudioHeader getEncodingInfo(final RandomAccessFile raf) throws CannotReadException, IOException
+    protected GenericAudioHeader getEncodingInfo(final DataSource dataSource) throws CannotReadException, IOException
     {
-        raf.seek(0);
+        dataSource.position(0);
         GenericAudioHeader info;
         try
         {
-            final AsfHeader header = AsfHeaderReader.readInfoHeader(raf);
+            final AsfHeader header = AsfHeaderReader.readInfoHeader(dataSource);
             if (header == null)
             {
                 throw new CannotReadException("Some values must have been " + "incorrect for interpretation as asf with wma content.");
@@ -184,13 +183,13 @@ public class AsfFileReader extends AudioFileReader
      * @see org.jaudiotagger.audio.generic.AudioFileReader#getTag(java.io.RandomAccessFile)
      */
     @Override
-    protected AsfTag getTag(final RandomAccessFile raf) throws CannotReadException, IOException
+    protected AsfTag getTag(final DataSource dataSource) throws CannotReadException, IOException
     {
-        raf.seek(0);
+        dataSource.position(0);
         AsfTag tag;
         try
         {
-            final AsfHeader header = AsfHeaderReader.readTagHeader(raf);
+            final AsfHeader header = AsfHeaderReader.readTagHeader(dataSource);
             if (header == null)
             {
                 throw new CannotReadException("Some values must have been " + "incorrect for interpretation as asf with wma content.");
@@ -228,11 +227,11 @@ public class AsfFileReader extends AudioFileReader
         {
             throw new CannotReadException(ErrorMessage.GENERAL_READ_FAILED_DO_NOT_HAVE_PERMISSION_TO_READ_FILE.getMsg(f.getAbsolutePath()));
         }
-        InputStream stream = null;
+        DataSource dataSource = null;
         try
         {
-            stream = new FullRequestInputStream(new BufferedInputStream(new FileInputStream(f)));
-            final AsfHeader header = HEADER_READER.read(Utils.readGUID(stream), stream, 0);
+            dataSource = new FileDataSource(f);
+            final AsfHeader header = HEADER_READER.read(Utils.readGUID(dataSource), dataSource, 0);
             if (header == null)
             {
                 throw new CannotReadException(ErrorMessage.ASF_HEADER_MISSING.getMsg(f.getAbsolutePath()));
@@ -258,14 +257,13 @@ public class AsfFileReader extends AudioFileReader
         catch (final Exception e)
         {
             throw new CannotReadException("\"" + f + "\" :" + e, e);
-        }
-        finally
+        } finally
         {
             try
             {
-                if (stream != null)
+                if (dataSource != null)
                 {
-                    stream.close();
+                    dataSource.close();
                 }
             }
             catch (final Exception ex)

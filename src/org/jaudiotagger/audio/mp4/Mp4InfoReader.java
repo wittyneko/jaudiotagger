@@ -20,15 +20,14 @@ package org.jaudiotagger.audio.mp4;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotReadVideoException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.audio.mp4.atom.*;
 import org.jaudiotagger.logging.ErrorMessage;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.channels.FileChannel;
 import java.util.logging.Logger;
 
 /**
@@ -86,19 +85,18 @@ public class Mp4InfoReader
         return false;
     }
 
-    public GenericAudioHeader read(RandomAccessFile raf) throws CannotReadException, IOException
+    public GenericAudioHeader read(DataSource dataSource) throws CannotReadException, IOException
     {
-        FileChannel fc = raf.getChannel();
         Mp4AudioHeader info = new Mp4AudioHeader();
 
         //File Identification
-        Mp4BoxHeader ftypHeader = Mp4BoxHeader.seekWithinLevel(fc, Mp4AtomIdentifier.FTYP.getFieldName());
+        Mp4BoxHeader ftypHeader = Mp4BoxHeader.seekWithinLevel(dataSource, Mp4AtomIdentifier.FTYP.getFieldName());
         if (ftypHeader == null)
         {
             throw new CannotReadException(ErrorMessage.MP4_FILE_NOT_CONTAINER.getMsg());
         }
         ByteBuffer ftypBuffer = ByteBuffer.allocate(ftypHeader.getLength() - Mp4BoxHeader.HEADER_LENGTH);
-        fc.read(ftypBuffer);
+        dataSource.read(ftypBuffer);
         ftypBuffer.rewind();
         Mp4FtypBox ftyp = new Mp4FtypBox(ftypHeader, ftypBuffer);
         ftyp.processData();
@@ -106,14 +104,14 @@ public class Mp4InfoReader
 
         //Get to the facts everything we are interested in is within the moov box, so just load data from file
         //once so no more file I/O needed
-        Mp4BoxHeader moovHeader = Mp4BoxHeader.seekWithinLevel(fc, Mp4AtomIdentifier.MOOV.getFieldName());
+        Mp4BoxHeader moovHeader = Mp4BoxHeader.seekWithinLevel(dataSource, Mp4AtomIdentifier.MOOV.getFieldName());
         if (moovHeader == null)
         {
             throw new CannotReadException(ErrorMessage.MP4_FILE_NOT_AUDIO.getMsg());
         }
         ByteBuffer moovBuffer = ByteBuffer.allocate(moovHeader.getLength() - Mp4BoxHeader.HEADER_LENGTH);
         moovBuffer.order(ByteOrder.LITTLE_ENDIAN);
-        fc.read(moovBuffer);
+        dataSource.read(moovBuffer);
         moovBuffer.rewind();
 
         //Level 2-Searching for "mvhd" somewhere within "moov", we make a slice after finding header
@@ -298,8 +296,8 @@ public class Mp4InfoReader
         {
             Mp4StcoBox stco = new Mp4StcoBox(boxHeader, mvhdBuffer);
             info.setAudioDataStartPosition((long)stco.getFirstOffSet());
-            info.setAudioDataEndPosition((long)fc.size());
-            info.setAudioDataLength(fc.size() - stco.getFirstOffSet());
+            info.setAudioDataEndPosition(dataSource.size());
+            info.setAudioDataLength(dataSource.size() - stco.getFirstOffSet());
         }
 
         //Set default channels if couldn't calculate it
@@ -349,7 +347,7 @@ public class Mp4InfoReader
         }
 
         //Build AtomTree to ensure it is valid, this means we can detect any problems early on
-        new Mp4AtomTree(raf,false);
+        new Mp4AtomTree(dataSource,false);
         return info;
     }
 

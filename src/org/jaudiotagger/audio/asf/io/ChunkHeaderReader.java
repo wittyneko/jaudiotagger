@@ -21,9 +21,9 @@ package org.jaudiotagger.audio.asf.io;
 import org.jaudiotagger.audio.asf.data.Chunk;
 import org.jaudiotagger.audio.asf.data.GUID;
 import org.jaudiotagger.audio.asf.util.Utils;
+import org.jaudiotagger.audio.generic.DataSource;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigInteger;
 
 /**
@@ -83,10 +83,10 @@ final class ChunkHeaderReader implements ChunkReader
     /**
      * {@inheritDoc}
      */
-    public Chunk read(final GUID guid, final InputStream stream, final long chunkStart) throws IOException
+    public Chunk read(final GUID guid, final DataSource dataSource, final long chunkStart) throws IOException
     {
-        final BigInteger chunkLen = Utils.readBig64(stream);
-        stream.skip(chunkLen.longValue() - 24);
+        final BigInteger chunkLen = Utils.readBig64(dataSource);
+        dataSource.skip(chunkLen.longValue() - 24);
         return new Chunk(guid, chunkStart, chunkLen);
     }
 

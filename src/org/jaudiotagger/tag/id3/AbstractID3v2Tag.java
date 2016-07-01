@@ -16,11 +16,10 @@
 package org.jaudiotagger.tag.id3;
 
 import org.jaudiotagger.audio.AudioFile;
-import org.jaudiotagger.audio.exceptions.CannotWriteException;
-import org.jaudiotagger.audio.exceptions.NoWritePermissionsException;
 import org.jaudiotagger.audio.exceptions.UnableToCreateFileException;
 import org.jaudiotagger.audio.exceptions.UnableToModifyFileException;
 import org.jaudiotagger.audio.exceptions.UnableToRenameFileException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.logging.ErrorMessage;
@@ -42,7 +41,6 @@ import java.nio.channels.FileLock;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.AccessDeniedException;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -131,16 +129,16 @@ public abstract class AbstractID3v2Tag extends AbstractID3Tag implements Tag
     /**
      * True if files has a ID3v2 header
      *
-     * @param raf
+     * @param dataSource
      * @return
      * @throws IOException
      */
-    private static boolean isID3V2Header(RandomAccessFile raf) throws IOException
+    private static boolean isID3V2Header(DataSource dataSource) throws IOException
     {
-        long start = raf.getFilePointer();
+        long start = dataSource.position();
         byte[] tagIdentifier = new byte[FIELD_TAGID_LENGTH];
-        raf.read(tagIdentifier);
-        raf.seek(start);
+        dataSource.read(tagIdentifier);
+        dataSource.position(start);
         if (!(Arrays.equals(tagIdentifier, TAG_ID)))
         {
             return false;
@@ -164,24 +162,24 @@ public abstract class AbstractID3v2Tag extends AbstractID3Tag implements Tag
      *
      * This method is used by non mp3s (such as .ogg and .flac) to determine if they contain an id3 tag
      *
-     * @param raf
+     * @param dataSource
      * @return
      * @throws IOException
      */
-    public static boolean isId3Tag(RandomAccessFile raf) throws IOException
+    public static boolean isId3Tag(DataSource dataSource) throws IOException
     {
-        if (!isID3V2Header(raf))
+        if (!isID3V2Header(dataSource))
         {
             return false;
         }
         //So we have a tag
         byte[] tagHeader = new byte[FIELD_TAG_SIZE_LENGTH];
-        raf.seek(raf.getFilePointer() + FIELD_TAGID_LENGTH + FIELD_TAG_MAJOR_VERSION_LENGTH + FIELD_TAG_MINOR_VERSION_LENGTH + FIELD_TAG_FLAG_LENGTH);
-        raf.read(tagHeader);
+        dataSource.position(dataSource.position() + FIELD_TAGID_LENGTH + FIELD_TAG_MAJOR_VERSION_LENGTH + FIELD_TAG_MINOR_VERSION_LENGTH + FIELD_TAG_FLAG_LENGTH);
+        dataSource.read(tagHeader);
         ByteBuffer bb = ByteBuffer.wrap(tagHeader);
 
         int size = ID3SyncSafeInteger.bufferToValue(bb);
-        raf.seek(size + TAG_HEADER_LENGTH);
+        dataSource.position(size + TAG_HEADER_LENGTH);
         return true;
     }
 
@@ -702,9 +700,9 @@ public abstract class AbstractID3v2Tag extends AbstractID3Tag implements Tag
         }
 
         /**
-        * If the frame is a TXXX frame then we add an extra string to the existing frame
-        * if same description otherwise we create a new frame
-        */
+         * If the frame is a TXXX frame then we add an extra string to the existing frame
+         * if same description otherwise we create a new frame
+         */
         if (frame.getBody() instanceof FrameBodyTXXX)
         {
             FrameBodyTXXX frameBody = (FrameBodyTXXX) frame.getBody();
@@ -869,9 +867,9 @@ public abstract class AbstractID3v2Tag extends AbstractID3Tag implements Tag
         if(field instanceof AbstractID3v2Frame)
         {
             AbstractID3v2Frame frame = (AbstractID3v2Frame) field;
-    
+
             Object o = frameMap.get(field.getId());
-    
+
             //No frame of this type
             if (o == null)
             {
@@ -893,7 +891,7 @@ public abstract class AbstractID3v2Tag extends AbstractID3Tag implements Tag
         }
         else
         {
-            frameMap.put(field.getId(), field);    
+            frameMap.put(field.getId(), field);
         }
     }
 
@@ -1197,70 +1195,49 @@ public abstract class AbstractID3v2Tag extends AbstractID3Tag implements Tag
      * the tag header  and return the size of the tag (including header), if no such tag exists return
      * zero.
      *
-     * @param file
+     * @param dataSource
      * @return the end of the tag in the file or zero if no tag exists.
      * @throws java.io.IOException
      */
-    public static long getV2TagSizeIfExists(File file) throws IOException
+    public static long getV2TagSizeIfExists(DataSource dataSource) throws IOException
     {
-        FileInputStream fis = null;
-        FileChannel fc = null;
-        ByteBuffer bb = null;
-        try
-        {
-            //Files
-            fis = new FileInputStream(file);
-            fc = fis.getChannel();
-
+        try {
             //Read possible Tag header  Byte Buffer
-            bb = ByteBuffer.allocate(TAG_HEADER_LENGTH);
-            fc.read(bb);
+            ByteBuffer bb = ByteBuffer.allocate(TAG_HEADER_LENGTH);
+            dataSource.read(bb);
             bb.flip();
-            if (bb.limit() < (TAG_HEADER_LENGTH))
-            {
+            if (bb.limit() < (TAG_HEADER_LENGTH)) {
                 return 0;
             }
-        }
-        finally
-        {
-            if (fc != null)
-            {
-                fc.close();
+
+            //ID3 identifier
+            byte[] tagIdentifier = new byte[FIELD_TAGID_LENGTH];
+            bb.get(tagIdentifier, 0, FIELD_TAGID_LENGTH);
+            if (!(Arrays.equals(tagIdentifier, TAG_ID))) {
+                return 0;
             }
 
-            if (fis != null)
-            {
-                fis.close();
+            //Is it valid Major Version
+            byte majorVersion = bb.get();
+            if ((majorVersion != ID3v22Tag.MAJOR_VERSION) && (majorVersion != ID3v23Tag.MAJOR_VERSION) && (majorVersion != ID3v24Tag.MAJOR_VERSION)) {
+                return 0;
             }
+
+            //Skip Minor Version
+            bb.get();
+
+            //Skip Flags
+            bb.get();
+
+            //Get size as recorded in frame header
+            int frameSize = ID3SyncSafeInteger.bufferToValue(bb);
+
+            //addField header size to frame size
+            frameSize += TAG_HEADER_LENGTH;
+            return frameSize;
+        }finally {
+            dataSource.position(0);
         }
-
-        //ID3 identifier
-        byte[] tagIdentifier = new byte[FIELD_TAGID_LENGTH];
-        bb.get(tagIdentifier, 0, FIELD_TAGID_LENGTH);
-        if (!(Arrays.equals(tagIdentifier, TAG_ID)))
-        {
-            return 0;
-        }
-
-        //Is it valid Major Version
-        byte majorVersion = bb.get();
-        if ((majorVersion != ID3v22Tag.MAJOR_VERSION) && (majorVersion != ID3v23Tag.MAJOR_VERSION) && (majorVersion != ID3v24Tag.MAJOR_VERSION))
-        {
-            return 0;
-        }
-
-        //Skip Minor Version
-        bb.get();
-
-        //Skip Flags
-        bb.get();
-
-        //Get size as recorded in frame header
-        int frameSize = ID3SyncSafeInteger.bufferToValue(bb);
-
-        //addField header size to frame size
-        frameSize += TAG_HEADER_LENGTH;
-        return frameSize;
     }
 
     /**
@@ -1682,8 +1659,8 @@ public abstract class AbstractID3v2Tag extends AbstractID3Tag implements Tag
     protected void loadFrameIntoSpecifiedMap(HashMap map, String frameId, AbstractID3v2Frame next)
     {
         if ((ID3v24Frames.getInstanceOf().isMultipleAllowed(frameId)) ||
-            (ID3v23Frames.getInstanceOf().isMultipleAllowed(frameId)) ||
-            (ID3v22Frames.getInstanceOf().isMultipleAllowed(frameId)))
+                (ID3v23Frames.getInstanceOf().isMultipleAllowed(frameId)) ||
+                (ID3v22Frames.getInstanceOf().isMultipleAllowed(frameId)))
         {
             //If a frame already exists of this type
             if (map.containsKey(frameId))
@@ -2609,12 +2586,12 @@ public abstract class AbstractID3v2Tag extends AbstractID3Tag implements Tag
         if (genericKey == FieldKey.TRACK)
         {
             String trackTotal = this.getFirst(FieldKey.TRACK_TOTAL);
-            if(trackTotal.length()==0) 
+            if(trackTotal.length()==0)
             {
                 doDeleteTagField(formatKey);
                 return;
             }
-            else 
+            else
             {
                 AbstractID3v2Frame frame     = (AbstractID3v2Frame)this.getFrame(formatKey.getFrameId());
                 FrameBodyTRCK      frameBody = (FrameBodyTRCK)frame.getBody();

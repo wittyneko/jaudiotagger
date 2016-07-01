@@ -26,6 +26,7 @@ import org.jaudiotagger.audio.asf.io.*;
 import org.jaudiotagger.audio.asf.util.TagConverter;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.audio.generic.AudioFileWriter;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.asf.AsfTag;
 
@@ -87,7 +88,7 @@ public class AsfFileWriter extends AudioFileWriter
          * for each descriptor type, if an object is found, an updater will be
          * configured.
          */
-        final AsfHeader sourceHeader = AsfHeaderReader.readTagHeader(raf);
+        final AsfHeader sourceHeader = AsfHeaderReader.readTagHeader(new FileDataSource(raf));
         raf.seek(0); // Reset for the streamer
         /*
          * Now createField modifiers for metadata descriptor and extended content

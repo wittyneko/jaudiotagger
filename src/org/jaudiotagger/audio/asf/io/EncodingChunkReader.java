@@ -22,9 +22,9 @@ import org.jaudiotagger.audio.asf.data.Chunk;
 import org.jaudiotagger.audio.asf.data.EncodingChunk;
 import org.jaudiotagger.audio.asf.data.GUID;
 import org.jaudiotagger.audio.asf.util.Utils;
+import org.jaudiotagger.audio.generic.DataSource;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigInteger;
 
 /**
@@ -68,9 +68,9 @@ class EncodingChunkReader implements ChunkReader
     /**
      * {@inheritDoc}
      */
-    public Chunk read(final GUID guid, final InputStream stream, final long chunkStart) throws IOException
+    public Chunk read(final GUID guid, final DataSource dataSource, final long chunkStart) throws IOException
     {
-        final BigInteger chunkLen = Utils.readBig64(stream);
+        final BigInteger chunkLen = Utils.readBig64(dataSource);
         final EncodingChunk result = new EncodingChunk(chunkLen);
         int readBytes = 24;
         // Can't be interpreted
@@ -79,13 +79,13 @@ class EncodingChunkReader implements ChunkReader
          * followed by a UINT16 indicating a length of data following (by half).
          * My test files just had the length of one and a two bytes zero.
          */
-        stream.skip(20);
+        dataSource.skip(20);
         readBytes += 20;
 
         /*
          * Read the number of strings which will follow
          */
-        final int stringCount = Utils.readUINT16(stream);
+        final int stringCount = Utils.readUINT16(dataSource);
         readBytes += 2;
 
         /*
@@ -93,11 +93,11 @@ class EncodingChunkReader implements ChunkReader
          */
         for (int i = 0; i < stringCount; i++)
         {
-            final String curr = Utils.readCharacterSizedString(stream);
+            final String curr = Utils.readCharacterSizedString(dataSource);
             result.addString(curr);
             readBytes += 4 + 2 * curr.length();
         }
-        stream.skip(chunkLen.longValue() - readBytes);
+        dataSource.skip(chunkLen.longValue() - readBytes);
         result.setPosition(chunkStart);
         return result;
     }

@@ -2,9 +2,9 @@ package org.jaudiotagger.audio.asf.io;
 
 import org.jaudiotagger.audio.asf.data.Chunk;
 import org.jaudiotagger.audio.asf.data.GUID;
+import org.jaudiotagger.audio.generic.DataSource;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * A ChunkReader provides methods for reading an ASF chunk.<br>
@@ -39,12 +39,12 @@ public interface ChunkReader
      * Parses the chunk.
      *
      * @param guid           the GUID of the chunks header, which is about to be read.
-     * @param stream         source to read chunk from.<br>
+     * @param dataSource     source to read chunk from.<br>
      *                       No {@link GUID} is expected at the currents stream position.
      *                       The length of the chunk is about to follow.
      * @param streamPosition the position in stream, the chunk starts.<br>
      * @return the read chunk. (Mostly a subclass of {@link Chunk}).<br>
      * @throws IOException On I/O Errors.
      */
-    Chunk read(GUID guid, InputStream stream, long streamPosition) throws IOException;
+    Chunk read(GUID guid, DataSource dataSource, long streamPosition) throws IOException;
 }

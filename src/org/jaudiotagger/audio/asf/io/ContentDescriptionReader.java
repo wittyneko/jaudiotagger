@@ -22,9 +22,9 @@ import org.jaudiotagger.audio.asf.data.Chunk;
 import org.jaudiotagger.audio.asf.data.ContentDescription;
 import org.jaudiotagger.audio.asf.data.GUID;
 import org.jaudiotagger.audio.asf.util.Utils;
+import org.jaudiotagger.audio.generic.DataSource;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigInteger;
 
 /**
@@ -68,16 +68,16 @@ public class ContentDescriptionReader implements ChunkReader
     /**
      * Returns the next 5 UINT16 values as an array.<br>
      *
-     * @param stream stream to read from
+     * @param dataSource stream to read from
      * @return 5 int values read from stream.
      * @throws IOException on I/O Errors.
      */
-    private int[] getStringSizes(final InputStream stream) throws IOException
+    private int[] getStringSizes(final DataSource dataSource) throws IOException
     {
         final int[] result = new int[5];
         for (int i = 0; i < result.length; i++)
         {
-            result[i] = Utils.readUINT16(stream);
+            result[i] = Utils.readUINT16(dataSource);
         }
         return result;
     }
@@ -85,14 +85,14 @@ public class ContentDescriptionReader implements ChunkReader
     /**
      * {@inheritDoc}
      */
-    public Chunk read(final GUID guid, final InputStream stream, final long chunkStart) throws IOException
+    public Chunk read(final GUID guid, final DataSource dataSource, final long chunkStart) throws IOException
     {
-        final BigInteger chunkSize = Utils.readBig64(stream);
+        final BigInteger chunkSize = Utils.readBig64(dataSource);
         /*
          * Now comes 16-Bit values representing the length of the Strings which
          * follows.
          */
-        final int[] stringSizes = getStringSizes(stream);
+        final int[] stringSizes = getStringSizes(dataSource);
 
         /*
          * Now we know the String length of each occuring String.
@@ -102,7 +102,7 @@ public class ContentDescriptionReader implements ChunkReader
         {
             if (stringSizes[i] > 0)
             {
-                strings[i] = Utils.readFixedSizeUTF16Str(stream, stringSizes[i]);
+                strings[i] = Utils.readFixedSizeUTF16Str(dataSource, stringSizes[i]);
             }
         }
         /*

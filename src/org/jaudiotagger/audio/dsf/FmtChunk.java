@@ -1,14 +1,13 @@
 package org.jaudiotagger.audio.dsf;
 
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.iff.IffHeaderChunk;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.channels.FileChannel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,10 +39,10 @@ public class FmtChunk
         chunkSizeLength = dataBuffer.getLong();
     }
 
-    public GenericAudioHeader readChunkData(DsdChunk dsd,FileChannel fc) throws IOException
+    public GenericAudioHeader readChunkData(DsdChunk dsd, DataSource dataSource) throws IOException
     {
         long sizeExcludingChunkHeader = chunkSizeLength - (IffHeaderChunk.SIGNATURE_LENGTH + CHUNKSIZE_LENGTH);
-        ByteBuffer audioData = Utils.readFileDataIntoBufferLE(fc, (int)sizeExcludingChunkHeader);
+        ByteBuffer audioData = Utils.readFileDataIntoBufferLE(dataSource, (int)sizeExcludingChunkHeader);
         return readAudioInfo(dsd, audioData);
     }
 

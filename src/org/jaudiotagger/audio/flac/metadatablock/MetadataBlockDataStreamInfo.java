@@ -18,10 +18,10 @@
  */
 package org.jaudiotagger.audio.flac.metadatablock;
 
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.Utils;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
@@ -65,11 +65,11 @@ public class MetadataBlockDataStreamInfo  implements MetadataBlockData
 
     private ByteBuffer rawdata;
 
-    public MetadataBlockDataStreamInfo(MetadataBlockHeader header, FileChannel fc) throws IOException
+    public MetadataBlockDataStreamInfo(MetadataBlockHeader header, DataSource dataSource) throws IOException
     {
         rawdata = ByteBuffer.allocate(header.getDataLength());
         rawdata.order(ByteOrder.BIG_ENDIAN);
-        int bytesRead = fc.read(rawdata);
+        int bytesRead = dataSource.read(rawdata);
         if (bytesRead < header.getDataLength())
         {
             throw new IOException("Unable to read required number of bytes, read:" + bytesRead + ":required:" + header.getDataLength());

@@ -18,20 +18,22 @@
  */
 package org.jaudiotagger.audio.dsf;
 
-import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.audio.exceptions.NoWritePermissionsException;
 import org.jaudiotagger.audio.generic.AudioFileWriter;
 import org.jaudiotagger.audio.generic.AudioFileWriter2;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.AccessDeniedException;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
@@ -42,15 +44,19 @@ public class DsfFileWriter extends AudioFileWriter2
 {
     protected void writeTag(Tag tag, Path file) throws CannotWriteException
     {
-        try(FileChannel fc = FileChannel.open(file, StandardOpenOption.WRITE, StandardOpenOption.READ))
+        FileChannel fc;
+        DataSource dataSource = null;
+        try
         {
-            DsdChunk dsd = DsdChunk.readChunk(Utils.readFileDataIntoBufferLE(fc, DsdChunk.DSD_HEADER_LENGTH));
+            fc = FileChannel.open(file, StandardOpenOption.WRITE, StandardOpenOption.READ);
+            dataSource = new FileDataSource(fc);
+            DsdChunk dsd = DsdChunk.readChunk(Utils.readFileDataIntoBufferLE(dataSource, DsdChunk.DSD_HEADER_LENGTH));
             if (dsd != null)
             {
                 if (dsd.getMetadataOffset() > 0)
                 {
                     fc.position(dsd.getMetadataOffset());
-                    ID3Chunk id3Chunk = ID3Chunk.readChunk(Utils.readFileDataIntoBufferLE(fc, (int) (fc.size() - fc.position())));
+                    ID3Chunk id3Chunk = ID3Chunk.readChunk(Utils.readFileDataIntoBufferLE(dataSource, (int) (dataSource.size() - dataSource.position())));
                     if (id3Chunk != null)
                     {
                         //Remove Existing tag
@@ -83,6 +89,8 @@ public class DsfFileWriter extends AudioFileWriter2
         catch(IOException ioe)
         {
             throw new CannotWriteException(ioe.getMessage());
+        }finally {
+            Utils.closeQuietly(dataSource);// This will close the FileChannel
         }
     }
 
@@ -142,15 +150,20 @@ public class DsfFileWriter extends AudioFileWriter2
     @Override
     protected void deleteTag(Tag tag, Path file) throws CannotWriteException
     {
-        try(FileChannel fc = FileChannel.open(file, StandardOpenOption.WRITE, StandardOpenOption.READ))
+
+        FileChannel fc;
+        DataSource dataSource = null;
+        try
         {
-            DsdChunk dsd = DsdChunk.readChunk(Utils.readFileDataIntoBufferLE(fc, DsdChunk.DSD_HEADER_LENGTH));
+            fc = FileChannel.open(file, StandardOpenOption.WRITE, StandardOpenOption.READ);
+            dataSource = new FileDataSource(fc);
+            DsdChunk dsd = DsdChunk.readChunk(Utils.readFileDataIntoBufferLE(dataSource, DsdChunk.DSD_HEADER_LENGTH));
             if (dsd != null)
             {
                 if (dsd.getMetadataOffset() > 0)
                 {
                     fc.position(dsd.getMetadataOffset());
-                    ID3Chunk id3Chunk = ID3Chunk.readChunk(Utils.readFileDataIntoBufferLE(fc, (int) (fc.size() - fc.position())));
+                    ID3Chunk id3Chunk = ID3Chunk.readChunk(Utils.readFileDataIntoBufferLE(dataSource, (int) (fc.size() - fc.position())));
                     if (id3Chunk != null)
                     {
                         fc.truncate(dsd.getMetadataOffset());
@@ -170,6 +183,8 @@ public class DsfFileWriter extends AudioFileWriter2
         catch(IOException ioe)
         {
             throw new CannotWriteException(file + ":"+ioe.getMessage());
+        }finally {
+            Utils.closeQuietly(dataSource);// This will close the file channel
         }
     }
 

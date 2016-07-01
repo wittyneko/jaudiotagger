@@ -21,6 +21,8 @@ package org.jaudiotagger.audio.asf.io;
 import org.jaudiotagger.audio.asf.data.AsfHeader;
 import org.jaudiotagger.audio.asf.data.GUID;
 import org.jaudiotagger.audio.asf.util.Utils;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -111,57 +113,54 @@ public class AsfHeaderReader extends ChunkContainerReader<AsfHeader>
      */
     public static AsfHeader readHeader(final File file) throws IOException
     {
-        final InputStream stream = new FileInputStream(file);
-        final AsfHeader result = FULL_READER.read(Utils.readGUID(stream), stream, 0);
-        stream.close();
+        final DataSource dataSource = new FileDataSource(file);
+        final AsfHeader result = FULL_READER.read(Utils.readGUID(dataSource), dataSource, 0);
+        dataSource.close();
         return result;
     }
 
     /**
      * This method tries to extract a full ASF-header out of the given stream. <br>
      * If no header could be extracted <code>null</code> is returned. <br>
-     *
-     * @param file File which contains the ASF header.
+     * 
+     * @param dataSource Datasource which contains the ASF header.
      * @return AsfHeader-Wrapper, or <code>null</code> if no supported ASF
      * header was found.
      * @throws IOException Read errors
      */
-    public static AsfHeader readHeader(final RandomAccessFile file) throws IOException
+    public static AsfHeader readHeader(final DataSource dataSource) throws IOException
     {
-        final InputStream stream = createStream(file);
-        return FULL_READER.read(Utils.readGUID(stream), stream, 0);
+        return FULL_READER.read(Utils.readGUID(dataSource), dataSource, 0);
     }
 
     /**
      * This method tries to extract an ASF-header out of the given stream, which
      * only contains information about the audio stream.<br>
      * If no header could be extracted <code>null</code> is returned. <br>
-     *
-     * @param file File which contains the ASF header.
+     * 
+     * @param dataSource Datasource which contains the ASF header.
      * @return AsfHeader-Wrapper, or <code>null</code> if no supported ASF
      * header was found.
      * @throws IOException Read errors
      */
-    public static AsfHeader readInfoHeader(final RandomAccessFile file) throws IOException
+    public static AsfHeader readInfoHeader(final DataSource dataSource) throws IOException
     {
-        final InputStream stream = createStream(file);
-        return INFO_READER.read(Utils.readGUID(stream), stream, 0);
+        return INFO_READER.read(Utils.readGUID(dataSource), dataSource, 0);
     }
 
     /**
      * This method tries to extract an ASF-header out of the given stream, which
      * only contains metadata.<br>
      * If no header could be extracted <code>null</code> is returned. <br>
-     *
-     * @param file File which contains the ASF header.
+     * 
+     * @param dataSource Datasource which contains the ASF header.
      * @return AsfHeader-Wrapper, or <code>null</code> if no supported ASF
      * header was found.
      * @throws IOException Read errors
      */
-    public static AsfHeader readTagHeader(final RandomAccessFile file) throws IOException
+    public static AsfHeader readTagHeader(final DataSource dataSource) throws IOException
     {
-        final InputStream stream = createStream(file);
-        return TAG_READER.read(Utils.readGUID(stream), stream, 0);
+        return TAG_READER.read(Utils.readGUID(dataSource), dataSource, 0);
     }
 
     /**
@@ -189,19 +188,19 @@ public class AsfHeaderReader extends ChunkContainerReader<AsfHeader>
      * {@inheritDoc}
      */
     @Override
-    protected AsfHeader createContainer(final long streamPosition, final BigInteger chunkLength, final InputStream stream) throws IOException
+    protected AsfHeader createContainer(final long streamPosition, final BigInteger chunkLength, final DataSource dataSource) throws IOException
     {
-        final long chunkCount = Utils.readUINT32(stream);
+        final long chunkCount = Utils.readUINT32(dataSource);
         /*
          * 2 reserved bytes. first should be equal to 0x01 and second 0x02. ASF
          * specification suggests to not read the content if second byte is not
          * 0x02.
          */
-        if (stream.read() != 1)
+        if (dataSource.read() != 1)
         {
             throw new IOException("No ASF"); //$NON-NLS-1$
         }
-        if (stream.read() != 2)
+        if (dataSource.read() != 2)
         {
             throw new IOException("No ASF"); //$NON-NLS-1$
         }
