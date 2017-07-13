@@ -20,6 +20,7 @@ import java.io.RandomAccessFile;
 import java.util.List;
 
 /**
+ * M4a write tests.
  */
 public class M4aWriteTagTest extends TestCase
 {
@@ -34,7 +35,7 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * Test to write tagt data, new tagdata identical size to existing data
+     * Test to write tag data, new tagdata identical size to existing data.
      */
     public void testWriteFileSameSize()
     {
@@ -175,7 +176,7 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * * Test to write tag data, new tagdata is smaller size than existing data
+     * Test to write tag data, new tagdata is smaller size than existing data.
      */
     public void testWriteFileSmallerSize()
     {
@@ -186,7 +187,7 @@ public class M4aWriteTagTest extends TestCase
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
-            //Change album to different value (but same no of characters, this is the easiest mod to make
+            //Change album to different value (but same no of characters, this is the easiest mod to make)
             tag.setField(FieldKey.ARTIST,"AR");
             tag.setField(FieldKey.ALBUM,"AL");
             //Save changes and reread from disk
@@ -310,8 +311,8 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * Test to write tag data, new tagdata is alrger size than existing data, but not so large
-     * that it cant fit into the sapce already allocated to meta (ilst + free atom)
+     * Test to write tag data, new tagdata is larger size than existing data, but not so large
+     * that it cant fit into the space already allocated to meta (ilst + free atom).
      */
     public void testWriteFileLargerSize()
     {
@@ -325,7 +326,7 @@ public class M4aWriteTagTest extends TestCase
             //Change album to different value (but same no of characters, this is the easiest mod to make
             tag.setField(FieldKey.ARTIST,"VERYLONGARTISTNAME");
             tag.setField(FieldKey.ALBUM,"VERYLONGALBUMTNAME");
-            //Save changes and reread from disk
+            //Save changes and re-read from disk
             f.commit();
             f = AudioFileIO.read(testFile);
             tag = f.getTag();
@@ -447,8 +448,8 @@ public class M4aWriteTagTest extends TestCase
 
     /**
      * Test to write tag data, new tagdata is a larger size than existing data, and too
-     * large to fit into the space already allocated to meta (ilst + free atom) but can fit into
-     * the second free atom
+     * large to fit into the space already allocated to meta (ilst + free atom), but can fit into
+     * the second free atom.
      */
     public void testWriteFileAlotLargerSize()
     {
@@ -467,7 +468,7 @@ public class M4aWriteTagTest extends TestCase
             RandomAccessFile imageFile = new RandomAccessFile(new File("testdata", "coverart_small.png"), "r");
             byte[] imagedata = new byte[(int) imageFile.length()];
             imageFile.read(imagedata);
-            tag.addField(((Mp4Tag) tag).createArtworkField(imagedata));
+            tag.addField(tag.createArtworkField(imagedata));
 
             //Save changes and reread from disk
             f.commit();
@@ -509,62 +510,60 @@ public class M4aWriteTagTest extends TestCase
             assertEquals("989a13f6-b58c-4559-b09e-76ae0adb94ed", tag.getFirst(FieldKey.MUSICBRAINZ_RELEASEARTISTID));
             assertEquals("19c6f0f6-3d6d-4b02-88c7-ffb559d52be6", tag.getFirst(FieldKey.MUSICBRAINZ_RELEASEID));
 
-            //Cast to format specific tag
-            Mp4Tag mp4tag = (Mp4Tag) tag;
             //Lookup by mp4 key
-            assertEquals("Artist", mp4tag.getFirst(Mp4FieldKey.ARTIST));
-            assertEquals("Album", mp4tag.getFirst(Mp4FieldKey.ALBUM));
-            assertEquals("title", mp4tag.getFirst(Mp4FieldKey.TITLE));
-            assertEquals("comments", mp4tag.getFirst(Mp4FieldKey.COMMENT));
-            assertEquals("1971", mp4tag.getFirst(Mp4FieldKey.DAY));
+            assertEquals("Artist", tag.getFirst(Mp4FieldKey.ARTIST));
+            assertEquals("Album", tag.getFirst(Mp4FieldKey.ALBUM));
+            assertEquals("title", tag.getFirst(Mp4FieldKey.TITLE));
+            assertEquals("comments", tag.getFirst(Mp4FieldKey.COMMENT));
+            assertEquals("1971", tag.getFirst(Mp4FieldKey.DAY));
             //Not sure why there are 4 values, only understand 2nd and third
-            assertEquals("1/10", mp4tag.getFirst(Mp4FieldKey.TRACK));
-            assertEquals("1/10", ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.TRACK).get(0)).getContent());
-            assertEquals(new Short("0"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(0));
-            assertEquals(new Short("1"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(1));
-            assertEquals(new Short("10"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(2));
-            assertEquals(new Short("0"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(3));
+            assertEquals("1/10", tag.getFirst(Mp4FieldKey.TRACK));
+            assertEquals("1/10", ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.TRACK).get(0)).getContent());
+            assertEquals(new Short("0"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(0));
+            assertEquals(new Short("1"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(1));
+            assertEquals(new Short("10"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(2));
+            assertEquals(new Short("0"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(3));
 
             //Not sure why there are 4 values, only understand 2nd and third
-            assertEquals("1/10", mp4tag.getFirst(Mp4FieldKey.DISCNUMBER));
-            assertEquals("1/10", ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getContent());
-            assertEquals(new Short("0"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(0));
-            assertEquals(new Short("1"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(1));
-            assertEquals(new Short("10"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(2));
+            assertEquals("1/10", tag.getFirst(Mp4FieldKey.DISCNUMBER));
+            assertEquals("1/10", ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getContent());
+            assertEquals(new Short("0"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(0));
+            assertEquals(new Short("1"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(1));
+            assertEquals(new Short("10"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(2));
 
-            assertEquals("composer", mp4tag.getFirst(Mp4FieldKey.COMPOSER));
-            assertEquals("Sortartist", mp4tag.getFirst(Mp4FieldKey.ARTIST_SORT));
-            assertEquals("lyrics", mp4tag.getFirst(Mp4FieldKey.LYRICS));
-            assertEquals("199", mp4tag.getFirst(Mp4FieldKey.BPM));
-            assertEquals("Albumartist", mp4tag.getFirst(Mp4FieldKey.ALBUM_ARTIST));
-            assertEquals("Sortalbumartist", mp4tag.getFirst(Mp4FieldKey.ALBUM_ARTIST_SORT));
-            assertEquals("Sortalbum", mp4tag.getFirst(Mp4FieldKey.ALBUM_SORT));
-            assertEquals("GROUping", mp4tag.getFirst(Mp4FieldKey.GROUPING));
-            assertEquals("Sortcomposer", mp4tag.getFirst(Mp4FieldKey.COMPOSER_SORT));
-            assertEquals("sorttitle", mp4tag.getFirst(Mp4FieldKey.TITLE_SORT));
-            assertEquals("1", mp4tag.getFirst(Mp4FieldKey.COMPILATION));
-            assertEquals("66027994-edcf-9d89-bec8-0d30077d888c", mp4tag.getFirst(Mp4FieldKey.MUSICIP_PUID));
-            assertEquals("e785f700-c1aa-4943-bcee-87dd316a2c30", mp4tag.getFirst(Mp4FieldKey.MUSICBRAINZ_TRACKID));
-            assertEquals("989a13f6-b58c-4559-b09e-76ae0adb94ed", mp4tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ARTISTID));
-            assertEquals("989a13f6-b58c-4559-b09e-76ae0adb94ed", mp4tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ALBUMARTISTID));
-            assertEquals("19c6f0f6-3d6d-4b02-88c7-ffb559d52be6", mp4tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ALBUMID));
-            Mp4TagReverseDnsField rvs = (Mp4TagReverseDnsField) mp4tag.getFirstField(Mp4FieldKey.MUSICBRAINZ_ALBUMID);
+            assertEquals("composer", tag.getFirst(Mp4FieldKey.COMPOSER));
+            assertEquals("Sortartist", tag.getFirst(Mp4FieldKey.ARTIST_SORT));
+            assertEquals("lyrics", tag.getFirst(Mp4FieldKey.LYRICS));
+            assertEquals("199", tag.getFirst(Mp4FieldKey.BPM));
+            assertEquals("Albumartist", tag.getFirst(Mp4FieldKey.ALBUM_ARTIST));
+            assertEquals("Sortalbumartist", tag.getFirst(Mp4FieldKey.ALBUM_ARTIST_SORT));
+            assertEquals("Sortalbum", tag.getFirst(Mp4FieldKey.ALBUM_SORT));
+            assertEquals("GROUping", tag.getFirst(Mp4FieldKey.GROUPING));
+            assertEquals("Sortcomposer", tag.getFirst(Mp4FieldKey.COMPOSER_SORT));
+            assertEquals("sorttitle", tag.getFirst(Mp4FieldKey.TITLE_SORT));
+            assertEquals("1", tag.getFirst(Mp4FieldKey.COMPILATION));
+            assertEquals("66027994-edcf-9d89-bec8-0d30077d888c", tag.getFirst(Mp4FieldKey.MUSICIP_PUID));
+            assertEquals("e785f700-c1aa-4943-bcee-87dd316a2c30", tag.getFirst(Mp4FieldKey.MUSICBRAINZ_TRACKID));
+            assertEquals("989a13f6-b58c-4559-b09e-76ae0adb94ed", tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ARTISTID));
+            assertEquals("989a13f6-b58c-4559-b09e-76ae0adb94ed", tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ALBUMARTISTID));
+            assertEquals("19c6f0f6-3d6d-4b02-88c7-ffb559d52be6", tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ALBUMID));
+            Mp4TagReverseDnsField rvs = (Mp4TagReverseDnsField) tag.getFirstField(Mp4FieldKey.MUSICBRAINZ_ALBUMID);
             assertEquals("com.apple.iTunes", rvs.getIssuer());
             assertEquals("MusicBrainz Album Id", rvs.getDescriptor());
             assertEquals("19c6f0f6-3d6d-4b02-88c7-ffb559d52be6", rvs.getContent());
 
             //Lookup by mp4key (no generic key mapping for these yet)
-            assertEquals(" 000002C0 00000298 00004210 00002FD5 0001CB31 0001CB48 0000750D 00007C4A 000291A8 00029191", mp4tag.getFirst(Mp4FieldKey.ITUNES_NORM));
-            assertEquals(" 00000000 00000840 000000E4 0000000000A29EDC 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000", mp4tag.getFirst(Mp4FieldKey.ITUNES_SMPB));
-            assertEquals("0", mp4tag.getFirst(Mp4FieldKey.PART_OF_GAPLESS_ALBUM));
-            assertEquals("iTunes v7.4.3.1, QuickTime 7.2", mp4tag.getFirst(Mp4FieldKey.ENCODER));
-            assertEquals("sortshow", mp4tag.getFirst(Mp4FieldKey.SHOW_SORT));
-            assertEquals("show", mp4tag.getFirst(Mp4FieldKey.SHOW));
-            assertEquals("Genre", mp4tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));
-            assertEquals(String.valueOf(Mp4RatingValue.EXPLICIT.getId()), mp4tag.getFirst(Mp4FieldKey.RATING));
-            assertEquals(String.valueOf(Mp4ContentTypeValue.BOOKLET.getId()), mp4tag.getFirst(Mp4FieldKey.CONTENT_TYPE));
+            assertEquals(" 000002C0 00000298 00004210 00002FD5 0001CB31 0001CB48 0000750D 00007C4A 000291A8 00029191", tag.getFirst(Mp4FieldKey.ITUNES_NORM));
+            assertEquals(" 00000000 00000840 000000E4 0000000000A29EDC 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000", tag.getFirst(Mp4FieldKey.ITUNES_SMPB));
+            assertEquals("0", tag.getFirst(Mp4FieldKey.PART_OF_GAPLESS_ALBUM));
+            assertEquals("iTunes v7.4.3.1, QuickTime 7.2", tag.getFirst(Mp4FieldKey.ENCODER));
+            assertEquals("sortshow", tag.getFirst(Mp4FieldKey.SHOW_SORT));
+            assertEquals("show", tag.getFirst(Mp4FieldKey.SHOW));
+            assertEquals("Genre", tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));
+            assertEquals(String.valueOf(Mp4RatingValue.EXPLICIT.getId()), tag.getFirst(Mp4FieldKey.RATING));
+            assertEquals(String.valueOf(Mp4ContentTypeValue.BOOKLET.getId()), tag.getFirst(Mp4FieldKey.CONTENT_TYPE));
 
-            List coverart = mp4tag.get(Mp4FieldKey.ARTWORK);
+            List coverart = tag.get(Mp4FieldKey.ARTWORK);
             //Should be one image
             assertEquals(2, coverart.size());
 
@@ -598,7 +597,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Test to write tag data, new tagdata is a larger size than existing data, and too
      * large to fit into the space already allocated to meta (ilst + free atom) and is even too large to fit
-     * into the second free atom, so mdat data gets moved
+     * into the second free atom, so mdat data gets moved.
      */
     public void testWriteFileMuchLargerSize()
     {
@@ -662,61 +661,60 @@ public class M4aWriteTagTest extends TestCase
             assertEquals("19c6f0f6-3d6d-4b02-88c7-ffb559d52be6", tag.getFirst(FieldKey.MUSICBRAINZ_RELEASEID));
 
             //Cast to format specific tag
-            Mp4Tag mp4tag = (Mp4Tag) tag;
             //Lookup by mp4 key
-            assertEquals("Artist", mp4tag.getFirst(Mp4FieldKey.ARTIST));
-            assertEquals("Album", mp4tag.getFirst(Mp4FieldKey.ALBUM));
-            assertEquals("title", mp4tag.getFirst(Mp4FieldKey.TITLE));
-            assertEquals("comments", mp4tag.getFirst(Mp4FieldKey.COMMENT));
-            assertEquals("1971", mp4tag.getFirst(Mp4FieldKey.DAY));
+            assertEquals("Artist", tag.getFirst(Mp4FieldKey.ARTIST));
+            assertEquals("Album", tag.getFirst(Mp4FieldKey.ALBUM));
+            assertEquals("title", tag.getFirst(Mp4FieldKey.TITLE));
+            assertEquals("comments", tag.getFirst(Mp4FieldKey.COMMENT));
+            assertEquals("1971", tag.getFirst(Mp4FieldKey.DAY));
             //Not sure why there are 4 values, only understand 2nd and third
-            assertEquals("1/10", mp4tag.getFirst(Mp4FieldKey.TRACK));
-            assertEquals("1/10", ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.TRACK).get(0)).getContent());
-            assertEquals(new Short("0"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(0));
-            assertEquals(new Short("1"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(1));
-            assertEquals(new Short("10"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(2));
-            assertEquals(new Short("0"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(3));
+            assertEquals("1/10", tag.getFirst(Mp4FieldKey.TRACK));
+            assertEquals("1/10", ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.TRACK).get(0)).getContent());
+            assertEquals(new Short("0"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(0));
+            assertEquals(new Short("1"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(1));
+            assertEquals(new Short("10"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(2));
+            assertEquals(new Short("0"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.TRACK).get(0)).getNumbers().get(3));
 
             //Not sure why there are 4 values, only understand 2nd and third
-            assertEquals("1/10", mp4tag.getFirst(Mp4FieldKey.DISCNUMBER));
-            assertEquals("1/10", ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getContent());
-            assertEquals(new Short("0"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(0));
-            assertEquals(new Short("1"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(1));
-            assertEquals(new Short("10"), ((Mp4TagTextNumberField) mp4tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(2));
+            assertEquals("1/10", tag.getFirst(Mp4FieldKey.DISCNUMBER));
+            assertEquals("1/10", ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getContent());
+            assertEquals(new Short("0"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(0));
+            assertEquals(new Short("1"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(1));
+            assertEquals(new Short("10"), ((Mp4TagTextNumberField) tag.get(Mp4FieldKey.DISCNUMBER).get(0)).getNumbers().get(2));
 
-            assertEquals("composer", mp4tag.getFirst(Mp4FieldKey.COMPOSER));
-            assertEquals("Sortartist", mp4tag.getFirst(Mp4FieldKey.ARTIST_SORT));
-            assertEquals("lyrics", mp4tag.getFirst(Mp4FieldKey.LYRICS));
-            assertEquals("199", mp4tag.getFirst(Mp4FieldKey.BPM));
-            assertEquals("Albumartist", mp4tag.getFirst(Mp4FieldKey.ALBUM_ARTIST));
-            assertEquals("Sortalbumartist", mp4tag.getFirst(Mp4FieldKey.ALBUM_ARTIST_SORT));
-            assertEquals("Sortalbum", mp4tag.getFirst(Mp4FieldKey.ALBUM_SORT));
-            assertEquals("GROUping", mp4tag.getFirst(Mp4FieldKey.GROUPING));
-            assertEquals("Sortcomposer", mp4tag.getFirst(Mp4FieldKey.COMPOSER_SORT));
-            assertEquals("sorttitle", mp4tag.getFirst(Mp4FieldKey.TITLE_SORT));
-            assertEquals("1", mp4tag.getFirst(Mp4FieldKey.COMPILATION));
-            assertEquals("66027994-edcf-9d89-bec8-0d30077d888c", mp4tag.getFirst(Mp4FieldKey.MUSICIP_PUID));
-            assertEquals("e785f700-c1aa-4943-bcee-87dd316a2c30", mp4tag.getFirst(Mp4FieldKey.MUSICBRAINZ_TRACKID));
-            assertEquals("989a13f6-b58c-4559-b09e-76ae0adb94ed", mp4tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ARTISTID));
-            assertEquals("989a13f6-b58c-4559-b09e-76ae0adb94ed", mp4tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ALBUMARTISTID));
-            assertEquals("19c6f0f6-3d6d-4b02-88c7-ffb559d52be6", mp4tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ALBUMID));
-            Mp4TagReverseDnsField rvs = (Mp4TagReverseDnsField) mp4tag.getFirstField(Mp4FieldKey.MUSICBRAINZ_ALBUMID);
+            assertEquals("composer", tag.getFirst(Mp4FieldKey.COMPOSER));
+            assertEquals("Sortartist", tag.getFirst(Mp4FieldKey.ARTIST_SORT));
+            assertEquals("lyrics", tag.getFirst(Mp4FieldKey.LYRICS));
+            assertEquals("199", tag.getFirst(Mp4FieldKey.BPM));
+            assertEquals("Albumartist", tag.getFirst(Mp4FieldKey.ALBUM_ARTIST));
+            assertEquals("Sortalbumartist", tag.getFirst(Mp4FieldKey.ALBUM_ARTIST_SORT));
+            assertEquals("Sortalbum", tag.getFirst(Mp4FieldKey.ALBUM_SORT));
+            assertEquals("GROUping", tag.getFirst(Mp4FieldKey.GROUPING));
+            assertEquals("Sortcomposer", tag.getFirst(Mp4FieldKey.COMPOSER_SORT));
+            assertEquals("sorttitle", tag.getFirst(Mp4FieldKey.TITLE_SORT));
+            assertEquals("1", tag.getFirst(Mp4FieldKey.COMPILATION));
+            assertEquals("66027994-edcf-9d89-bec8-0d30077d888c", tag.getFirst(Mp4FieldKey.MUSICIP_PUID));
+            assertEquals("e785f700-c1aa-4943-bcee-87dd316a2c30", tag.getFirst(Mp4FieldKey.MUSICBRAINZ_TRACKID));
+            assertEquals("989a13f6-b58c-4559-b09e-76ae0adb94ed", tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ARTISTID));
+            assertEquals("989a13f6-b58c-4559-b09e-76ae0adb94ed", tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ALBUMARTISTID));
+            assertEquals("19c6f0f6-3d6d-4b02-88c7-ffb559d52be6", tag.getFirst(Mp4FieldKey.MUSICBRAINZ_ALBUMID));
+            Mp4TagReverseDnsField rvs = (Mp4TagReverseDnsField) tag.getFirstField(Mp4FieldKey.MUSICBRAINZ_ALBUMID);
             assertEquals("com.apple.iTunes", rvs.getIssuer());
             assertEquals("MusicBrainz Album Id", rvs.getDescriptor());
             assertEquals("19c6f0f6-3d6d-4b02-88c7-ffb559d52be6", rvs.getContent());
 
             //Lookup by mp4key (no generic key mapping for these yet)
-            assertEquals(" 000002C0 00000298 00004210 00002FD5 0001CB31 0001CB48 0000750D 00007C4A 000291A8 00029191", mp4tag.getFirst(Mp4FieldKey.ITUNES_NORM));
-            assertEquals(" 00000000 00000840 000000E4 0000000000A29EDC 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000", mp4tag.getFirst(Mp4FieldKey.ITUNES_SMPB));
-            assertEquals("0", mp4tag.getFirst(Mp4FieldKey.PART_OF_GAPLESS_ALBUM));
-            assertEquals("iTunes v7.4.3.1, QuickTime 7.2", mp4tag.getFirst(Mp4FieldKey.ENCODER));
-            assertEquals("sortshow", mp4tag.getFirst(Mp4FieldKey.SHOW_SORT));
-            assertEquals("show", mp4tag.getFirst(Mp4FieldKey.SHOW));
-            assertEquals("Genre", mp4tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));
-            assertEquals(String.valueOf(Mp4RatingValue.EXPLICIT.getId()), mp4tag.getFirst(Mp4FieldKey.RATING));
-            assertEquals(String.valueOf(Mp4ContentTypeValue.BOOKLET.getId()), mp4tag.getFirst(Mp4FieldKey.CONTENT_TYPE));
+            assertEquals(" 000002C0 00000298 00004210 00002FD5 0001CB31 0001CB48 0000750D 00007C4A 000291A8 00029191", tag.getFirst(Mp4FieldKey.ITUNES_NORM));
+            assertEquals(" 00000000 00000840 000000E4 0000000000A29EDC 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000", tag.getFirst(Mp4FieldKey.ITUNES_SMPB));
+            assertEquals("0", tag.getFirst(Mp4FieldKey.PART_OF_GAPLESS_ALBUM));
+            assertEquals("iTunes v7.4.3.1, QuickTime 7.2", tag.getFirst(Mp4FieldKey.ENCODER));
+            assertEquals("sortshow", tag.getFirst(Mp4FieldKey.SHOW_SORT));
+            assertEquals("show", tag.getFirst(Mp4FieldKey.SHOW));
+            assertEquals("Genre", tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));
+            assertEquals(String.valueOf(Mp4RatingValue.EXPLICIT.getId()), tag.getFirst(Mp4FieldKey.RATING));
+            assertEquals(String.valueOf(Mp4ContentTypeValue.BOOKLET.getId()), tag.getFirst(Mp4FieldKey.CONTENT_TYPE));
 
-            List coverart = mp4tag.get(Mp4FieldKey.ARTWORK);
+            List coverart = tag.get(Mp4FieldKey.ARTWORK);
             //Should be one image
             assertEquals(2, coverart.size());
 
@@ -748,7 +746,7 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * Test removing the tag from the file
+     * Test removing the tag from the file.
      */
     public void testDeleteTag()
     {
@@ -773,7 +771,7 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * Test removing the tag from the file which does not have a free atom
+     * Test removing the tag from the file which does not have a free atom.
      */
     public void testDeleteTag2()
     {
@@ -798,7 +796,7 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * Test to write tag data, new tagdata identical size to existing data, but no meta free atom
+     * Test to write tag data, new tagdata identical size to existing data, but no meta free atom.
      */
     public void testWriteFileSameSizeNoMetaFreeAtom()
     {
@@ -809,7 +807,7 @@ public class M4aWriteTagTest extends TestCase
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
-            //Change values to different value (but same no of characters, this is the easiest mod to make
+            //Change values to different value (but same no of characters, this is the easiest mod to make)
             tag.setField(FieldKey.ARTIST,"AUTHOR");
             tag.setField(FieldKey.ALBUM,"ALBUM");
             tag.setField(new Mp4TrackField(2, 12));
@@ -934,7 +932,7 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * * Test to write tag data, new tagdata is smaller size than existing data
+     * Test to write tag data, new tagdata is smaller size than existing data.
      */
     public void testWriteFileSmallerSizeMoreThanEightBytesSmallerNoMetaFreeAtom()
     {
@@ -945,7 +943,7 @@ public class M4aWriteTagTest extends TestCase
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
-            //Change album to different value (but same no of characters, this is the easiest mod to make
+            //Change album to different value (but same no of characters, this is the easiest mod to make)
             tag.setField(FieldKey.ARTIST,"AR");
             tag.setField(FieldKey.ALBUM,"AL");
             tag.setField(FieldKey.COMMENT,"C");
@@ -1071,7 +1069,7 @@ public class M4aWriteTagTest extends TestCase
 
     /**
      * Test to write tag data, new tagdata is smaller size than existing data, and there is no metadata atom to allow
-     * for adjustments, but there is a toplevel free atom
+     * for adjustments, but there is a toplevel free atom.
      */
     public void testWriteFileSmallerSizeLessThanEightBytesNoMetaFreeAtom()
     {
@@ -1206,7 +1204,7 @@ public class M4aWriteTagTest extends TestCase
 
     /**
      * Test to write tag data, new tagdata is smaller size than existing data, and there is no metadata or top level
-     * free atom
+     * free atom.
      */
     public void testWriteFileSmallerSizeLessThanEightBytesNoFreeAtoms()
     {
@@ -1341,7 +1339,7 @@ public class M4aWriteTagTest extends TestCase
 
     /**
      * Test to write tag data, new tagdata is smaller size than existing data, and there is no metadata or top level
-     * free atom
+     * free atom.
      */
     public void testWriteFileSmallerNoFreeAtoms()
     {
@@ -1352,7 +1350,7 @@ public class M4aWriteTagTest extends TestCase
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
-            //Change values to slightly smaller than values (but less than 8 chras diff in total)
+            //Change values to slightly smaller than values (but less than 8 chars diff in total)
             tag.setField(FieldKey.ARTIST,"AR");
             tag.setField(FieldKey.ALBUM,"AL");
             tag.setField(FieldKey.COMMENT,"C");
@@ -1466,8 +1464,8 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * Test to write tag data, new tagdata is alrger size than existing data, but not so large
-     * that it cant fit into the sapce already allocated to meta (ilst + free atom)
+     * Test to write tag data, new tagdata is larger size than existing data, but not so large
+     * that it cant fit into the space already allocated to meta (ilst + free atom).
      */
     public void testWriteFileLargerSizeNoMetaFreeAtom()
     {
@@ -1601,7 +1599,7 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * * Test to write tag data,no tagdata currently exists in the file
+     * Test to write tag data, no tagdata currently exists in the file.
      */
     public void testWriteFileWhichHasUtdataMetaAndHdlrButNotIlst()
     {
@@ -1677,7 +1675,7 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * Test to write tag data, there is no top level free atom (there is a meta free atom)
+     * Test to write tag data, there is no top level free atom (there is a meta free atom).
      */
     public void testWriteFileLargerSizeNoTopLevelFreeAtom()
     {
@@ -1726,7 +1724,7 @@ public class M4aWriteTagTest extends TestCase
 
     /**
      * Test to write tag data, new tagdata is smaller size than existing data, and there is no metadata atom to allow
-     * for adjustments, but there is a toplevel free atom
+     * for adjustments, but there is a toplevel free atom.
      */
     public void testWriteFileLargerSizeEqualToTopLevelFreeSpace()
     {
@@ -1989,7 +1987,7 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * Testing to ensure can only have genre or custom genre not both
+     * Testing to ensure can only have genre or custom genre not both.
      */
     public void testWriteGenres()
     {
@@ -2009,7 +2007,7 @@ public class M4aWriteTagTest extends TestCase
             tag = (Mp4Tag) f.getTag();
             assertEquals("Classic Rock", tag.getFirst(FieldKey.GENRE));
             assertEquals("Classic Rock", tag.getFirst(Mp4FieldKey.GENRE));
-            assertEquals("", tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));   //coz doesnt exist
+            assertEquals("", tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));   //coz doesn't exist
 
             //Change value using string
             tag.setField(tag.createField(FieldKey.GENRE, "Tango")); //key for classic rock
@@ -2018,7 +2016,7 @@ public class M4aWriteTagTest extends TestCase
             tag = (Mp4Tag) f.getTag();
             assertEquals("Tango", tag.getFirst(FieldKey.GENRE));
             assertEquals("Tango", tag.getFirst(Mp4FieldKey.GENRE));
-            assertEquals("", tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));   //coz doesnt exist
+            assertEquals("", tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));   //coz doesn't exist
 
             //Change value using string which is ok for ID3 but because extended winamp is ot ok for mp4
             //so has to use custom
@@ -2104,10 +2102,11 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * https://bitbucket.org/ijabz/jaudiotagger/issue/48/mp4s-can-end-up-with-two-types-of-genre
+     * Call {@link Mp4Tag#setField(FieldKey, String...)} twice, first with genre that can
+     * only be represented by custom and then with standard genre, this should cause the
+     * custom genre to be deleted.
      *
-     * Call setField twice, first with genre taht can only be represented by custom and then with
-     * standard genre, this should cause the custom genre to be deleted
+     * See <a href="https://bitbucket.org/ijabz/jaudiotagger/issue/48/mp4s-can-end-up-with-two-types-of-genre">Issue 48</a>.
      */
     public void testWriteGenres3()
     {
@@ -2139,10 +2138,11 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * https://bitbucket.org/ijabz/jaudiotagger/issue/48/mp4s-can-end-up-with-two-types-of-genre
+     * Call {@link Mp4Tag#setField(FieldKey, String...)} twice, first with standard genre then
+     * with genre that can only be represented by custom, this should cause the standard genre
+     * to be deleted.
      *
-     * Call setField twice, first with standard genre then with genre that can only be represented by custom,
-     * this should cause the standard genre to be deleted
+     * See <a href="https://bitbucket.org/ijabz/jaudiotagger/issue/48/mp4s-can-end-up-with-two-types-of-genre">Issue 48</a>.
      */
     public void testWriteGenres4()
     {
@@ -2173,37 +2173,37 @@ public class M4aWriteTagTest extends TestCase
         }
         assertNull(exceptionCaught);
     }
+
     /**
-        * Testing to ensure always write custom genre if option enabled
-        */
-       public void testWriteCustomGenresAlways()
-       {
-           Exception exceptionCaught = null;
-           try
-           {
-               File testFile = AbstractTestCase.copyAudioToTmp("test5.m4a", new File("testWriteCustomGenres.m4a"));
-               AudioFile f = AudioFileIO.read(testFile);
-               Mp4Tag tag = (Mp4Tag) f.getTag();
+     * Testing to ensure always write custom genre, if option enabled.
+     */
+    public void testWriteCustomGenresAlways()
+    {
+        Exception exceptionCaught = null;
+        try
+        {
+            File testFile = AbstractTestCase.copyAudioToTmp("test5.m4a", new File("testWriteCustomGenres.m4a"));
+            AudioFile f = AudioFileIO.read(testFile);
+            Mp4Tag tag = (Mp4Tag) f.getTag();
 
-               assertEquals(TEST_FILE5_SIZE, testFile.length());
+            assertEquals(TEST_FILE5_SIZE, testFile.length());
 
-               //Change value using string
-               TagOptionSingleton.getInstance().setWriteMp4GenresAsText(true);
-               tag.setField(tag.createField(FieldKey.GENRE, "Tango")); //key for classic rock
-               f.commit();
-               f = AudioFileIO.read(testFile);
-               tag = (Mp4Tag) f.getTag();
-               assertEquals("Tango", tag.getFirst(FieldKey.GENRE));
-               assertEquals("Tango", tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));
-               assertEquals("", tag.getFirst(Mp4FieldKey.GENRE));   //coz doesnt exist
-           }
-           catch (Exception e)
-           {
-               e.printStackTrace();
-               exceptionCaught = e;
-           }
-           assertNull(exceptionCaught);
-       }
+            //Change value using string
+            TagOptionSingleton.getInstance().setWriteMp4GenresAsText(true);
+            tag.setField(tag.createField(FieldKey.GENRE, "Tango")); //key for classic rock
+            f.commit();
+            f = AudioFileIO.read(testFile);
+            tag = (Mp4Tag) f.getTag();
+            assertEquals("Tango", tag.getFirst(FieldKey.GENRE));
+            assertEquals("Tango", tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));
+            assertEquals("", tag.getFirst(Mp4FieldKey.GENRE));   //coz doesnt exist
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            exceptionCaught = e;
+        }
+        assertNull(exceptionCaught);
+    }
 
     /**
      * Test saving to file that contains a mdat atom and then a free atom at the end of file, normally it is the other
@@ -2333,9 +2333,7 @@ public class M4aWriteTagTest extends TestCase
     }
 
     /**
-     * Test Wrting mp4 file
-     *
-     * @throws Exception
+     * Test writing mp4 file.
      */
     public void testWritingIssue198() throws Exception
     {
@@ -2397,7 +2395,7 @@ public class M4aWriteTagTest extends TestCase
         assertEquals(tagFields.size(),3);
     }
 
-     public void testDeleteFields() throws Exception
+    public void testDeleteFields() throws Exception
     {
         File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testDeleteFields.m4a"));
 

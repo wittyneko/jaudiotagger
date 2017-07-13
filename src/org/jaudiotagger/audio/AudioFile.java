@@ -1,21 +1,3 @@
-/*
- * Entagged Audio Tag library 
- * Copyright (c) 2003-2005 Raphaël Slinckx <raphael@slinckx.net>
- * 
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *  
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
 package org.jaudiotagger.audio;
 
 import org.jaudiotagger.audio.dsf.Dsf;
@@ -27,18 +9,21 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.audio.flac.metadatablock.MetadataBlockDataPicture;
 import org.jaudiotagger.audio.generic.Permissions;
 import org.jaudiotagger.audio.real.RealTag;
+import org.jaudiotagger.tag.TagOptionSingleton;
+import org.jaudiotagger.tag.id3.*;
+import org.jaudiotagger.tag.reference.ID3V2Version;
+import org.jaudiotagger.tag.wav.WavTag;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.aiff.AiffTag;
 import org.jaudiotagger.tag.asf.AsfTag;
 import org.jaudiotagger.tag.flac.FlacTag;
 import org.jaudiotagger.tag.mp4.Mp4Tag;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentTag;
-import org.jaudiotagger.tag.wav.WavTag;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -250,9 +235,10 @@ public class AudioFile
      * @throws FileNotFoundException
      * @return
      */
-    protected void checkFilePermissions(File file, boolean readOnly) throws ReadOnlyFileException, FileNotFoundException, CannotReadException
+    protected RandomAccessFile checkFilePermissions(File file, boolean readOnly) throws ReadOnlyFileException, FileNotFoundException, CannotReadException
     {
         Path path = file.toPath();
+        RandomAccessFile newFile;
         checkFileExists(file);
 
         // Unless opened as readonly the file must be writable
@@ -265,6 +251,7 @@ public class AudioFile
                 logger.severe(Permissions.displayPermissions(path));
                 throw new NoReadPermissionsException(ErrorMessage.GENERAL_READ_FAILED_DO_NOT_HAVE_PERMISSION_TO_READ_FILE.getMsg(path));
             }
+            newFile = new RandomAccessFile(file, "r");
         }
         else
         {
@@ -274,7 +261,9 @@ public class AudioFile
                 logger.severe(Permissions.displayPermissions(path));
                 throw new ReadOnlyFileException(ErrorMessage.NO_PERMISSIONS_TO_WRITE_TO_FILE.getMsg(path));
             }
+            newFile = new RandomAccessFile(file, "rw");
         }
+        return newFile;
     }
 
     /**
@@ -304,55 +293,62 @@ public class AudioFile
      */
     public Tag createDefaultTag()
     {
-        if(SupportedFileFormat.FLAC.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        String extension = getExt();
+        if(extension == null)
+        {
+            String fileName = file.getName();
+            extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+            setExt(extension);
+        }
+        if(SupportedFileFormat.FLAC.getFilesuffix().equals(extension))
         {
             return new FlacTag(VorbisCommentTag.createNewTag(), new ArrayList< MetadataBlockDataPicture >());
         }
-        else if(SupportedFileFormat.OGG.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.OGG.getFilesuffix().equals(extension))
         {
             return VorbisCommentTag.createNewTag();
         }
-        else if(SupportedFileFormat.MP4.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.MP4.getFilesuffix().equals(extension))
         {
             return new Mp4Tag();
         }
-        else if(SupportedFileFormat.M4A.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.M4A.getFilesuffix().equals(extension))
         {
             return new Mp4Tag();
         }
-        else if(SupportedFileFormat.M4P.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.M4P.getFilesuffix().equals(extension))
         {
             return new Mp4Tag();
         }
-        else if(SupportedFileFormat.WMA.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.WMA.getFilesuffix().equals(extension))
         {
             return new AsfTag();
         }
-        else if(SupportedFileFormat.WAV.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.WAV.getFilesuffix().equals(extension))
         {
             return new WavTag(TagOptionSingleton.getInstance().getWavOptions());
         }
-        else if(SupportedFileFormat.RA.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.RA.getFilesuffix().equals(extension))
         {
             return new RealTag();
         }
-        else if(SupportedFileFormat.RM.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.RM.getFilesuffix().equals(extension))
         {
             return new RealTag();
         }
-        else if(SupportedFileFormat.AIF.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.AIF.getFilesuffix().equals(extension))
         {
             return new AiffTag();
         }
-        else if(SupportedFileFormat.AIFC.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.AIFC.getFilesuffix().equals(extension))
         {
             return new AiffTag();
         }
-        else if(SupportedFileFormat.AIFF.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.AIFF.getFilesuffix().equals(extension))
         {
             return new AiffTag();
         }
-        else if(SupportedFileFormat.DSF.getFilesuffix().equals(file.getName().substring(file.getName().lastIndexOf('.') + 1)))
+        else if(SupportedFileFormat.DSF.getFilesuffix().equals(extension))
         {
             return Dsf.createDefaultTag();
         }
@@ -380,6 +376,7 @@ public class AudioFile
 
      /**
      * Get the tag or if the file doesn't have one at all, create a default tag and set it
+     * as the tag of this file
      *
      * @return
      */
@@ -390,9 +387,38 @@ public class AudioFile
         return tag;
     }
 
+    /**
+     * Get the tag and convert to the default tag version or if the file doesn't have one at all, create a default tag
+     * set as tag for this file
+     *
+     * Conversions are currently only necessary/available for formats that support ID3
+     *
+     * @return
+     */
     public Tag getTagAndConvertOrCreateAndSetDefault()
     {
-        return getTagOrCreateAndSetDefault();
+        Tag tag = getTagOrCreateDefault();
+
+        /* TODO Currently only works for Dsf We need additional check here for Wav and Aif because they wrap the ID3 tag so never return
+         * null for getTag() and the wrapper stores the location of the existing tag, would that be broken if tag set to something else
+         */
+        if(tag instanceof AbstractID3v2Tag)
+        {
+            Tag convertedTag = convertID3Tag((AbstractID3v2Tag)tag, TagOptionSingleton.getInstance().getID3V2Version());
+            if(convertedTag!=null)
+            {
+                setTag(convertedTag);
+            }
+            else
+            {
+                setTag(tag);
+            }
+        }
+        else
+        {
+            setTag(tag);
+        }
+        return getTag();
     }
 
     /**
@@ -408,5 +434,51 @@ public class AudioFile
             return file.getName().substring(0,index);
         }
         return file.getName();
+    }
+
+    /**
+     * If using ID3 format convert tag from current version to another as specified by id3V2Version,
+     *
+     * @return null if no conversion necessary
+     */
+    public AbstractID3v2Tag convertID3Tag(AbstractID3v2Tag tag, ID3V2Version id3V2Version)
+    {
+        if(tag instanceof ID3v24Tag)
+        {
+            switch(id3V2Version)
+            {
+                case ID3_V22:
+                    return new ID3v22Tag((ID3v24Tag)tag);
+                case ID3_V23:
+                    return new ID3v23Tag((ID3v24Tag)tag);
+                case ID3_V24:
+                    return null;
+            }
+        }
+        else if(tag instanceof ID3v23Tag)
+        {
+            switch(id3V2Version)
+            {
+                case ID3_V22:
+                    return new ID3v22Tag((ID3v23Tag)tag);
+                case ID3_V23:
+                    return null;
+                case ID3_V24:
+                    return new ID3v24Tag((ID3v23Tag)tag);
+            }
+        }
+        else if(tag instanceof ID3v22Tag)
+        {
+            switch(id3V2Version)
+            {
+                case ID3_V22:
+                    return null;
+                case ID3_V23:
+                    return new ID3v23Tag((ID3v22Tag)tag);
+                case ID3_V24:
+                    return new ID3v24Tag((ID3v22Tag)tag);
+            }
+        }
+        return null;
     }
 }

@@ -636,13 +636,13 @@ public class ID3v1Tag extends AbstractID3v1Tag implements Tag
     }
 
 
-    public void setField(FieldKey genericKey, String value) throws KeyNotFoundException, FieldDataInvalidException
+    public void setField(FieldKey genericKey, String... value) throws KeyNotFoundException, FieldDataInvalidException
     {
         TagField tagfield = createField(genericKey,value);
         setField(tagfield);
     }
 
-    public void addField(FieldKey genericKey, String value) throws KeyNotFoundException, FieldDataInvalidException
+    public void addField(FieldKey genericKey, String... value) throws KeyNotFoundException, FieldDataInvalidException
     {
         setField(genericKey,value);
     }
@@ -687,8 +687,9 @@ public class ID3v1Tag extends AbstractID3v1Tag implements Tag
     /**
      * Create Tag Field using generic key
      */
-    public TagField createField(FieldKey genericKey, String value)
+    public TagField createField(FieldKey genericKey, String... values)
     {
+        String value = values[0];
         if (genericKey == null)
         {
             throw new IllegalArgumentException(ErrorMessage.GENERAL_INVALID_NULL_ARGUMENT.getMsg());

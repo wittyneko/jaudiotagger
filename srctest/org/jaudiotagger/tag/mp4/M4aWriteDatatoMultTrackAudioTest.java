@@ -13,13 +13,12 @@ import java.io.File;
 import java.io.RandomAccessFile;
 
 /**
- * Write tags  for a file which contains  multiple tracks such as winamp encoder
+ * Write tags for a file which contains multiple tracks such as winamp encoder.
  */
 public class M4aWriteDatatoMultTrackAudioTest extends TestCase
 {
     /**
-     * Test to write file that has  multiple tracks such as winamp encoder
-     * <p/>
+     * Test to write file that has multiple tracks such as winamp encoder.
      */
     public void testWriteFileOption1SameSize()
     {
@@ -28,7 +27,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
         {
             File testFile = AbstractTestCase.copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack1.m4a"));
 
-            //First lets just createField tree
+            //First let's just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
@@ -63,8 +62,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
     }
 
     /**
-     * Test to write file that has MDAT at start BEFORE MOOV atom, this is what Facc 1.25 does
-     * <p/>
+     * Test to write file that has MDAT at start BEFORE MOOV atom, this is what Facc 1.25 does.
      */
     public void testWriteFileOption3SmallerSizeCreateFree()
     {
@@ -108,8 +106,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
     }
 
     /**
-     * Test to write file that has MDAT at start BEFORE MOOV atom, this is what Facc 1.25 does
-     * <p/>
+     * Test to write file that has MDAT at start BEFORE MOOV atom, this is what Facc 1.25 does.
      */
     public void testWriteFileOption4SmallerSizeNoFree()
     {
@@ -152,8 +149,8 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
 
 
     /**
-     * Test to write all fields to check all can be written, just use simple file as starting point
-     * <p/>
+     * Test to write all fields to check all can be written, just use simple file as starting point.
+     *
      * TODO:Test incomplete
      */
     public void testWriteFileOption8CannoutUseTopLevelFree()
@@ -239,7 +236,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
     }
 
     /**
-     * Larger Size can use top free atom
+     * Larger size can use top free atom.
      */
     public void testWriteFileOption6LargerCanUseTopLevelFree()
     {
@@ -324,7 +321,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
     }
 
     /**
-     * Larger Size can use top free atom
+     * Larger size can use top free atom.
      */
     public void testWriteFileOption7LargerCanUseTopLevelFree()
     {

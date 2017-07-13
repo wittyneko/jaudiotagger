@@ -30,7 +30,7 @@ public class AiffInfoReaderTest extends TestCase {
                 new PseudoChunk("AUTH", author)};
         final File aiff = createAIFF("FORM", "AIFF", pseudoChunks);
 
-        final AiffInfoReader aiffInfoReader = new AiffInfoReader();
+        final AiffInfoReader aiffInfoReader = new AiffInfoReader("test");
         try(DataSource dataSource = new FileDataSource(aiff.toPath())) {
             final GenericAudioHeader audioHeader = aiffInfoReader.read(dataSource);
             assertTrue(audioHeader instanceof AiffAudioHeader);
@@ -49,7 +49,7 @@ public class AiffInfoReaderTest extends TestCase {
         final String author = "AUTH4567";
         final File aiff = createAIFF("FORM", "AIFF", new PseudoChunk("XYZ0", "SOME_STUFF"), new PseudoChunk("AUTH", author));
 
-        final AiffInfoReader aiffInfoReader = new AiffInfoReader();
+        final AiffInfoReader aiffInfoReader = new AiffInfoReader("test");
         try(DataSource dataSource = new FileDataSource(aiff.toPath())) {
             final GenericAudioHeader audioHeader = aiffInfoReader.read(dataSource);
             assertTrue(audioHeader instanceof AiffAudioHeader);

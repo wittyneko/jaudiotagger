@@ -13,17 +13,18 @@ import java.nio.file.Path;
  */
 public class AiffFileReader extends AudioFileReader3
 {
+    // TODO FIXME, with the merge the two objects are gone and they are instantiated directly in the method
     private AiffInfoReader      ir = new AiffInfoReader();
     private AiffTagReader       im = new AiffTagReader();
 
     @Override
-    protected GenericAudioHeader getEncodingInfo(DataSource dataSource)throws CannotReadException, IOException
+    protected GenericAudioHeader getEncodingInfo(DataSource dataSource) throws CannotReadException, IOException
     {
         return ir.read(dataSource);
     }
 
     @Override
-    protected Tag getTag(DataSource dataSource)throws CannotReadException, IOException
+    protected Tag getTag(DataSource dataSource) throws CannotReadException, IOException
     {
         return im.read(dataSource);
     }
