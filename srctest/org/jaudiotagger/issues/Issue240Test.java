@@ -27,7 +27,7 @@ public class Issue240Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test34.m4a");
+            File testFile = copyAudioToTmp("test34.m4a");
 
             AudioFile af = AudioFileIO.read(testFile);
             assertEquals(0, ((Mp4Tag) af.getTag()).getFields(FieldKey.COVER_ART).size());

@@ -34,7 +34,7 @@ public class Issue093Test extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test145.aiff", new File("test145CorruptedID3.aiff"));
+        File testFile = copyAudioToTmp("test145.aiff", new File("test145CorruptedID3.aiff"));
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -67,7 +67,7 @@ public class Issue093Test extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test152.aiff", new File("test152MissingByteId3.aiff"));
+        File testFile = copyAudioToTmp("test152.aiff", new File("test152MissingByteId3.aiff"));
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -102,7 +102,7 @@ public class Issue093Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test152.wav", new File("test152_id3.wav"));
+            File testFile = copyAudioToTmp("test152.wav", new File("test152_id3.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());
@@ -134,7 +134,7 @@ public class Issue093Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test152.wav", new File("test152_info.wav"));
+            File testFile = copyAudioToTmp("test152.wav", new File("test152_info.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());
@@ -166,7 +166,7 @@ public class Issue093Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test152.wav", new File("test152_existing_id3.wav"));
+            File testFile = copyAudioToTmp("test152.wav", new File("test152_existing_id3.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());
@@ -198,7 +198,7 @@ public class Issue093Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test152.wav", new File("test152_existing_info.wav"));
+            File testFile = copyAudioToTmp("test152.wav", new File("test152_existing_info.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());
@@ -230,7 +230,7 @@ public class Issue093Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test152.wav", new File("test152_existing_id3_both.wav"));
+            File testFile = copyAudioToTmp("test152.wav", new File("test152_existing_id3_both.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());
@@ -262,7 +262,7 @@ public class Issue093Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test152.wav", new File("test152_existing_info_both.wav"));
+            File testFile = copyAudioToTmp("test152.wav", new File("test152_existing_info_both.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());
@@ -294,7 +294,7 @@ public class Issue093Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test152.wav", new File("test152_existing_id3_both_sync.wav"));
+            File testFile = copyAudioToTmp("test152.wav", new File("test152_existing_id3_both_sync.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());
@@ -326,7 +326,7 @@ public class Issue093Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test152.wav", new File("test152_existing_info_both_sync.wav"));
+            File testFile = copyAudioToTmp("test152.wav", new File("test152_existing_info_both_sync.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());

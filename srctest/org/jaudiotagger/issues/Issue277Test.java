@@ -33,7 +33,7 @@ public class Issue277Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test1.m4a");
+            testFile = copyAudioToTmp("test1.m4a");
 
             AudioFile af = AudioFileIO.read(testFile);
             assertEquals(0, af.getTag().getFields(FieldKey.IS_COMPILATION).size());
@@ -67,7 +67,7 @@ public class Issue277Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test1.m4a");
+            testFile = copyAudioToTmp("test1.m4a");
 
             AudioFile af = AudioFileIO.read(testFile);
             assertEquals(0, af.getTag().getFields(FieldKey.IS_COMPILATION).size());
@@ -101,7 +101,7 @@ public class Issue277Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test1.m4a");
+            testFile = copyAudioToTmp("test1.m4a");
 
             AudioFile af = AudioFileIO.read(testFile);
             Mp4Tag tag = (Mp4Tag) af.getTag();
@@ -136,7 +136,7 @@ public class Issue277Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test1.m4a");
+            testFile = copyAudioToTmp("test1.m4a");
 
             AudioFile af = AudioFileIO.read(testFile);
             Mp4Tag tag = (Mp4Tag) af.getTag();

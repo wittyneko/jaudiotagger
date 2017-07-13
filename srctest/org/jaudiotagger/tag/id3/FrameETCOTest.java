@@ -44,7 +44,7 @@ public class FrameETCOTest extends AbstractTestCase {
         }
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test20.mp3");
+            File testFile = copyAudioToTmp("test20.mp3");
             AudioFile f = AudioFileIO.read(testFile);
             final ID3v23Frame frame = ((ID3v23Frame) ((ID3v23Tag) f.getTag()).getFrame(ID3v24Frames.FRAME_ID_EVENT_TIMING_CODES));
             FrameBodyETCO body = (FrameBodyETCO) frame.getBody();
@@ -62,7 +62,7 @@ public class FrameETCOTest extends AbstractTestCase {
 
     @Test
     public void testSaveToFile() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -93,7 +93,7 @@ public class FrameETCOTest extends AbstractTestCase {
 
     @Test
     public void testSaveEmptyFrameToFile() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_EVENT_TIMING_CODES);

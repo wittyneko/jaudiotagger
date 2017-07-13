@@ -25,7 +25,7 @@ public class Issue455Test extends AbstractTestCase {
         }
 
         AudioFile mp4File = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test1.m4a");
+        File testFile = copyAudioToTmp("test1.m4a");
 
         Exception e = null;
         try {
@@ -57,7 +57,7 @@ public class Issue455Test extends AbstractTestCase {
         }
 
         AudioFile mp4File = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test1.m4a");
+        File testFile = copyAudioToTmp("test1.m4a");
 
         Exception e = null;
         try {
@@ -89,7 +89,7 @@ public class Issue455Test extends AbstractTestCase {
         }
 
         AudioFile mp4File = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test1.m4a");
+        File testFile = copyAudioToTmp("test1.m4a");
         Exception e = null;
         try {
 
@@ -117,7 +117,7 @@ public class Issue455Test extends AbstractTestCase {
         }
 
         AudioFile mp4File = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test1.m4a");
+        File testFile = copyAudioToTmp("test1.m4a");
         Exception e = null;
         try {
 
@@ -141,7 +141,7 @@ public class Issue455Test extends AbstractTestCase {
     public void testMp3IsCompilationTrue() throws Exception {
 
         AudioFile mp3File = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testMp3IsCompilationTrue.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testMp3IsCompilationTrue.mp3"));
 
         Exception e = null;
         try {
@@ -168,7 +168,7 @@ public class Issue455Test extends AbstractTestCase {
     @Test
     public void testMp3IsCompilationTrue2() throws Exception {
         AudioFile mp3File = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testMp3IsCompilationTrue2.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testMp3IsCompilationTrue2.mp3"));
 
         Exception e = null;
         try {
@@ -195,7 +195,7 @@ public class Issue455Test extends AbstractTestCase {
     @Test
     public void testMp3IsCompilationFalse() throws Exception {
         AudioFile mp3File = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testMp3IsCompilationFalse.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testMp3IsCompilationFalse.mp3"));
         Exception e = null;
         try {
 

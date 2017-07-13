@@ -75,9 +75,9 @@ public abstract class WmaTestCase extends AbstractTestCase
         assertNotNull(sourceTestFile);
         File result = null;
         if (!Utils.isBlank(fileName)) {
-            result = AbstractTestCase.copyAudioToTmp(sourceTestFile, new File(fileName));
+            result = copyAudioToTmp(sourceTestFile, new File(fileName));
         } else {
-            result = AbstractTestCase.copyAudioToTmp(sourceTestFile);
+            result = copyAudioToTmp(sourceTestFile);
         }
         return result;
     }

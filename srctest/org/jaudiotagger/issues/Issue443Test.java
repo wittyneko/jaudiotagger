@@ -20,7 +20,7 @@ public class Issue443Test extends AbstractTestCase {
     @Test
     public void testID3v2DefaultCreateOrConvertWhenOnlyHasID3v1() {
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1vbrNew0.mp3");
+            File testFile = copyAudioToTmp("testV1vbrNew0.mp3");
             MP3File test = new MP3File(testFile);
             assertNull(test.getID3v1Tag());
             assertNull(test.getID3v2Tag());
@@ -44,7 +44,7 @@ public class Issue443Test extends AbstractTestCase {
     @Test
     public void testID3v2DefaultCreatedWhenOnlyHasID3v1() {
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1vbrNew0.mp3");
+            File testFile = copyAudioToTmp("testV1vbrNew0.mp3");
             MP3File test = new MP3File(testFile);
             assertNull(test.getID3v1Tag());
             assertNull(test.getID3v2Tag());
@@ -68,7 +68,7 @@ public class Issue443Test extends AbstractTestCase {
     @Test
     public void testID3v2CreatedWhenOnlyHasID3v1() {
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1vbrNew0.mp3");
+            File testFile = copyAudioToTmp("testV1vbrNew0.mp3");
             MP3File test = new MP3File(testFile);
             assertNull(test.getID3v1Tag());
             assertNull(test.getID3v2Tag());

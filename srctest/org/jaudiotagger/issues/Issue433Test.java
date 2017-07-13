@@ -26,7 +26,7 @@ public class Issue433Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test112.m4a", new File("test112.m4a"));
+        File testFile = copyAudioToTmp("test112.m4a", new File("test112.m4a"));
 
         Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
         atomTree.printAtomTree();
@@ -51,7 +51,7 @@ public class Issue433Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test112.m4a", new File("test112WriteSmall.m4a"));
+        File testFile = copyAudioToTmp("test112.m4a", new File("test112WriteSmall.m4a"));
 
         Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
         atomTree.printAtomTree();
@@ -76,7 +76,7 @@ public class Issue433Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test141.m4a", new File("test141Large.m4a"));
+        File testFile = copyAudioToTmp("test141.m4a", new File("test141Large.m4a"));
 
         Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
         atomTree.printAtomTree();
@@ -101,7 +101,7 @@ public class Issue433Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test141.m4a", new File("test141Small.m4a"));
+        File testFile = copyAudioToTmp("test141.m4a", new File("test141Small.m4a"));
 
         Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
         atomTree.printAtomTree();

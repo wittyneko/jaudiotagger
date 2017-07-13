@@ -1,7 +1,6 @@
 package org.jaudiotagger.tag.dsf;
 
 
-import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.FilePermissionsTest;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -15,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public class DsfAudioFileTest extends AbstractTestCase {
+public class DsfAudioFileTest extends FilePermissionsTest {
 
     @Test
     public void testReadDsfMetadata() {
@@ -28,7 +27,7 @@ public class DsfAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test122.dsf", new File("test122readmetadata.dsf"));
+        File testFile = copyAudioToTmp("test122.dsf", new File("test122readmetadata.dsf"));
         try {
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getTag());
@@ -55,19 +54,19 @@ public class DsfAudioFileTest extends AbstractTestCase {
     @Test
     public void testWriteWriteProtectedFileWithCheckDisabled() throws Exception {
 
-        FilePermissionsTest.runWriteWriteProtectedFileWithCheckDisabled("test122.dsf");
+        runWriteWriteProtectedFileWithCheckDisabled("test122.dsf");
     }
 
     @Test
     public void testWriteWriteProtectedFileWithCheckEnabled() throws Exception {
 
-        FilePermissionsTest.runWriteWriteProtectedFileWithCheckEnabled("test122.dsf");
+        runWriteWriteProtectedFileWithCheckEnabled("test122.dsf");
     }
 
     @Test
     public void testWriteReadOnlyFileWithCheckDisabled() throws Exception {
 
-        FilePermissionsTest.runWriteReadOnlyFileWithCheckDisabled("test122.dsf");
+        runWriteReadOnlyFileWithCheckDisabled("test122.dsf");
     }
 
 

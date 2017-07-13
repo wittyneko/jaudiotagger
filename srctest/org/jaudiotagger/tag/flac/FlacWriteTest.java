@@ -1,6 +1,5 @@
 package org.jaudiotagger.tag.flac;
 
-import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.FilePermissionsTest;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -25,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * basic Flac tests
  */
-public class FlacWriteTest extends AbstractTestCase{
+public class FlacWriteTest extends FilePermissionsTest {
 
     @Before
     public void setUp() {
@@ -41,7 +40,7 @@ public class FlacWriteTest extends AbstractTestCase{
         try {
             //Put artifically low just to test it out
             TagOptionSingleton.getInstance().setWriteChunkSize(40000);
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.flac", new File("test2write.flac"));
+            File testFile = copyAudioToTmp("test2.flac", new File("test2write.flac"));
             AudioFile f = AudioFileIO.read(testFile);
 
             System.out.println("startFileSize:" + f.getFile().length());
@@ -159,7 +158,7 @@ public class FlacWriteTest extends AbstractTestCase{
         try {
             //Put artifically low just to test it out
             TagOptionSingleton.getInstance().setWriteChunkSize(1000);
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.flac", new File("test2write.flac"));
+            File testFile = copyAudioToTmp("test2.flac", new File("test2write.flac"));
             AudioFile f = AudioFileIO.read(testFile);
 
             System.out.println("startFileSize:" + f.getFile().length());
@@ -278,7 +277,7 @@ public class FlacWriteTest extends AbstractTestCase{
     public void testDeleteTagFile() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.flac", new File("testdeletetag.flac"));
+            File testFile = copyAudioToTmp("test.flac", new File("testdeletetag.flac"));
             AudioFile f = AudioFileIO.read(testFile);
 
             assertEquals("192", f.getAudioHeader().getBitRate());
@@ -307,7 +306,7 @@ public class FlacWriteTest extends AbstractTestCase{
     public void testWriteFileWithCueSheet() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.flac", new File("testWriteWithCueSheet.flac"));
+            File testFile = copyAudioToTmp("test3.flac", new File("testWriteWithCueSheet.flac"));
             AudioFile f = AudioFileIO.read(testFile);
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(5, infoReader.countMetaBlocks(f.getFile()));
@@ -336,7 +335,7 @@ public class FlacWriteTest extends AbstractTestCase{
                 System.out.println("Test cannot be run because test file not available");
                 return;
             }
-            File testFile = AbstractTestCase.copyAudioToTmp("test22.flac", new File("testWriteFlacWithId3.flac"));
+            File testFile = copyAudioToTmp("test22.flac", new File("testWriteFlacWithId3.flac"));
             AudioFile f = AudioFileIO.read(testFile);
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(4, infoReader.countMetaBlocks(f.getFile()));
@@ -367,7 +366,7 @@ public class FlacWriteTest extends AbstractTestCase{
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test22.flac", new File("testWriteFlacWithId3Shifted.flac"));
+            File testFile = copyAudioToTmp("test22.flac", new File("testWriteFlacWithId3Shifted.flac"));
             AudioFile f = AudioFileIO.read(testFile);
 
             assertEquals("825", f.getAudioHeader().getBitRate());
@@ -417,7 +416,7 @@ public class FlacWriteTest extends AbstractTestCase{
 
     @Test
     public void testDeleteTag() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("test2.flac", new File("testDelete.flac"));
+        File testFile = copyAudioToTmp("test2.flac", new File("testDelete.flac"));
         AudioFile f = AudioFileIO.read(testFile);
         AudioFileIO.delete(f);
 
@@ -427,7 +426,7 @@ public class FlacWriteTest extends AbstractTestCase{
 
     @Test
     public void testWriteMultipleFields() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("test.flac", new File("testWriteMultiple.flac"));
+        File testFile = copyAudioToTmp("test.flac", new File("testWriteMultiple.flac"));
         AudioFile f = AudioFileIO.read(testFile);
         List<TagField> tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
         assertEquals(0, tagFields.size());
@@ -444,7 +443,7 @@ public class FlacWriteTest extends AbstractTestCase{
     @Test
     public void testDeleteFields() throws Exception {
         //Delete using generic key
-        File testFile = AbstractTestCase.copyAudioToTmp("test.flac", new File("testWriteMultiple.flac"));
+        File testFile = copyAudioToTmp("test.flac", new File("testWriteMultiple.flac"));
         AudioFile f = AudioFileIO.read(testFile);
         List<TagField> tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
         assertEquals(0, tagFields.size());
@@ -486,7 +485,7 @@ public class FlacWriteTest extends AbstractTestCase{
                 System.out.println("Test cannot be run because test file not available");
                 return;
             }
-            File testFile = AbstractTestCase.copyAudioToTmp("test102.flac", new File("test102.flac"));
+            File testFile = copyAudioToTmp("test102.flac", new File("test102.flac"));
             AudioFile f = AudioFileIO.read(testFile);
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(2, infoReader.countMetaBlocks(f.getFile()));
@@ -508,19 +507,19 @@ public class FlacWriteTest extends AbstractTestCase{
     @Test
     public void testWriteWriteProtectedFileWithCheckDisabled() throws Exception {
 
-        FilePermissionsTest.runWriteWriteProtectedFileWithCheckDisabled("test2.flac");
+        runWriteWriteProtectedFileWithCheckDisabled("test2.flac");
     }
 
     @Test
     public void testWriteWriteProtectedFileWithCheckEnabled() throws Exception {
 
-        FilePermissionsTest.runWriteWriteProtectedFileWithCheckEnabled("test2.flac");
+        runWriteWriteProtectedFileWithCheckEnabled("test2.flac");
     }
 
     @Test
     public void testWriteReadOnlyFileWithCheckDisabled() throws Exception {
 
-        FilePermissionsTest.runWriteReadOnlyFileWithCheckDisabled("test2.flac");
+        runWriteReadOnlyFileWithCheckDisabled("test2.flac");
     }
 
 

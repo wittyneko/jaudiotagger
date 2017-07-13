@@ -24,7 +24,7 @@ public class FlacReadTest extends AbstractTestCase {
     public void testReadTwoChannelFile() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.flac", new File("test2read.flac"));
+            File testFile = copyAudioToTmp("test2.flac", new File("test2read.flac"));
             AudioFile f = AudioFileIO.read(testFile);
 
             assertEquals("192", f.getAudioHeader().getBitRate());
@@ -46,7 +46,7 @@ public class FlacReadTest extends AbstractTestCase {
     public void testReadSingleChannelFile() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.flac", new File("test3read.flac"));
+            File testFile = copyAudioToTmp("test3.flac", new File("test3read.flac"));
             AudioFile f = AudioFileIO.read(testFile);
 
             assertEquals("FLAC 8 bits", f.getAudioHeader().getEncodingType());
@@ -69,7 +69,7 @@ public class FlacReadTest extends AbstractTestCase {
     public void testNotFlac() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testV1noFlac.flac"));
+            File testFile = copyAudioToTmp("testV1.mp3", new File("testV1noFlac.flac"));
             AudioFile f = AudioFileIO.read(testFile);
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class FlacReadTest extends AbstractTestCase {
     public void testReadCueSheet() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.flac");
+            File testFile = copyAudioToTmp("test3.flac");
             AudioFile f = AudioFileIO.read(testFile);
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(5, infoReader.countMetaBlocks(f.getFile()));
@@ -109,7 +109,7 @@ public class FlacReadTest extends AbstractTestCase {
                 System.out.println("Test cannot be run because test file not available");
                 return;
             }
-            File testFile = AbstractTestCase.copyAudioToTmp("test22.flac", new File("testreadFlacWithId3.flac"));
+            File testFile = copyAudioToTmp("test22.flac", new File("testreadFlacWithId3.flac"));
             AudioFile f = AudioFileIO.read(testFile);
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(4, infoReader.countMetaBlocks(f.getFile()));
@@ -133,7 +133,7 @@ public class FlacReadTest extends AbstractTestCase {
                 System.out.println("Test cannot be run because test file not available");
                 return;
             }
-            File testFile = AbstractTestCase.copyAudioToTmp("test102.flac", new File("test102.flac"));
+            File testFile = copyAudioToTmp("test102.flac", new File("test102.flac"));
             AudioFile f = AudioFileIO.read(testFile);
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(2, infoReader.countMetaBlocks(f.getFile()));
@@ -156,7 +156,7 @@ public class FlacReadTest extends AbstractTestCase {
                 System.out.println("Test cannot be run because test file not available");
                 return;
             }
-            File testFile = AbstractTestCase.copyAudioToTmp("test154.flac", new File("test154.flac"));
+            File testFile = copyAudioToTmp("test154.flac", new File("test154.flac"));
             AudioFile f = AudioFileIO.read(testFile);
             MetadataBlockDataPicture mbdp = (((FlacTag) f.getTag()).getImages().get(0));
             System.out.println(mbdp);

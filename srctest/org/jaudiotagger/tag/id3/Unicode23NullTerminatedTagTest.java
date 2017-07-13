@@ -47,7 +47,7 @@ public class Unicode23NullTerminatedTagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateISO8859EncodedNullTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
@@ -91,7 +91,7 @@ public class Unicode23NullTerminatedTagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF16BOMLEEncodedNullTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
@@ -136,7 +136,7 @@ public class Unicode23NullTerminatedTagTest extends AbstractTestCase {
     @Test
     public void testCreateUTF16BOMBEEncodedNullTerminatedString() throws Exception {
         TagOptionSingleton.getInstance().setEncodeUTF16BomAsLittleEndian(false);
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
@@ -180,7 +180,7 @@ public class Unicode23NullTerminatedTagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF16AutoEncodedNullTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
@@ -223,7 +223,7 @@ public class Unicode23NullTerminatedTagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF16BEEncodedNullTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
@@ -267,7 +267,7 @@ public class Unicode23NullTerminatedTagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF8EncodedNullTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);

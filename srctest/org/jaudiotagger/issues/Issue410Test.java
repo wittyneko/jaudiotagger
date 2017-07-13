@@ -26,7 +26,7 @@ public class Issue410Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+            File testFile = copyAudioToTmp("01.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault().setField(FieldKey.LANGUAGE, "English");
             af.commit();

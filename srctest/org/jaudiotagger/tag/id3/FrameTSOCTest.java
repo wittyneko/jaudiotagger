@@ -102,7 +102,7 @@ public class FrameTSOCTest extends AbstractTestCase {
 
     @Test
     public void testSaveToFile() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -121,7 +121,7 @@ public class FrameTSOCTest extends AbstractTestCase {
 
     @Test
     public void testConvertV24ToV23() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -146,7 +146,7 @@ public class FrameTSOCTest extends AbstractTestCase {
 
     @Test
     public void testConvertV24ToV22() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -171,7 +171,7 @@ public class FrameTSOCTest extends AbstractTestCase {
 
     @Test
     public void testConvertV23ToV22() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -197,7 +197,7 @@ public class FrameTSOCTest extends AbstractTestCase {
 
     @Test
     public void testConvertV22ToV24() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save

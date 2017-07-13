@@ -23,7 +23,7 @@ public class Issue273Test extends AbstractTestCase {
      */
     @Test
     public void testCommentWithLanguage() {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
 
         Exception exceptionCaught = null;
         try {

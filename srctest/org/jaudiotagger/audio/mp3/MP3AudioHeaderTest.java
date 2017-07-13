@@ -39,7 +39,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV1L3VbrOld()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1vbrOld0.mp3");
+        File testFile = copyAudioToTmp("testV1vbrOld0.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -70,7 +70,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV1L3VbrNew()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1vbrNew0.mp3");
+        File testFile = copyAudioToTmp("testV1vbrNew0.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -101,7 +101,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV1L3Cbr128()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128.mp3");
+        File testFile = copyAudioToTmp("testV1Cbr128.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -132,7 +132,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV1L3Cbr192()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr192.mp3");
+        File testFile = copyAudioToTmp("testV1Cbr192.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -163,7 +163,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV2L3VbrOld()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV2vbrOld0.mp3");
+        File testFile = copyAudioToTmp("testV2vbrOld0.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -194,7 +194,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV2L3MonoVbrNew()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV2vbrNew0.mp3");
+        File testFile = copyAudioToTmp("testV2vbrNew0.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -225,7 +225,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV1L2Stereo()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1L2stereo.mp3");
+        File testFile = copyAudioToTmp("testV1L2stereo.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -256,7 +256,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV1L2Mono()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1L2mono.mp3");
+        File testFile = copyAudioToTmp("testV1L2mono.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -287,7 +287,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV25L3VbrOld()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV25vbrOld0.mp3");
+        File testFile = copyAudioToTmp("testV25vbrOld0.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -318,7 +318,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV25L3()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
+        File testFile = copyAudioToTmp("testV25.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -349,7 +349,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV25L3VbrNew()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV25vbrNew0.mp3");
+        File testFile = copyAudioToTmp("testV25vbrNew0.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -380,7 +380,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV2L2()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV2L2.mp3");
+        File testFile = copyAudioToTmp("testV2L2.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -412,7 +412,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testReadV2L3Stereo()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV2L3Stereo.mp3");
+        File testFile = copyAudioToTmp("testV2L3Stereo.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -448,7 +448,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testIssue79()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue79.mp3");
+        File testFile = copyAudioToTmp("Issue79.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -471,7 +471,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testIssue81()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue81.mp3");
+        File testFile = copyAudioToTmp("Issue81.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -492,7 +492,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
     public void testIssue199()
     {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV2L2.mp3");
+        File testFile = copyAudioToTmp("testV2L2.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -559,7 +559,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
         }
 
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test28.mp3");
+        File testFile = copyAudioToTmp("test28.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -587,7 +587,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
         }
 
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test30.mp3");
+        File testFile = copyAudioToTmp("test30.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try
         {
@@ -619,7 +619,7 @@ public class MP3AudioHeaderTest extends AbstractTestCase
         }
 
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test30.mp3");
+        File testFile = copyAudioToTmp("test30.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         MP3File mp3file = null;
         try

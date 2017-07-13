@@ -21,7 +21,7 @@ public class Issue052Test extends AbstractTestCase {
     public void testOutOfMemory() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("issue52.mp3", new File("issue52.mp3"));
+            File testFile = copyAudioToTmp("issue52.mp3", new File("issue52.mp3"));
             MP3File mp3File = new MP3File(testFile);
 
             //Create and Save

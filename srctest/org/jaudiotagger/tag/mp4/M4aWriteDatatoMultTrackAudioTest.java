@@ -28,7 +28,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack1.m4a"));
+            File testFile = copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack1.m4a"));
 
             //First let's just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
@@ -73,7 +73,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack3.m4a"));
+            File testFile = copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack3.m4a"));
 
             //First lets just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
@@ -118,7 +118,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack4.m4a"));
+            File testFile = copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack4.m4a"));
 
             //First lets just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
@@ -164,7 +164,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack8.m4a"));
+            File testFile = copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack8.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -250,7 +250,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test21.m4a", new File("testWriteMultiTrack6.m4a"));
+            File testFile = copyAudioToTmp("test21.m4a", new File("testWriteMultiTrack6.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -336,7 +336,7 @@ public class M4aWriteDatatoMultTrackAudioTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test21.m4a", new File("testWriteMultiTrack7.m4a"));
+            File testFile = copyAudioToTmp("test21.m4a", new File("testWriteMultiTrack7.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 

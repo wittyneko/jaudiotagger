@@ -40,7 +40,7 @@ public class Issue249Test extends AbstractTestCase {
         Exception exceptionCaught = null;
         try {
             //This is a V2 File with an IPL frame
-            File testFile = AbstractTestCase.copyAudioToTmp("test34.mp3");
+            File testFile = copyAudioToTmp("test34.mp3");
 
             //Convert to v24Tag
             AudioFile af = AudioFileIO.read(testFile);

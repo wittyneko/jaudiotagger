@@ -27,7 +27,7 @@ public class ConcurrentWritesTest extends AbstractTestCase {
     @Before
     public void setUp() {
         for (int counter = 0; counter < THREADS; counter++) {
-            files[counter] = AbstractTestCase.copyAudioToTmp("test2.flac",
+            files[counter] = copyAudioToTmp("test2.flac",
                     new File(ConcurrentWritesTest.class.getSimpleName() + "-" + counter + ".flac"));
         }
     }

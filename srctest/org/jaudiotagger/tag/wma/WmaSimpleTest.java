@@ -39,7 +39,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.wma");
+            File testFile = copyAudioToTmp("test2.wma");
             AudioFile f = AudioFileIO.read(testFile);
             //Now
         }
@@ -63,7 +63,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma");
+            File testFile = copyAudioToTmp("test1.wma");
             AudioFile f = AudioFileIO.read(testFile);
 
             assertEquals("32", f.getAudioHeader().getBitRate());
@@ -155,7 +155,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.wma");
+            File testFile = copyAudioToTmp("test2.wma");
             AudioFile f = AudioFileIO.read(testFile);
 
             assertEquals("128", f.getAudioHeader().getBitRate());
@@ -268,7 +268,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
+            File testFile = copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
             AudioFile f = AudioFileIO.read(testFile);
 
             assertEquals("32", f.getAudioHeader().getBitRate());
@@ -357,7 +357,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
+            File testFile = copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
 
             AudioFile f = AudioFileIO.read(testFile);
             AudioFileIO.delete(f);
@@ -414,7 +414,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
+            File testFile = copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
             AudioFile f = AudioFileIO.read(testFile);
             AudioFileIO.delete(f);
 
@@ -485,7 +485,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.wma");
+            File testFile = copyAudioToTmp("test3.wma");
             AudioFile f = AudioFileIO.read(testFile);
             assertEquals("Glass", f.getTag().getFirst(FieldKey.TITLE));
             //Now
@@ -511,7 +511,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma");
+            File testFile = copyAudioToTmp("test1.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(1, tag.getFields(FieldKey.COVER_ART).size());
@@ -598,7 +598,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test4.wma");
+            File testFile = copyAudioToTmp("test4.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(1, tag.getFields(FieldKey.COVER_ART).size());
@@ -679,7 +679,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test5.wma");
+            File testFile = copyAudioToTmp("test5.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(1, tag.getFields(FieldKey.COVER_ART).size());
@@ -763,7 +763,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test6.wma");
+            File testFile = copyAudioToTmp("test6.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(1, tag.getFields(FieldKey.COVER_ART).size());
@@ -856,7 +856,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test7.wma");
+            File testFile = copyAudioToTmp("test7.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(0, tag.getFields(FieldKey.COVER_ART).size());
@@ -899,7 +899,7 @@ public class WmaSimpleTest extends AbstractTestCase
 
     public void testWriteMultipleFields() throws Exception
     {
-        File testFile = AbstractTestCase.copyAudioToTmp("test1.wma", new File("testWriteMultiple.wma"));
+        File testFile = copyAudioToTmp("test1.wma", new File("testWriteMultiple.wma"));
         AudioFile f = AudioFileIO.read(testFile);
         List<TagField> tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
         assertEquals(tagFields.size(),0);
@@ -916,7 +916,7 @@ public class WmaSimpleTest extends AbstractTestCase
     public void testDeleteFields() throws Exception
     {
         //Delete using generic key
-        File testFile = AbstractTestCase.copyAudioToTmp("test1.wma", new File("testDeleteFields.wma"));
+        File testFile = copyAudioToTmp("test1.wma", new File("testDeleteFields.wma"));
         AudioFile f = AudioFileIO.read(testFile);
         List<TagField> tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
         assertEquals(0,tagFields.size());

@@ -23,7 +23,7 @@ public class FrameCOMMTest extends AbstractTestCase {
     public void testReadFileContainingInvalidSizeCOMMFrame() throws Exception {
         Exception e = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("Issue77.id3", "testV1.mp3");
+            File testFile = copyAudioToTmp("Issue77.id3", "testV1.mp3");
             MP3File mp3File = new MP3File(testFile);
         } catch (Exception ie) {
             e = ie;
@@ -39,7 +39,7 @@ public class FrameCOMMTest extends AbstractTestCase {
     public void testReadFileContainingInvalidTextEncodingCOMMFrame() throws Exception {
         Exception e = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("Issue80.id3", "testV1.mp3");
+            File testFile = copyAudioToTmp("Issue80.id3", "testV1.mp3");
             MP3File mp3File = new MP3File(testFile);
         } catch (Exception ie) {
             e = ie;
@@ -56,7 +56,7 @@ public class FrameCOMMTest extends AbstractTestCase {
         final String INVALID_LANG_CODE = "   ";
         Exception e = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("Issue108.id3", "testV1.mp3");
+            File testFile = copyAudioToTmp("Issue108.id3", "testV1.mp3");
             MP3File mp3File = new MP3File(testFile);
 
             assertTrue(mp3File.getID3v2Tag().hasFrame("COMM"));
@@ -83,7 +83,7 @@ public class FrameCOMMTest extends AbstractTestCase {
         Exception e = null;
         try {
             //Read tag
-            File testFile = AbstractTestCase.copyAudioToTmp("Issue108.id3", "testV1.mp3");
+            File testFile = copyAudioToTmp("Issue108.id3", "testV1.mp3");
             MP3File mp3File = new MP3File(testFile);
             ID3v24Frame commFrame = (ID3v24Frame) mp3File.getID3v2Tag().getFrame("COMM");
             FrameBodyCOMM frameBody = (FrameBodyCOMM) commFrame.getBody();

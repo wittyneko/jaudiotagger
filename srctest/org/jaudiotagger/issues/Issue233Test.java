@@ -26,7 +26,7 @@ public class Issue233Test extends AbstractTestCase {
     public void testDeletingID3v2Tag() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            File testFile = copyAudioToTmp("testV1.mp3");
 
             //No Tags
             MP3File mp3File = new MP3File(testFile);
@@ -88,7 +88,7 @@ public class Issue233Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test32.mp3");
+            File testFile = copyAudioToTmp("test32.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             AudioFileIO.delete(af);
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class Issue233Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test32.mp3");
+            File testFile = copyAudioToTmp("test32.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             MP3File mf = (MP3File) af;
             assertEquals("The Ides Of March", af.getTag().getFirst(FieldKey.TITLE));

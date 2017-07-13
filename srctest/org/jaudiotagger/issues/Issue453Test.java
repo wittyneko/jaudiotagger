@@ -22,7 +22,7 @@ public class Issue453Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test113.mp3");
+        File testFile = copyAudioToTmp("test113.mp3");
         MP3File mp3File = new MP3File(testFile);
         MP3AudioHeader audio = mp3File.getMP3AudioHeader();
         assertEquals("32", audio.getBitRate());

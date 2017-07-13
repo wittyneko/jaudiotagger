@@ -31,7 +31,7 @@ public class Issue086Test extends AbstractTestCase {
             {
                 TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
                 TagOptionSingleton.getInstance().setWavSaveOptions(WavSaveOptions.SAVE_BOTH);
-                File testFile = AbstractTestCase.copyAudioToTmp("test126.wav", new File("test126ID3WriteSyncByte.wav"));
+                File testFile = copyAudioToTmp("test126.wav", new File("test126ID3WriteSyncByte.wav"));
                 AudioFile f = AudioFileIO.read(testFile);
                 Tag tag = f.getTag();
                 tag.setField(FieldKey.ARTIST, "fred");

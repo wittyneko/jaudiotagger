@@ -26,7 +26,7 @@ public class OggPageTest extends AbstractTestCase
         int count = 0;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testReadAllOggPages.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testReadAllOggPages.ogg"));
             RandomAccessFile raf = new RandomAccessFile(testFile, "r");
             OggPageHeader lastPageHeader = null;
             ByteBuffer bb = ByteBuffer.allocate((int)(raf.length()));
@@ -79,7 +79,7 @@ public class OggPageTest extends AbstractTestCase
         int count = 0;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testReadAllOggPages.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testReadAllOggPages.ogg"));
             RandomAccessFile raf = new RandomAccessFile(testFile, "r");
 
             OggPageHeader lastPageHeader = null;
@@ -127,7 +127,7 @@ public class OggPageTest extends AbstractTestCase
         int count = 0;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("testlargeimage.ogg", new File("testReadAllOggPagesLargeFile.ogg"));
+            File testFile = copyAudioToTmp("testlargeimage.ogg", new File("testReadAllOggPagesLargeFile.ogg"));
             RandomAccessFile raf = new RandomAccessFile(testFile, "r");
             DataSource dataSource = new FileDataSource(raf);
 
@@ -163,7 +163,7 @@ public class OggPageTest extends AbstractTestCase
         try
         {
 
-            File testFile = AbstractTestCase.copyAudioToTmp("testlargeimage.ogg", new File("testReadAllOggPagesLargeFile.ogg"));
+            File testFile = copyAudioToTmp("testlargeimage.ogg", new File("testReadAllOggPagesLargeFile.ogg"));
             RandomAccessFile raf = new RandomAccessFile(testFile, "r");
             OggPageHeader lastPageHeader = null;
             ByteBuffer bb = ByteBuffer.allocate((int)(raf.length()));

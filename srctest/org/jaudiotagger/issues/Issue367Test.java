@@ -23,7 +23,7 @@ public class Issue367Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test93.mp3");
+            File testFile = copyAudioToTmp("test93.mp3");
             long startTime = System.nanoTime();
             AudioFile af = AudioFileIO.read(testFile);
             long endTime = System.nanoTime();

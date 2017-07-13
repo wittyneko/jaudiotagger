@@ -31,7 +31,7 @@ public class Issue411Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+            File testFile = copyAudioToTmp("01.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault().setField(FieldKey.COMPOSER, "fred");
             assertTrue(af.getTag() instanceof ID3v23Tag);
@@ -71,7 +71,7 @@ public class Issue411Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
+            File testFile = copyAudioToTmp("test.flac");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault().setField(FieldKey.COMPOSER, "fred");
             af.commit();
@@ -102,7 +102,7 @@ public class Issue411Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3", new File("issue411TestIssue3.mp3"));
+            File testFile = copyAudioToTmp("01.mp3", new File("issue411TestIssue3.mp3"));
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault().setField(FieldKey.GENRE, "rock");
             af.commit();
@@ -133,7 +133,7 @@ public class Issue411Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+            File testFile = copyAudioToTmp("01.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault().setField(FieldKey.ENGINEER, "fred");
             assertTrue(af.getTag() instanceof ID3v23Tag);
@@ -165,7 +165,7 @@ public class Issue411Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+            File testFile = copyAudioToTmp("01.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault().setField(FieldKey.BARCODE, "BARCODE1");
             assertTrue(af.getTag() instanceof ID3v23Tag);
@@ -205,7 +205,7 @@ public class Issue411Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+            File testFile = copyAudioToTmp("01.mp3");
             AudioFile af = AudioFileIO.read(testFile);
 
             Tag tag = af.getTagOrCreateAndSetDefault();

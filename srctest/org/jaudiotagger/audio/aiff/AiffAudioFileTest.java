@@ -28,7 +28,7 @@ public class AiffAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test119.aif");
+        File testFile = copyAudioToTmp("test119.aif");
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -72,7 +72,7 @@ public class AiffAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test120.aif");
+        File testFile = copyAudioToTmp("test120.aif");
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -117,7 +117,7 @@ public class AiffAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test121.aif");
+        File testFile = copyAudioToTmp("test121.aif");
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -162,7 +162,7 @@ public class AiffAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test132.aif");
+        File testFile = copyAudioToTmp("test132.aif");
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -206,7 +206,7 @@ public class AiffAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test133.aif");
+        File testFile = copyAudioToTmp("test133.aif");
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -250,7 +250,7 @@ public class AiffAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test134.aif");
+        File testFile = copyAudioToTmp("test134.aif");
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -292,7 +292,7 @@ public class AiffAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test135.aif");
+        File testFile = copyAudioToTmp("test135.aif");
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -336,7 +336,7 @@ public class AiffAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test136.aif");
+        File testFile = copyAudioToTmp("test136.aif");
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -379,7 +379,7 @@ public class AiffAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test137.aif");
+        File testFile = copyAudioToTmp("test137.aif");
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -423,7 +423,7 @@ public class AiffAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test138.aiff");
+        File testFile = copyAudioToTmp("test138.aiff");
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class FrameTOPETest extends AbstractTestCase {
     @Test
     public void testSavingV24ToV23() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue122.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue122.id3", "testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
         ID3v24Tag v24Tag = (ID3v24Tag) mp3File.getID3v2Tag();
 

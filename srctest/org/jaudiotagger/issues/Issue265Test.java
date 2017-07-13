@@ -35,7 +35,7 @@ public class Issue265Test extends AbstractTestCase {
         try {
             TagOptionSingleton.getInstance().setTruncateTextWithoutErrors(false);
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test7.wma");
+            File testFile = copyAudioToTmp("test7.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(0, tag.getFields(FieldKey.COVER_ART).size());
@@ -70,7 +70,7 @@ public class Issue265Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test7.wma");
+            File testFile = copyAudioToTmp("test7.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(0, tag.getFields(FieldKey.COVER_ART).size());
@@ -106,7 +106,7 @@ public class Issue265Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test7.wma");
+            File testFile = copyAudioToTmp("test7.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -139,7 +139,7 @@ public class Issue265Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test7.wma");
+            File testFile = copyAudioToTmp("test7.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 

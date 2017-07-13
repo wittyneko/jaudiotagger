@@ -24,10 +24,9 @@ public class AudioFileWriteAsTest extends AbstractTestCase {
 
     @Before
     public void setUp() throws Exception {
-        super.setUp();
         File orig = new File("testdata", "01.mp3");
         try {
-            sourceFile = AbstractTestCase.copyAudioToTmp(orig.getName());
+            sourceFile = copyAudioToTmp(orig.getName());
             af = AudioFileIO.read(sourceFile);
         } catch (Throwable e) {
             throw new RuntimeException("Can't setUp test.", e);

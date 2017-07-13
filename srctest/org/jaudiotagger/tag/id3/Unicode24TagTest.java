@@ -57,7 +57,7 @@ public class Unicode24TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateISO8859EncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testISO8859.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testISO8859.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
@@ -98,7 +98,7 @@ public class Unicode24TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF16BOMLEEncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf16bomle.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf16bomle.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
@@ -141,7 +141,7 @@ public class Unicode24TagTest extends AbstractTestCase {
     @Test
     public void testCreateUTF16BOMBEEncodedSizeTerminatedString() throws Exception {
         TagOptionSingleton.getInstance().setEncodeUTF16BomAsLittleEndian(false);
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf16bombe.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf16bombe.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
@@ -184,7 +184,7 @@ public class Unicode24TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF16BOMLEAutoEncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf16-2.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf16-2.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
@@ -225,7 +225,7 @@ public class Unicode24TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF8AutoEncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf8.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf8.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
@@ -268,7 +268,7 @@ public class Unicode24TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF16BEEncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf16be.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf16be.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
@@ -309,7 +309,7 @@ public class Unicode24TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF8EncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf8enc.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf8enc.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
@@ -345,7 +345,7 @@ public class Unicode24TagTest extends AbstractTestCase {
 
     @Test
     public void testv24TagsWithUTF8EncodingMaintainedOnSave() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("issue109-2.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("issue109-2.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -375,7 +375,7 @@ public class Unicode24TagTest extends AbstractTestCase {
 
     @Test
     public void testv24TagsWithUTF8OverriddenByDefaultOnSave() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("issue109-2.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("issue109-2.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -409,7 +409,7 @@ public class Unicode24TagTest extends AbstractTestCase {
 
     @Test
     public void testv24TagsWithUTF8OverriddenByDefaultsOnSave() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("issue109-2.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("issue109-2.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);

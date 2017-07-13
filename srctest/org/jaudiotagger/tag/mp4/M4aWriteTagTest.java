@@ -51,7 +51,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testWriteFileSameSize.m4a"));
+            File testFile = copyAudioToTmp("test.m4a", new File("testWriteFileSameSize.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -193,7 +193,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testWriteFileSmallerSize.m4a"));
+            File testFile = copyAudioToTmp("test.m4a", new File("testWriteFileSmallerSize.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -330,7 +330,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testWriteFileLargerSize.m4a"));
+            File testFile = copyAudioToTmp("test.m4a", new File("testWriteFileLargerSize.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -468,7 +468,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testWriteFileAlot.m4a"));
+            File testFile = copyAudioToTmp("test.m4a", new File("testWriteFileAlot.m4a"));
 
             //Starting filesize
             assertEquals(TEST_FILE1_SIZE, testFile.length());
@@ -617,7 +617,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testWriteFileMuchLargerSize.m4a"));
+            File testFile = copyAudioToTmp("test.m4a", new File("testWriteFileMuchLargerSize.m4a"));
 
             //Starting filesize
             assertEquals(TEST_FILE1_SIZE, testFile.length());
@@ -767,7 +767,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testDeleteMeta.m4a"));
+            File testFile = copyAudioToTmp("test.m4a", new File("testDeleteMeta.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             AudioFileIO.delete(f);
 
@@ -793,7 +793,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.m4a", new File("testDeleteMeta2.m4a"));
+            File testFile = copyAudioToTmp("test3.m4a", new File("testDeleteMeta2.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             AudioFileIO.delete(f);
 
@@ -819,7 +819,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.m4a", new File("testWriteFileSameSizeNoMetaFree.m4a"));
+            File testFile = copyAudioToTmp("test3.m4a", new File("testWriteFileSameSizeNoMetaFree.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -956,7 +956,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.m4a", new File("testWriteFileSmallerSizeNoMetaFreeMoreThanEight.m4a"));
+            File testFile = copyAudioToTmp("test3.m4a", new File("testWriteFileSmallerSizeNoMetaFreeMoreThanEight.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -1094,7 +1094,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.m4a", new File("testWriteFileLessThanEight2.m4a"));
+            File testFile = copyAudioToTmp("test3.m4a", new File("testWriteFileLessThanEight2.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -1230,7 +1230,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test8.m4a", new File("testWriteFileLessThanEight3.m4a"));
+            File testFile = copyAudioToTmp("test8.m4a", new File("testWriteFileLessThanEight3.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -1366,7 +1366,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test8.m4a", new File("testWriteFileNoFreeAtom2.m4a"));
+            File testFile = copyAudioToTmp("test8.m4a", new File("testWriteFileNoFreeAtom2.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -1494,7 +1494,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.m4a", new File("testWriteFileLargerSizeNoMetaFree.m4a"));
+            File testFile = copyAudioToTmp("test3.m4a", new File("testWriteFileLargerSizeNoMetaFree.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -1629,7 +1629,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         try
         {
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test4.m4a", new File("testWriteNewMetadata.m4a"));
+            File testFile = copyAudioToTmp("test4.m4a", new File("testWriteNewMetadata.m4a"));
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
@@ -1711,7 +1711,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test6.m4a", new File("testWriteNoTopFree.m4a"));
+            File testFile = copyAudioToTmp("test6.m4a", new File("testWriteNoTopFree.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -1755,7 +1755,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.m4a", new File("testWriteFileEqualToFreeSpace.m4a"));
+            File testFile = copyAudioToTmp("test3.m4a", new File("testWriteFileEqualToFreeSpace.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -1885,7 +1885,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test5.m4a", new File("testWriteAllFields.m4a"));
+            File testFile = copyAudioToTmp("test5.m4a", new File("testWriteAllFields.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -2020,7 +2020,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test5.m4a", new File("testWriteGenres.m4a"));
+            File testFile = copyAudioToTmp("test5.m4a", new File("testWriteGenres.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Mp4Tag tag = (Mp4Tag) f.getTag();
 
@@ -2095,7 +2095,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test5.m4a", new File("testWriteGenres.m4a"));
+            File testFile = copyAudioToTmp("test5.m4a", new File("testWriteGenres.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Mp4Tag tag = (Mp4Tag) f.getTag();
 
@@ -2141,7 +2141,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test5.m4a", new File("testWriteGenres.m4a"));
+            File testFile = copyAudioToTmp("test5.m4a", new File("testWriteGenres.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Mp4Tag tag = (Mp4Tag) f.getTag();
 
@@ -2178,7 +2178,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test5.m4a", new File("testWriteGenres.m4a"));
+            File testFile = copyAudioToTmp("test5.m4a", new File("testWriteGenres.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Mp4Tag tag = (Mp4Tag) f.getTag();
 
@@ -2212,7 +2212,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test5.m4a", new File("testWriteCustomGenres.m4a"));
+            File testFile = copyAudioToTmp("test5.m4a", new File("testWriteCustomGenres.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Mp4Tag tag = (Mp4Tag) f.getTag();
 
@@ -2250,7 +2250,7 @@ public class M4aWriteTagTest extends AbstractTestCase
             {
                 return;
             }
-            File testFile = AbstractTestCase.copyAudioToTmp("unable_to_write.m4p");
+            File testFile = copyAudioToTmp("unable_to_write.m4p");
 
 
             AudioFile f = AudioFileIO.read(testFile);
@@ -2277,7 +2277,7 @@ public class M4aWriteTagTest extends AbstractTestCase
             {
                 return;
             }
-            File testFile = AbstractTestCase.copyAudioToTmp("unable_to_write.m4p");
+            File testFile = copyAudioToTmp("unable_to_write.m4p");
 
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
@@ -2307,7 +2307,7 @@ public class M4aWriteTagTest extends AbstractTestCase
             {
                 return;
             }
-            File testFile = AbstractTestCase.copyAudioToTmp("unable_to_write.m4p");
+            File testFile = copyAudioToTmp("unable_to_write.m4p");
 
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
@@ -2342,7 +2342,7 @@ public class M4aWriteTagTest extends AbstractTestCase
             {
                 return;
             }
-            File testFile = AbstractTestCase.copyAudioToTmp("unable_to_write.m4p");
+            File testFile = copyAudioToTmp("unable_to_write.m4p");
 
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
@@ -2381,7 +2381,7 @@ public class M4aWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test27.m4a", new File("rvdnswithoutdata.m4a"));
+            File testFile = copyAudioToTmp("test27.m4a", new File("rvdnswithoutdata.m4a"));
 
             AudioFile f = AudioFileIO.read(testFile);
             Mp4Tag tag = (Mp4Tag) f.getTag();
@@ -2419,7 +2419,7 @@ public class M4aWriteTagTest extends AbstractTestCase
     @Test
     public void testWriteMultipleFields() throws Exception
     {
-        File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testWriteMultiple.m4a"));
+        File testFile = copyAudioToTmp("test.m4a", new File("testWriteMultiple.m4a"));
         AudioFile f = AudioFileIO.read(testFile);
         List<TagField> tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
         assertEquals(tagFields.size(),1);
@@ -2434,7 +2434,7 @@ public class M4aWriteTagTest extends AbstractTestCase
     @Test
     public void testDeleteFields() throws Exception
     {
-        File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testDeleteFields.m4a"));
+        File testFile = copyAudioToTmp("test.m4a", new File("testDeleteFields.m4a"));
 
         //Delete using generic key
         AudioFile f = AudioFileIO.read(testFile);

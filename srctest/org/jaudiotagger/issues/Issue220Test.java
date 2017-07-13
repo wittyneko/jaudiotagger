@@ -34,7 +34,7 @@ public class Issue220Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test41.m4a");
+            testFile = copyAudioToTmp("test41.m4a");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -62,7 +62,7 @@ public class Issue220Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test41.m4a");
+            testFile = copyAudioToTmp("test41.m4a");
 
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
@@ -115,7 +115,7 @@ public class Issue220Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test42.m4a");
+            testFile = copyAudioToTmp("test42.m4a");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -146,7 +146,7 @@ public class Issue220Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test42.m4a");
+            testFile = copyAudioToTmp("test42.m4a");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -185,7 +185,7 @@ public class Issue220Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test44.m4a");
+            testFile = copyAudioToTmp("test44.m4a");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -221,7 +221,7 @@ public class Issue220Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test44.m4a");
+            testFile = copyAudioToTmp("test44.m4a");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);

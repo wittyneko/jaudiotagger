@@ -26,7 +26,7 @@ public class Issue184Test extends AbstractTestCase {
 
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test509.wma");
+            File testFile = copyAudioToTmp("test509.wma");
             AudioFileIO.read(testFile);
         } catch (Exception e) {
             e.printStackTrace();

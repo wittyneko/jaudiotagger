@@ -33,12 +33,12 @@ public class LoggingTest extends AbstractTestCase
         XPath path = xpf.newXPath();
         XPathExpression xpath1 = path.compile("/file/tag/body/frame/@id");
 
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue92.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue92.id3", "testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
         System.out.println(mp3File.displayStructureAsXML());
         assertEquals("TALB", xpath1.evaluate(new InputSource(new StringReader(mp3File.displayStructureAsXML()))));
 
-        File testFile2 = AbstractTestCase.copyAudioToTmp("Issue96-1.id3", "testV1.mp3");
+        File testFile2 = copyAudioToTmp("Issue96-1.id3", "testV1.mp3");
         MP3File mp3File2 = new MP3File(testFile2);
         System.out.println(mp3File2.displayStructureAsXML());
         Document d2 = DocumentBuilderFactory.newInstance()

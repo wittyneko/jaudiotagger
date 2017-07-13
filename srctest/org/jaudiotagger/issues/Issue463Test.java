@@ -30,7 +30,7 @@ public class Issue463Test extends AbstractTestCase {
             }
 
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test116.m4a");
+            File testFile = copyAudioToTmp("test116.m4a");
             RandomAccessFile raf = new RandomAccessFile(testFile, "r");
             Mp4AtomTree tree = new Mp4AtomTree(new FileDataSource(raf), false);
             tree.printAtomTree();

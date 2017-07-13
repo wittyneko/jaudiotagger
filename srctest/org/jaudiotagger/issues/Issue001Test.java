@@ -22,7 +22,7 @@ public class Issue001Test extends AbstractTestCase {
     public void testHandlingOfUnmappedChars() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1001.mp3"));
+            File testFile = copyAudioToTmp("testV1.mp3", new File("test1001.mp3"));
             MP3File mp3File = new MP3File(testFile);
 
             //Create and Save
@@ -47,7 +47,7 @@ public class Issue001Test extends AbstractTestCase {
     public void testHandlingOfUnmappedChars2() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1001.mp3"));
+            File testFile = copyAudioToTmp("testV1.mp3", new File("test1001.mp3"));
             MP3File mp3File = new MP3File(testFile);
 
             //Create and Save

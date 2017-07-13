@@ -27,7 +27,7 @@ public class Issue028Test extends AbstractTestCase {
 
 
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test97.mp3");
+        File testFile = copyAudioToTmp("test97.mp3");
         MP3AudioHeader mp3AudioHeader = null;
         try {
             mp3AudioHeader = new MP3File(testFile).getMP3AudioHeader();

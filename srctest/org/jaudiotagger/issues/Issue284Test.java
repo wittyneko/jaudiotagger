@@ -33,7 +33,7 @@ public class Issue284Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            testFile = copyAudioToTmp("testV1.mp3");
             MP3File af = (MP3File) AudioFileIO.read(testFile);
 
             ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_INVOLVED_PEOPLE);
@@ -61,7 +61,7 @@ public class Issue284Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            testFile = copyAudioToTmp("testV1.mp3");
             MP3File af = (MP3File) AudioFileIO.read(testFile);
 
             ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_INVOLVED_PEOPLE);
@@ -89,7 +89,7 @@ public class Issue284Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            testFile = copyAudioToTmp("testV1.mp3");
             MP3File af = (MP3File) AudioFileIO.read(testFile);
 
             ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_INVOLVED_PEOPLE);
@@ -117,7 +117,7 @@ public class Issue284Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            testFile = copyAudioToTmp("testV1.mp3");
             MP3File af = (MP3File) AudioFileIO.read(testFile);
 
             ID3v22Frame frame = new ID3v22Frame(ID3v22Frames.FRAME_ID_V2_TITLE);
@@ -145,7 +145,7 @@ public class Issue284Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            testFile = copyAudioToTmp("testV1.mp3");
             MP3File af = (MP3File) AudioFileIO.read(testFile);
 
             ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_TITLE);

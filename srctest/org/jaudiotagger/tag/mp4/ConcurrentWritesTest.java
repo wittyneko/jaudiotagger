@@ -29,7 +29,7 @@ public class ConcurrentWritesTest extends AbstractTestCase
     {
         for (int counter = 0; counter < THREADS; counter++)
         {
-            files[counter] = AbstractTestCase.copyAudioToTmp("test5.m4a",
+            files[counter] = copyAudioToTmp("test5.m4a",
                     new File(ConcurrentWritesTest.class.getSimpleName() + "-" + counter + ".mp4"));
         }
     }

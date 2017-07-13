@@ -32,7 +32,7 @@ public class Issue178Test extends AbstractTestCase {
         Date startDate = new Date();
         System.out.println("start:" + startDate);
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test36.ogg");
+            testFile = copyAudioToTmp("test36.ogg");
 
             //Read File
             AudioFile af = AudioFileIO.read(testFile);

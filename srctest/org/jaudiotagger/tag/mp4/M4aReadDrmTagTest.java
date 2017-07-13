@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 /**
  */
-public class M4aReadDrmTagTest
+public class M4aReadDrmTagTest extends AbstractTestCase
 {
     /**
      * Test to read all metadata from an Apple iTunes encoded mp4 file, note also uses fixed genre rather than
@@ -35,7 +35,7 @@ public class M4aReadDrmTagTest
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test9.m4p");
+            File testFile = copyAudioToTmp("test9.m4p");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 

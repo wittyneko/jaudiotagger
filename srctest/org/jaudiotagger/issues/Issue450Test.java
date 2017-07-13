@@ -25,7 +25,7 @@ public class Issue450Test extends AbstractTestCase {
             System.err.println("Unable to test file - not available");
             return;
         }
-        File testFile = AbstractTestCase.copyAudioToTmp("test108.mp3");
+        File testFile = copyAudioToTmp("test108.mp3");
         MP3File mp3file = (MP3File) AudioFileIO.read(testFile);
         AbstractID3v2Frame frame = (AbstractID3v2Frame) mp3file.getID3v2TagAsv24().getFrame(ID3v24Frames.FRAME_ID_URL_ARTIST_WEB);
         assertNotNull(frame);

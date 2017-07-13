@@ -31,7 +31,7 @@ public class Issue225Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test30.m4a");
+            File testFile = copyAudioToTmp("test30.m4a");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             genre = tag.getFirst(FieldKey.GENRE);

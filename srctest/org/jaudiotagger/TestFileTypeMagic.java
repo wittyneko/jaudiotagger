@@ -11,9 +11,10 @@ import java.io.File;
  * Simple class that will attempt to recusively read all files within a
  * directory, flags errors that occur.
  */
-public class TestFileTypeMagic {
+public class TestFileTypeMagic extends AbstractTestCase {
 
-	public static void testMagic() throws Exception
+    @org.junit.Test
+	public void testMagic() throws Exception
     {
 
         File testFileLoc = new File("testdata", "test.m4a");
@@ -23,7 +24,7 @@ public class TestFileTypeMagic {
             return;
         }
 
-        testFileLoc = AbstractTestCase.copyAudioToTmp("test.m4a");
+        testFileLoc = copyAudioToTmp("test.m4a");
         AudioFile f =  AudioFileIO.readMagic(testFileLoc);
         Tag audioTag = f.getTag();
         System.err.println("audiotag:"+ audioTag.toString());

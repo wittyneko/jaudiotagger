@@ -37,7 +37,7 @@ public class Issue224Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test31.mp3");
+            File testFile = copyAudioToTmp("test31.mp3");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(11, tag.getFieldCount());

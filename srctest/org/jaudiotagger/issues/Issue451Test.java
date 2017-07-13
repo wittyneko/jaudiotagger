@@ -26,7 +26,7 @@ public class Issue451Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test109.m4a");
+        File testFile = copyAudioToTmp("test109.m4a");
         try {
             //Now just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));

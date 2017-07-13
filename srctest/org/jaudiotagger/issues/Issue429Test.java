@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 public class Issue429Test extends AbstractTestCase {
     @Test
     public void testDefaultCreationv23() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
+        File testFile = copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
         tag.setField(FieldKey.ARTIST, "fred");
@@ -35,7 +35,7 @@ public class Issue429Test extends AbstractTestCase {
 
     @Test
     public void testDefaultCreationv24() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
+        File testFile = copyAudioToTmp("testV25.mp3");
         TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V24);
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
@@ -48,7 +48,7 @@ public class Issue429Test extends AbstractTestCase {
 
     @Test
     public void testDefaultCreationv22() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
+        File testFile = copyAudioToTmp("testV25.mp3");
         TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V22);
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
@@ -61,7 +61,7 @@ public class Issue429Test extends AbstractTestCase {
 
     @Test
     public void testDefaultConvertv23tov24() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
+        File testFile = copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V23);
         Tag tag = f.getTagOrCreateAndSetDefault();
@@ -78,7 +78,7 @@ public class Issue429Test extends AbstractTestCase {
 
     @Test
     public void testDefaultConvertv24tov23() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
+        File testFile = copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V24);
         Tag tag = f.getTagOrCreateAndSetDefault();

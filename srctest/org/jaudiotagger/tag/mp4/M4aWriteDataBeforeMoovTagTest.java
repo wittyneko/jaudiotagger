@@ -29,7 +29,7 @@ public class M4aWriteDataBeforeMoovTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart1.m4a"));
+            File testFile = copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart1.m4a"));
 
             //First lets just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
@@ -73,7 +73,7 @@ public class M4aWriteDataBeforeMoovTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart2.m4a"));
+            File testFile = copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart2.m4a"));
 
             //First lets just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
@@ -121,7 +121,7 @@ public class M4aWriteDataBeforeMoovTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart3.m4a"));
+            File testFile = copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart3.m4a"));
 
             //First lets just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
@@ -167,7 +167,7 @@ public class M4aWriteDataBeforeMoovTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart8.m4a"));
+            File testFile = copyAudioToTmp("test15.m4a", new File("testWriteWhenMDatAtStart8.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //First lets just createField tree
@@ -265,7 +265,7 @@ public class M4aWriteDataBeforeMoovTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test19.m4a", new File("testWriteWhenMDatAtStart9.m4a"));
+            File testFile = copyAudioToTmp("test19.m4a", new File("testWriteWhenMDatAtStart9.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 

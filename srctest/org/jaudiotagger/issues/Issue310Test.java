@@ -31,7 +31,7 @@ public class Issue310Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test85.mp4", new File("test85Test1.mp4"));
+            testFile = copyAudioToTmp("test85.mp4", new File("test85Test1.mp4"));
             AudioFile af = AudioFileIO.read(testFile);
             af.getTag().setField(af.getTag().createField(FieldKey.ARTIST, "Kenny Rankin1"));
             af.commit();
@@ -57,7 +57,7 @@ public class Issue310Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test85.mp4", new File("test85Test2.mp4"));
+            testFile = copyAudioToTmp("test85.mp4", new File("test85Test2.mp4"));
             AudioFile af = AudioFileIO.read(testFile);
 
             af.getTag().deleteField(FieldKey.ENCODER);
@@ -85,7 +85,7 @@ public class Issue310Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test85.mp4", new File("test85Test3.mp4"));
+            testFile = copyAudioToTmp("test85.mp4", new File("test85Test3.mp4"));
             AudioFile af = AudioFileIO.read(testFile);
             af.getTag().setField(ArtworkFactory.createArtworkFromFile(new File("testdata", "coverart.png")));
             af.commit();
@@ -110,7 +110,7 @@ public class Issue310Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test85.mp4");
+            testFile = copyAudioToTmp("test85.mp4");
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
         } catch (Exception e) {

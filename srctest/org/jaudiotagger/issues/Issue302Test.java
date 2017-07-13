@@ -27,7 +27,7 @@ public class Issue302Test extends AbstractTestCase {
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_USER_DEFINED_INFO);
         FrameBodyTXXX fb = FrameBodyTXXXTest.getInitialisedBody();
         frame.setBody(fb);
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save

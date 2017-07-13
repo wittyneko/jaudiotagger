@@ -52,7 +52,7 @@ public class Mp4StemWriteTagTest extends AbstractTestCase {
     @Test
     public void testWriteOneFieldALotLargerSize() throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException, CannotWriteException {
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("test.stem.mp4", new File("testWriteOneFieldALotLarger.stem.mp4"));
+        final File testFile = copyAudioToTmp("test.stem.mp4", new File("testWriteOneFieldALotLarger.stem.mp4"));
 
         final Mp4AtomTree treeBefore = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
         final List<Mp4StcoBox> beforeStcos = treeBefore.getStcos();
@@ -103,7 +103,7 @@ public class Mp4StemWriteTagTest extends AbstractTestCase {
         Exception exceptionCaught = null;
         try
         {
-            final File testFile = AbstractTestCase.copyAudioToTmp("test.stem.mp4", new File("testWriteFileALot.stem.mp4"));
+            final File testFile = copyAudioToTmp("test.stem.mp4", new File("testWriteFileALot.stem.mp4"));
 
             //Starting filesize
             assertEquals(TEST_FILE1_SIZE, testFile.length());

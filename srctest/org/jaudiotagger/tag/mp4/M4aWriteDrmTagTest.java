@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNull;
 /**
  * Write drms files, we can modify the metadata without breaking the drm file itself
  */
-public class M4aWriteDrmTagTest
+public class M4aWriteDrmTagTest extends AbstractTestCase
 {
     /**
      * Example code of how to show stco table
@@ -38,7 +38,7 @@ public class M4aWriteDrmTagTest
                 System.out.println("File Does not Exist");
                 return;
             }
-            File testFile = AbstractTestCase.copyAudioToTmp("test8.m4a", new File("test8ReadStco"));
+            File testFile = copyAudioToTmp("test8.m4a", new File("test8ReadStco"));
 
 
             //Stco ouput
@@ -76,7 +76,7 @@ public class M4aWriteDrmTagTest
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test9.m4p", new File("WriteDrmFile1.m4p"));
+            File testFile = copyAudioToTmp("test9.m4p", new File("WriteDrmFile1.m4p"));
 
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();

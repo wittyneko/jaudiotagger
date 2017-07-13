@@ -29,7 +29,7 @@ public class IssueTrackTotalTest extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("issue400.mp3");
+            File testFile = copyAudioToTmp("issue400.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             MP3File mp3 = (MP3File) af;
             assertNotNull(mp3.getID3v2Tag());

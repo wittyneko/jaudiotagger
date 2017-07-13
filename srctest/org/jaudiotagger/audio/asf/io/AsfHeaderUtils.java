@@ -9,6 +9,7 @@ import org.jaudiotagger.audio.asf.data.MetadataContainer;
 import org.jaudiotagger.audio.asf.util.Utils;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -103,6 +104,7 @@ public final class AsfHeaderUtils
      */
     //TODO we dont know this is correct because need an independent way of checking our figures with an ASF file,
     //the previous calculation appeard incorrect.
+    @Test
     public void testDateHeaderConversion()
     {
         Calendar cal = org.jaudiotagger.audio.asf.util.Utils.getDateOf(BigInteger.valueOf(1964448000));
@@ -113,6 +115,7 @@ public final class AsfHeaderUtils
     /**
      * Test to show the calculation done to derive the DIFF_BETWEEN_ASF_DATE_AND_JAVA_DATE constant
      */
+    @Test
     public void testConversionDateConstant()
     {
         Date date1 = new Date((1601-1900),0,1);

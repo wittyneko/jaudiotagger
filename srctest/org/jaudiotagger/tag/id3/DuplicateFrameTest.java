@@ -23,7 +23,7 @@ public class DuplicateFrameTest extends AbstractTestCase {
             System.err.println("Unable to test file - not available");
             return;
         }
-        File testFile = AbstractTestCase.copyAudioToTmp("test78.mp3");
+        File testFile = copyAudioToTmp("test78.mp3");
 
         MP3File f = (MP3File) AudioFileIO.read(testFile);
         Tag tag = f.getTag();

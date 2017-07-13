@@ -37,7 +37,7 @@ public class UnsynchronizationTest extends AbstractTestCase {
      */
     @Test
     public void testv24TagCreateFrameUnsynced() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue1.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue1.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -98,7 +98,7 @@ public class UnsynchronizationTest extends AbstractTestCase {
      */
     @Test
     public void testv23TagCreateTagUnsynced() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue1.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue1.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -135,7 +135,7 @@ public class UnsynchronizationTest extends AbstractTestCase {
      */
     @Test
     public void testv22TagCreateTagUnsynced() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue1.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue1.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -173,8 +173,8 @@ public class UnsynchronizationTest extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
-            testFile2 = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testV1-nonsynced.mp3"));
+            testFile = copyAudioToTmp("testV1.mp3");
+            testFile2 = copyAudioToTmp("testV1.mp3", new File("testV1-nonsynced.mp3"));
 
             //Save Unsynced
             TagOptionSingleton.getInstance().setUnsyncTags(true);

@@ -32,7 +32,7 @@ public class Issue417Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+            File testFile = copyAudioToTmp("01.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault().setField(FieldKey.URL_OFFICIAL_ARTIST_SITE, "http://test1.html");
             assertTrue(af.getTag() instanceof ID3v23Tag);

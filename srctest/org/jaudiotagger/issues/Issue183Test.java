@@ -25,7 +25,7 @@ public class Issue183Test extends AbstractTestCase {
 
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test508.ogg");
+            File testFile = copyAudioToTmp("test508.ogg");
             AudioFileIO.read(testFile);
         } catch (Exception e) {
             assertTrue(e instanceof CannotReadException);

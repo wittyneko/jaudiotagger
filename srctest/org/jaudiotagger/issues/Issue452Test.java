@@ -22,7 +22,7 @@ public class Issue452Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test110.mp3", new File("testFindAudioHeaderWhenTagSizeIsTooShortAndHasNullPadding.mp3"));
+        File testFile = copyAudioToTmp("test110.mp3", new File("testFindAudioHeaderWhenTagSizeIsTooShortAndHasNullPadding.mp3"));
         MP3File mp3File = new MP3File(testFile);
         System.out.println("AudioHeaderBefore" + mp3File.getMP3AudioHeader());
         System.out.println("AlbumField:" + mp3File.getTag().getFirst(FieldKey.ALBUM));

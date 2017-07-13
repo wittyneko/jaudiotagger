@@ -31,7 +31,7 @@ public class OggVorbisHeaderTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testReadFile.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testReadFile.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //assertEquals("192",f.getAudioHeader().getBitRate());
@@ -69,7 +69,7 @@ public class OggVorbisHeaderTest extends AbstractTestCase
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.ogg", new File("test2.ogg"));
+            File testFile = copyAudioToTmp("test2.ogg", new File("test2.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             f.getTag().setField(FieldKey.ALBUM,"bbbbbbb");
@@ -101,7 +101,7 @@ public class OggVorbisHeaderTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWriteTagToFile.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testWriteTagToFile.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //Size of VorbisComment should increase
@@ -146,7 +146,7 @@ public class OggVorbisHeaderTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("testlargeimage.ogg", new File("testWritePreviouslyLargeFile.ogg"));
+            File testFile = copyAudioToTmp("testlargeimage.ogg", new File("testWritePreviouslyLargeFile.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //Size of VorbisComment should decrease just setting a nonsical but muuch smaller value for image
@@ -200,7 +200,7 @@ public class OggVorbisHeaderTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("testlargeimage.ogg", new File("testLargeWriteFile.ogg"));
+            File testFile = copyAudioToTmp("testlargeimage.ogg", new File("testLargeWriteFile.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //Size of VorbisComment should increase
@@ -246,7 +246,7 @@ public class OggVorbisHeaderTest extends AbstractTestCase
         int count = 0;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("testlargeimage.ogg", new File("testAwkwardSizeWriteFile.ogg"));
+            File testFile = copyAudioToTmp("testlargeimage.ogg", new File("testAwkwardSizeWriteFile.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //Size of VorbisComment should increase and to a level that the setupheader cant fit completely

@@ -33,7 +33,7 @@ public class Issue123Test extends AbstractTestCase {
 
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg");
+            File testFile = copyAudioToTmp("test.ogg");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
             System.out.println(af.getTag());
@@ -131,7 +131,7 @@ public class Issue123Test extends AbstractTestCase {
 
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
+            File testFile = copyAudioToTmp("test.flac");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
             System.out.println(af.getTag());
@@ -228,7 +228,7 @@ public class Issue123Test extends AbstractTestCase {
 
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg");
+            File testFile = copyAudioToTmp("test.ogg");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
             System.out.println(af.getTag());
@@ -310,7 +310,7 @@ public class Issue123Test extends AbstractTestCase {
 
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
+            File testFile = copyAudioToTmp("test.flac");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);

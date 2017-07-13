@@ -15,7 +15,6 @@
  */
 package org.jaudiotagger.tag.id3;
 
-import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.FilePermissionsTest;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -47,7 +46,7 @@ import static org.junit.Assert.assertTrue;
 /**
  *
  */
-public class ID3v23TagTest extends AbstractTestCase {
+public class ID3v23TagTest extends FilePermissionsTest {
 
     /**
      *
@@ -72,7 +71,7 @@ public class ID3v23TagTest extends AbstractTestCase {
     @org.junit.Test
     public void testReadID3v1ID3v23Tag() {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v1v2.mp3");
+        File testFile = copyAudioToTmp("testV1Cbr128ID3v1v2.mp3");
 
         MP3File mp3File = null;
 
@@ -93,7 +92,7 @@ public class ID3v23TagTest extends AbstractTestCase {
     @Test
     public void testReadID3v23Tag() {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v2.mp3");
+        File testFile = copyAudioToTmp("testV1Cbr128ID3v2.mp3");
 
         MP3File mp3File = null;
 
@@ -114,7 +113,7 @@ public class ID3v23TagTest extends AbstractTestCase {
     @Test
     public void testReadPaddedID3v23Tag() {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v2pad.mp3");
+        File testFile = copyAudioToTmp("testV1Cbr128ID3v2pad.mp3");
 
         MP3File mp3File = null;
 
@@ -134,7 +133,7 @@ public class ID3v23TagTest extends AbstractTestCase {
     @Test
     public void testDeleteID3v23Tag() {
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v1v2.mp3");
+        File testFile = copyAudioToTmp("testV1Cbr128ID3v1v2.mp3");
 
         MP3File mp3File = null;
 
@@ -199,7 +198,7 @@ public class ID3v23TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateID3v23FromID3v24knownInV3() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = null;
         mp3File = new MP3File(testFile);
 
@@ -252,7 +251,7 @@ public class ID3v23TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateID3v23FromID3v24UnknownInV3() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = null;
         mp3File = new MP3File(testFile);
 
@@ -346,7 +345,7 @@ public class ID3v23TagTest extends AbstractTestCase {
     @Test
 public void testCreateID3v23FromID3v24UnknownInV3AndV4()throws Exception
     {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = null;
         mp3File = new MP3File(testFile);
 
@@ -395,7 +394,7 @@ public void testCreateID3v23FromID3v24UnknownInV3AndV4()throws Exception
     */
     @Test
     public void testDeleteFields() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
         ID3v23Tag v2Tag = new ID3v23Tag();
         mp3File.setID3v2Tag(v2Tag);
@@ -431,24 +430,24 @@ public void testCreateID3v23FromID3v24UnknownInV3AndV4()throws Exception
     @Test
     public void testWriteWriteProtectedFileWithCheckDisabled() throws Exception {
 
-        FilePermissionsTest.runWriteWriteProtectedFileWithCheckDisabled("testV1Cbr128ID3v2.mp3");
+        runWriteWriteProtectedFileWithCheckDisabled("testV1Cbr128ID3v2.mp3");
     }
 
     @Test
     public void testWriteWriteProtectedFileWithCheckEnabled() throws Exception {
 
-        FilePermissionsTest.runWriteWriteProtectedFileWithCheckEnabled("testV1Cbr128ID3v2.mp3");
+        runWriteWriteProtectedFileWithCheckEnabled("testV1Cbr128ID3v2.mp3");
     }
 
     @Test
     public void testWriteReadOnlyFileWithCheckDisabled() throws Exception {
 
-        FilePermissionsTest.runWriteReadOnlyFileWithCheckDisabled("testV1Cbr128ID3v2.mp3");
+        runWriteReadOnlyFileWithCheckDisabled("testV1Cbr128ID3v2.mp3");
     }
 
     @Test
     public void testWriteMultipleGenresToID3v23TagUsingDefault() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v2.mp3");
+        File testFile = copyAudioToTmp("testV1Cbr128ID3v2.mp3");
         MP3File file = null;
         file = new MP3File(testFile);
         assertNull(file.getID3v1Tag());
@@ -491,7 +490,7 @@ public void testCreateID3v23FromID3v24UnknownInV3AndV4()throws Exception
 
     @Test
     public void testWriteMultipleGenresToID3v23TagUsingCreateField() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File file = null;
         file = new MP3File(testFile);
         assertNull(file.getID3v1Tag());
@@ -543,7 +542,7 @@ public void testCreateID3v23FromID3v24UnknownInV3AndV4()throws Exception
 
     @Test
     public void testWriteMultipleGenresToID3v23TagUsingV23CreateField() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File file = null;
         file = new MP3File(testFile);
         assertNull(file.getID3v1Tag());

@@ -36,8 +36,8 @@ public class Issue294Test extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test70.mp3");
-        File testPix = AbstractTestCase.copyAudioToTmp("test70.jpg");
+        File testFile = copyAudioToTmp("test70.mp3");
+        File testPix = copyAudioToTmp("test70.jpg");
 
 
         File originalFileBackup = null;

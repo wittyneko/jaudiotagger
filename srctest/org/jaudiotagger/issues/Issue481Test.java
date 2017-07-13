@@ -26,7 +26,7 @@ public class Issue481Test extends AbstractTestCase {
 
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test139.mp3");
+            File testFile = copyAudioToTmp("test139.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
             System.out.println(af.getTag());

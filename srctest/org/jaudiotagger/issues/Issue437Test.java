@@ -18,7 +18,7 @@ public class Issue437Test extends AbstractTestCase {
     public void testGetBitsPerSampleFlac() {
         Throwable e = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
+            File testFile = copyAudioToTmp("test.flac");
             AudioFile af = AudioFileIO.read(testFile);
             assertEquals(16, af.getAudioHeader().getBitsPerSample());
         } catch (Exception ex) {
@@ -31,7 +31,7 @@ public class Issue437Test extends AbstractTestCase {
     public void testGetBitsPerSampleMp4() {
         Throwable e = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.m4a");
+            File testFile = copyAudioToTmp("test.m4a");
             AudioFile af = AudioFileIO.read(testFile);
             assertEquals(16, af.getAudioHeader().getBitsPerSample());
         } catch (Exception ex) {
@@ -44,7 +44,7 @@ public class Issue437Test extends AbstractTestCase {
     public void testGetBitsPerSampleOgg() {
         Throwable e = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg");
+            File testFile = copyAudioToTmp("test.ogg");
             AudioFile af = AudioFileIO.read(testFile);
             assertEquals(16, af.getAudioHeader().getBitsPerSample());
         } catch (Exception ex) {
@@ -57,7 +57,7 @@ public class Issue437Test extends AbstractTestCase {
     public void testGetBitsPerSampleWma() {
         Throwable e = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma");
+            File testFile = copyAudioToTmp("test1.wma");
             AudioFile af = AudioFileIO.read(testFile);
             assertEquals(16, af.getAudioHeader().getBitsPerSample());
         } catch (Exception ex) {
@@ -70,7 +70,7 @@ public class Issue437Test extends AbstractTestCase {
     public void testGetBitsPerSampleMp3() {
         Throwable e = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testGetBitsPerSampleMp3.mp3"));
+            File testFile = copyAudioToTmp("testV1.mp3", new File("testGetBitsPerSampleMp3.mp3"));
             AudioFile af = AudioFileIO.read(testFile);
             assertEquals(16, af.getAudioHeader().getBitsPerSample());
         } catch (Exception ex) {

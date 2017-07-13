@@ -36,7 +36,7 @@ public class Issue119Test extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test151.aif", new File("test151MissingByte.aiff"));
+        File testFile = copyAudioToTmp("test151.aif", new File("test151MissingByte.aiff"));
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -71,7 +71,7 @@ public class Issue119Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test153.wav", new File("test153_odd_data_length_info.wav"));
+            File testFile = copyAudioToTmp("test153.wav", new File("test153_odd_data_length_info.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());
@@ -103,7 +103,7 @@ public class Issue119Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test153.wav", new File("test153_odd_data_length_id3.wav"));
+            File testFile = copyAudioToTmp("test153.wav", new File("test153_odd_data_length_id3.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());
@@ -135,7 +135,7 @@ public class Issue119Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test153.wav", new File("test153_odd_data_length_id3_and_info.wav"));
+            File testFile = copyAudioToTmp("test153.wav", new File("test153_odd_data_length_id3_and_info.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             System.out.println(f.getTag());

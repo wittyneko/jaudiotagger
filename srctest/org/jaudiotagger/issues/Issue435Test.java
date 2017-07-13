@@ -30,7 +30,7 @@ public class Issue435Test extends AbstractTestCase {
             FrameBodyTRDA fb = new FrameBodyTRDA((byte) 0, "2008");
             frame.setBody(fb);
 
-            File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
+            File testFile = copyAudioToTmp("testV25.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             TagOptionSingleton.getInstance().setToDefault();
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V23);

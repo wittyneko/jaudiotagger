@@ -35,7 +35,7 @@ public class DsfAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test122.dsf",new File("test122read.dsf"));
+        File testFile = copyAudioToTmp("test122.dsf",new File("test122read.dsf"));
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -76,7 +76,7 @@ public class DsfAudioFileTest extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test122.dsf",new File("test122write.dsf"));
+        File testFile = copyAudioToTmp("test122.dsf",new File("test122write.dsf"));
         try
         {
             AudioFile f = AudioFileIO.read(testFile);
@@ -119,7 +119,7 @@ public class DsfAudioFileTest extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test122.dsf",new File("test122delete.dsf"));
+        File testFile = copyAudioToTmp("test122.dsf",new File("test122delete.dsf"));
         try
         {
             AudioFile f = AudioFileIO.read(testFile);
@@ -154,7 +154,7 @@ public class DsfAudioFileTest extends AbstractTestCase {
         }
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test156.dsf",new File("test156read.dsf"));
+        File testFile = copyAudioToTmp("test156.dsf",new File("test156read.dsf"));
         try {
             AudioFile f = AudioFileIO.read(testFile);
             AudioHeader ah = f.getAudioHeader();
@@ -188,7 +188,7 @@ public class DsfAudioFileTest extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test156.dsf",new File("test156write.dsf"));
+        File testFile = copyAudioToTmp("test156.dsf",new File("test156write.dsf"));
         try
         {
             AudioFile f = AudioFileIO.read(testFile);
@@ -226,7 +226,7 @@ public class DsfAudioFileTest extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test156.dsf",new File("test156delete.dsf"));
+        File testFile = copyAudioToTmp("test156.dsf",new File("test156delete.dsf"));
         try
         {
             AudioFile f = AudioFileIO.read(testFile);
@@ -260,19 +260,19 @@ public class DsfAudioFileTest extends AbstractTestCase {
 
         {
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V24);
-            File testFile = AbstractTestCase.copyAudioToTmp("test122.dsf", new File("test122read.dsf"));
+            File testFile = copyAudioToTmp("test122.dsf", new File("test122read.dsf"));
             assertTrue(AudioFileIO.read(testFile).createDefaultTag() instanceof ID3v24Tag);
         }
 
         {
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V23);
-            File testFile = AbstractTestCase.copyAudioToTmp("test122.dsf", new File("test122read.dsf"));
+            File testFile = copyAudioToTmp("test122.dsf", new File("test122read.dsf"));
             assertTrue(AudioFileIO.read(testFile).createDefaultTag() instanceof ID3v23Tag);
         }
 
         {
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V22);
-            File testFile = AbstractTestCase.copyAudioToTmp("test122.dsf", new File("test122read.dsf"));
+            File testFile = copyAudioToTmp("test122.dsf", new File("test122read.dsf"));
             assertTrue(AudioFileIO.read(testFile).createDefaultTag() instanceof ID3v22Tag);
         }
 

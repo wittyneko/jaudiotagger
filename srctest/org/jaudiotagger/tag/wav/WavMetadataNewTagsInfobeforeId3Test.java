@@ -39,7 +39,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveBothNew.wav"));
+            File testFile = copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveBothNew.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             assertEquals("529", f.getAudioHeader().getBitRate());
@@ -106,7 +106,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test123.wav", new File("test123ModifyMoreMetadataNew.wav"));
+            File testFile = copyAudioToTmp("test123.wav", new File("test123ModifyMoreMetadataNew.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             assertEquals("529", f.getAudioHeader().getBitRate());
@@ -175,7 +175,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveExistingActiveId3New.wav"));
+            File testFile = copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveExistingActiveId3New.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             assertEquals("529", f.getAudioHeader().getBitRate());
@@ -241,7 +241,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveActiveId3New.wav"));
+            File testFile = copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveActiveId3New.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             assertEquals("529", f.getAudioHeader().getBitRate());
@@ -312,7 +312,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test126.wav", new File("test126ModifyMetadataSaveActiveId3New.wav"));
+            File testFile = copyAudioToTmp("test126.wav", new File("test126ModifyMetadataSaveActiveId3New.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             assertEquals("529", f.getAudioHeader().getBitRate());
@@ -392,7 +392,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
         TagOptionSingleton.getInstance().setWavSaveOptions(WavSaveOptions.SAVE_ACTIVE);
         TagOptionSingleton.getInstance().setWavSaveOrder(WavSaveOrder.INFO_THEN_ID3);
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test129.wav", new File("test128OddData.wav"));
+        File testFile = copyAudioToTmp("test129.wav", new File("test128OddData.wav"));
         try {
             AudioFile f = AudioFileIO.read(testFile);
             f.delete();

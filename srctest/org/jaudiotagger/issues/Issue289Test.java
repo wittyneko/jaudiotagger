@@ -28,7 +28,7 @@ public class Issue289Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test58.ogg");
+            testFile = copyAudioToTmp("test58.ogg");
 
             OggFileReader ofr = new OggFileReader();
             //ofr.shortSummarizeOggPageHeaders(testFile);

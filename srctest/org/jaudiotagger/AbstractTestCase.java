@@ -19,7 +19,7 @@ import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.BufferedInputStream;
@@ -36,14 +36,14 @@ import java.util.regex.Pattern;
  */
 public abstract class AbstractTestCase {
 
-    @ClassRule
-    public static TemporaryFolder TEMP_FOLDER = new TemporaryFolder();
+    @Rule
+    public TemporaryFolder tempFilder = new TemporaryFolder();
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         TagOptionSingleton.getInstance().setToDefault();
     }
+
     /**
      * Stores a {@link Pattern} for each {@link ErrorMessage}.<br>
      * Place holders like &quot;{&lt;number&gt;}&quot; will be replaced with
@@ -60,7 +60,7 @@ public abstract class AbstractTestCase {
         }
     }
 
-    private static boolean append(File fromFile1, File fromFile2, File toFile) {
+    private boolean append(File fromFile1, File fromFile2, File toFile) {
         try {
             FileInputStream in = new FileInputStream(fromFile1);
             FileInputStream in2 = new FileInputStream(fromFile2);
@@ -110,7 +110,7 @@ public abstract class AbstractTestCase {
      * @return <code>true</code> if and only if the renaming succeeded;
      *         <code>false</code> otherwise
      */
-    public static boolean copy(File fromFile, File toFile) {
+    public boolean copy(File fromFile, File toFile) {
         try {
             FileInputStream in = new FileInputStream(fromFile);
             FileOutputStream out = new FileOutputStream(toFile);
@@ -146,7 +146,7 @@ public abstract class AbstractTestCase {
      * @param fileName
      * @return
      */
-    public static File copyAudioToTmp(String fileName) {
+    public File copyAudioToTmp(String fileName) {
         File inputFile = new File("testdata", fileName);
         File outputFile = createTmpFile(fileName);
         boolean result = copy(inputFile, outputFile);
@@ -162,7 +162,7 @@ public abstract class AbstractTestCase {
      * @param fileName
      * @return
      */
-    public static File copyAudioToTmp(String fileName, File newFileName) {
+    public File copyAudioToTmp(String fileName, File newFileName) {
         File inputFile = new File("testdata", fileName);
         File outputFile = createTmpFile(newFileName.getName());
         boolean result = copy(inputFile, outputFile);
@@ -177,7 +177,7 @@ public abstract class AbstractTestCase {
      * @param fileName
      * @return
      */
-    public static File copyAudioToTmp(String tagfile, String fileName) {
+    public File copyAudioToTmp(String tagfile, String fileName) {
         File inputTagFile = new File("testtagdata", tagfile);
         File inputFile = new File("testdata", fileName);
         File outputFile = createTmpFile(fileName);
@@ -186,9 +186,9 @@ public abstract class AbstractTestCase {
         return outputFile;
     }
 
-    private static File createTmpFile(final String name) {
+    private File createTmpFile(final String name) {
         try {
-            File tempFolder = TEMP_FOLDER.newFolder();
+            File tempFolder = tempFilder.newFolder();
             File tempFile = new File(tempFolder, name);
             Assert.assertTrue(tempFile.createNewFile());
             return tempFile;

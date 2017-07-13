@@ -21,7 +21,7 @@ public class Issue409Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test111.mp3");
+        File testFile = copyAudioToTmp("test111.mp3");
         MP3File mp3File = new MP3File(testFile);
         System.out.println("AudioHeaderBefore" + mp3File.getMP3AudioHeader());
         assertEquals(44100, mp3File.getMP3AudioHeader().getSampleRateAsNumber());

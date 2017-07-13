@@ -65,7 +65,7 @@ public class Issue286Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test3.ogg");
+            testFile = copyAudioToTmp("test3.ogg");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);

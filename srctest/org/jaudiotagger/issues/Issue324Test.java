@@ -24,7 +24,7 @@ public class Issue324Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test32.mp3");
+        File testFile = copyAudioToTmp("test32.mp3");
         assertEquals(1853744, testFile.length());
         MP3File f = (MP3File) AudioFileIO.read(testFile);
         assertEquals("Iron Maiden", f.getID3v1Tag().getFirst(FieldKey.ARTIST));

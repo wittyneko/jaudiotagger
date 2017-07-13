@@ -37,7 +37,7 @@ public class VorbisReadTagTest extends AbstractTestCase
         try
         {
 //Can summarize file
-            File testFile = AbstractTestCase.copyAudioToTmp("test6.ogg");
+            File testFile = copyAudioToTmp("test6.ogg");
             RandomAccessFile raf = new RandomAccessFile(testFile, "r");
             OggFileReader oggFileReader = new OggFileReader();
             oggFileReader.summarizeOggPageHeaders(testFile);
@@ -68,7 +68,7 @@ public class VorbisReadTagTest extends AbstractTestCase
         try
         {
 //Can summarize file
-            File testFile = AbstractTestCase.copyAudioToTmp("test6.ogg");
+            File testFile = copyAudioToTmp("test6.ogg");
             AudioFileIO.read(testFile);
         }
         catch (Exception e)
@@ -89,7 +89,7 @@ public class VorbisReadTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWithEmptyField.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testWithEmptyField.ogg"));
             AudioFile file = AudioFileIO.read(testFile);
             file.getTag().setField(FieldKey.YEAR,"");
             file.commit();

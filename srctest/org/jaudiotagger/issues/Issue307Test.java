@@ -29,7 +29,7 @@ public class Issue307Test extends AbstractTestCase {
         Exception e = null;
         MP3File mp3File = null;
         try {
-            final File testFile = AbstractTestCase.copyAudioToTmp("test71.mp3");
+            final File testFile = copyAudioToTmp("test71.mp3");
             if (!testFile.isFile()) {
                 System.err.println("Unable to test file - not available");
                 return;

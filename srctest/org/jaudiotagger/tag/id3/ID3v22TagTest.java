@@ -83,7 +83,7 @@ public class ID3v22TagTest extends AbstractTestCase {
     public void testCreateIDv22TagAndSave() {
         Exception exception = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            File testFile = copyAudioToTmp("testV1.mp3");
             MP3File mp3File = new MP3File(testFile);
             ID3v22Tag v2Tag = new ID3v22Tag();
             v2Tag.setField(FieldKey.TITLE, "fred");
@@ -123,7 +123,7 @@ public class ID3v22TagTest extends AbstractTestCase {
 
         Exception exception = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test24.mp3");
+            File testFile = copyAudioToTmp("test24.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             MP3File m = (MP3File) af;
 
@@ -174,7 +174,7 @@ public class ID3v22TagTest extends AbstractTestCase {
 
     @org.junit.Test
     public void testDeleteFields() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
         ID3v22Tag v2Tag = new ID3v22Tag();
         mp3File.setID3v2Tag(v2Tag);
@@ -209,7 +209,7 @@ public class ID3v22TagTest extends AbstractTestCase {
 
     @org.junit.Test
     public void testWriteMultipleGenresToID3v22TagUsingDefault() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File file = null;
         file = new MP3File(testFile);
         assertNull(file.getID3v1Tag());
@@ -253,7 +253,7 @@ public class ID3v22TagTest extends AbstractTestCase {
 
     @org.junit.Test
     public void testWriteMultipleGenresToID3v22TagUsingCreateField() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File file = null;
         file = new MP3File(testFile);
         assertNull(file.getID3v1Tag());
@@ -305,7 +305,7 @@ public class ID3v22TagTest extends AbstractTestCase {
 
     @org.junit.Test
     public void testWriteMultipleGenresToID3v22TagUsingV22CreateField() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File file = null;
         file = new MP3File(testFile);
         assertNull(file.getID3v1Tag());

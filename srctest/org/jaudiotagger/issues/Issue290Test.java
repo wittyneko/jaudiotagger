@@ -27,7 +27,7 @@ public class Issue290Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test59.mp4");
+            testFile = copyAudioToTmp("test59.mp4");
             AudioFile af = AudioFileIO.read(testFile);
             System.out.println("Tag is" + af.getTag().toString());
             af.getTag().setField(af.getTag().createField(FieldKey.ARTIST, "fred"));

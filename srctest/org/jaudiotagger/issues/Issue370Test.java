@@ -21,7 +21,7 @@ public class Issue370Test extends AbstractTestCase {
                 return;
             }
             //ToDO Fix Issue
-            //File testFile = AbstractTestCase.copyAudioToTmp("test96.m4a");
+            //File testFile = copyAudioToTmp("test96.m4a");
             //AudioFile af = AudioFileIO.read(testFile);
         } catch (Exception e) {
             caught = e;

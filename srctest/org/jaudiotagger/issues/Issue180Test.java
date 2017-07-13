@@ -38,7 +38,7 @@ public class Issue180Test extends AbstractTestCase {
         // start with special iTunes 12.6 mode
         options.setId3v2ITunes12_6WorkGroupingMode(true);
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        final File testFile = copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v22Tag v2Tag = new ID3v22Tag();
         v2Tag.setField(FieldKey.GROUPING, "grouping");
@@ -67,7 +67,7 @@ public class Issue180Test extends AbstractTestCase {
         // start with regular mode
         options.setId3v2ITunes12_6WorkGroupingMode(false);
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        final File testFile = copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v22Tag v2Tag = new ID3v22Tag();
         v2Tag.setField(FieldKey.GROUPING, "grouping");
@@ -96,7 +96,7 @@ public class Issue180Test extends AbstractTestCase {
         // start with special iTunes 12.6 mode
         options.setId3v2ITunes12_6WorkGroupingMode(true);
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        final File testFile = copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v23Tag v2Tag = new ID3v23Tag();
         v2Tag.setField(FieldKey.GROUPING, "grouping");
@@ -125,7 +125,7 @@ public class Issue180Test extends AbstractTestCase {
         // start with regular mode
         options.setId3v2ITunes12_6WorkGroupingMode(false);
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        final File testFile = copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v23Tag v2Tag = new ID3v23Tag();
         v2Tag.setField(FieldKey.GROUPING, "grouping");
@@ -154,7 +154,7 @@ public class Issue180Test extends AbstractTestCase {
         // start with special iTunes 12.6 mode
         options.setId3v2ITunes12_6WorkGroupingMode(true);
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        final File testFile = copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v24Tag v2Tag = new ID3v24Tag();
         v2Tag.setField(FieldKey.GROUPING, "grouping");
@@ -183,7 +183,7 @@ public class Issue180Test extends AbstractTestCase {
         // start with regular mode
         options.setId3v2ITunes12_6WorkGroupingMode(false);
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        final File testFile = copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v24Tag v2Tag = new ID3v24Tag();
         v2Tag.setField(FieldKey.GROUPING, "grouping");
@@ -212,7 +212,7 @@ public class Issue180Test extends AbstractTestCase {
         // start with special iTunes 12.6 mode
         options.setId3v2ITunes12_6WorkGroupingMode(true);
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("test119.aif");
+        final File testFile = copyAudioToTmp("test119.aif");
         final AudioFile audioFile = AudioFileIO.read(testFile);
         audioFile.getTag().setField(FieldKey.GROUPING, "grouping");
         audioFile.getTag().setField(FieldKey.WORK, "work");
@@ -241,7 +241,7 @@ public class Issue180Test extends AbstractTestCase {
         options.setId3v2ITunes12_6WorkGroupingMode(false);
 
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("test119.aif");
+        final File testFile = copyAudioToTmp("test119.aif");
         final AudioFile audioFile = AudioFileIO.read(testFile);
         audioFile.getTag().setField(FieldKey.GROUPING, "grouping");
         audioFile.getTag().setField(FieldKey.WORK, "work");
@@ -270,7 +270,7 @@ public class Issue180Test extends AbstractTestCase {
         // start with special iTunes 12.6 mode
         options.setId3v2ITunes12_6WorkGroupingMode(true);
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("test.wav");
+        final File testFile = copyAudioToTmp("test.wav");
         final AudioFile audioFile = AudioFileIO.read(testFile);
         audioFile.getTag().setField(FieldKey.GROUPING, "grouping");
         audioFile.getTag().setField(FieldKey.WORK, "work");
@@ -299,7 +299,7 @@ public class Issue180Test extends AbstractTestCase {
         options.setId3v2ITunes12_6WorkGroupingMode(false);
 
 
-        final File testFile = AbstractTestCase.copyAudioToTmp("test.wav");
+        final File testFile = copyAudioToTmp("test.wav");
         final AudioFile audioFile = AudioFileIO.read(testFile);
         audioFile.getTag().setField(FieldKey.GROUPING, "grouping");
         audioFile.getTag().setField(FieldKey.WORK, "work");

@@ -25,7 +25,7 @@ public class Issue365Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test90.ogg");
+            File testFile = copyAudioToTmp("test90.ogg");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTag().setField(FieldKey.ARTIST, "fred");
             af.commit();

@@ -226,7 +226,7 @@ public class ID3v11TagTest extends AbstractTestCase {
 
     @Test
     public void testSaveID3v11TagToFile() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create v11 Tag

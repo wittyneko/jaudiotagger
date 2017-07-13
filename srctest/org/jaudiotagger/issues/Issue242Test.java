@@ -28,7 +28,7 @@ public class Issue242Test extends AbstractTestCase {
     public void testWriteNewUrlsFilev24() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1030.mp3"));
+            File testFile = copyAudioToTmp("testV1.mp3", new File("test1030.mp3"));
 
             //Add a v24Tag
             AudioFile af = AudioFileIO.read(testFile);
@@ -106,7 +106,7 @@ public class Issue242Test extends AbstractTestCase {
     public void testWriteNewUrlsFilev23() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1031.mp3"));
+            File testFile = copyAudioToTmp("testV1.mp3", new File("test1031.mp3"));
 
             //Add a v24Tag
             AudioFile af = AudioFileIO.read(testFile);
@@ -188,7 +188,7 @@ public class Issue242Test extends AbstractTestCase {
     public void testWriteNewUrlsFilev22() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1032.mp3"));
+            File testFile = copyAudioToTmp("testV1.mp3", new File("test1032.mp3"));
 
             //Add a v24Tag
             AudioFile af = AudioFileIO.read(testFile);

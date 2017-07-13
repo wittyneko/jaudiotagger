@@ -35,7 +35,7 @@ public class Issue255Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test35.m4a");
+            testFile = copyAudioToTmp("test35.m4a");
 
             //Read File
             AudioFile af = AudioFileIO.read(testFile);
@@ -75,7 +75,7 @@ public class Issue255Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test28.m4p", new File("WriteFileWithInvalidFreeAtom.m4p"));
+            File testFile = copyAudioToTmp("test28.m4p", new File("WriteFileWithInvalidFreeAtom.m4p"));
 
             AudioFile f = AudioFileIO.read(testFile);
         } catch (Exception e) {
@@ -100,7 +100,7 @@ public class Issue255Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test35.m4a");
+            testFile = copyAudioToTmp("test35.m4a");
 
             //Add a v24Tag
             AudioFile af = AudioFileIO.read(testFile);

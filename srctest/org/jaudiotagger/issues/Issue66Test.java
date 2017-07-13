@@ -30,7 +30,7 @@ public class Issue66Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test118.m4a");
+            File testFile = copyAudioToTmp("test118.m4a");
             AudioFile af = AudioFileIO.read(testFile);
             assertEquals(af.getTag().getFirst(FieldKey.ARTIST), "Shahmen");
 

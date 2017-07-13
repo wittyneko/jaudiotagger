@@ -47,7 +47,7 @@ public class Unicode23TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateISO8859EncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ARTIST);
@@ -88,7 +88,7 @@ public class Unicode23TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF16BOMLEEncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testv23utf16bomle.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testv23utf16bomle.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ARTIST);
@@ -131,7 +131,7 @@ public class Unicode23TagTest extends AbstractTestCase {
     @Test
     public void testCreateUTF16BOMBEEncodedSizeTerminatedString() throws Exception {
         TagOptionSingleton.getInstance().setEncodeUTF16BomAsLittleEndian(false);
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testv23utf16bombe.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testv23utf16bombe.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ARTIST);
@@ -174,7 +174,7 @@ public class Unicode23TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF16AutoEncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testv23utf16bomberequired.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testv23utf16bomberequired.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ARTIST);
@@ -214,7 +214,7 @@ public class Unicode23TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF16BEEncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ARTIST);
@@ -255,7 +255,7 @@ public class Unicode23TagTest extends AbstractTestCase {
      */
     @Test
     public void testCreateUTF8EncodedSizeTerminatedString() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ARTIST);
@@ -292,7 +292,7 @@ public class Unicode23TagTest extends AbstractTestCase {
 
     @Test
     public void testFixv23TagsWithInvalidEncoding() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue109.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue109.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -322,7 +322,7 @@ public class Unicode23TagTest extends AbstractTestCase {
 
     @Test
     public void testFixv23TagsWithInvalidEncodingAndDefaultOverridden() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue109.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue109.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -364,7 +364,7 @@ public class Unicode23TagTest extends AbstractTestCase {
         //So will default to default on save (default is ISO8859) has to be done before the frame is created
         TagOptionSingleton.getInstance().setId3v23DefaultTextEncoding(TextEncoding.UTF_16);
 
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testv23utf16bomleoption.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testv23utf16bomleoption.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ARTIST);
@@ -427,7 +427,7 @@ public class Unicode23TagTest extends AbstractTestCase {
     @Test
     public void testCreateUTF16AndResetEvenIfNotNeededIfDefaultSetEncodedSizeTerminatedString() throws Exception {
 
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ARTIST);
@@ -495,7 +495,7 @@ public class Unicode23TagTest extends AbstractTestCase {
     @Test
     public void testCreateUTF16AndResetEvenIfNotNeededIfDefaultSetEncodedSizeTerminatedStringUnsnced() throws Exception {
 
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ARTIST);
@@ -571,7 +571,7 @@ public class Unicode23TagTest extends AbstractTestCase {
         //So will default to default on save (default is ISO8859)
         TagOptionSingleton.getInstance().setId3v23DefaultTextEncoding(TextEncoding.UTF_16);
 
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ARTIST);

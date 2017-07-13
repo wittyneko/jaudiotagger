@@ -35,7 +35,7 @@ public class Issue100Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            File testFile = copyAudioToTmp("testV1.mp3");
 
 
             //Create tag
@@ -80,7 +80,7 @@ public class Issue100Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            File testFile = copyAudioToTmp("testV1.mp3");
 
 
             //Create tag
@@ -125,7 +125,7 @@ public class Issue100Test extends AbstractTestCase {
 
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            File testFile = copyAudioToTmp("testV1.mp3");
 
 
             //Create tag

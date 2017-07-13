@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class EmptyFrameTest extends AbstractTestCase {
     @Test
     public void testWriteID3v23TagWithEmptyFrameFirst() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v2.mp3");
+        File testFile = copyAudioToTmp("testV1Cbr128ID3v2.mp3");
 
         MP3File mp3File = null;
         mp3File = new MP3File(testFile);
@@ -44,7 +44,7 @@ public class EmptyFrameTest extends AbstractTestCase {
 
     @Test
     public void testWriteID3v24TagWithEmptyFrameFirst() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v2.mp3");
+        File testFile = copyAudioToTmp("testV1Cbr128ID3v2.mp3");
 
         MP3File mp3File = null;
         mp3File = new MP3File(testFile);
@@ -76,7 +76,7 @@ public class EmptyFrameTest extends AbstractTestCase {
 
     @Test
     public void testWriteID3v22TagWithEmptyFrameFirst() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v2.mp3");
+        File testFile = copyAudioToTmp("testV1Cbr128ID3v2.mp3");
 
         MP3File mp3File = null;
         mp3File = new MP3File(testFile);

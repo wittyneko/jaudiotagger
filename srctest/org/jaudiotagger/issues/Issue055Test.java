@@ -27,7 +27,7 @@ public class Issue055Test extends AbstractTestCase {
     public void testId3v23GenreWritingDefault() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3", new File("issue55.mp3"));
+            File testFile = copyAudioToTmp("01.mp3", new File("issue55.mp3"));
             MP3File mp3File = new MP3File(testFile);
             TagOptionSingleton.getInstance().setWriteMp3GenresAsText(false);
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V23);
@@ -55,7 +55,7 @@ public class Issue055Test extends AbstractTestCase {
     public void testId3v23GenreWritingDefaultcaseInsensitive() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3", new File("issue55.mp3"));
+            File testFile = copyAudioToTmp("01.mp3", new File("issue55.mp3"));
             MP3File mp3File = new MP3File(testFile);
             TagOptionSingleton.getInstance().setWriteMp3GenresAsText(false);
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V23);
@@ -83,7 +83,7 @@ public class Issue055Test extends AbstractTestCase {
     public void testId3v23GenreWritingTextAlways() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3", new File("issue55.mp3"));
+            File testFile = copyAudioToTmp("01.mp3", new File("issue55.mp3"));
             MP3File mp3File = new MP3File(testFile);
             TagOptionSingleton.getInstance().setWriteMp3GenresAsText(true);
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V23);
@@ -111,7 +111,7 @@ public class Issue055Test extends AbstractTestCase {
     public void testId3v24GenreWritingDefault() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3", new File("issue55.mp3"));
+            File testFile = copyAudioToTmp("01.mp3", new File("issue55.mp3"));
             MP3File mp3File = new MP3File(testFile);
             TagOptionSingleton.getInstance().setWriteMp3GenresAsText(false);
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V24);
@@ -139,7 +139,7 @@ public class Issue055Test extends AbstractTestCase {
     public void testId3v24GenreWritingDefaultcaseInsensitive() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3", new File("issue55.mp3"));
+            File testFile = copyAudioToTmp("01.mp3", new File("issue55.mp3"));
             MP3File mp3File = new MP3File(testFile);
             TagOptionSingleton.getInstance().setWriteMp3GenresAsText(false);
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V24);
@@ -167,7 +167,7 @@ public class Issue055Test extends AbstractTestCase {
     public void testId3v24GenreWritingTextAlways() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3", new File("issue55.mp3"));
+            File testFile = copyAudioToTmp("01.mp3", new File("issue55.mp3"));
             MP3File mp3File = new MP3File(testFile);
             TagOptionSingleton.getInstance().setWriteMp3GenresAsText(true);
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V24);

@@ -24,7 +24,7 @@ public class Issue081Test extends AbstractTestCase {
             System.err.println("Unable to test file - not available");
             return;
         }
-        File file = AbstractTestCase.copyAudioToTmp("test142.wav", new File("test142SaveInfo.wav"));
+        File file = copyAudioToTmp("test142.wav", new File("test142SaveInfo.wav"));
 
         AudioFile audioFile = AudioFileIO.read(file);
         System.out.println(audioFile.getAudioHeader());
@@ -40,7 +40,7 @@ public class Issue081Test extends AbstractTestCase {
             System.err.println("Unable to test file - not available");
             return;
         }
-        File file = AbstractTestCase.copyAudioToTmp("test142.wav", new File("test142SaveId3.wav"));
+        File file = copyAudioToTmp("test142.wav", new File("test142SaveId3.wav"));
 
         AudioFile audioFile = AudioFileIO.read(file);
         WavTag tag = (WavTag) audioFile.getTag();
@@ -70,7 +70,7 @@ public class Issue081Test extends AbstractTestCase {
             System.err.println("Unable to test file - not available");
             return;
         }
-        File file = AbstractTestCase.copyAudioToTmp("test142.wav", new File("test142SaveInfo.wav"));
+        File file = copyAudioToTmp("test142.wav", new File("test142SaveInfo.wav"));
 
         AudioFile audioFile = AudioFileIO.read(file);
         WavTag tag = (WavTag) audioFile.getTag();

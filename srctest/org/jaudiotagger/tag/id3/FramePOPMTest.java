@@ -77,7 +77,7 @@ public class FramePOPMTest extends AbstractTestCase {
 
     @Test
     public void testSaveToFile() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -98,7 +98,7 @@ public class FramePOPMTest extends AbstractTestCase {
 
     @Test
     public void testSaveEmptyFrameToFile() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_POPULARIMETER);
@@ -122,7 +122,7 @@ public class FramePOPMTest extends AbstractTestCase {
 
     @Test
     public void testReadFileContainingPOMFrameWithoutCounter() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue72.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue72.id3", "testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
         ID3v23Frame frame = (ID3v23Frame) mp3File.getID3v2Tag().getFrame(ID3v24Frames.FRAME_ID_POPULARIMETER);

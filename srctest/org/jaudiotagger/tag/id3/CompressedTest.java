@@ -25,7 +25,7 @@ public class CompressedTest extends AbstractTestCase {
     public void testv23TagReadCompressedCommentFrame() throws Exception {
         final String COMM_TEXT = "[P-M-S] Teampms [P-M-S]";
 
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue98-1.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue98-1.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -51,7 +51,7 @@ public class CompressedTest extends AbstractTestCase {
     public void testv23TagReadCompressedAPICFrame() throws Exception {
         final int FRAME_SIZE = 3220;
         final String TITLE_TEXT = "Crazy Train";
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue98-2.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue98-2.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -79,7 +79,7 @@ public class CompressedTest extends AbstractTestCase {
      */
     @Test
     public void testv24TagReadCompressedPictureFrame() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue98-3.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue98-3.id3", "testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
         ID3v24Tag v24tag = (ID3v24Tag) mp3File.getID3v2Tag();
 

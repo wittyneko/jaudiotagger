@@ -29,7 +29,7 @@ public class Issue270Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test49.m4a");
+            testFile = copyAudioToTmp("test49.m4a");
 
             //Read FileFails
             AudioFile af = AudioFileIO.read(testFile);

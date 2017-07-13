@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class DeprecatedFrameTest extends AbstractTestCase {
     @Test
     public void testv24TagWithDeprecatedFrameShouldCreateAsDeprecated() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue88.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue88.id3", "testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
 
@@ -30,7 +30,7 @@ public class DeprecatedFrameTest extends AbstractTestCase {
 
     @Test
     public void testConvertTagWithDeprecatedFrameToTagWhereFrameShouldNoLongerBeDeprecated() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue88.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue88.id3", "testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
 
@@ -51,7 +51,7 @@ public class DeprecatedFrameTest extends AbstractTestCase {
 
     @Test
     public void testSavingV24DeprecatedTIMETagToV23() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue122-1.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue122-1.id3", "testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
         ID3v24Tag v24Tag = (ID3v24Tag) mp3File.getID3v2Tag();
         ID3v24Frame v24frame = (ID3v24Frame) v24Tag.getFrame(ID3v23Frames.FRAME_ID_V3_TIME);
@@ -71,7 +71,7 @@ public class DeprecatedFrameTest extends AbstractTestCase {
 
     @Test
     public void testSavingV24DeprecatedEmptyTDATTagToV23() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue122-2.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue122-2.id3", "testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
         ID3v24Tag v24Tag = (ID3v24Tag) mp3File.getID3v2Tag();
         ID3v24Frame v24frame = (ID3v24Frame) v24Tag.getFrame(ID3v23Frames.FRAME_ID_V3_TDAT);

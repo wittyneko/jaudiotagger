@@ -31,7 +31,7 @@ public class Issue446Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test110.mp3");
+        File testFile = copyAudioToTmp("test110.mp3");
         MP3File mp3File = new MP3File(testFile);
         ID3v24Tag v24Tag = mp3File.getID3v2TagAsv24();
 
@@ -60,7 +60,7 @@ public class Issue446Test extends AbstractTestCase {
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test110.mp3");
+        File testFile = copyAudioToTmp("test110.mp3");
         MP3File mp3File = new MP3File(testFile);
         ID3v23Tag v2Tag = (ID3v23Tag) mp3File.getID3v2Tag();
 

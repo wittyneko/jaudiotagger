@@ -26,7 +26,7 @@ public class Issue239Test extends AbstractTestCase {
     public void testDeletingCOMMFrames() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            File testFile = copyAudioToTmp("testV1.mp3");
 
             //Add a v24Tag
             AudioFile af = AudioFileIO.read(testFile);
@@ -76,7 +76,7 @@ public class Issue239Test extends AbstractTestCase {
     public void testDeletingFieldThatUsesCOMMFrames() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            File testFile = copyAudioToTmp("testV1.mp3");
 
             //Add a v24Tag
             AudioFile af = AudioFileIO.read(testFile);
@@ -126,7 +126,7 @@ public class Issue239Test extends AbstractTestCase {
     public void testDeletingFieldThatUsesCOMMFramesDoesntDeleteOtherCOMMFrame() {
         Exception exceptionCaught = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            File testFile = copyAudioToTmp("testV1.mp3");
 
             //Add a v24Tag
             AudioFile af = AudioFileIO.read(testFile);

@@ -34,7 +34,7 @@ public class VorbisImageTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("testsmallimage.ogg");
+            File testFile = copyAudioToTmp("testsmallimage.ogg");
             AudioFile f = AudioFileIO.read(testFile);
             String mimeType = ((VorbisCommentTag) f.getTag()).getFirst(VorbisCommentFieldKey.COVERARTMIME);
             assertEquals("image/jpeg", mimeType);
@@ -62,7 +62,7 @@ public class VorbisImageTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("testlargeimage.ogg");
+            File testFile = copyAudioToTmp("testlargeimage.ogg");
             AudioFile f = AudioFileIO.read(testFile);
             String mimeType = ((VorbisCommentTag) f.getTag()).getFirst(VorbisCommentFieldKey.COVERARTMIME);
             assertEquals("image/jpeg", mimeType);
@@ -88,7 +88,7 @@ public class VorbisImageTest extends AbstractTestCase
     {
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWriteImage1.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testWriteImage1.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
             VorbisCommentTag tag = (VorbisCommentTag) f.getTag();
 
@@ -127,7 +127,7 @@ public class VorbisImageTest extends AbstractTestCase
     {
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWriteImage2.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testWriteImage2.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
             VorbisCommentTag tag = (VorbisCommentTag) f.getTag();
 
@@ -166,7 +166,7 @@ public class VorbisImageTest extends AbstractTestCase
     {
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWriteImage3.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testWriteImage3.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
             VorbisCommentTag tag = (VorbisCommentTag) f.getTag();
 
@@ -212,7 +212,7 @@ public class VorbisImageTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("testnewlineimage.small.ogg");
+            File testFile = copyAudioToTmp("testnewlineimage.small.ogg");
             AudioFile f = AudioFileIO.read(testFile);
             List<Artwork> artwork = ((VorbisCommentTag) f.getTag()).getArtworkList();
             assertEquals(1, artwork.size());

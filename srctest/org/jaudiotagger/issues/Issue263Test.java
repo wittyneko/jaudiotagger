@@ -28,7 +28,7 @@ public class Issue263Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            testFile = copyAudioToTmp("testV1.mp3");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -53,7 +53,7 @@ public class Issue263Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            testFile = copyAudioToTmp("testV1.mp3");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -78,7 +78,7 @@ public class Issue263Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            testFile = copyAudioToTmp("testV1.mp3");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -105,7 +105,7 @@ public class Issue263Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test3.ogg");
+            testFile = copyAudioToTmp("test3.ogg");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -126,7 +126,7 @@ public class Issue263Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test.flac");
+            testFile = copyAudioToTmp("test.flac");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -149,7 +149,7 @@ public class Issue263Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test5.wma");
+            testFile = copyAudioToTmp("test5.wma");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -171,7 +171,7 @@ public class Issue263Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test2.m4a");
+            testFile = copyAudioToTmp("test2.m4a");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -194,7 +194,7 @@ public class Issue263Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test.wav");
+            testFile = copyAudioToTmp("test.wav");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -216,7 +216,7 @@ public class Issue263Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test01.ra");
+            testFile = copyAudioToTmp("test01.ra");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);

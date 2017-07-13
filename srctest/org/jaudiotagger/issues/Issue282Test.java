@@ -28,7 +28,7 @@ public class Issue282Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test1.wma");
+            testFile = copyAudioToTmp("test1.wma");
 
             //Copy up a level coz we need it to be in same folder as working directory so can just specify filename
             File outputFile = new File(testFile.getName());
@@ -66,7 +66,7 @@ public class Issue282Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+            testFile = copyAudioToTmp("testV1.mp3");
 
             //Copy up a level coz we need it to be in same folder as working directory so can just specify filename
             File outputFile = new File(testFile.getName());

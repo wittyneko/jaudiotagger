@@ -25,7 +25,7 @@ public class Issue380Test extends AbstractTestCase {
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test98.m4a");
+            File testFile = copyAudioToTmp("test98.m4a");
             AudioFile af = AudioFileIO.read(testFile);
             assertEquals("", af.getTag().getFirst(FieldKey.TRACK_TOTAL));
         } catch (Exception e) {

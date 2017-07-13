@@ -42,7 +42,7 @@ public class Issue173Test extends AbstractTestCase {
             System.out.println(TagOptionSingleton.getInstance().isWriteMp4GenresAsText());
             AudioFile mp4File = null;
             Mp4Tag tag = null;
-            File testFile = AbstractTestCase.copyAudioToTmp("test.m4a");
+            File testFile = copyAudioToTmp("test.m4a");
             mp4File = AudioFileIO.read(testFile);
             tag = (Mp4Tag) mp4File.getTag();
             //Set valid value
@@ -126,7 +126,7 @@ public class Issue173Test extends AbstractTestCase {
             System.out.println(TagOptionSingleton.getInstance().isWriteMp4GenresAsText());
             AudioFile mp4File = null;
             Mp4Tag tag = null;
-            File testFile = AbstractTestCase.copyAudioToTmp("test.m4a");
+            File testFile = copyAudioToTmp("test.m4a");
             mp4File = AudioFileIO.read(testFile);
             tag = (Mp4Tag) mp4File.getTag();
             //Set valid value
@@ -161,7 +161,7 @@ public class Issue173Test extends AbstractTestCase {
             System.out.println(TagOptionSingleton.getInstance().isWriteMp4GenresAsText());
             AudioFile mp4File = null;
             Mp4Tag tag = null;
-            File testFile = AbstractTestCase.copyAudioToTmp("test.m4a");
+            File testFile = copyAudioToTmp("test.m4a");
             mp4File = AudioFileIO.read(testFile);
             tag = (Mp4Tag) mp4File.getTag();
             //Set valid value
@@ -186,7 +186,7 @@ public class Issue173Test extends AbstractTestCase {
             TagOptionSingleton.getInstance().setWriteMp3GenresAsText(false);
             AudioFile mp3File = null;
             ID3v24Tag tag = null;
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+            File testFile = copyAudioToTmp("01.mp3");
             mp3File = AudioFileIO.read(testFile);
             mp3File.getTagOrCreateAndSetDefault();
             tag = (ID3v24Tag) mp3File.getTag();
@@ -286,7 +286,7 @@ public class Issue173Test extends AbstractTestCase {
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V22);
             AudioFile mp3File = null;
             ID3v22Tag tag = null;
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+            File testFile = copyAudioToTmp("01.mp3");
             mp3File = AudioFileIO.read(testFile);
             mp3File.getTagOrCreateAndSetDefault();
             tag = (ID3v22Tag) mp3File.getTag();
@@ -382,7 +382,7 @@ public class Issue173Test extends AbstractTestCase {
             TagOptionSingleton.getInstance().setWriteMp3GenresAsText(false);
             AudioFile mp3File = null;
             ID3v23Tag tag = null;
-            File testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+            File testFile = copyAudioToTmp("01.mp3");
             mp3File = AudioFileIO.read(testFile);
             mp3File.getTagOrCreateAndSetDefault();
             tag = (ID3v23Tag) mp3File.getTag();

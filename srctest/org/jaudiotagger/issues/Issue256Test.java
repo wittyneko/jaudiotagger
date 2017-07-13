@@ -25,7 +25,7 @@ public class Issue256Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test74.mp3");
+            testFile = copyAudioToTmp("test74.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             Tag tag = af.getTag();
             String value = tag.getFirst(FieldKey.TRACK);

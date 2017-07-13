@@ -32,7 +32,7 @@ public class Issue335Test extends AbstractTestCase {
         }
 
         //TagOptionSingleton.getInstance().setResetTextEncodingForExistingFrames(false);
-        File testFile = AbstractTestCase.copyAudioToTmp("test79.mp3");
+        File testFile = copyAudioToTmp("test79.mp3");
         MP3File f = (MP3File) AudioFileIO.read(testFile);
         assertEquals("Familial", f.getID3v2Tag().getFirst("TALB"));
         AbstractID3v2Frame frame = (AbstractID3v2Frame) f.getID3v2Tag().getFrame("TALB");
@@ -61,7 +61,7 @@ public class Issue335Test extends AbstractTestCase {
         }
 
         //TagOptionSingleton.getInstance().setResetTextEncodingForExistingFrames(false);
-        File testFile = AbstractTestCase.copyAudioToTmp("test79.mp3");
+        File testFile = copyAudioToTmp("test79.mp3");
         MP3File f = (MP3File) AudioFileIO.read(testFile);
         assertEquals("Familial", f.getID3v2Tag().getFirst("TALB"));
         assertEquals(4, f.getID3v2Tag().getMajorVersion());
@@ -97,7 +97,7 @@ public class Issue335Test extends AbstractTestCase {
         }
 
         //TagOptionSingleton.getInstance().setResetTextEncodingForExistingFrames(false);
-        File testFile = AbstractTestCase.copyAudioToTmp("test79.mp3");
+        File testFile = copyAudioToTmp("test79.mp3");
         MP3File f = (MP3File) AudioFileIO.read(testFile);
         assertEquals("Familial", f.getID3v2Tag().getFirst("TALB"));
         assertEquals(4, f.getID3v2Tag().getMajorVersion());

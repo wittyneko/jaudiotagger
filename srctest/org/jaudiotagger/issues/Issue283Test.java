@@ -28,7 +28,7 @@ public class Issue283Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test56.m4b");
+            testFile = copyAudioToTmp("test56.m4b");
             AudioFile af = AudioFileIO.read(testFile);
             System.out.println(af.getTag().toString());
             assertEquals("Aesop", af.getTag().getFirst(FieldKey.ARTIST));
@@ -54,7 +54,7 @@ public class Issue283Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test56.m4b");
+            testFile = copyAudioToTmp("test56.m4b");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTag().setField(FieldKey.ARTIST, "Aesops");
             af.commit();

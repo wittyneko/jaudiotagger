@@ -101,7 +101,7 @@ public class ID3v1TagTest extends AbstractTestCase {
 
     @Test
     public void testSaveID3v1TagToFile() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create v1 Tag
@@ -139,7 +139,7 @@ public class ID3v1TagTest extends AbstractTestCase {
 
     @Test
     public void testSaveID3v1TagToFileUsingTagInterface() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         AudioFile file = AudioFileIO.read(testFile);
 
         //Create v1 Tag

@@ -27,7 +27,7 @@ public class ReadMp4MovementTagsTest extends AbstractTestCase
         Exception ex=null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test161.m4a");
+            File testFile = copyAudioToTmp("test161.m4a");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
             assertEquals("I. Preludium (Pastorale). Allegro moderato",af.getTag().getFirst(FieldKey.MOVEMENT));

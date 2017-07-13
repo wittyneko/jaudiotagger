@@ -20,7 +20,7 @@ public class Issue468Test extends AbstractTestCase {
     public void testReadFlac() throws Exception {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
+            File testFile = copyAudioToTmp("test.flac");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
             FlacTag tag = (FlacTag) af.getTag();

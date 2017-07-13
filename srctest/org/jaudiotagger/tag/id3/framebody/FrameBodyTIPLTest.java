@@ -124,7 +124,7 @@ public class FrameBodyTIPLTest extends AbstractTestCase {
      */
     @Test
     public void testMultiArrangerIDv24() throws Exception {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testWriteArrangerv24.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testWriteArrangerv24.mp3"));
         AudioFile f = AudioFileIO.read(testFile);
         assertNull(f.getTag());
 

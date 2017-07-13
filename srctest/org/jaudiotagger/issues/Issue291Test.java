@@ -30,7 +30,7 @@ public class Issue291Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test83.mp4");
+            testFile = copyAudioToTmp("test83.mp4");
             AudioFile af = AudioFileIO.read(testFile);
             System.out.println("Tag is" + af.getTag().toString());
             af.getTag().setField(af.getTag().createField(FieldKey.ARTIST, "Kenny Rankin1"));
@@ -58,7 +58,7 @@ public class Issue291Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("test83.mp4");
+            testFile = copyAudioToTmp("test83.mp4");
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
         } catch (Exception e) {

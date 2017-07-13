@@ -30,7 +30,7 @@ public class Issue258Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+            testFile = copyAudioToTmp("01.mp3");
 
             //Read File, and write tag cause padding to be adjusted and temp file created
             AudioFile af = AudioFileIO.read(testFile);
@@ -60,7 +60,7 @@ public class Issue258Test extends AbstractTestCase {
         File testFile = null;
         Exception exceptionCaught = null;
         try {
-            testFile = AbstractTestCase.copyAudioToTmp("01.m4a");
+            testFile = copyAudioToTmp("01.m4a");
 
             //Read File
             AudioFile af = AudioFileIO.read(testFile);

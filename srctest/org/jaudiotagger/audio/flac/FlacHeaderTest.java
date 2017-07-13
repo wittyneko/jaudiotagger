@@ -25,7 +25,7 @@ public class FlacHeaderTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
+            File testFile = copyAudioToTmp("test.flac");
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
 
@@ -123,7 +123,7 @@ public class FlacHeaderTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.flac");
+            File testFile = copyAudioToTmp("test2.flac");
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
 
@@ -162,7 +162,7 @@ public class FlacHeaderTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test102.flac");
+            File testFile = copyAudioToTmp("test102.flac");
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
 
@@ -201,7 +201,7 @@ public class FlacHeaderTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test158.flac");
+            File testFile = copyAudioToTmp("test158.flac");
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
 
@@ -240,7 +240,7 @@ public class FlacHeaderTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test158.flac", new File("test158write.flac"));
+            File testFile = copyAudioToTmp("test158.flac", new File("test158write.flac"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f);
 

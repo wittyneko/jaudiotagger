@@ -67,7 +67,7 @@ public class NewInterfaceTest extends AbstractTestCase{
     public void testBasicWrite() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testBasicWrite.mp3"));
+            File testFile = copyAudioToTmp("testV1.mp3", new File("testBasicWrite.mp3"));
             org.jaudiotagger.audio.AudioFile audioFile = org.jaudiotagger.audio.AudioFileIO.read(testFile);
             org.jaudiotagger.tag.Tag newTag = audioFile.getTag();
             if (audioFile.getTag() == null) {
@@ -138,7 +138,7 @@ public class NewInterfaceTest extends AbstractTestCase{
     @Test
     public void testNewInterfaceBasicReadandWriteID3v1() throws Exception {
         Exception e = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testnewIntId3v1.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testnewIntId3v1.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Has no tag at this point
@@ -187,7 +187,7 @@ public class NewInterfaceTest extends AbstractTestCase{
     @Test
     public void testNewInterfaceBasicReadandWriteID3v24() throws Exception {
         Exception e = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testnewIntId3v24.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testnewIntId3v24.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Has no tag at this point
@@ -491,7 +491,7 @@ public void testReadUrlImage() throws Exception
            Exception ex = null;
            try
            {
-               File testFile = AbstractTestCase.copyAudioToTmp("testV1withurlimage.mp3");
+               File testFile = copyAudioToTmp("testV1withurlimage.mp3");
                org.jaudiotagger.audio.AudioFile audioFile = org.jaudiotagger.audio.AudioFileIO.read(testFile);
                ID3v23Tag newTag = (ID3v23Tag)audioFile.getTag();
                assertEquals(1, newTag.getFields(FieldKey.COVER_ART).size());
@@ -513,7 +513,7 @@ public void testReadUrlImage() throws Exception
     @Test
     public void testNewInterfaceBasicReadandWriteID3v23() throws Exception {
         Exception e = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testnewIntId3v23.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testnewIntId3v23.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Has no tag at this point
@@ -752,7 +752,7 @@ public void testReadUrlImage() throws Exception
     @Test
     public void testNewInterfaceBasicReadandWriteID3v22() throws Exception {
         Exception e = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testnewIntId3v22.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testnewIntId3v22.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Has no tag at this point
@@ -991,7 +991,7 @@ public void testReadUrlImage() throws Exception
     @Test
     public void testSettingMultipleFramesofSameType() throws Exception {
         Exception e = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testSetMultiple.mp3"));
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testSetMultiple.mp3"));
         AudioFile af = AudioFileIO.read(testFile);
         MP3File mp3File = (MP3File) af;
         ID3v24Tag tag = new ID3v24Tag();
@@ -1139,7 +1139,7 @@ public void testReadUrlImage() throws Exception
         }
 
         Exception e = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test26.mp3");
+        File testFile = copyAudioToTmp("test26.mp3");
         MP3File mp3File = new MP3File(testFile);
 
 
@@ -1192,7 +1192,7 @@ public void testReadUrlImage() throws Exception
     public void testGenres() {
         Exception ex = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testBasicWrite.mp3"));
+            File testFile = copyAudioToTmp("testV1.mp3", new File("testBasicWrite.mp3"));
             org.jaudiotagger.audio.AudioFile audioFile = org.jaudiotagger.audio.AudioFileIO.read(testFile);
             org.jaudiotagger.tag.Tag newTag = audioFile.getTag();
             assertTrue(newTag == null);
@@ -1232,7 +1232,7 @@ public void testReadUrlImage() throws Exception
         }
 
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test30.mp3");
+        File testFile = copyAudioToTmp("test30.mp3");
         MP3File mp3file = null;
         try {
             mp3file = new MP3File(testFile);

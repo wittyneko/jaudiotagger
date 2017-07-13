@@ -28,7 +28,7 @@ public class Issue444Test extends AbstractTestCase {
 
         try {
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V24);
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1vbrNew0.mp3");
+            File testFile = copyAudioToTmp("testV1vbrNew0.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault();
             af.getTag().setField(FieldKey.YEAR, "2004-10-12");
@@ -47,7 +47,7 @@ public class Issue444Test extends AbstractTestCase {
     public void testFullDateWrittenToID3v23NeedsToBeSplitIntoFrames() {
         try {
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V23);
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1vbrNew0.mp3");
+            File testFile = copyAudioToTmp("testV1vbrNew0.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault();
             af.getTag().setField(FieldKey.YEAR, "2004-10-12");
@@ -84,7 +84,7 @@ public class Issue444Test extends AbstractTestCase {
     public void testYearAndMonthWrittenToID3v23NeedsToBeSplitIntoFrames() {
         try {
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V23);
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1vbrNew0.mp3");
+            File testFile = copyAudioToTmp("testV1vbrNew0.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault();
             af.getTag().setField(FieldKey.YEAR, "2004-10");
@@ -121,7 +121,7 @@ public class Issue444Test extends AbstractTestCase {
     public void testYearWrittenToID3v23NeedsToBePutInTyerFrame() {
         try {
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V23);
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1vbrNew0.mp3");
+            File testFile = copyAudioToTmp("testV1vbrNew0.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault();
             af.getTag().setField(FieldKey.YEAR, "2004");
@@ -149,7 +149,7 @@ public class Issue444Test extends AbstractTestCase {
         Exception e = null;
         try {
             TagOptionSingleton.getInstance().setID3V2Version(ID3V2Version.ID3_V23);
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1vbrNew0.mp3");
+            File testFile = copyAudioToTmp("testV1vbrNew0.mp3");
             AudioFile af = AudioFileIO.read(testFile);
             af.getTagOrCreateAndSetDefault();
             af.getTag().setField(FieldKey.YEAR, "20");
@@ -172,7 +172,7 @@ public class Issue444Test extends AbstractTestCase {
 
         Exception e = null;
         try {
-            File testFile = AbstractTestCase.copyAudioToTmp("test106.mp3");
+            File testFile = copyAudioToTmp("test106.mp3");
             AudioFile af = AudioFileIO.read(testFile);
 
         } catch (Exception ex) {
