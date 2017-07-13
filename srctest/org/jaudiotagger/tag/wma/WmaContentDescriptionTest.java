@@ -8,10 +8,14 @@ import org.jaudiotagger.audio.asf.io.AsfHeaderReader;
 import org.jaudiotagger.audio.asf.util.TagConverter;
 import org.jaudiotagger.tag.asf.AsfFieldKey;
 import org.jaudiotagger.tag.asf.AsfTag;
+import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 /**
  * This testcase tests the handling of the content description chunk.
- * 
+ *
  * @author Christian Laireiter
  */
 public class WmaContentDescriptionTest extends WmaTestCase
@@ -35,6 +39,7 @@ public class WmaContentDescriptionTest extends WmaTestCase
      * necessary.<br>
      * @throws Exception On I/O Errors
      */
+    @Test
     public void testContentDescriptionRemoval() throws Exception
     {
         AudioFile file = getAudioFile();

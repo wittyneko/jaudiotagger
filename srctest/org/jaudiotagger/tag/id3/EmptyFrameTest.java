@@ -1,22 +1,23 @@
 package org.jaudiotagger.tag.id3;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyWOAF;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyWORS;
+import org.junit.Test;
 
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 /**
  * Issue #183:Tests that tags containiing empty frames (which are not really allowed by ID3 spec, but do exist) dont
  * prevent subsequent framesthat contain data from being read.
  * Date: 01-Jan-2008
  */
-public class EmptyFrameTest extends TestCase
-{
-    public void testWriteID3v23TagWithEmptyFrameFirst() throws Exception
-    {
+public class EmptyFrameTest extends AbstractTestCase {
+    @Test
+    public void testWriteID3v23TagWithEmptyFrameFirst() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v2.mp3");
 
         MP3File mp3File = null;
@@ -41,8 +42,8 @@ public class EmptyFrameTest extends TestCase
         assertEquals(1, mp3File.getID3v2Tag().getFields("WORS").size());
     }
 
-    public void testWriteID3v24TagWithEmptyFrameFirst() throws Exception
-    {
+    @Test
+    public void testWriteID3v24TagWithEmptyFrameFirst() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v2.mp3");
 
         MP3File mp3File = null;
@@ -73,8 +74,8 @@ public class EmptyFrameTest extends TestCase
         assertEquals(1, mp3File.getID3v2Tag().getFields("WORS").size());
     }
 
-    public void testWriteID3v22TagWithEmptyFrameFirst() throws Exception
-    {
+    @Test
+    public void testWriteID3v22TagWithEmptyFrameFirst() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1Cbr128ID3v2.mp3");
 
         MP3File mp3File = null;

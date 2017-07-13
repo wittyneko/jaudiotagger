@@ -1,6 +1,5 @@
 package org.jaudiotagger.audio.flac;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -8,17 +7,19 @@ import org.jaudiotagger.audio.flac.metadatablock.MetadataBlockDataPicture;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.flac.FlacTag;
 import org.jaudiotagger.tag.reference.PictureTypes;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-
+import static org.junit.Assert.*;
 /**
  * basic Flac tests
  */
-public class FlacHeaderTest extends TestCase
+public class FlacHeaderTest extends AbstractTestCase
 {
+    @Test
     public void testReadFileWithVorbisComment()
     {
         Exception exceptionCaught = null;
@@ -116,6 +117,7 @@ public class FlacHeaderTest extends TestCase
     /**
      * Only contains vorbis comment with minimum encoder info
      */
+    @Test
     public void testReadFileWithOnlyVorbisCommentEncoder()
     {
         Exception exceptionCaught = null;
@@ -147,6 +149,7 @@ public class FlacHeaderTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadFile2()
     {
         File orig = new File("testdata", "test102.flac");
@@ -185,6 +188,7 @@ public class FlacHeaderTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadWithID3Header()
     {
         File orig = new File("testdata", "test158.flac");
@@ -223,6 +227,7 @@ public class FlacHeaderTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadWriteWithID3Header()
     {
         File orig = new File("testdata", "test158.flac");

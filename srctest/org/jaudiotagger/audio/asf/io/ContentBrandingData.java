@@ -3,23 +3,25 @@
  */
 package org.jaudiotagger.audio.asf.io;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.audio.asf.data.ContentBranding;
 import org.jaudiotagger.audio.asf.data.GUID;
 import org.jaudiotagger.audio.asf.data.MetadataContainerUtils;
 import org.jaudiotagger.audio.asf.util.Utils;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.MemoryDataSource;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static org.junit.Assert.assertEquals;
 /**
  * @author Christian Laireiter
  * 
  */
-public class ContentBrandingData extends TestCase {
+public class ContentBrandingData {
 
+    @Test
     public void testContentBrandingWriteRead() throws IOException {
         ContentBranding cb = new ContentBranding();
         cb.setCopyRightURL("CP URL");

@@ -7,67 +7,62 @@ import org.jaudiotagger.tag.id3.framebody.FrameBodyRVA2;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyRVA2Test;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyRVAD;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyRVADTest;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test RVAD (v23) and RVA2 (V24) frames
  */
-public class FrameRVADAndRVA2Test extends AbstractTestCase
-{
-    public static String cmp(byte[] a, byte[] b)
-    {
-        if (a.length != b.length)
-        {
+public class FrameRVADAndRVA2Test extends AbstractTestCase {
+    public static String cmp(byte[] a, byte[] b) {
+        if (a.length != b.length) {
             return "length of byte arrays differ (" + a.length + "!=" + b.length + ")";
         }
-        for (int i = 0; i < a.length; i++)
-        {
-            if (a[i] != b[i])
-            {
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] != b[i]) {
                 return "byte arrays differ at offset " + i + " (" + a[i] + "!=" + b[i] + ")";
             }
         }
         return null;
     }
 
-    public static ID3v24Frame getInitialisedFrame()
-    {
+    public static ID3v24Frame getInitialisedFrame() {
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_RELATIVE_VOLUME_ADJUSTMENT2);
         FrameBodyRVA2 fb = FrameBodyRVA2Test.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public static ID3v23Frame getV23InitialisedFrame()
-    {
+    public static ID3v23Frame getV23InitialisedFrame() {
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_RELATIVE_VOLUME_ADJUSTMENT);
         FrameBodyRVAD fb = FrameBodyRVADTest.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public static ID3v22Frame getV22InitialisedFrame()
-    {
+    public static ID3v22Frame getV22InitialisedFrame() {
         ID3v22Frame frame = new ID3v22Frame(ID3v22Frames.FRAME_ID_V2_RELATIVE_VOLUME_ADJUSTMENT);
         FrameBodyRVAD fb = FrameBodyRVADTest.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public void testCreateID3v24Frame()
-    {
+    @Test
+    public void testCreateID3v24Frame() {
         Exception exceptionCaught = null;
         ID3v24Frame frame = null;
         FrameBodyRVA2 fb = null;
-        try
-        {
+        try {
             frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_RELATIVE_VOLUME_ADJUSTMENT2);
             fb = FrameBodyRVA2Test.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -79,19 +74,16 @@ public class FrameRVADAndRVA2Test extends AbstractTestCase
     }
 
 
-    public void testCreateID3v23Frame()
-    {
+    @Test
+    public void testCreateID3v23Frame() {
         Exception exceptionCaught = null;
         ID3v23Frame frame = null;
         FrameBodyRVAD fb = null;
-        try
-        {
+        try {
             frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_RELATIVE_VOLUME_ADJUSTMENT);
             fb = FrameBodyRVADTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -104,19 +96,16 @@ public class FrameRVADAndRVA2Test extends AbstractTestCase
     }
 
 
-    public void testCreateID3v22Frame()
-    {
+    @Test
+    public void testCreateID3v22Frame() {
         Exception exceptionCaught = null;
         ID3v22Frame frame = null;
         FrameBodyRVAD fb = null;
-        try
-        {
+        try {
             frame = new ID3v22Frame(ID3v22Frames.FRAME_ID_V2_RELATIVE_VOLUME_ADJUSTMENT);
             fb = FrameBodyRVADTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -128,8 +117,8 @@ public class FrameRVADAndRVA2Test extends AbstractTestCase
 
     }
 
-    public void testSaveToFile() throws Exception
-    {
+    @Test
+    public void testSaveToFile() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
@@ -150,8 +139,8 @@ public class FrameRVADAndRVA2Test extends AbstractTestCase
     }
 
 
-    public void testConvertV24ToV23() throws Exception
-    {
+    @Test
+    public void testConvertV24ToV23() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
@@ -177,8 +166,8 @@ public class FrameRVADAndRVA2Test extends AbstractTestCase
 
     }
 
-    public void testConvertV24ToV22() throws Exception
-    {
+    @Test
+    public void testConvertV24ToV22() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
@@ -203,8 +192,8 @@ public class FrameRVADAndRVA2Test extends AbstractTestCase
     }
 
 
-    public void testConvertV22ToV24() throws Exception
-    {
+    @Test
+    public void testConvertV22ToV24() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 

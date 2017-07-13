@@ -4,14 +4,17 @@ import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
+import org.junit.Test;
 
 import java.io.File;
-
+import static org.junit.Assert.*;
 /**
  * Test
  */
 public class ReadMp4MovementTagsTest extends AbstractTestCase
 {
+
+    @Test
     public void testReadMovementFieldsFromITunes() throws Exception
     {
         File orig = new File("testdata", "test161.m4a");

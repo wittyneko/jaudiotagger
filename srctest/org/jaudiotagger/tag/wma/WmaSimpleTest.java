@@ -11,6 +11,7 @@ import org.jaudiotagger.tag.asf.AsfFieldKey;
 import org.jaudiotagger.tag.asf.AsfTag;
 import org.jaudiotagger.tag.asf.AsfTagCoverField;
 import org.jaudiotagger.tag.asf.AsfTagTextField;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,13 +19,14 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-
+import static org.junit.Assert.*;
 /**
  * User: paul
  * Date: 07-Dec-2007
  */
 public class WmaSimpleTest extends AbstractTestCase
 {
+    @Test
     public void testReadFileFromPicardQtInvalidHeaderSizeException()
     {
         File orig = new File("testdata", "test2.wma");
@@ -55,6 +57,7 @@ public class WmaSimpleTest extends AbstractTestCase
      * Checking our fields match the fields used by media Monkey 3 (Defacto Standard) by ensuring we can read fields written
      * in Media Monkey
      */
+    @Test
     public void testReadFileFromMediaMonkey3()
     {
         Exception exceptionCaught = null;
@@ -139,6 +142,7 @@ public class WmaSimpleTest extends AbstractTestCase
      * Checking our fields match the fields used by picard Qt3 (Defacto Standard for Musicbrainz fields) by ensuring we can read fields written
      * in Picard Qt
      */
+    @Test
     public void testReadFileFromPicardQt()
     {
         File orig = new File("testdata", "test2.wma");
@@ -258,7 +262,7 @@ public class WmaSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
-
+    @Test
     public void testWriteFile()
     {
         Exception exceptionCaught = null;
@@ -347,6 +351,7 @@ public class WmaSimpleTest extends AbstractTestCase
     /**
      * Just create fields for all the tag field keys defined, se if we hit any problems
      */
+    @Test
     public void testTagFieldKeyWrite()
     {
         Exception exceptionCaught = null;
@@ -403,6 +408,7 @@ public class WmaSimpleTest extends AbstractTestCase
     /**
      * Lets now check the value explicity are what we expect
      */
+    @Test
     public void testTagFieldKeyWrite2()
     {
         Exception exceptionCaught = null;
@@ -457,6 +463,7 @@ public class WmaSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testIsMultiValues()
     {
         assertFalse(AsfFieldKey.isMultiValued(AsfFieldKey.ALBUM.getFieldName()));
@@ -465,6 +472,7 @@ public class WmaSimpleTest extends AbstractTestCase
     /**
      * Shouldnt fail just ecause header size doesnt match file size because file plays ok in winamp
      */
+    @Test
     public void testReadFileWithHeaderSizeDoesntMatchFileSize()
     {
         File orig = new File("testdata", "test3.wma");
@@ -490,6 +498,7 @@ public class WmaSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadFileWithGifArtwork()
     {
         File orig = new File("testdata", "test1.wma");
@@ -576,6 +585,7 @@ public class WmaSimpleTest extends AbstractTestCase
     /**
      * Contains image field, but only has image type and image, it doesnt have a label
      */
+    @Test
     public void testReadFileWithGifArtworkNoDescription()
     {
         File orig = new File("testdata", "test4.wma");
@@ -656,6 +666,7 @@ public class WmaSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadFileWithPngArtwork()
     {
         File orig = new File("testdata", "test5.wma");
@@ -739,6 +750,7 @@ public class WmaSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadFileWithJpgArtwork()
     {
         File orig = new File("testdata", "test6.wma");
@@ -830,6 +842,7 @@ public class WmaSimpleTest extends AbstractTestCase
     /**
      * Write png , old method
      */
+    @Test
     public void testWritePngArtworkToFile()
     {
         File orig = new File("testdata", "test7.wma");
@@ -899,6 +912,7 @@ public class WmaSimpleTest extends AbstractTestCase
     }
     */
 
+    @Test
     public void testDeleteFields() throws Exception
     {
         //Delete using generic key

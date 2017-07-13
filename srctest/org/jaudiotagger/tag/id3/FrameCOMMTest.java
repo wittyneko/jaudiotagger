@@ -3,28 +3,29 @@ package org.jaudiotagger.tag.id3;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test POPMFrameBody
  */
-public class FrameCOMMTest extends AbstractTestCase
-{
+public class FrameCOMMTest extends AbstractTestCase {
     /**
      * Should run without throwing Runtime excception, although COMMFrame wont be loaded and will
      * throwe invalid size exception
      */
-    public void testReadFileContainingInvalidSizeCOMMFrame() throws Exception
-    {
+    @Test
+    public void testReadFileContainingInvalidSizeCOMMFrame() throws Exception {
         Exception e = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("Issue77.id3", "testV1.mp3");
             MP3File mp3File = new MP3File(testFile);
-        }
-        catch (Exception ie)
-        {
+        } catch (Exception ie) {
             e = ie;
         }
         assertNull(e);
@@ -34,16 +35,13 @@ public class FrameCOMMTest extends AbstractTestCase
      * Should run without throwing Runtime excception, although COMMFrame wont be loaded and will
      * throwe invalid datatype exception
      */
-    public void testReadFileContainingInvalidTextEncodingCOMMFrame() throws Exception
-    {
+    @Test
+    public void testReadFileContainingInvalidTextEncodingCOMMFrame() throws Exception {
         Exception e = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("Issue80.id3", "testV1.mp3");
             MP3File mp3File = new MP3File(testFile);
-        }
-        catch (Exception ie)
-        {
+        } catch (Exception ie) {
             e = ie;
         }
         assertNull(e);
@@ -53,12 +51,11 @@ public class FrameCOMMTest extends AbstractTestCase
      * Can read file containing a language code that does not actually map to a code , and write it back
      * In this real example the language code has been held as three space characters
      */
-    public void testreadFrameContainingInvalidlanguageCodeCOMMFrame() throws Exception
-    {
+    @Test
+    public void testreadFrameContainingInvalidlanguageCodeCOMMFrame() throws Exception {
         final String INVALID_LANG_CODE = "   ";
         Exception e = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("Issue108.id3", "testV1.mp3");
             MP3File mp3File = new MP3File(testFile);
 
@@ -68,9 +65,7 @@ public class FrameCOMMTest extends AbstractTestCase
             FrameBodyCOMM frameBody = (FrameBodyCOMM) commFrame.getBody();
 
             assertEquals(INVALID_LANG_CODE, frameBody.getLanguage());
-        }
-        catch (Exception ie)
-        {
+        } catch (Exception ie) {
             ie.printStackTrace();
             e = ie;
         }
@@ -80,14 +75,13 @@ public class FrameCOMMTest extends AbstractTestCase
     /**
      * Can write file containing a COMM Frame with null language code
      */
-    public void testsaveFileContainingNullLanguageCodeCOMMFrame() throws Exception
-    {
+    @Test
+    public void testsaveFileContainingNullLanguageCodeCOMMFrame() throws Exception {
         final String SAFE_LANG_CODE = "   ";
         final String SAFE_LONGER_LANG_CODE = "aa ";
         final String SAFE_SHORTER_LANG_CODE = "aaa";
         Exception e = null;
-        try
-        {
+        try {
             //Read tag
             File testFile = AbstractTestCase.copyAudioToTmp("Issue108.id3", "testV1.mp3");
             MP3File mp3File = new MP3File(testFile);
@@ -118,9 +112,7 @@ public class FrameCOMMTest extends AbstractTestCase
             frameBody = (FrameBodyCOMM) commFrame.getBody();
             assertEquals(SAFE_SHORTER_LANG_CODE, frameBody.getLanguage());
 
-        }
-        catch (Exception ie)
-        {
+        } catch (Exception ie) {
             ie.printStackTrace();
             e = ie;
         }

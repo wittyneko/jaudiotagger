@@ -1,18 +1,22 @@
 package org.jaudiotagger.audio.generic;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-public class UtilsTest  extends TestCase {
+public class UtilsTest {
 
+    @Test
     public void testGetExtension () {
         assertEquals ("jpeg", Utils.getExtension (new File("_12XYZ.jpeg")));
     }
-    
+
+    @Test
     public void testReadUInt16 () {
         try {
             DataSource dataSources = new MemoryDataSource(new byte[]{(byte)0XFF, (byte)0XFF});
@@ -28,6 +32,7 @@ public class UtilsTest  extends TestCase {
         }
     }
 
+    @Test
     public void testReadUInt32 () {
         try {
             DataSource dataSources = new MemoryDataSource(new byte[]{(byte) 0XFF, (byte) 0XFF, (byte) 0XFF, (byte) 0XFF});
@@ -42,7 +47,8 @@ public class UtilsTest  extends TestCase {
             fail("IOException in testReadUInt32");  // huh?
         }
     }
-    
+
+    @Test
     public void testReadString () {
         try {
             DataSource dataSource = new MemoryDataSource(new byte[] { (byte) 'A', (byte) '=', (byte) '1', (byte) '+', (byte) '7' });
@@ -53,7 +59,8 @@ public class UtilsTest  extends TestCase {
             fail("IOException in testReadString");  // huh?
         }
     }
-    
+
+    @Test
     public void testGetSizeLEInt32 () {
         byte[] bytes = Utils.getSizeLEInt32(0X010203F4);
         assertEquals (bytes.length, 4);
@@ -64,6 +71,7 @@ public class UtilsTest  extends TestCase {
         assertEquals (bytes[3] & 0XFF, 0X01);
     }
 
+    @Test
     public void testGetSizeBEInt32 () {
         byte[] bytes = Utils.getSizeBEInt32(0X010203F4);
         assertEquals (bytes.length, 4);
@@ -74,6 +82,7 @@ public class UtilsTest  extends TestCase {
         assertEquals (bytes[0] & 0XFF, 0X01);
     }
 
+    @Test
     public void testGetSizeBEInt16 () {
         byte[] bytes = Utils.getSizeBEInt16((short) 0X0182);
         assertEquals (bytes.length, 2);
@@ -82,6 +91,7 @@ public class UtilsTest  extends TestCase {
         assertEquals (bytes[0] & 0XFF, 0X01);
     }
 
+    @Test
     public void testgetLongLE () {
         ByteBuffer bb = ByteBuffer.allocate(4);
         byte[] bytes = new byte[] {0X32, 0X01, (byte) 0XF0, 0X18};
@@ -90,6 +100,7 @@ public class UtilsTest  extends TestCase {
         assertEquals (0X18F00132L, val);
     }
 
+    @Test
     public void testgetLongBE () {
         ByteBuffer bb = ByteBuffer.allocate(4);
         byte[] bytes = new byte[] {0X32, 0X01, (byte) 0XF0, 0X18};
@@ -103,7 +114,8 @@ public class UtilsTest  extends TestCase {
         val = Utils.getLongBE (bb, 0, 7);
         assertEquals (0X0102030405060708L, val);
     }
-    
+
+    @Test
     public void testGetIntLE () {
         byte[] bytes = new byte[] {(byte) 0XFF, 0X01, 0X11, 0X21};
         int val = Utils.getIntLE (bytes);
@@ -114,6 +126,7 @@ public class UtilsTest  extends TestCase {
         assertEquals (0X311101FF, val);
     }
 
+    @Test
     public void testGetIntBE () {
         // But there is one with a ByteBuffer, a start, and an end
         ByteBuffer bb = ByteBuffer.allocate(5);
@@ -123,6 +136,7 @@ public class UtilsTest  extends TestCase {
         assertEquals (0X32807018, val);
     }
 
+    @Test
     public void testGetShortBE()
     {
         ByteBuffer bb = ByteBuffer.allocate(8);

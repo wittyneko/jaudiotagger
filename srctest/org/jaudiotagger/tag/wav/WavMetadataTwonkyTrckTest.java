@@ -14,9 +14,14 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 import org.jaudiotagger.tag.id3.ID3v23Tag;
+import org.junit.Test;
 
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 /**
  * User: paul
  * Date: 07-Dec-2007
@@ -28,6 +33,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testReadFileWithListInfoMetadata()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
@@ -85,6 +91,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileMetadataSaveBoth()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
@@ -154,6 +161,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileWithMoreMetadataSaveBothInfoThenId3()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
@@ -226,6 +234,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testModifyFileWithMoreMetadataSaveBothId3ThenInfo()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
@@ -303,6 +312,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Delete file with Info metadata
      */
+    @Test
     public void testDeleteFileInfoMetadata()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
@@ -366,6 +376,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Delete file with Id3 metadata
      */
+    @Test
     public void testDeleteFileId3Metadata()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_ID3_ONLY);
@@ -389,7 +400,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
             assertTrue(tag.isExistingId3Tag());
 
             //Ease of use methods for common fields
-           assertEquals("fred", tag.getFirst(FieldKey.ARTIST));
+            assertEquals("fred", tag.getFirst(FieldKey.ARTIST));
 
             assertNull(((WavTag) tag).getInfoTag().getStartLocationInFile());
             assertNull(((WavTag) tag).getInfoTag().getEndLocationInFile());
@@ -429,6 +440,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testReadFileWithID3AndListInfoMetadata()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
@@ -501,6 +513,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Delete file with Info and ID3 metadata
      */
+    @Test
     public void testDeleteFileInfoAndID3Metadata()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
@@ -553,6 +566,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testWavReadOptionsHasId3AndInfo()
     {
 
@@ -635,6 +649,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testWavReadOptionsHasInfoOnly()
     {
 
@@ -723,6 +738,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileMetadataSaveActive()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
@@ -791,6 +807,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileWithMoreMetadataSaveActive()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
@@ -854,6 +871,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileMetadataSaveExistingActiveInfo()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
@@ -923,6 +941,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileMetadataSaveExistingActiveId3Info()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_ID3_ONLY);
@@ -992,6 +1011,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileMetadataSaveActiveId3()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_ID3_ONLY);
@@ -1065,6 +1085,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileMetadataSaveActiveId32()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_ID3_ONLY);
@@ -1137,6 +1158,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testWriteNumberedOddSaveActive()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_ID3_ONLY);
@@ -1191,6 +1213,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testWriteNumberedOddSaveBoth()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_ID3_ONLY);
@@ -1261,6 +1284,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
     }
 
     /** This file has three bytes of padding data at end of file */
+    @Test
     public void testReadFileWithPaddingAtEndOfListInfoMetadata()
     {
         File orig = new File("testdata", "test146.wav");
@@ -1303,6 +1327,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testNaimRip()
     {
         File orig = new File("testdata", "test149.wav");
@@ -1332,6 +1357,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testCreationOfDefaultTag()
     {
         File orig = new File("testdata", "test126.wav");
@@ -1362,6 +1388,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testRip2()
     {
         File orig = new File("testdata", "test500.wav");
@@ -1398,6 +1425,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testRip3()
     {
         File orig = new File("testdata", "test501.wav");
@@ -1431,6 +1459,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testRip4()
     {
         File orig = new File("testdata", "test502.wav");
@@ -1467,6 +1496,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
      *  When chunk header has negative size we know something has gone wrong and should throw exception accordingly
      *
      */
+    @Test
     public void testWavWithCorruptDataAfterDataChunkHeaderSize()
     {
         File orig = new File("testdata", "test503.wav");
@@ -1500,6 +1530,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assert(exceptionCaught instanceof CannotReadException);
     }
 
+    @Test
     public void testCleanAndThenWriteWavWithCorruptDataChunkHeaderSize()
     {
         File orig = new File("testdata", "test504.wav");
@@ -1549,6 +1580,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertNull(exceptionCaught2);
     }
 
+    @Test
     public void testWavRead()
     {
         File orig = new File("testdata", "test505.wav");
@@ -1581,6 +1613,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         }
     }
 
+    @Test
     public void testWavReadNew()
     {
         File orig = new File("testdata", "test506.wav");
@@ -1616,21 +1649,25 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertTrue(exceptionCaught instanceof CannotReadException);
     }
 
+    @Test
     public void testWriteWriteProtectedFileWithCheckDisabled() throws Exception {
-    	
+
         FilePermissionsTest.runWriteWriteProtectedFileWithCheckDisabled("test123.wav");
-	}
+    }
 
+    @Test
     public void testWriteWriteProtectedFileWithCheckEnabled() throws Exception {
-    	
-    	FilePermissionsTest.runWriteWriteProtectedFileWithCheckEnabled("test123.wav");
-	}
 
+        FilePermissionsTest.runWriteWriteProtectedFileWithCheckEnabled("test123.wav");
+    }
+
+    @Test
     public void testWriteReadOnlyFileWithCheckDisabled() throws Exception {
-    	
-    	FilePermissionsTest.runWriteReadOnlyFileWithCheckDisabled("test123.wav");
-	}
 
+        FilePermissionsTest.runWriteReadOnlyFileWithCheckDisabled("test123.wav");
+    }
+
+    @Test
     public void testReadJacobPavluk()
     {
         File orig = new File("testdata", "GreenLight.wav");
@@ -1672,6 +1709,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
      * bug153.wav has two tags: an info tag with title, album and track number, and an ID3 tag with
      * artist. This test ensures the track number is copied over.
      */
+    @Test
     public void testTrackNumbersSyncedWhenNullTerminated() throws Exception
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_ID3_UNLESS_ONLY_INFO_AND_SYNC);
@@ -1680,6 +1718,7 @@ public class WavMetadataTwonkyTrckTest extends AbstractTestCase
         assertEquals("7", f.getTag().getFirst(FieldKey.TRACK));
     }
 
+    @Test
     public void testWavRead2()
     {
         File orig = new File("testdata", "test160.wav");

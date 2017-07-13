@@ -9,19 +9,21 @@ import org.jaudiotagger.tag.id3.ID3v24Tag;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTXXX;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTXXXTest;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test Android ByteBuffer fix
  */
-public class Issue302Test extends AbstractTestCase
-{
-    public void testAndroidReadFix() throws Exception
-    {
+public class Issue302Test extends AbstractTestCase {
+    @Test
+    public void testAndroidReadFix() throws Exception {
         TagOptionSingleton.getInstance().setToDefault();
         TagOptionSingleton.getInstance().setAndroid(true);
-        
+
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_USER_DEFINED_INFO);
         FrameBodyTXXX fb = FrameBodyTXXXTest.getInitialisedBody();
         frame.setBody(fb);

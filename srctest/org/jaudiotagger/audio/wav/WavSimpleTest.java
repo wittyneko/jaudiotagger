@@ -3,23 +3,24 @@ package org.jaudiotagger.audio.wav;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.AudioHeader;
-import org.jaudiotagger.audio.aiff.AiffAudioHeader;
-import org.jaudiotagger.audio.generic.GenericTag;
 import org.jaudiotagger.logging.Hex;
-import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.wav.WavTag;
+import org.junit.Test;
 
 import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 /**
  * User: paul
  * Date: 07-Dec-2007
  */
 public class WavSimpleTest extends AbstractTestCase
 {
+    @Test
     public void testRead8bitMonoFile()
     {
         Exception exceptionCaught = null;
@@ -47,6 +48,7 @@ public class WavSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testRead24BitMonoFile()
     {
         File orig = new File("testdata", "test105.wav");
@@ -81,8 +83,7 @@ public class WavSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
-
-
+    @Test
     public void testReadingOfShort()
     {
         ByteBuffer headerBuffer = ByteBuffer.allocate(2);
@@ -97,6 +98,7 @@ public class WavSimpleTest extends AbstractTestCase
                 +formatNew+"("+Hex.asHex(formatNew)+")");
     }
 
+    @Test
     public void testRead8bitStereoFile()
     {
         Exception exceptionCaught = null;
@@ -125,6 +127,7 @@ public class WavSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testGoldstarCompressedStereoFile()
     {
         Exception exceptionCaught = null;
@@ -153,6 +156,7 @@ public class WavSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testRead8bitStereoFileExtensible()
     {
         Exception exceptionCaught = null;
@@ -181,6 +185,7 @@ public class WavSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadStereoFloatingPointFile()
     {
         Exception exceptionCaught = null;
@@ -199,7 +204,7 @@ public class WavSimpleTest extends AbstractTestCase
             assertEquals("22050", f.getAudioHeader().getSampleRate());
             assertEquals(32, f.getAudioHeader().getBitsPerSample());
             assertEquals(0, f.getAudioHeader().getTrackLength());
-            assertEquals(0.32897958159446716d, f.getAudioHeader().getPreciseTrackLength());
+            assertEquals(0.32897958159446716d, f.getAudioHeader().getPreciseTrackLength(), 0.0);
             assertTrue(f.getTag() instanceof WavTag);
         }
         catch (Exception e)
@@ -210,6 +215,7 @@ public class WavSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadQuadChannelFile()
     {
         Exception exceptionCaught = null;
@@ -228,7 +234,7 @@ public class WavSimpleTest extends AbstractTestCase
             assertEquals("22050", f.getAudioHeader().getSampleRate());
             assertEquals(16, f.getAudioHeader().getBitsPerSample());
             assertEquals(5, f.getAudioHeader().getTrackLength());
-            assertEquals(4.784897804260254d, f.getAudioHeader().getPreciseTrackLength());
+            assertEquals(4.784897804260254d, f.getAudioHeader().getPreciseTrackLength(), 0.0);
             assertTrue(f.getTag() instanceof WavTag);
         }
         catch (Exception e)

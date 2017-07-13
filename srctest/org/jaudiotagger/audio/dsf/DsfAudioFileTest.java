@@ -1,7 +1,6 @@
 package org.jaudiotagger.audio.dsf;
 
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -13,11 +12,18 @@ import org.jaudiotagger.tag.id3.ID3v22Tag;
 import org.jaudiotagger.tag.id3.ID3v23Tag;
 import org.jaudiotagger.tag.id3.ID3v24Tag;
 import org.jaudiotagger.tag.reference.ID3V2Version;
+import org.junit.Test;
 
 import java.io.File;
 
-public class DsfAudioFileTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+public class DsfAudioFileTest extends AbstractTestCase {
+
+    @Test
     public void testReadDsfTag() {
         Exception exceptionCaught = null;
 
@@ -59,6 +65,7 @@ public class DsfAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testWriteDsfTag() {
         Exception exceptionCaught = null;
 
@@ -101,6 +108,7 @@ public class DsfAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testDeleteDsfTag() {
         Exception exceptionCaught = null;
 
@@ -134,6 +142,7 @@ public class DsfAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testReadDsfNoTag() {
         Exception exceptionCaught = null;
 
@@ -168,6 +177,7 @@ public class DsfAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testWriteDsfNoTag() {
         Exception exceptionCaught = null;
 
@@ -205,6 +215,7 @@ public class DsfAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testDeleteDsfNoTag() {
         Exception exceptionCaught = null;
 
@@ -237,6 +248,7 @@ public class DsfAudioFileTest extends TestCase {
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testCreateDefaultTag() throws Exception
     {
         File orig = new File("testdata", "test122.dsf");

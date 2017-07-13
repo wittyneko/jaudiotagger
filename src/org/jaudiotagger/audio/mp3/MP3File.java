@@ -184,47 +184,45 @@ public class MP3File extends AudioFile
             dataSource.position(0);
             dataSource.read(bb);
 
-            try
+            bb.rewind();
+
+            if ((loadOptions & LOAD_IDV2TAG) != 0)
             {
-                bb.rewind();
-
-                if ((loadOptions & LOAD_IDV2TAG) != 0)
+                logger.config("Attempting to read id3v2tags");
+                try
                 {
-                    logger.config("Attempting to read id3v2tags");
-                    try
-                    {
-                        this.setID3v2Tag(new ID3v24Tag(bb, file != null? file.getName() : ""));
-                    }
-                    catch (TagNotFoundException ex)
-                    {
-                        logger.config("No id3v24 tag found");
-                    }
+                    this.setID3v2Tag(new ID3v24Tag(bb, file != null? file.getName() : ""));
+                }
+                catch (TagNotFoundException ex)
+                {
+                    logger.config("No id3v24 tag found");
+                }
 
-                    try
+                try
+                {
+                    if (id3v2tag == null)
                     {
-                        if (id3v2tag == null)
-                        {
-                            this.setID3v2Tag(new ID3v23Tag(bb, file != null? file.getName() : ""));
-                        }
-                    }
-                    catch (TagNotFoundException ex)
-                    {
-                        logger.config("No id3v23 tag found");
-                    }
-
-                    try
-                    {
-                        if (id3v2tag == null)
-                        {
-                            this.setID3v2Tag(new ID3v22Tag(bb, file != null? file.getName() : ""));
-                        }
-                    }
-                    catch (TagNotFoundException ex)
-                    {
-                        logger.config("No id3v22 tag found");
+                        this.setID3v2Tag(new ID3v23Tag(bb, file != null? file.getName() : ""));
                     }
                 }
+                catch (TagNotFoundException ex)
+                {
+                    logger.config("No id3v23 tag found");
+                }
+
+                try
+                {
+                    if (id3v2tag == null)
+                    {
+                        this.setID3v2Tag(new ID3v22Tag(bb, file != null? file.getName() : ""));
+                    }
+                }
+                catch (TagNotFoundException ex)
+                {
+                    logger.config("No id3v22 tag found");
+                }
             }
+
         }
         else
         {
@@ -645,8 +643,8 @@ public class MP3File extends AudioFile
      * @param  buffer
      * @return byte[] hash value in byte
      * @throws IOException
-     * @throws InvalidAudioFrameException 
-     * @throws NoSuchAlgorithmException 
+     * @throws InvalidAudioFrameException
+     * @throws NoSuchAlgorithmException
      */
 
     public byte[] getHash(int buffer) throws NoSuchAlgorithmException, InvalidAudioFrameException, IOException{

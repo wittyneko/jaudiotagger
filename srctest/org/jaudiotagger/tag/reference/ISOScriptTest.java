@@ -1,7 +1,9 @@
 package org.jaudiotagger.tag.reference;
 
 import org.jaudiotagger.AbstractTestCase;
+import org.junit.Test;
 
+import static org.junit.Assert.*;
 /**
  * Testing of ISOScript
  */
@@ -10,6 +12,7 @@ public class  ISOScriptTest extends AbstractTestCase
     /**
      * This tests lower case genre names identifications
      */
+    @Test
     public void testScriptMatches()
     {
         //Find by Code

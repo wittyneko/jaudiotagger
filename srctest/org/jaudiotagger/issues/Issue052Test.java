@@ -6,19 +6,21 @@ import org.jaudiotagger.tag.id3.ID3v23Frame;
 import org.jaudiotagger.tag.id3.ID3v23Frames;
 import org.jaudiotagger.tag.id3.ID3v23Tag;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTXXX;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertNull;
 
 /**
  * Test trying to read non existent mp3 file
  */
-public class Issue052Test extends AbstractTestCase
-{
-    public void testOutOfMemory()
-    {
-        Exception ex=null;
-        try
-        {
+public class Issue052Test extends AbstractTestCase {
+
+    @Test
+    public void testOutOfMemory() {
+        Exception ex = null;
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("issue52.mp3", new File("issue52.mp3"));
             MP3File mp3File = new MP3File(testFile);
 
@@ -32,11 +34,9 @@ public class Issue052Test extends AbstractTestCase
             tag.setFrame(frame);
             mp3File.setID3v2Tag(tag);
             mp3File.save();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            ex=e;
+            ex = e;
         }
         assertNull(ex);
     }

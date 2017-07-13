@@ -5,23 +5,28 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.id3.*;
+import org.jaudiotagger.tag.id3.AbstractID3v2Frame;
+import org.jaudiotagger.tag.id3.AbstractTagFrameBody;
+import org.jaudiotagger.tag.id3.ID3v23Tag;
+import org.jaudiotagger.tag.id3.ID3v24Frames;
+import org.jaudiotagger.tag.id3.ID3v24Tag;
 import org.jaudiotagger.tag.id3.framebody.AbstractFrameBodyTextInfo;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test when write multiple strings using UTF16 with BOM that it writes the BOM
  * for all strings not just the first one
  */
-public class Issue335Test extends AbstractTestCase
-{
+public class Issue335Test extends AbstractTestCase {
 
-    public void testConvertv24Tov23ConvertsUTF8ToISO8859IfItCan() throws Exception
-    {
+    @Test
+    public void testConvertv24Tov23ConvertsUTF8ToISO8859IfItCan() throws Exception {
         File orig = new File("testdata", "test79.mp3");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
@@ -47,11 +52,10 @@ public class Issue335Test extends AbstractTestCase
 
     }
 
-    public void testConvertv24Tov23OnlyConvertsUTF8ToISO8859IfItCan() throws Exception
-    {
+    @Test
+    public void testConvertv24Tov23OnlyConvertsUTF8ToISO8859IfItCan() throws Exception {
         File orig = new File("testdata", "test79.mp3");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
@@ -84,11 +88,10 @@ public class Issue335Test extends AbstractTestCase
 
     }
 
-    public void testConvertv23Twice() throws Exception
-    {
+    @Test
+    public void testConvertv23Twice() throws Exception {
         File orig = new File("testdata", "test79.mp3");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
@@ -133,37 +136,33 @@ public class Issue335Test extends AbstractTestCase
 
     }
 
-    public void testConvertCharsAtStartOfFile() throws Exception
-    {
+    @Test
+    public void testConvertCharsAtStartOfFile() throws Exception {
         File orig = new File("testdata", "test79.mp3");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
         boolean isMP3v2 = false;
-        ID3v24Tag v24tag=null;
-        Tag tag=null;
+        ID3v24Tag v24tag = null;
+        Tag tag = null;
         MP3File mP3AudioFile = (MP3File) AudioFileIO.read(orig);
-        mP3AudioFile.getID3v2Tag().setField(FieldKey.ARTIST,"fred");
+        mP3AudioFile.getID3v2Tag().setField(FieldKey.ARTIST, "fred");
         mP3AudioFile.commit();
 
         mP3AudioFile = (MP3File) AudioFileIO.read(orig);
-        if (mP3AudioFile.hasID3v2Tag())
-        {
+        if (mP3AudioFile.hasID3v2Tag()) {
             isMP3v2 = true;
             v24tag = mP3AudioFile.getID3v2TagAsv24(); // Abstracting any v2 tag as v2.4
-        }
-        else
-        {
+        } else {
             tag = mP3AudioFile.getTag();
             isMP3v2 = false;
         }
 
 
         String s = (isMP3v2) ? v24tag.getFirst(ID3v24Frames.FRAME_ID_ARTIST) : tag.getFirst(FieldKey.ARTIST);
-        System.out.println("IS v2:"+isMP3v2);
+        System.out.println("IS v2:" + isMP3v2);
         System.out.println(s);
     }
 

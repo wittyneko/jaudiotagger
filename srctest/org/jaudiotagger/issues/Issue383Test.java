@@ -4,39 +4,38 @@ import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test deletions of ID3v1 tag
  */
-public class Issue383Test extends AbstractTestCase
-{
+public class Issue383Test extends AbstractTestCase {
     /**
      * This song is incorrectly shown as 6:08 when should be 3:34 but all apps (Media Monkey, iTunes)
      * also report incorrect length, however think problem is audio does continue until 6:08 but is just quiet sound
      *
      * @throws Exception
      */
-    public void testIssueIncorrectTrackLength() throws Exception
-    {
+    @Test
+    public void testIssueIncorrectTrackLength() throws Exception {
         Exception caught = null;
-        try
-        {
+        try {
             File orig = new File("testdata", "test106.mp3");
-            if (!orig.isFile())
-            {
+            if (!orig.isFile()) {
                 System.err.println("Unable to test file - not available");
                 return;
             }
 
             File testFile = AbstractTestCase.copyAudioToTmp("test106.mp3");
             AudioFile af = AudioFileIO.read(testFile);
-            assertEquals(af.getAudioHeader().getTrackLength(),368);
-        }
-        catch(Exception e)
-        {
-            caught=e;
+            assertEquals(af.getAudioHeader().getTrackLength(), 368);
+        } catch (Exception e) {
+            caught = e;
         }
         assertNull(caught);
     }
@@ -47,26 +46,22 @@ public class Issue383Test extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testIssue() throws Exception
-    {
+    @Test
+    public void testIssue() throws Exception {
         Exception caught = null;
-        try
-        {
+        try {
             File orig = new File("testdata", "test107.mp3");
-            if (!orig.isFile())
-            {
+            if (!orig.isFile()) {
                 System.err.println("Unable to test file - not available");
                 return;
             }
 
             File testFile = AbstractTestCase.copyAudioToTmp("test107.mp3");
             AudioFile af = AudioFileIO.read(testFile);
-            assertEquals(af.getTag().getFirst(FieldKey.TRACK),"01");
-            assertEquals(af.getAudioHeader().getTrackLength(),4372);
-        }
-        catch(Exception e)
-        {
-            caught=e;
+            assertEquals(af.getTag().getFirst(FieldKey.TRACK), "01");
+            assertEquals(af.getAudioHeader().getTrackLength(), 4372);
+        } catch (Exception e) {
+            caught = e;
         }
         assertNull(caught);
     }

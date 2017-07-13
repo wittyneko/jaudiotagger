@@ -6,31 +6,33 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.mp4.Mp4AtomTree;
 import org.jaudiotagger.tag.FieldKey;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 /**
  * Test
  */
-public class Issue463Test extends AbstractTestCase
-{
-    public void testReadMp4() throws Exception
-    {
-        Exception ex=null;
-        try
-        {
+public class Issue463Test extends AbstractTestCase {
+    @Test
+    public void testReadMp4() throws Exception {
+        Exception ex = null;
+        try {
             File orig = new File("testdata", "test116.m4a");
-            if (!orig.isFile())
-            {
+            if (!orig.isFile()) {
                 System.err.println("Unable to test file - not available");
                 return;
             }
 
 
             File testFile = AbstractTestCase.copyAudioToTmp("test116.m4a");
-            RandomAccessFile raf = new RandomAccessFile(testFile,"r");
-            Mp4AtomTree tree = new Mp4AtomTree(new FileDataSource(raf),false);
+            RandomAccessFile raf = new RandomAccessFile(testFile, "r");
+            Mp4AtomTree tree = new Mp4AtomTree(new FileDataSource(raf), false);
             tree.printAtomTree();
             raf.close();
 
@@ -38,24 +40,22 @@ public class Issue463Test extends AbstractTestCase
             assertNotNull(af.getTag());
             assertEquals("Zbigniew Preisner", af.getTag().getFirst(FieldKey.ARTIST));
 
-            af.getTag().setField(FieldKey.ARTIST,"fred");
-            assertEquals("fred",af.getTag().getFirst(FieldKey.ARTIST));
+            af.getTag().setField(FieldKey.ARTIST, "fred");
+            assertEquals("fred", af.getTag().getFirst(FieldKey.ARTIST));
             af.commit();
 
-            raf = new RandomAccessFile(testFile,"r");
-            tree = new Mp4AtomTree(new FileDataSource(raf),false);
+            raf = new RandomAccessFile(testFile, "r");
+            tree = new Mp4AtomTree(new FileDataSource(raf), false);
             tree.printAtomTree();
             raf.close();
 
             af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
-            assertEquals("fred",af.getTag().getFirst(FieldKey.ARTIST));
+            assertEquals("fred", af.getTag().getFirst(FieldKey.ARTIST));
 
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            ex=e;
+            ex = e;
         }
         assertNull(ex);
     }

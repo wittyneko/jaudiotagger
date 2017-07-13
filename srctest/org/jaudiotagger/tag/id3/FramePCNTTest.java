@@ -5,35 +5,36 @@ import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyPCNT;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyPCNTTest;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test PCNTFrameBody
  */
-public class FramePCNTTest extends AbstractTestCase
-{
-    public static ID3v24Frame getInitialisedFrame()
-    {
+public class FramePCNTTest extends AbstractTestCase {
+    public static ID3v24Frame getInitialisedFrame() {
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_PLAY_COUNTER);
         FrameBodyPCNT fb = FrameBodyPCNTTest.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public void testCreateID3v24Frame()
-    {
+    @Test
+    public void testCreateID3v24Frame() {
         Exception exceptionCaught = null;
         ID3v24Frame frame = null;
         FrameBodyPCNT fb = null;
-        try
-        {
+        try {
             frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_PLAY_COUNTER);
             fb = FrameBodyPCNTTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -46,19 +47,16 @@ public class FramePCNTTest extends AbstractTestCase
     }
 
 
-    public void testCreateID3v23Frame()
-    {
+    @Test
+    public void testCreateID3v23Frame() {
         Exception exceptionCaught = null;
         ID3v23Frame frame = null;
         FrameBodyPCNT fb = null;
-        try
-        {
+        try {
             frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_PLAY_COUNTER);
             fb = FrameBodyPCNTTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -68,8 +66,8 @@ public class FramePCNTTest extends AbstractTestCase
         assertEquals(FrameBodyPCNTTest.PCNT_COUNTER, ((FrameBodyPCNT) frame.getBody()).getCounter());
     }
 
-    public void testSaveToFile() throws Exception
-    {
+    @Test
+    public void testSaveToFile() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
@@ -87,8 +85,8 @@ public class FramePCNTTest extends AbstractTestCase
         assertEquals(FrameBodyPCNTTest.PCNT_COUNTER, body.getCounter());
     }
 
-    public void testSaveEmptyFrameToFile() throws Exception
-    {
+    @Test
+    public void testSaveEmptyFrameToFile() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 

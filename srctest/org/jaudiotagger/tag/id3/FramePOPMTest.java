@@ -5,40 +5,41 @@ import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyPOPM;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyPOPMTest;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test POPMFrameBody
  */
-public class FramePOPMTest extends AbstractTestCase
-{
+public class FramePOPMTest extends AbstractTestCase {
     private static final String ISSUE_72_TEST_EMAIL = "Windows Media Player 9 Series";
     private static final int ISSUE_72_TEST_RATING = 255;
     private static final int ISSUE_72_TEST_COUNTER = 0;
 
 
-    public static ID3v24Frame getInitialisedFrame()
-    {
+    public static ID3v24Frame getInitialisedFrame() {
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_POPULARIMETER);
         FrameBodyPOPM fb = FrameBodyPOPMTest.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public void testCreateID3v24Frame()
-    {
+    @Test
+    public void testCreateID3v24Frame() {
         Exception exceptionCaught = null;
         ID3v24Frame frame = null;
         FrameBodyPOPM fb = null;
-        try
-        {
+        try {
             frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_POPULARIMETER);
             fb = FrameBodyPOPMTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -53,19 +54,16 @@ public class FramePOPMTest extends AbstractTestCase
     }
 
 
-    public void testCreateID3v23Frame()
-    {
+    @Test
+    public void testCreateID3v23Frame() {
         Exception exceptionCaught = null;
         ID3v23Frame frame = null;
         FrameBodyPOPM fb = null;
-        try
-        {
+        try {
             frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_POPULARIMETER);
             fb = FrameBodyPOPMTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -77,8 +75,8 @@ public class FramePOPMTest extends AbstractTestCase
         assertEquals(FrameBodyPOPMTest.POPM_COUNTER, ((FrameBodyPOPM) frame.getBody()).getCounter());
     }
 
-    public void testSaveToFile() throws Exception
-    {
+    @Test
+    public void testSaveToFile() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
@@ -98,8 +96,8 @@ public class FramePOPMTest extends AbstractTestCase
         assertEquals(FrameBodyPOPMTest.POPM_COUNTER, body.getCounter());
     }
 
-    public void testSaveEmptyFrameToFile() throws Exception
-    {
+    @Test
+    public void testSaveEmptyFrameToFile() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
@@ -122,8 +120,8 @@ public class FramePOPMTest extends AbstractTestCase
         assertEquals(0, body.getCounter());
     }
 
-    public void testReadFileContainingPOMFrameWithoutCounter() throws Exception
-    {
+    @Test
+    public void testReadFileContainingPOMFrameWithoutCounter() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("Issue72.id3", "testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);

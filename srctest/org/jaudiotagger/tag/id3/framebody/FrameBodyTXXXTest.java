@@ -3,42 +3,40 @@ package org.jaudiotagger.tag.id3.framebody;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test WXXXFrameBody   (Artist)
  */
-public class FrameBodyTXXXTest extends AbstractTestCase
-{
+public class FrameBodyTXXXTest extends AbstractTestCase {
     public static final String TXXX_TEST_DESC = FrameBodyTXXX.BARCODE;
 
     public static final String TXXX_TEST_STRING = "0123456789";
 
 
-    public static FrameBodyTXXX getInitialisedBody()
-    {
+    public static FrameBodyTXXX getInitialisedBody() {
         //Text Encoding doesnt matter until written to file
         FrameBodyTXXX fb = new FrameBodyTXXX(TextEncoding.ISO_8859_1, TXXX_TEST_STRING, TXXX_TEST_DESC);
         return fb;
     }
 
 
-    public static FrameBodyTXXX getUnicodeRequiredInitialisedBody()
-    {
+    public static FrameBodyTXXX getUnicodeRequiredInitialisedBody() {
         //Text Encoding doesnt matter until written to file
         FrameBodyTXXX fb = new FrameBodyTXXX(TextEncoding.ISO_8859_1, TXXX_TEST_STRING, TXXX_TEST_DESC);
         return fb;
     }
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyTXXX fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyTXXX(TextEncoding.ISO_8859_1, TXXX_TEST_STRING, TXXX_TEST_DESC);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

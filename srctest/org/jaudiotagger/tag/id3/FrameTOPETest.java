@@ -3,15 +3,17 @@ package org.jaudiotagger.tag.id3;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTOPE;
+import org.junit.Test;
 
 import java.io.File;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  */
-public class FrameTOPETest extends AbstractTestCase
-{
-    public void testSavingV24ToV23() throws Exception
-    {
+public class FrameTOPETest extends AbstractTestCase {
+    @Test
+    public void testSavingV24ToV23() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("Issue122.id3", "testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
         ID3v24Tag v24Tag = (ID3v24Tag) mp3File.getID3v2Tag();

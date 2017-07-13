@@ -120,7 +120,7 @@ public class WavTagReader
         }
 
         String id = chunkHeader.getID();
-        logger.config(loggingName + " Next Id is:" + id + ":FileLocation:" + fc.position() + ":Size:" + chunkHeader.getSize());
+        logger.config(loggingName + " Next Id is:" + id + ":FileLocation:" + dataSource.position() + ":Size:" + chunkHeader.getSize());
         final WavChunkType chunkType = WavChunkType.get(id);
         if (chunkType != null)
         {
@@ -193,7 +193,7 @@ public class WavTagReader
             {
                 tag.setIncorrectlyAlignedTag(true);
             }
-            fc.position(fc.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
+            dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
             return true;
         }
         else if(id.substring(0,3).equals(WavCorruptChunkType.CORRUPT_LIST_LATE.getCode()))
@@ -203,7 +203,7 @@ public class WavTagReader
             {
                 tag.setIncorrectlyAlignedTag(true);
             }
-            fc.position(fc.position() -  (ChunkHeader.CHUNK_HEADER_SIZE + 1));
+            dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE + 1));
             return true;
         }
         //Unknown chunk type just skip

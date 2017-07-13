@@ -12,19 +12,22 @@ import org.jaudiotagger.tag.id3.framebody.FrameBodyTPOS;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTRCK;
 import org.jaudiotagger.tag.id3.framebody.ID3v23FrameBody;
 import org.jaudiotagger.tag.options.PadNumberOption;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Trackno/DiscNo Position
  */
-public class Issue431Test extends AbstractTestCase
-{
-    public void testSetTrackNo() throws Exception
-    {
+public class Issue431Test extends AbstractTestCase {
+    @Test
+    public void testSetTrackNo() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
@@ -36,10 +39,10 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("1", tag.getFirst(FieldKey.TRACK));
 
         //Check the underlying frame
-        ID3v23Frame frame = (ID3v23Frame)((ID3v23Tag) tag).getFrame("TRCK");
-        ID3v23FrameBody frameBody = (ID3v23FrameBody)frame.getBody();
-        FrameBodyTRCK frameBodyTrck = (FrameBodyTRCK)frameBody;
-        assertEquals(frameBodyTrck.getText(),"1");
+        ID3v23Frame frame = (ID3v23Frame) ((ID3v23Tag) tag).getFrame("TRCK");
+        ID3v23FrameBody frameBody = (ID3v23FrameBody) frame.getBody();
+        FrameBodyTRCK frameBodyTrck = (FrameBodyTRCK) frameBody;
+        assertEquals(frameBodyTrck.getText(), "1");
 
         //Check Bytes
         FileChannel fc = new RandomAccessFile(testFile, "r").getChannel();
@@ -55,14 +58,14 @@ public class Issue431Test extends AbstractTestCase
     }
 
 
-    public void testSetTrackNoWithPaddingAndLengthOne() throws Exception
-    {
+    @Test
+    public void testSetTrackNoWithPaddingAndLengthOne() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_ONE_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.TRACK,"1");
+        tag.setField(FieldKey.TRACK, "1");
         f.commit();
 
         //Frame Header
@@ -85,14 +88,14 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("01", tag.getFirst(FieldKey.TRACK));
     }
 
-    public void testSetTrackNoWithNoPaddingThenSetPaddingAndLengthOne() throws Exception
-    {
+    @Test
+    public void testSetTrackNoWithNoPaddingThenSetPaddingAndLengthOne() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(false);
 
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.TRACK,"1");
+        tag.setField(FieldKey.TRACK, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
@@ -100,10 +103,10 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("1", tag.getFirst(FieldKey.TRACK));
 
         //Check the underlying frame
-        ID3v23Frame frame = (ID3v23Frame)((ID3v23Tag) tag).getFrame("TRCK");
-        ID3v23FrameBody frameBody = (ID3v23FrameBody)frame.getBody();
-        FrameBodyTRCK frameBodyTrck = (FrameBodyTRCK)frameBody;
-        assertEquals(frameBodyTrck.getText(),"1");
+        ID3v23Frame frame = (ID3v23Frame) ((ID3v23Tag) tag).getFrame("TRCK");
+        ID3v23FrameBody frameBody = (ID3v23FrameBody) frame.getBody();
+        FrameBodyTRCK frameBodyTrck = (FrameBodyTRCK) frameBody;
+        assertEquals(frameBodyTrck.getText(), "1");
 
         //Check Bytes
         FileChannel fc = new RandomAccessFile(testFile, "r").getChannel();
@@ -128,63 +131,63 @@ public class Issue431Test extends AbstractTestCase
 
 
         //Check the underlying frame
-        frame = (ID3v23Frame)((ID3v23Tag) tag).getFrame("TRCK");
-        frameBody = (ID3v23FrameBody)frame.getBody();
-        frameBodyTrck = (FrameBodyTRCK)frameBody;
-        assertEquals(frameBodyTrck.getText(),"01");
+        frame = (ID3v23Frame) ((ID3v23Tag) tag).getFrame("TRCK");
+        frameBody = (ID3v23FrameBody) frame.getBody();
+        frameBodyTrck = (FrameBodyTRCK) frameBody;
+        assertEquals(frameBodyTrck.getText(), "01");
 
     }
 
-    public void testSetTrackNoWithPaddingAndLengthTwo() throws Exception
-    {
+    @Test
+    public void testSetTrackNoWithPaddingAndLengthTwo() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_TWO_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.TRACK,"1");
+        tag.setField(FieldKey.TRACK, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
         assertEquals("001", tag.getFirst(FieldKey.TRACK));
     }
 
-    public void testSetTrackNoWithPaddingAndLengthThree() throws Exception
-    {
+    @Test
+    public void testSetTrackNoWithPaddingAndLengthThree() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_THREE_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.TRACK,"1");
+        tag.setField(FieldKey.TRACK, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
         assertEquals("0001", tag.getFirst(FieldKey.TRACK));
     }
 
-    public void testSetTrackNoWithPaddingAndLengthThreeLargerNumber() throws Exception
-    {
+    @Test
+    public void testSetTrackNoWithPaddingAndLengthThreeLargerNumber() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_THREE_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.TRACK,"112");
+        tag.setField(FieldKey.TRACK, "112");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
         assertEquals("0112", tag.getFirst(FieldKey.TRACK));
     }
 
-    public void testSetTrackNoWithNoPaddingAndLengthTwo() throws Exception
-    {
+    @Test
+    public void testSetTrackNoWithNoPaddingAndLengthTwo() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(false);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_TWO_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.TRACK,"1");
+        tag.setField(FieldKey.TRACK, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
@@ -192,15 +195,15 @@ public class Issue431Test extends AbstractTestCase
     }
 
 
-    public void testSetTrackNoAndTotalWithPaddingLengthOne() throws Exception
-    {
+    @Test
+    public void testSetTrackNoAndTotalWithPaddingLengthOne() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_ONE_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.TRACK,"1");
-        tag.setField(FieldKey.TRACK_TOTAL,"1");
+        tag.setField(FieldKey.TRACK, "1");
+        tag.setField(FieldKey.TRACK_TOTAL, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
@@ -209,15 +212,15 @@ public class Issue431Test extends AbstractTestCase
 
     }
 
-    public void testSetTrackNoAndTotalWithPaddingLengthTwo() throws Exception
-    {
+    @Test
+    public void testSetTrackNoAndTotalWithPaddingLengthTwo() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_TWO_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.TRACK,"1");
-        tag.setField(FieldKey.TRACK_TOTAL,"1");
+        tag.setField(FieldKey.TRACK, "1");
+        tag.setField(FieldKey.TRACK_TOTAL, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
@@ -226,8 +229,8 @@ public class Issue431Test extends AbstractTestCase
 
     }
 
-    public void testSetTrackNoFlac() throws Exception
-    {
+    @Test
+    public void testSetTrackNoFlac() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
@@ -238,8 +241,8 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("1", tag.getFirst(FieldKey.TRACK));
     }
 
-    public void testSetTrackNoFlacWithPadding() throws Exception
-    {
+    @Test
+    public void testSetTrackNoFlacWithPadding() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_ONE_ZERO);
@@ -253,13 +256,13 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("1", tag.getFirst(FieldKey.TRACK));
     }
 
-    public void testSetPrePaddedTrackNo() throws Exception
-    {
+    @Test
+    public void testSetPrePaddedTrackNo() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(false);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.TRACK,"01");
+        tag.setField(FieldKey.TRACK, "01");
         assertEquals("01", tag.getFirst(FieldKey.TRACK));
         f.commit();
 
@@ -284,8 +287,8 @@ public class Issue431Test extends AbstractTestCase
     }
 
 
-    public void testSetDiscNo() throws Exception
-    {
+    @Test
+    public void testSetDiscNo() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
@@ -297,10 +300,10 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("1", tag.getFirst(FieldKey.DISC_NO));
 
         //Check the underlying frame
-        ID3v23Frame frame = (ID3v23Frame)((ID3v23Tag) tag).getFrame("TPOS");
-        ID3v23FrameBody frameBody = (ID3v23FrameBody)frame.getBody();
-        FrameBodyTPOS frameBodyTpos = (FrameBodyTPOS)frameBody;
-        assertEquals(frameBodyTpos.getText(),"1");
+        ID3v23Frame frame = (ID3v23Frame) ((ID3v23Tag) tag).getFrame("TPOS");
+        ID3v23FrameBody frameBody = (ID3v23FrameBody) frame.getBody();
+        FrameBodyTPOS frameBodyTpos = (FrameBodyTPOS) frameBody;
+        assertEquals(frameBodyTpos.getText(), "1");
 
         //Check Bytes
         FileChannel fc = new RandomAccessFile(testFile, "r").getChannel();
@@ -316,14 +319,14 @@ public class Issue431Test extends AbstractTestCase
     }
 
 
-    public void testSetDiscNoWithPaddingAndLengthOne() throws Exception
-    {
+    @Test
+    public void testSetDiscNoWithPaddingAndLengthOne() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_ONE_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_NO,"1");
+        tag.setField(FieldKey.DISC_NO, "1");
         f.commit();
 
         //Frame Header
@@ -346,14 +349,14 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("01", tag.getFirst(FieldKey.DISC_NO));
     }
 
-    public void testSetDiscNoWithNoPaddingThenSetPaddingAndLengthOne() throws Exception
-    {
+    @Test
+    public void testSetDiscNoWithNoPaddingThenSetPaddingAndLengthOne() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(false);
 
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_NO,"1");
+        tag.setField(FieldKey.DISC_NO, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
@@ -361,10 +364,10 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("1", tag.getFirst(FieldKey.DISC_NO));
 
         //Check the underlying frame
-        ID3v23Frame frame = (ID3v23Frame)((ID3v23Tag) tag).getFrame("TPOS");
-        ID3v23FrameBody frameBody = (ID3v23FrameBody)frame.getBody();
-        FrameBodyTPOS frameBodyTpos = (FrameBodyTPOS)frameBody;
-        assertEquals(frameBodyTpos.getText(),"1");
+        ID3v23Frame frame = (ID3v23Frame) ((ID3v23Tag) tag).getFrame("TPOS");
+        ID3v23FrameBody frameBody = (ID3v23FrameBody) frame.getBody();
+        FrameBodyTPOS frameBodyTpos = (FrameBodyTPOS) frameBody;
+        assertEquals(frameBodyTpos.getText(), "1");
 
         //Check Bytes
         FileChannel fc = new RandomAccessFile(testFile, "r").getChannel();
@@ -389,63 +392,63 @@ public class Issue431Test extends AbstractTestCase
 
 
         //Check the underlying frame
-        frame = (ID3v23Frame)((ID3v23Tag) tag).getFrame("TPOS");
-        frameBody = (ID3v23FrameBody)frame.getBody();
-        frameBodyTpos = (FrameBodyTPOS)frameBody;
-        assertEquals(frameBodyTpos.getText(),"01");
+        frame = (ID3v23Frame) ((ID3v23Tag) tag).getFrame("TPOS");
+        frameBody = (ID3v23FrameBody) frame.getBody();
+        frameBodyTpos = (FrameBodyTPOS) frameBody;
+        assertEquals(frameBodyTpos.getText(), "01");
 
     }
 
-    public void testSetDiscNoWithPaddingAndLengthTwo() throws Exception
-    {
+    @Test
+    public void testSetDiscNoWithPaddingAndLengthTwo() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_TWO_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_NO,"1");
+        tag.setField(FieldKey.DISC_NO, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
         assertEquals("001", tag.getFirst(FieldKey.DISC_NO));
     }
 
-    public void testSetDiscNoWithPaddingAndLengthThree() throws Exception
-    {
+    @Test
+    public void testSetDiscNoWithPaddingAndLengthThree() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_THREE_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_NO,"1");
+        tag.setField(FieldKey.DISC_NO, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
         assertEquals("0001", tag.getFirst(FieldKey.DISC_NO));
     }
 
-    public void testSetDiscNoWithPaddingAndLengthThreeLargerNumber() throws Exception
-    {
+    @Test
+    public void testSetDiscNoWithPaddingAndLengthThreeLargerNumber() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_THREE_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_NO,"112");
+        tag.setField(FieldKey.DISC_NO, "112");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
         assertEquals("0112", tag.getFirst(FieldKey.DISC_NO));
     }
 
-    public void testSetDiscNoWithNoPaddingAndLengthTwo() throws Exception
-    {
+    @Test
+    public void testSetDiscNoWithNoPaddingAndLengthTwo() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(false);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_TWO_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_NO,"1");
+        tag.setField(FieldKey.DISC_NO, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
@@ -453,15 +456,15 @@ public class Issue431Test extends AbstractTestCase
     }
 
 
-    public void testSetDiscNoAndTotalWithPaddingLengthOne() throws Exception
-    {
+    @Test
+    public void testSetDiscNoAndTotalWithPaddingLengthOne() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_ONE_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_NO,"1");
-        tag.setField(FieldKey.DISC_TOTAL,"1");
+        tag.setField(FieldKey.DISC_NO, "1");
+        tag.setField(FieldKey.DISC_TOTAL, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
@@ -470,15 +473,15 @@ public class Issue431Test extends AbstractTestCase
 
     }
 
-    public void testSetDiscNoAndTotalWithPaddingLengthTwo() throws Exception
-    {
+    @Test
+    public void testSetDiscNoAndTotalWithPaddingLengthTwo() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_TWO_ZERO);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_NO,"1");
-        tag.setField(FieldKey.DISC_TOTAL,"1");
+        tag.setField(FieldKey.DISC_NO, "1");
+        tag.setField(FieldKey.DISC_TOTAL, "1");
         f.commit();
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
@@ -487,8 +490,8 @@ public class Issue431Test extends AbstractTestCase
 
     }
 
-    public void testSetDiscNoFlac() throws Exception
-    {
+    @Test
+    public void testSetDiscNoFlac() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
@@ -499,8 +502,8 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("1", tag.getFirst(FieldKey.DISC_NO));
     }
 
-    public void testSetDiscNoFlacWithPadding() throws Exception
-    {
+    @Test
+    public void testSetDiscNoFlacWithPadding() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
         TagOptionSingleton.getInstance().setPadNumbers(true);
         TagOptionSingleton.getInstance().setPadNumberTotalLength(PadNumberOption.PAD_ONE_ZERO);
@@ -514,13 +517,13 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("1", tag.getFirst(FieldKey.DISC_NO));
     }
 
-    public void testSetPrePaddedDiscNo() throws Exception
-    {
+    @Test
+    public void testSetPrePaddedDiscNo() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(false);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_NO,"01");
+        tag.setField(FieldKey.DISC_NO, "01");
         assertEquals("01", tag.getFirst(FieldKey.DISC_NO));
         f.commit();
 
@@ -544,14 +547,14 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("01", tag.getFirst(FieldKey.DISC_NO));
     }
 
-    public void testSetPrePaddedDiscAndDiscTotal() throws Exception
-    {
+    @Test
+    public void testSetPrePaddedDiscAndDiscTotal() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(false);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_NO,"01");
-        tag.setField(FieldKey.DISC_TOTAL,"08");
+        tag.setField(FieldKey.DISC_NO, "01");
+        tag.setField(FieldKey.DISC_TOTAL, "08");
         assertEquals("08", tag.getFirst(FieldKey.DISC_TOTAL));
         f.commit();
 
@@ -578,13 +581,13 @@ public class Issue431Test extends AbstractTestCase
         assertEquals("08", tag.getFirst(FieldKey.DISC_TOTAL));
     }
 
-    public void testSetPrePaddedDiscTotal() throws Exception
-    {
+    @Test
+    public void testSetPrePaddedDiscTotal() throws Exception {
         TagOptionSingleton.getInstance().setPadNumbers(false);
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.DISC_TOTAL,"08");
+        tag.setField(FieldKey.DISC_TOTAL, "08");
         assertEquals("08", tag.getFirst(FieldKey.DISC_TOTAL));
         f.commit();
 

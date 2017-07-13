@@ -15,23 +15,34 @@
  */
 package org.jaudiotagger;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.TagOptionSingleton;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.ClassRule;
+import org.junit.rules.TemporaryFolder;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.EnumMap;
 import java.util.regex.Pattern;
 
 /**
  *
  */
-public abstract class AbstractTestCase extends TestCase {
+public abstract class AbstractTestCase {
 
-    @Override
-    public void setUp()
+    @ClassRule
+    public static TemporaryFolder TEMP_FOLDER = new TemporaryFolder();
+
+    @Before
+    public void setUp() throws Exception
     {
-        TagOptionSingleton.getInstance().setToDefault();    
+        TagOptionSingleton.getInstance().setToDefault();
     }
     /**
      * Stores a {@link Pattern} for each {@link ErrorMessage}.<br>
@@ -91,7 +102,7 @@ public abstract class AbstractTestCase extends TestCase {
 
     /**
      * Copy a File
-     * 
+     *
      * @param fromFile
      *            The existing File
      * @param toFile
@@ -131,18 +142,15 @@ public abstract class AbstractTestCase extends TestCase {
 
     /**
      * Copy audiofile to processing dir ready for use in test
-     * 
+     *
      * @param fileName
      * @return
      */
     public static File copyAudioToTmp(String fileName) {
         File inputFile = new File("testdata", fileName);
-        File outputFile = new File("testdatatmp", fileName);
-        if (!outputFile.getParentFile().exists()) {
-            outputFile.getParentFile().mkdirs();
-        }
+        File outputFile = createTmpFile(fileName);
         boolean result = copy(inputFile, outputFile);
-        assertTrue(result);
+        Assert.assertTrue(result);
         return outputFile;
     }
 
@@ -150,24 +158,21 @@ public abstract class AbstractTestCase extends TestCase {
      * Copy audiofile to processing dir ready for use in test, use this if using
      * same file in multiple tests because with junit multithreading can have
      * problems otherwise
-     * 
+     *
      * @param fileName
      * @return
      */
     public static File copyAudioToTmp(String fileName, File newFileName) {
         File inputFile = new File("testdata", fileName);
-        File outputFile = new File("testdatatmp", newFileName.getName());
-        if (!outputFile.getParentFile().exists()) {
-            outputFile.getParentFile().mkdirs();
-        }
+        File outputFile = createTmpFile(newFileName.getName());
         boolean result = copy(inputFile, outputFile);
-        assertTrue(result);
+        Assert.assertTrue(result);
         return outputFile;
     }
 
     /**
      * Prepends file with tag file in order to create an mp3 with a valid id3
-     * 
+     *
      * @param tagfile
      * @param fileName
      * @return
@@ -175,28 +180,36 @@ public abstract class AbstractTestCase extends TestCase {
     public static File copyAudioToTmp(String tagfile, String fileName) {
         File inputTagFile = new File("testtagdata", tagfile);
         File inputFile = new File("testdata", fileName);
-        File outputFile = new File("testdatatmp", fileName);
-        if (!outputFile.getParentFile().exists()) {
-            outputFile.getParentFile().mkdirs();
-        }
+        File outputFile = createTmpFile(fileName);
         boolean result = append(inputTagFile, inputFile, outputFile);
-        assertTrue(result);
+        Assert.assertTrue(result);
         return outputFile;
+    }
+
+    private static File createTmpFile(final String name) {
+        try {
+            File tempFolder = TEMP_FOLDER.newFolder();
+            File tempFile = new File(tempFolder, name);
+            Assert.assertTrue(tempFile.createNewFile());
+            return tempFile;
+        }catch (Exception e){
+            throw new IllegalStateException("Error creating temporary file " + name, e);
+        }
     }
 
     /**
      * This method asserts that the given <code>actual</code> message is
      * constructed with the <code>expected</code> message string.<br>
      * <br>
-     * 
+     *
      * @param expected
      *            the expected message source.
      * @param actual
      *            the message to compare against.
      */
     public void assertErrorMessage(final ErrorMessage expected,
-            final String actual) {
-        assertTrue("Message not correctly constructed.", ERROR_PATTERNS.get(
+                                   final String actual) {
+        Assert.assertTrue("Message not correctly constructed.", ERROR_PATTERNS.get(
                 expected).matcher(actual).matches());
     }
 }

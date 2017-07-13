@@ -4,29 +4,29 @@ import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.datatype.DataTypes;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test Unique File Identifier FrameBody
  */
-public class FrameBodyUFIDTest extends AbstractTestCase
-{
+public class FrameBodyUFIDTest extends AbstractTestCase {
     public static final String TEST_OWNER = FrameBodyUFID.UFID_MUSICBRAINZ;
     public static final byte[] TEST_OBJECT_DATA = new byte[2];
 
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyUFID fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyUFID();
             fb.setOwner(TEST_OWNER);
             fb.setUniqueIdentifier(TEST_OBJECT_DATA);
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

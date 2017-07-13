@@ -1,7 +1,7 @@
 package org.jaudiotagger.audio.mp3;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
+import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -15,16 +15,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import static org.junit.Assert.assertEquals;
 
 /**
  * User: paul
  * Date: 09-Nov-2007
  */
-public class LoggingTest extends TestCase
+public class LoggingTest extends AbstractTestCase
 {
     /**
      * Check that xml is in xml format, and cleared out for each file
      */
+    @Test
     public void testDisplayAsXml() throws Exception
     {
         XPathFactory xpf = XPathFactory.newInstance();
@@ -44,6 +46,7 @@ public class LoggingTest extends TestCase
         assertEquals("TIT2", xpath1.evaluate(new InputSource(new StringReader(mp3File2.displayStructureAsXML()))));
     }
 
+    @Test
     public void testDateParsing() throws Exception
     {
         SimpleDateFormat timeInFormat = new SimpleDateFormat("ss");
@@ -86,6 +89,8 @@ public class LoggingTest extends TestCase
     }
 
     public static int count=0;
+
+    @Test
     public void testMultiThreadedSimpleDataAccess() throws Exception
     {                               
         final SimpleDateFormat timeInFormat = new SimpleDateFormat("ss");

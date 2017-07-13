@@ -1,20 +1,22 @@
 package org.jaudiotagger.tag.wma;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.asf.util.Utils;
 import org.jaudiotagger.tag.Tag;
+import org.junit.After;
+import org.junit.Before;
 
 import java.io.File;
 
+import static org.junit.Assert.assertNotNull;
 /**
  * Base class for WMA test cases.<br> 
  * 
  * @author Christian Laireiter
  */
-public abstract class WmaTestCase extends TestCase
+public abstract class WmaTestCase extends AbstractTestCase
 {
     /**
      * Stores the audio file instance of {@link #testFile}.<br>
@@ -37,17 +39,6 @@ public abstract class WmaTestCase extends TestCase
      */
     public WmaTestCase(final String sourceFile)
     {
-        this.sourceTestFile = sourceFile;
-    }
-    
-    /**
-     * Creates an instance, that would perform tests on the given <code>sourceFile</code>.
-     * @param sourceFile The filename of the file to perform tests on. ({@linkplain AbstractTestCase#copyAudioToTmp(String) copy} will be created)
-     * @param name name of the test.
-     */
-    public WmaTestCase(final String sourceFile, final String name)
-    {
-        super(name);
         this.sourceTestFile = sourceFile;
     }
 
@@ -94,9 +85,9 @@ public abstract class WmaTestCase extends TestCase
     /**
      * Creates the file copy.
      */
-    protected void setUp() throws Exception
+    @Before
+    public void setUp() throws Exception
     {
-        super.setUp();
         assertNotNull(sourceTestFile);
         this.testFile = prepareTestFile(null);
     }
@@ -105,10 +96,10 @@ public abstract class WmaTestCase extends TestCase
     /**
      * Deletes the copy.
      */
-    protected void tearDown() throws Exception
+    @After
+    public void tearDown() throws Exception
     {
-        super.tearDown();
-        //        this.testFile.deleteField();
+        // this.testFile.deleteField();
     }
 
 

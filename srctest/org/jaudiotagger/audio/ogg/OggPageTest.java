@@ -1,21 +1,24 @@
 package org.jaudiotagger.audio.ogg;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.ogg.util.OggPageHeader;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 /**
  * Basic Vorbis tests
  */
-public class OggPageTest extends TestCase
+public class OggPageTest extends AbstractTestCase
 {
+    @Test
     public void testReadOggPagesNew()
     {
         System.out.println("start:"+new Date());
@@ -68,6 +71,7 @@ public class OggPageTest extends TestCase
     /**
      * Test Read Ogg Pages ok
      */
+    @Test
     public void testReadAllOggPages()
     {
         System.out.println("start:"+new Date());
@@ -116,6 +120,7 @@ public class OggPageTest extends TestCase
     /**
      * test Read Ogg Pages ok
      */
+    @Test
     public void testReadAllOggPagesLargeFile()
     {
         Exception exceptionCaught = null;
@@ -147,9 +152,10 @@ public class OggPageTest extends TestCase
         assertEquals(25, count);
     }
 
-     /**
+    /**
      * test Read Ogg Pages ok
      */
+    @Test
     public void testReadAllOggPagesLargeFileNew()
     {
         Exception exceptionCaught = null;

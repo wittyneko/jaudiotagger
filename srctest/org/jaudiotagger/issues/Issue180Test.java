@@ -9,7 +9,6 @@ package org.jaudiotagger.issues;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.generic.AudioFileReader;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.TagOptionSingleton;
@@ -18,8 +17,12 @@ import org.jaudiotagger.tag.id3.ID3v22Tag;
 import org.jaudiotagger.tag.id3.ID3v23Tag;
 import org.jaudiotagger.tag.id3.ID3v24Tag;
 import org.jaudiotagger.tag.wav.WavTag;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Issue180Test.
@@ -28,8 +31,9 @@ import java.io.File;
  */
 public class Issue180Test extends AbstractTestCase {
 
-    public void testWriteIDv22ForITunes12_6() throws Exception 
-    {
+
+    @Test
+    public void testWriteIDv22ForITunes12_6() throws Exception {
         final TagOptionSingleton options = TagOptionSingleton.getInstance();
         // start with special iTunes 12.6 mode
         options.setId3v2ITunes12_6WorkGroupingMode(true);
@@ -37,8 +41,8 @@ public class Issue180Test extends AbstractTestCase {
         final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v22Tag v2Tag = new ID3v22Tag();
-        v2Tag.setField(FieldKey.GROUPING,"grouping");
-        v2Tag.setField(FieldKey.WORK,"work");
+        v2Tag.setField(FieldKey.GROUPING, "grouping");
+        v2Tag.setField(FieldKey.WORK, "work");
         mp3File.setID3v2Tag(v2Tag);
         mp3File.save();
 
@@ -56,8 +60,9 @@ public class Issue180Test extends AbstractTestCase {
         assertTrue(w == null || w.isEmpty());
     }
 
-    public void testWriteIDv22Regular() throws Exception
-    {
+
+    @Test
+    public void testWriteIDv22Regular() throws Exception {
         final TagOptionSingleton options = TagOptionSingleton.getInstance();
         // start with regular mode
         options.setId3v2ITunes12_6WorkGroupingMode(false);
@@ -65,8 +70,8 @@ public class Issue180Test extends AbstractTestCase {
         final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v22Tag v2Tag = new ID3v22Tag();
-        v2Tag.setField(FieldKey.GROUPING,"grouping");
-        v2Tag.setField(FieldKey.WORK,"work");
+        v2Tag.setField(FieldKey.GROUPING, "grouping");
+        v2Tag.setField(FieldKey.WORK, "work");
         mp3File.setID3v2Tag(v2Tag);
         mp3File.save();
 
@@ -84,8 +89,9 @@ public class Issue180Test extends AbstractTestCase {
         assertEquals("grouping", iTunesV22File.getTag().getFirst(FieldKey.WORK));
     }
 
-    public void testWriteIDv23ForITunes12_6() throws Exception
-    {
+
+    @Test
+    public void testWriteIDv23ForITunes12_6() throws Exception {
         final TagOptionSingleton options = TagOptionSingleton.getInstance();
         // start with special iTunes 12.6 mode
         options.setId3v2ITunes12_6WorkGroupingMode(true);
@@ -93,8 +99,8 @@ public class Issue180Test extends AbstractTestCase {
         final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v23Tag v2Tag = new ID3v23Tag();
-        v2Tag.setField(FieldKey.GROUPING,"grouping");
-        v2Tag.setField(FieldKey.WORK,"work");
+        v2Tag.setField(FieldKey.GROUPING, "grouping");
+        v2Tag.setField(FieldKey.WORK, "work");
         mp3File.setID3v2Tag(v2Tag);
         mp3File.save();
 
@@ -112,8 +118,9 @@ public class Issue180Test extends AbstractTestCase {
         assertTrue(w == null || w.isEmpty());
     }
 
-    public void testWriteIDv23Regular() throws Exception
-    {
+
+    @Test
+    public void testWriteIDv23Regular() throws Exception {
         final TagOptionSingleton options = TagOptionSingleton.getInstance();
         // start with regular mode
         options.setId3v2ITunes12_6WorkGroupingMode(false);
@@ -121,8 +128,8 @@ public class Issue180Test extends AbstractTestCase {
         final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v23Tag v2Tag = new ID3v23Tag();
-        v2Tag.setField(FieldKey.GROUPING,"grouping");
-        v2Tag.setField(FieldKey.WORK,"work");
+        v2Tag.setField(FieldKey.GROUPING, "grouping");
+        v2Tag.setField(FieldKey.WORK, "work");
         mp3File.setID3v2Tag(v2Tag);
         mp3File.save();
 
@@ -140,8 +147,9 @@ public class Issue180Test extends AbstractTestCase {
         assertEquals("grouping", iTunesV23File.getTag().getFirst(FieldKey.WORK));
     }
 
-    public void testWriteIDv24ForITunes12_6() throws Exception
-    {
+
+    @Test
+    public void testWriteIDv24ForITunes12_6() throws Exception {
         final TagOptionSingleton options = TagOptionSingleton.getInstance();
         // start with special iTunes 12.6 mode
         options.setId3v2ITunes12_6WorkGroupingMode(true);
@@ -149,8 +157,8 @@ public class Issue180Test extends AbstractTestCase {
         final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v24Tag v2Tag = new ID3v24Tag();
-        v2Tag.setField(FieldKey.GROUPING,"grouping");
-        v2Tag.setField(FieldKey.WORK,"work");
+        v2Tag.setField(FieldKey.GROUPING, "grouping");
+        v2Tag.setField(FieldKey.WORK, "work");
         mp3File.setID3v2Tag(v2Tag);
         mp3File.save();
 
@@ -168,8 +176,9 @@ public class Issue180Test extends AbstractTestCase {
         assertTrue(w == null || w.isEmpty());
     }
 
-    public void testWriteIDv24Regular() throws Exception
-    {
+
+    @Test
+    public void testWriteIDv24Regular() throws Exception {
         final TagOptionSingleton options = TagOptionSingleton.getInstance();
         // start with regular mode
         options.setId3v2ITunes12_6WorkGroupingMode(false);
@@ -177,8 +186,8 @@ public class Issue180Test extends AbstractTestCase {
         final File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         final MP3File mp3File = new MP3File(testFile);
         final ID3v24Tag v2Tag = new ID3v24Tag();
-        v2Tag.setField(FieldKey.GROUPING,"grouping");
-        v2Tag.setField(FieldKey.WORK,"work");
+        v2Tag.setField(FieldKey.GROUPING, "grouping");
+        v2Tag.setField(FieldKey.WORK, "work");
         mp3File.setID3v2Tag(v2Tag);
         mp3File.save();
 
@@ -196,8 +205,9 @@ public class Issue180Test extends AbstractTestCase {
         assertEquals("grouping", iTunesV24File.getTag().getFirst(FieldKey.WORK));
     }
 
-    public void testWriteIDv23AifForITunes12_6() throws Exception
-    {
+
+    @Test
+    public void testWriteIDv23AifForITunes12_6() throws Exception {
         final TagOptionSingleton options = TagOptionSingleton.getInstance();
         // start with special iTunes 12.6 mode
         options.setId3v2ITunes12_6WorkGroupingMode(true);
@@ -223,8 +233,9 @@ public class Issue180Test extends AbstractTestCase {
         assertTrue(w == null || w.isEmpty());
     }
 
-    public void testWriteIDv23AifRegular() throws Exception
-    {
+
+    @Test
+    public void testWriteIDv23AifRegular() throws Exception {
         final TagOptionSingleton options = TagOptionSingleton.getInstance();
         // start with regular mode
         options.setId3v2ITunes12_6WorkGroupingMode(false);
@@ -252,8 +263,9 @@ public class Issue180Test extends AbstractTestCase {
         assertEquals("grouping", iTunesV22File.getTag().getFirst(FieldKey.WORK));
     }
 
-    public void testWriteIDv2WavForITunes12_6() throws Exception
-    {
+
+    @Test
+    public void testWriteIDv2WavForITunes12_6() throws Exception {
         final TagOptionSingleton options = TagOptionSingleton.getInstance();
         // start with special iTunes 12.6 mode
         options.setId3v2ITunes12_6WorkGroupingMode(true);
@@ -261,8 +273,8 @@ public class Issue180Test extends AbstractTestCase {
         final File testFile = AbstractTestCase.copyAudioToTmp("test.wav");
         final AudioFile audioFile = AudioFileIO.read(testFile);
         audioFile.getTag().setField(FieldKey.GROUPING, "grouping");
-        audioFile.getTag().setField(FieldKey.WORK,"work");
-        System.out.println(((WavTag)audioFile.getTag()));
+        audioFile.getTag().setField(FieldKey.WORK, "work");
+        System.out.println(((WavTag) audioFile.getTag()));
         audioFile.commit();
 
         //Read using new Interface
@@ -279,8 +291,9 @@ public class Issue180Test extends AbstractTestCase {
         assertTrue(w == null || w.isEmpty());
     }
 
-    public void testWriteIDv23WavRegular() throws Exception
-    {
+
+    @Test
+    public void testWriteIDv23WavRegular() throws Exception {
         final TagOptionSingleton options = TagOptionSingleton.getInstance();
         // start with regular mode
         options.setId3v2ITunes12_6WorkGroupingMode(false);
@@ -289,8 +302,8 @@ public class Issue180Test extends AbstractTestCase {
         final File testFile = AbstractTestCase.copyAudioToTmp("test.wav");
         final AudioFile audioFile = AudioFileIO.read(testFile);
         audioFile.getTag().setField(FieldKey.GROUPING, "grouping");
-        audioFile.getTag().setField(FieldKey.WORK,"work");
-        System.out.println(((WavTag)audioFile.getTag()));
+        audioFile.getTag().setField(FieldKey.WORK, "work");
+        System.out.println(((WavTag) audioFile.getTag()));
         audioFile.commit();
 
 

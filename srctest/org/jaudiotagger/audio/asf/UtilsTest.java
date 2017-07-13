@@ -1,9 +1,9 @@
 package org.jaudiotagger.audio.asf;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.audio.asf.data.AsfHeader;
 import org.jaudiotagger.audio.asf.data.GUID;
 import org.jaudiotagger.audio.asf.util.Utils;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,6 +12,9 @@ import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 /**
  * Tests the correctness of the methods in {@link Utils}.<br>
  * Except for methods related to {@link RandomAccessFile}, not worth the effort,
@@ -19,7 +22,7 @@ import java.util.Arrays;
  * 
  * @author Christian Laireiter
  */
-public class UtilsTest extends TestCase
+public class UtilsTest
 {
 
     /**
@@ -46,6 +49,7 @@ public class UtilsTest extends TestCase
      * Test method for
      * {@link org.jaudiotagger.audio.asf.util.Utils#checkStringLengthNullSafe(java.lang.String)}
      */
+    @Test
     public void testCheckStringLengthNullSafe()
     {
         Utils.checkStringLengthNullSafe(null);
@@ -72,6 +76,7 @@ public class UtilsTest extends TestCase
      * Test method for
      * {@link org.jaudiotagger.audio.asf.util.Utils#getBytes(long, int)}.
      */
+    @Test
     public void testGetBytes()
     {
         assertTrue(Arrays.equals(MAX_UINT16, Utils.getBytes(Short.MAX_VALUE * 2 + 1, 2)));
@@ -83,6 +88,7 @@ public class UtilsTest extends TestCase
      * Test method for
      * {@link org.jaudiotagger.audio.asf.util.Utils#isBlank(java.lang.String)}.
      */
+    @Test
     public void testIsBlank()
     {
         assertTrue(Utils.isBlank(null));
@@ -99,6 +105,7 @@ public class UtilsTest extends TestCase
      * .
      * @throws IOException Never
      */
+    @Test
     public void testReadBig64InputStream() throws IOException
     {
         BigInteger big64 = Utils.readBig64(new ByteArrayInputStream(MAX_LONG_64));
@@ -111,6 +118,7 @@ public class UtilsTest extends TestCase
      * .
      * @throws IOException On I/O Errors.
      */
+    @Test
     public void testReadCharacterSizedStringInputStream() throws IOException
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -127,6 +135,7 @@ public class UtilsTest extends TestCase
      * .
      * @throws IOException Should not
      */
+    @Test
     public void testReadGUIDInputStream() throws IOException
     {
         for (int i = 0; i < GUID.KNOWN_GUIDS.length; i++)
@@ -147,6 +156,7 @@ public class UtilsTest extends TestCase
      * @throws IOException
      *             Never
      */
+    @Test
     public void testReadUINT16InputStream() throws IOException
     {
         long value = Utils.readUINT16(new ByteArrayInputStream(MAX_UINT16));
@@ -161,6 +171,7 @@ public class UtilsTest extends TestCase
      * @throws IOException
      *             Never
      */
+    @Test
     public void testReadUINT32InputStream() throws IOException
     {
         long value = Utils.readUINT32(new ByteArrayInputStream(MAX_UINT32));
@@ -173,6 +184,7 @@ public class UtilsTest extends TestCase
      * .
      * @throws IOException Never
      */
+    @Test
     public void testReadUINT64InputStream() throws IOException
     {
         long value = Utils.readUINT64(new ByteArrayInputStream(MAX_LONG_64));
@@ -187,6 +199,7 @@ public class UtilsTest extends TestCase
      * @throws IOException
      *             Never
      */
+    @Test
     public void testReadUTF16LEStrInputStream() throws IOException
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -224,6 +237,7 @@ public class UtilsTest extends TestCase
      * @throws IOException
      *             Never
      */
+    @Test
     public void testWriteUINT16() throws IOException
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -239,6 +253,7 @@ public class UtilsTest extends TestCase
      * @throws IOException
      *             Never
      */
+    @Test
     public void testWriteUINT32() throws IOException
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -254,6 +269,7 @@ public class UtilsTest extends TestCase
      * @throws IOException
      *             Never
      */
+    @Test
     public void testWriteUINT64() throws IOException
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();

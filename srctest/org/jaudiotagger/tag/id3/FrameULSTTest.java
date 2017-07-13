@@ -7,16 +7,18 @@ import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyUSLT;
 import org.jaudiotagger.tag.reference.Languages;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test ULSTFrame
  */
-public class FrameULSTTest extends AbstractTestCase
-{
-    public void testReadULST() throws Exception
-    {
+public class FrameULSTTest extends AbstractTestCase {
+    @Test
+    public void testReadULST() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("test23.mp3");
 
         MP3File mp3File = new MP3File(testFile);
@@ -33,8 +35,8 @@ public class FrameULSTTest extends AbstractTestCase
         assertEquals(589, file.getTag().getFirst(FieldKey.LYRICS).length());
     }
 
-    public void testWriteULSTID3v24() throws Exception
-    {
+    @Test
+    public void testWriteULSTID3v24() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("test23.mp3");
 
         MP3File mp3File = new MP3File(testFile);
@@ -80,8 +82,8 @@ public class FrameULSTTest extends AbstractTestCase
         assertEquals(1, lyricsBody.getTextEncoding());
     }
 
-    public void testWriteULSTID3v23() throws Exception
-    {
+    @Test
+    public void testWriteULSTID3v23() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
@@ -138,8 +140,8 @@ public class FrameULSTTest extends AbstractTestCase
         assertEquals(1, lyricsBody.getTextEncoding());
     }
 
-    public void testWriteULSTID3v23Test2() throws Exception
-    {
+    @Test
+    public void testWriteULSTID3v23Test2() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
@@ -171,8 +173,8 @@ public class FrameULSTTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testWriteULSTID3v23Test3() throws Exception
-    {
+    @Test
+    public void testWriteULSTID3v23Test3() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
@@ -204,8 +206,8 @@ public class FrameULSTTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testWriteULSTID3v23Test4() throws Exception
-    {
+    @Test
+    public void testWriteULSTID3v23Test4() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
@@ -232,7 +234,7 @@ public class FrameULSTTest extends AbstractTestCase
         assertEquals(0, lyricsBody.getTextEncoding());
 
         //Change Encoding
-        lyricsBody.setTextEncoding((byte)1);
+        lyricsBody.setTextEncoding((byte) 1);
         mp3File.save();
 
         mp3File = new MP3File(testFile);

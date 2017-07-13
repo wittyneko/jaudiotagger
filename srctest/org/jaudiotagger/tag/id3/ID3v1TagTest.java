@@ -1,8 +1,5 @@
 package org.jaudiotagger.tag.id3;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -11,14 +8,20 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.TagTextField;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 /**
  *
  */
-public class ID3v1TagTest extends TestCase
-{
+public class ID3v1TagTest extends AbstractTestCase {
 
     public static final String ARTIST = "artist";
     public static final String ALBUM = "album";
@@ -28,14 +31,14 @@ public class ID3v1TagTest extends TestCase
     public static final String GENRE_VAL = "Country";
     public static final String YEAR = "1971";
 
+
     /**
      * Provides an initialised object to be used in other tests
      * to prevent code duplication
      *
      * @return ID3v1Tag
      */
-    public static ID3v1Tag getInitialisedTag()
-    {
+    public static ID3v1Tag getInitialisedTag() {
         ID3v1Tag v1Tag = new ID3v1Tag();
         v1Tag.setArtist(ID3v1TagTest.ARTIST);
         v1Tag.setAlbum(ID3v1TagTest.ALBUM);
@@ -47,68 +50,26 @@ public class ID3v1TagTest extends TestCase
     }
 
     /**
-     * Constructor
      *
-     * @param arg0
      */
-    public ID3v1TagTest(String arg0)
-    {
-        super(arg0);
+    @Before
+    public void setUp() {
+        TagOptionSingleton.getInstance().setToDefault();
     }
 
     /**
-     * Command line entrance.
-     *
-     * @param args
-     */
-    public static void main(String[] args)
-    {
-        junit.textui.TestRunner.run(ID3v1TagTest.suite());
-    }
-
-    /////////////////////////////////////////////////////////////////////////
-    // TestCase classes to override
-    /////////////////////////////////////////////////////////////////////////
-
-    /**
-          *
-          */
-         protected void setUp()
-         {
-             TagOptionSingleton.getInstance().setToDefault();
-         }
-
-         /**
-          *
-          */
-         protected void tearDown()
-         {
-         }
-
-
-    /**
      *
      */
-//    protected void runTest()
-//    {
-//    }
-
-    /**
-     * Builds the Test Suite.
-     *
-     * @return the Test Suite.
-     */
-    public static Test suite()
-    {
-        return new TestSuite(ID3v1TagTest.class);
+    @After
+    public void tearDown() {
     }
 
     /////////////////////////////////////////////////////////////////////////
     // Tests
     /////////////////////////////////////////////////////////////////////////
 
-    public void testCreateID3v1Tag()
-    {
+    @Test
+    public void testCreateID3v1Tag() {
         ID3v1Tag v1Tag = new ID3v1Tag();
         v1Tag.setArtist(ID3v1TagTest.ARTIST);
         v1Tag.setAlbum(ID3v1TagTest.ALBUM);
@@ -138,8 +99,8 @@ public class ID3v1TagTest extends TestCase
         assertEquals(ID3v1TagTest.YEAR, ((TagTextField) v1Tag.getYear().get(0)).getContent());
     }
 
-    public void testSaveID3v1TagToFile() throws Exception
-    {
+    @Test
+    public void testSaveID3v1TagToFile() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
@@ -166,35 +127,33 @@ public class ID3v1TagTest extends TestCase
         assertEquals(ID3v1TagTest.GENRE_VAL, tag.getFirst(FieldKey.GENRE));
         assertEquals(ID3v1TagTest.YEAR, tag.getFirst(FieldKey.YEAR));
 
-        tag.setField(FieldKey.TRACK,"3");
+        tag.setField(FieldKey.TRACK, "3");
         mp3File.save();
         mp3File = new MP3File(testFile);
         tag = mp3File.getID3v1Tag();
         assertEquals("", tag.getFirst(FieldKey.TRACK));
 
-        
 
     }
 
 
-    public void testSaveID3v1TagToFileUsingTagInterface() throws Exception
-    {
+    @Test
+    public void testSaveID3v1TagToFileUsingTagInterface() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         AudioFile file = AudioFileIO.read(testFile);
 
         //Create v1 Tag
         Tag tag = file.getTag();
-        if (tag == null)
-        {
+        if (tag == null) {
             file.setTag(new ID3v1Tag());
             tag = file.getTag();
         }
-        tag.setField(FieldKey.ARTIST,ID3v1TagTest.ARTIST);
-        tag.setField(FieldKey.ALBUM,ID3v1TagTest.ALBUM);
-        tag.setField(FieldKey.COMMENT,ID3v1TagTest.COMMENT);
-        tag.setField(FieldKey.TITLE,ID3v1TagTest.TITLE);
-        tag.setField(FieldKey.GENRE,ID3v1TagTest.GENRE_VAL);
-        tag.setField(FieldKey.YEAR,ID3v1TagTest.YEAR);
+        tag.setField(FieldKey.ARTIST, ID3v1TagTest.ARTIST);
+        tag.setField(FieldKey.ALBUM, ID3v1TagTest.ALBUM);
+        tag.setField(FieldKey.COMMENT, ID3v1TagTest.COMMENT);
+        tag.setField(FieldKey.TITLE, ID3v1TagTest.TITLE);
+        tag.setField(FieldKey.GENRE, ID3v1TagTest.GENRE_VAL);
+        tag.setField(FieldKey.YEAR, ID3v1TagTest.YEAR);
 
         //Save tag changes to file
         file.setTag(tag);
@@ -211,8 +170,8 @@ public class ID3v1TagTest extends TestCase
         assertEquals(ID3v1TagTest.YEAR, tag.getFirst(FieldKey.YEAR));
     }
 
-    public void testCreateID3v1FromID3v24()
-    {
+    @Test
+    public void testCreateID3v1FromID3v24() {
         ID3v24Tag v2Tag = new ID3v24Tag();
         ID3v1Tag v1Tag = new ID3v1Tag(v2Tag);
         assertNotNull(v1Tag);
@@ -223,8 +182,8 @@ public class ID3v1TagTest extends TestCase
 
     }
 
-    public void testCreateID3v1FromID3v23()
-    {
+    @Test
+    public void testCreateID3v1FromID3v23() {
         ID3v23Tag v2Tag = new ID3v23Tag();
         ID3v1Tag v1Tag = new ID3v1Tag(v2Tag);
         assertNotNull(v1Tag);
@@ -234,8 +193,8 @@ public class ID3v1TagTest extends TestCase
 
     }
 
-    public void testCreateID3v1FromID3v22()
-    {
+    @Test
+    public void testCreateID3v1FromID3v22() {
         ID3v22Tag v2Tag = new ID3v22Tag();
         ID3v1Tag v1Tag = new ID3v1Tag(v2Tag);
         assertNotNull(v1Tag);
@@ -244,8 +203,8 @@ public class ID3v1TagTest extends TestCase
         assertEquals((byte) 0, v1Tag.getRevision());
     }
 
-    public void testNewInterface()
-    {
+    @Test
+    public void testNewInterface() {
         Exception exceptionCaught = null;
         ID3v1Tag v1Tag = new ID3v1Tag();
         assertTrue(v1Tag.isEmpty());
@@ -273,7 +232,7 @@ public class ID3v1TagTest extends TestCase
 
         v1Tag.setField(new ID3v1TagField(FieldKey.COMMENT.name(), "comment"));
         assertEquals("comment", ((TagTextField) v1Tag.getFields(FieldKey.COMMENT).get(0)).getContent());
-       assertEquals("comment", ((TagTextField) v1Tag.getFirstField(FieldKey.COMMENT.name())).getContent());
+        assertEquals("comment", ((TagTextField) v1Tag.getFirstField(FieldKey.COMMENT.name())).getContent());
 
         //Check nothing been overwritten
         assertEquals("year", v1Tag.getFirst(FieldKey.YEAR));
@@ -303,12 +262,9 @@ public class ID3v1TagTest extends TestCase
         assertTrue(v1Tag.isEmpty());
 
         //Null Handling
-        try
-        {
+        try {
             v1Tag.setField(new ID3v1TagField(FieldKey.COMMENT.name(), null));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
         assertTrue(exceptionCaught instanceof IllegalArgumentException);

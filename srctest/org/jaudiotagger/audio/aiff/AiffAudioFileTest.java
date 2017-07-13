@@ -1,16 +1,22 @@
 package org.jaudiotagger.audio.aiff;
 
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.AudioHeader;
+import org.junit.Test;
 
 import java.io.File;
 
-public class AiffAudioFileTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+public class AiffAudioFileTest extends AbstractTestCase {
+
+    @Test
     public void testReadAifcNotCompressed() {
         Exception exceptionCaught = null;
 
@@ -36,7 +42,7 @@ public class AiffAudioFileTest extends TestCase {
             assertEquals(3,ah.getTrackLength());
             assertEquals("not compressed", ((AiffAudioHeader) ah).getEncodingType());
             assertFalse(ah.isVariableBitRate());
-            assertEquals(2.936625d,((AiffAudioHeader) ah).getPreciseTrackLength());
+            assertEquals(2.936625d,((AiffAudioHeader) ah).getPreciseTrackLength(), 0.0);
             assertNull(aah.getName());
             assertNull(aah.getCopyright());
             assertNull(aah.getAuthor());
@@ -54,6 +60,7 @@ public class AiffAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testReadAiff2() {
         Exception exceptionCaught = null;
 
@@ -81,7 +88,7 @@ public class AiffAudioFileTest extends TestCase {
             assertEquals("44100", ah.getSampleRate());
             assertEquals(1,ah.getTrackLength());
             assertEquals("not compressed", ((AiffAudioHeader) ah).getEncodingType());
-            assertEquals(0.84d,((AiffAudioHeader) ah).getPreciseTrackLength());
+            assertEquals(0.84d,((AiffAudioHeader) ah).getPreciseTrackLength(), 0.0);
             assertNull(aah.getName());
             assertNull(aah.getCopyright());
             assertNull(aah.getAuthor());
@@ -98,6 +105,7 @@ public class AiffAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testReadAiff3() {
         Exception exceptionCaught = null;
 
@@ -125,7 +133,7 @@ public class AiffAudioFileTest extends TestCase {
             assertEquals("44100", ah.getSampleRate());
             assertEquals(5,ah.getTrackLength());
             assertEquals("not compressed", ((AiffAudioHeader) ah).getEncodingType());
-            assertEquals(5.0,((AiffAudioHeader) ah).getPreciseTrackLength());
+            assertEquals(5.0,((AiffAudioHeader) ah).getPreciseTrackLength(), 0.0);
             assertNull(aah.getName());
             assertNull(aah.getCopyright());
             assertNull(aah.getAuthor());
@@ -142,6 +150,7 @@ public class AiffAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testReadAifcCompressedAlaw() {
         Exception exceptionCaught = null;
 
@@ -167,7 +176,7 @@ public class AiffAudioFileTest extends TestCase {
             assertEquals(3,ah.getTrackLength());
             assertEquals("Alaw 2:1", ((AiffAudioHeader) ah).getEncodingType());
             assertTrue(ah.isVariableBitRate());
-            assertEquals(2.936625d,((AiffAudioHeader) ah).getPreciseTrackLength());
+            assertEquals(2.936625d,((AiffAudioHeader) ah).getPreciseTrackLength(), 0.0);
             assertNull(aah.getName());
             assertNull(aah.getCopyright());
             assertNull(aah.getAuthor());
@@ -185,6 +194,7 @@ public class AiffAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testReadAifcCompressedUlaw() {
         Exception exceptionCaught = null;
 
@@ -210,7 +220,7 @@ public class AiffAudioFileTest extends TestCase {
             assertEquals(3,ah.getTrackLength());
             assertEquals("µlaw 2:1", ((AiffAudioHeader) ah).getEncodingType());
             assertTrue(ah.isVariableBitRate());
-            assertEquals(2.936625d,((AiffAudioHeader) ah).getPreciseTrackLength());
+            assertEquals(2.936625d,((AiffAudioHeader) ah).getPreciseTrackLength(), 0.0);
             assertNull(aah.getName());
             assertNull(aah.getCopyright());
             assertNull(aah.getAuthor());
@@ -228,6 +238,7 @@ public class AiffAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testReadAifcFloating64() {
         Exception exceptionCaught = null;
 
@@ -253,7 +264,7 @@ public class AiffAudioFileTest extends TestCase {
             assertEquals(3,ah.getTrackLength());
             assertEquals("PCM 64-bit", ((AiffAudioHeader) ah).getEncodingType());
             assertTrue(ah.isVariableBitRate());
-            assertEquals(2.936625d,((AiffAudioHeader) ah).getPreciseTrackLength());
+            assertEquals(2.936625d,((AiffAudioHeader) ah).getPreciseTrackLength(), 0.0);
             assertNull(aah.getName());
             assertNull(aah.getCopyright());
             assertNull(aah.getAuthor());
@@ -269,6 +280,7 @@ public class AiffAudioFileTest extends TestCase {
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadAifcSSNDBeforeCOMMChunk() {
         Exception exceptionCaught = null;
 
@@ -294,7 +306,7 @@ public class AiffAudioFileTest extends TestCase {
             assertEquals(0,ah.getTrackLength());
             assertEquals("CCITT G.711 u-law", ((AiffAudioHeader) ah).getEncodingType());
             assertTrue(ah.isVariableBitRate());
-            assertEquals(0.001125,((AiffAudioHeader) ah).getPreciseTrackLength());
+            assertEquals(0.001125,((AiffAudioHeader) ah).getPreciseTrackLength(), 0.0);
             assertNull(aah.getName());
             assertNull(aah.getCopyright());
             assertNull(aah.getAuthor());
@@ -312,6 +324,7 @@ public class AiffAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testReadAifcWithOddChunk() {
         Exception exceptionCaught = null;
 
@@ -337,7 +350,7 @@ public class AiffAudioFileTest extends TestCase {
             assertEquals(0,ah.getTrackLength());
             assertEquals("CCITT G.711 u-law", ((AiffAudioHeader) ah).getEncodingType());
             assertTrue(ah.isVariableBitRate());
-            assertEquals(0.001125,((AiffAudioHeader) ah).getPreciseTrackLength());
+            assertEquals(0.001125,((AiffAudioHeader) ah).getPreciseTrackLength(), 0.0);
             assertNull(aah.getName());
             assertNull(aah.getCopyright());
             assertNull(aah.getAuthor());
@@ -380,7 +393,7 @@ public class AiffAudioFileTest extends TestCase {
             assertEquals(0,ah.getTrackLength());
             assertEquals("CCITT G.711 u-law", ((AiffAudioHeader) ah).getEncodingType());
             assertTrue(ah.isVariableBitRate());
-            assertEquals(0.001125,((AiffAudioHeader) ah).getPreciseTrackLength());
+            assertEquals(0.001125,((AiffAudioHeader) ah).getPreciseTrackLength(),0.0);
             assertNull(aah.getName());
             assertNull(aah.getCopyright());
             assertNull(aah.getAuthor());
@@ -398,6 +411,7 @@ public class AiffAudioFileTest extends TestCase {
 
     }
 
+    @Test
     public void testReadAiffUnknownCompressionAndNameChunkAndCopyrightChunks() {
         Exception exceptionCaught = null;
 
@@ -423,7 +437,7 @@ public class AiffAudioFileTest extends TestCase {
             assertEquals(0,ah.getTrackLength());
             assertEquals("CCITT G.728", ((AiffAudioHeader) ah).getEncodingType());
             assertTrue(ah.isVariableBitRate());
-            assertEquals(0.03675,((AiffAudioHeader) ah).getPreciseTrackLength());
+            assertEquals(0.03675,((AiffAudioHeader) ah).getPreciseTrackLength(), 0.0);
             assertEquals("woodblock",aah.getName());
             assertEquals("Copyright 1991, Prosonus",aah.getCopyright());
             assertEquals("Prosonus",aah.getAuthor());

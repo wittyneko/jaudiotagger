@@ -10,26 +10,29 @@ import org.jaudiotagger.tag.vorbiscomment.VorbisAlbumArtistReadOptions;
 import org.jaudiotagger.tag.vorbiscomment.VorbisAlbumArtistSaveOptions;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentFieldKey;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentTag;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test
  */
-public class Issue123Test extends AbstractTestCase
-{
-    public void testWriteJRiverAlbumArtistOgg() throws Exception
-    {
+public class Issue123Test extends AbstractTestCase {
+
+    @Test
+    public void testWriteJRiverAlbumArtistOgg() throws Exception {
         File orig = new File("testdata", "test.ogg");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
-        Exception ex=null;
-        try
-        {
+        Exception ex = null;
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test.ogg");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
@@ -38,18 +41,18 @@ public class Issue123Test extends AbstractTestCase
             af.getTag().setField(FieldKey.ALBUM_ARTIST, "fred");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"tom");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "tom");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_BOTH);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"jim");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "jim");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "jim");
@@ -59,18 +62,18 @@ public class Issue123Test extends AbstractTestCase
             af.getTag().deleteField(FieldKey.ALBUM_ARTIST);
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "jim");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "jim");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);
             af.getTag().deleteField(FieldKey.ALBUM_ARTIST);
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_BOTH);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"jim");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "jim");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "jim");
@@ -80,57 +83,54 @@ public class Issue123Test extends AbstractTestCase
             af.getTag().deleteField(FieldKey.ALBUM_ARTIST);
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST);
             af.getTag().setField(FieldKey.ALBUM_ARTIST, "fred");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"tom");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "tom");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST_AND_DELETE_JRIVER_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"freddy");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "freddy");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "freddy");
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST_AND_DELETE_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"tommy");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "tommy");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tommy");
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            ex=e;
+            ex = e;
         }
         assertNull(ex);
     }
 
-    public void testWriteJRiverAlbumArtistFlac() throws Exception
-    {
+
+    @Test
+    public void testWriteJRiverAlbumArtistFlac() throws Exception {
         File orig = new File("testdata", "test.flac");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
-        Exception ex=null;
-        try
-        {
+        Exception ex = null;
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
@@ -139,98 +139,95 @@ public class Issue123Test extends AbstractTestCase
             af.getTag().setField(FieldKey.ALBUM_ARTIST, "fred");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "Album Artist");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "Album Artist");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"tom");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "tom");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_BOTH);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"jim");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "jim");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "jim");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "jim");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "jim");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "jim");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST);
             af.getTag().deleteField(FieldKey.ALBUM_ARTIST);
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "jim");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "jim");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);
             af.getTag().deleteField(FieldKey.ALBUM_ARTIST);
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_BOTH);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"jim");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "jim");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "jim");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "jim");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "jim");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "jim");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_BOTH);
             af.getTag().deleteField(FieldKey.ALBUM_ARTIST);
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST);
             af.getTag().setField(FieldKey.ALBUM_ARTIST, "fred");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"tom");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "tom");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST_AND_DELETE_JRIVER_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"freddy");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "freddy");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "freddy");
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST_AND_DELETE_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"tommy");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "tommy");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tommy");
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            ex=e;
+            ex = e;
         }
         assertNull(ex);
     }
 
-    public void testReadJRiverAlbumArtistOgg() throws Exception
-    {
+
+    @Test
+    public void testReadJRiverAlbumArtistOgg() throws Exception {
         File orig = new File("testdata", "test.ogg");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
-        Exception ex=null;
-        try
-        {
+        Exception ex = null;
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test.ogg");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
@@ -240,82 +237,79 @@ public class Issue123Test extends AbstractTestCase
             af.getTag().setField(FieldKey.ALBUM_ARTIST, "fred");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"fred");
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "fred");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_JRIVER_ALBUMARTIST);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_ALBUMARTIST_THEN_JRIVER);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"fred");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "fred");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_JRIVER_THEN_ALBUMARTIST);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"fred");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "fred");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);
             af.getTag().setField(FieldKey.ALBUM_ARTIST, "tom");
             af.commit();
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_ALBUMARTIST);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"fred");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "fred");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_JRIVER_ALBUMARTIST);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"tom");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "tom");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_ALBUMARTIST_THEN_JRIVER);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"fred");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "fred");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_JRIVER_THEN_ALBUMARTIST);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"tom");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "tom");
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST);
             af.getTag().setField(FieldKey.ALBUM_ARTIST, "fred");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
-            assertEquals(((VorbisCommentTag)af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
+            assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"tom");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "tom");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST_AND_DELETE_JRIVER_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"freddy");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "freddy");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "freddy");
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST_AND_DELETE_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"tommy");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "tommy");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
             assertEquals(((VorbisCommentTag) af.getTag()).getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tommy");
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            ex=e;
+            ex = e;
         }
         assertNull(ex);
     }
 
-    public void testReadJRiverAlbumArtistFlac() throws Exception
-    {
+
+    @Test
+    public void testReadJRiverAlbumArtistFlac() throws Exception {
         File orig = new File("testdata", "test.flac");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
-        Exception ex=null;
-        try
-        {
+        Exception ex = null;
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
             AudioFile af = AudioFileIO.read(testFile);
             assertNotNull(af.getTag());
@@ -328,66 +322,64 @@ public class Issue123Test extends AbstractTestCase
             af.getTag().setField(FieldKey.ALBUM_ARTIST, "fred");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"fred");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "fred");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_JRIVER_ALBUMARTIST);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_ALBUMARTIST_THEN_JRIVER);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"fred");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "fred");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_JRIVER_THEN_ALBUMARTIST);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"fred");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "fred");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);
             af.getTag().setField(FieldKey.ALBUM_ARTIST, "tom");
             af.commit();
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_ALBUMARTIST);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"fred");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "fred");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_JRIVER_ALBUMARTIST);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"tom");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "tom");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_ALBUMARTIST_THEN_JRIVER);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"fred");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "fred");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_JRIVER_THEN_ALBUMARTIST);
-            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST),"tom");
+            assertEquals(af.getTag().getFirst(FieldKey.ALBUM_ARTIST), "tom");
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST);
             af.getTag().setField(FieldKey.ALBUM_ARTIST, "fred");
             af.commit();
             System.out.println(af.getTag());
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
-            assertEquals(((FlacTag)af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
+            assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"tom");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "tom");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "fred");
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tom");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST_AND_DELETE_JRIVER_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"freddy");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "freddy");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "freddy");
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "");
 
             TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_JRIVER_ALBUMARTIST_AND_DELETE_ALBUMARTIST);
-            af.getTag().setField(FieldKey.ALBUM_ARTIST,"tommy");
+            af.getTag().setField(FieldKey.ALBUM_ARTIST, "tommy");
             af.commit();
             System.out.println(af.getTag());
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST), "");
             assertEquals(((FlacTag) af.getTag()).getVorbisCommentTag().getFirst(VorbisCommentFieldKey.ALBUMARTIST_JRIVER), "tommy");
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            ex=e;
+            ex = e;
         }
         assertNull(ex);
     }

@@ -3,31 +3,30 @@ package org.jaudiotagger.tag.id3.framebody;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test TMOOFrameBody
  */
-public class FrameBodyTMOOTest extends AbstractTestCase
-{
+public class FrameBodyTMOOTest extends AbstractTestCase {
     public static final String MOOD = "mellow";
 
-    public static FrameBodyTMOO getInitialisedBody()
-    {
+    public static FrameBodyTMOO getInitialisedBody() {
         FrameBodyTMOO fb = new FrameBodyTMOO();
         fb.setText(FrameBodyTMOOTest.MOOD);
         return fb;
     }
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyTMOO fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyTMOO(TextEncoding.ISO_8859_1, FrameBodyTMOOTest.MOOD);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -38,17 +37,14 @@ public class FrameBodyTMOOTest extends AbstractTestCase
 
     }
 
-    public void testCreateFrameBodyEmptyConstructor()
-    {
+    @Test
+    public void testCreateFrameBodyEmptyConstructor() {
         Exception exceptionCaught = null;
         FrameBodyTMOO fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyTMOO();
             fb.setText(FrameBodyTMOOTest.MOOD);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

@@ -1,7 +1,11 @@
 package org.jaudiotagger.audio.asf.io;
 
-import junit.framework.TestCase;
-import org.jaudiotagger.audio.asf.data.*;
+import org.jaudiotagger.audio.asf.data.AsfHeader;
+import org.jaudiotagger.audio.asf.data.Chunk;
+import org.jaudiotagger.audio.asf.data.ChunkContainer;
+import org.jaudiotagger.audio.asf.data.ContainerType;
+import org.jaudiotagger.audio.asf.data.GUID;
+import org.jaudiotagger.audio.asf.data.MetadataContainer;
 import org.jaudiotagger.audio.asf.util.Utils;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
@@ -13,11 +17,12 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
 /**
  * 
  * @author Christian Laireiter
  */
-public final class AsfHeaderUtils extends TestCase
+public final class AsfHeaderUtils
 {
 
     public final static int BINARY_PRINT_COLUMNS = 20;

@@ -11,15 +11,18 @@ import org.jaudiotagger.audio.asf.io.MetadataReader;
 import org.jaudiotagger.audio.asf.util.Utils;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.MemoryDataSource;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 /**
  * @author Christian Laireiter
- * 
+ *
  */
 public class WmaContainerTest extends WmaTestCase {
 
@@ -29,6 +32,7 @@ public class WmaContainerTest extends WmaTestCase {
         super(TEST_FILE);
     }
 
+    @Test
     public void testExtContentAfterWrite() throws Exception {
         File prepareTestFile = prepareTestFile(null);
         AudioFile read = AudioFileIO.read(prepareTestFile);
@@ -40,6 +44,7 @@ public class WmaContainerTest extends WmaTestCase {
 //        assertEquals(ext, ext2);
     }
 
+    @Test
     public void testReadWriteEquality() throws IOException {
         File prepareTestFile = prepareTestFile(null);
         byte[] tmp = AsfHeaderUtils.getFirstChunk(prepareTestFile, GUID.GUID_EXTENDED_CONTENT_DESCRIPTION);

@@ -1,8 +1,6 @@
 package org.jaudiotagger.tag.id3;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
@@ -14,69 +12,36 @@ import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyWXXX;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyWXXXTest;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  *
  */
-public class Unicode24NullTerminatedTagTest extends TestCase
-{
-    /**
-     * Constructor
-     *
-     * @param arg0
-     */
-    public Unicode24NullTerminatedTagTest(String arg0)
-    {
-        super(arg0);
-    }
-
-    /**
-     * Command line entrance.
-     *
-     * @param args
-     */
-    public static void main(String[] args)
-    {
-        junit.textui.TestRunner.run(Unicode24NullTerminatedTagTest.suite());
-    }
-
-    /////////////////////////////////////////////////////////////////////////
-    // TestCase classes to override
-    /////////////////////////////////////////////////////////////////////////
+public class Unicode24NullTerminatedTagTest extends AbstractTestCase {
 
     /**
      *
      */
-    protected void setUp()
-    {
+    @Before
+    public void setUp() {
         TagOptionSingleton.getInstance().setToDefault();
     }
 
     /**
      *
      */
-    protected void tearDown()
-    {
-    }
-
-    /**
-     *
-     */
-//    protected void runTest()
-//    {
-//    }
-
-    /**
-     * Builds the Test Suite.
-     *
-     * @return the Test Suite.
-     */
-    public static Test suite()
-    {
-        return new TestSuite(Unicode24NullTerminatedTagTest.class);
+    @After
+    public void tearDown() {
     }
 
     /////////////////////////////////////////////////////////////////////////
@@ -86,8 +51,8 @@ public class Unicode24NullTerminatedTagTest extends TestCase
     /**
      *
      */
-    public void testUTF8WithNullTerminator() throws IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException, CannotReadException, RuntimeException
-    {
+    @Test
+    public void testUTF8WithNullTerminator() throws IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException, CannotReadException, RuntimeException {
         MP3File mp3File = new MP3File(AbstractTestCase.copyAudioToTmp("testV24-comments-utf8.mp3"));
         AbstractID3v2Tag id3v2Tag = mp3File.getID3v2Tag();
         assertNotNull(id3v2Tag);
@@ -127,21 +92,18 @@ public class Unicode24NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateISO8859EncodedNullTerminatedString() throws Exception
-    {
+    @Test
+    public void testCreateISO8859EncodedNullTerminatedString() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -174,22 +136,19 @@ public class Unicode24NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF16BOMLEEncodedNullTerminatedString() throws Exception
-    {
+    @Test
+    public void testCreateUTF16BOMLEEncodedNullTerminatedString() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_16);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -216,14 +175,14 @@ public class Unicode24NullTerminatedTagTest extends TestCase
     }
 
 
-/**
+    /**
      * Can explictly uses UTF-16 even if not required
      * as UTf16 by default
      *
      * @throws Exception
      */
-    public void testCreateUTF16BOMBEEncodedNullTerminatedString() throws Exception
-    {
+    @Test
+    public void testCreateUTF16BOMBEEncodedNullTerminatedString() throws Exception {
         TagOptionSingleton.getInstance().setEncodeUTF16BomAsLittleEndian(false);
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
@@ -231,14 +190,11 @@ public class Unicode24NullTerminatedTagTest extends TestCase
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_16);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -270,21 +226,18 @@ public class Unicode24NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF16AutoEncodedNullTerminatedString() throws Exception
-    {
+    @Test
+    public void testCreateUTF16AutoEncodedNullTerminatedString() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getUnicodeRequiredInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -316,22 +269,19 @@ public class Unicode24NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF16BEEncodedNullTerminatedString() throws Exception
-    {
+    @Test
+    public void testCreateUTF16BEEncodedNullTerminatedString() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getUnicodeRequiredInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_16BE);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -363,22 +313,19 @@ public class Unicode24NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF8EncodedNullTerminatedString() throws Exception
-    {
+    @Test
+    public void testCreateUTF8EncodedNullTerminatedString() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getUnicodeRequiredInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_8);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

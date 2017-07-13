@@ -1,12 +1,14 @@
 package org.jaudiotagger.audio.generic;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.flac.FlacTag;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,17 +20,19 @@ import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 /**
  * AudioFileWriterTest.
  *
  * @author <a href="mailto:hs@tagtraum.com">Hendrik Schreiber</a>
  */
-public class AudioFileWriterTest extends TestCase {
+public class AudioFileWriterTest {
 
     private AudioFile audioFile;
 
-    @Override
-    protected void setUp() throws IOException {
+    @Before
+    public void setUp() throws IOException {
         final File file = File.createTempFile("AudioFileWriterTest", ".bin");
         try (final FileOutputStream out = new FileOutputStream(file)) {
             for (int i=0; i<100; i++) out.write("Some random stuff\n".getBytes(StandardCharsets.US_ASCII));
@@ -37,26 +41,30 @@ public class AudioFileWriterTest extends TestCase {
         TagOptionSingleton.getInstance().setToDefault();
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         if (audioFile.getFile().exists()) {
             audioFile.getFile().delete();
         }
     }
 
+    @Test
     public void testSizeHasIncreased() throws CannotWriteException, IOException, InterruptedException {
         sizeHasChanged(200);
     }
 
+    @Test
     public void testSizeHasDecreased() throws CannotWriteException, IOException, InterruptedException {
         sizeHasChanged(-200);
     }
 
+    @Test
     public void testSizeHasIncreasedWithFileIdentityPreserved() throws CannotWriteException, IOException, InterruptedException {
         TagOptionSingleton.getInstance().setPreserveFileIdentity(true);
         sizeHasChanged(200);
     }
 
+    @Test
     public void testSizeHasDecreasedWithFileIdentityPreserved() throws CannotWriteException, IOException, InterruptedException {
         TagOptionSingleton.getInstance().setPreserveFileIdentity(true);
         sizeHasChanged(-200);
@@ -70,6 +78,7 @@ public class AudioFileWriterTest extends TestCase {
         assertEquals("File size is not correct", originalFileSize + fileSizeDelta, fileSize);
     }
 
+    @Test
     public void testCreationTime() throws CannotWriteException, IOException, InterruptedException {
         if (!System.getProperty("os.name").toLowerCase().startsWith("win")) {
             // known to fail under OS X, because of a JDK bug
@@ -80,11 +89,13 @@ public class AudioFileWriterTest extends TestCase {
         creationTime();
     }
 
+    @Test
     public void testCreationTimeWithFileIdentityPreserved() throws CannotWriteException, IOException, InterruptedException {
         TagOptionSingleton.getInstance().setPreserveFileIdentity(true);
         creationTime();
     }
 
+    @Test
     public void testFileIdentity() throws Exception {
         try
         {

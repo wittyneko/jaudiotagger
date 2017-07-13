@@ -3,31 +3,30 @@ package org.jaudiotagger.tag.id3.framebody;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test TSOTFrameBody
  */
-public class FrameBodyTSOTTest extends AbstractTestCase
-{
+public class FrameBodyTSOTTest extends AbstractTestCase {
     public static final String TITLE_SORT = "titlesort";
 
-    public static FrameBodyTSOT getInitialisedBody()
-    {
+    public static FrameBodyTSOT getInitialisedBody() {
         FrameBodyTSOT fb = new FrameBodyTSOT();
         fb.setText(TITLE_SORT);
         return fb;
     }
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyTSOT fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyTSOT(TextEncoding.ISO_8859_1, TITLE_SORT);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -38,17 +37,14 @@ public class FrameBodyTSOTTest extends AbstractTestCase
 
     }
 
-    public void testCreateFrameBodyEmptyConstructor()
-    {
+    @Test
+    public void testCreateFrameBodyEmptyConstructor() {
         Exception exceptionCaught = null;
         FrameBodyTSOT fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyTSOT();
             fb.setText(TITLE_SORT);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

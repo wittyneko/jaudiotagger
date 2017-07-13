@@ -5,6 +5,7 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.images.Artwork;
 import org.jaudiotagger.tag.vorbiscomment.util.Base64Coder;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -13,6 +14,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 
 /**
  */
@@ -23,6 +28,7 @@ public class VorbisImageTest extends AbstractTestCase
      * <p/>
      * Works
      */
+    @Test
     public void testReadFileWithSmallImageTag()
     {
         Exception exceptionCaught = null;
@@ -50,6 +56,7 @@ public class VorbisImageTest extends AbstractTestCase
      * <p/>
      * Fails:Doesnt give error but doesnt read image
      */
+    @Test
     public void testReadFileWithLargeImageTag()
     {
         Exception exceptionCaught = null;
@@ -76,6 +83,7 @@ public class VorbisImageTest extends AbstractTestCase
     /**
      * Write and read image using lowest level methods
      */
+    @Test
     public void testWriteImage1()
     {
         try
@@ -114,6 +122,7 @@ public class VorbisImageTest extends AbstractTestCase
     /**
      * Write Image using new method, read using lowlevel
      */
+    @Test
     public void testWriteImage2()
     {
         try
@@ -152,6 +161,7 @@ public class VorbisImageTest extends AbstractTestCase
     /**
      * Write Image using lowlevel , read using new method
      */
+    @Test
     public void testWriteImage3()
     {
         try
@@ -189,6 +199,7 @@ public class VorbisImageTest extends AbstractTestCase
     /**
      * Test can read file with base64 encoded image which has newlines in it
      */
+    @Test
     public void testReadFileWithNewlinesInBase64()
     {
         File orig = new File("testdata", "testnewlineimage.small.ogg");

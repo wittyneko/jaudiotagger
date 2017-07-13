@@ -3,31 +3,30 @@ package org.jaudiotagger.tag.id3.framebody;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v23Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test TSOAFrameBody
  */
-public class FrameBodyXSOATest extends AbstractTestCase
-{
+public class FrameBodyXSOATest extends AbstractTestCase {
     public static final String ALBUM_SORT = "albumsort";
 
-    public static FrameBodyXSOA getInitialisedBody()
-    {
+    public static FrameBodyXSOA getInitialisedBody() {
         FrameBodyXSOA fb = new FrameBodyXSOA();
         fb.setText(FrameBodyXSOATest.ALBUM_SORT);
         return fb;
     }
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyXSOA fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyXSOA(TextEncoding.ISO_8859_1, FrameBodyXSOATest.ALBUM_SORT);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -38,17 +37,14 @@ public class FrameBodyXSOATest extends AbstractTestCase
 
     }
 
-    public void testCreateFrameBodyEmptyConstructor()
-    {
+    @Test
+    public void testCreateFrameBodyEmptyConstructor() {
         Exception exceptionCaught = null;
         FrameBodyXSOA fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyXSOA();
             fb.setText(FrameBodyXSOATest.ALBUM_SORT);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

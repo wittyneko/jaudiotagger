@@ -3,31 +3,30 @@ package org.jaudiotagger.tag.id3.framebody;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v23Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test TSOTFrameBody
  */
-public class FrameBodyXSOPTest extends AbstractTestCase
-{
+public class FrameBodyXSOPTest extends AbstractTestCase {
     public static final String ARTIST_SORT = "artistsort";
 
-    public static FrameBodyXSOP getInitialisedBody()
-    {
+    public static FrameBodyXSOP getInitialisedBody() {
         FrameBodyXSOP fb = new FrameBodyXSOP();
         fb.setText(FrameBodyXSOPTest.ARTIST_SORT);
         return fb;
     }
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyXSOP fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyXSOP(TextEncoding.ISO_8859_1, FrameBodyXSOPTest.ARTIST_SORT);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -38,17 +37,14 @@ public class FrameBodyXSOPTest extends AbstractTestCase
 
     }
 
-    public void testCreateFrameBodyEmptyConstructor()
-    {
+    @Test
+    public void testCreateFrameBodyEmptyConstructor() {
         Exception exceptionCaught = null;
         FrameBodyXSOP fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyXSOP();
             fb.setText(FrameBodyXSOPTest.ARTIST_SORT);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

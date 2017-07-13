@@ -1,56 +1,50 @@
 package org.jaudiotagger.tag.flac;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.FilePermissionsTest;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.CannotWriteException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.NoWritePermissionsException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.audio.flac.FlacInfoReader;
 import org.jaudiotagger.audio.flac.metadatablock.MetadataBlockDataPicture;
-import org.jaudiotagger.tag.FieldDataInvalidException;
 import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.TagField;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.id3.valuepair.ImageFormats;
 import org.jaudiotagger.tag.reference.PictureTypes;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 /**
  * basic Flac tests
  */
-public class FlacWriteTest extends TestCase
-{
-    @Override
-    public void setUp()
-    {
+public class FlacWriteTest extends AbstractTestCase{
+
+    @Before
+    public void setUp() {
         TagOptionSingleton.getInstance().setToDefault();
     }
 
     /**
      * Write flac info to file
      */
-    public void testWriteAllFieldsToFile()
-    {
+    @Test
+    public void testWriteAllFieldsToFile() {
         Exception exceptionCaught = null;
-        try
-        {
+        try {
             //Put artifically low just to test it out
             TagOptionSingleton.getInstance().setWriteChunkSize(40000);
             File testFile = AbstractTestCase.copyAudioToTmp("test2.flac", new File("test2write.flac"));
             AudioFile f = AudioFileIO.read(testFile);
 
-            System.out.println("startFileSize:"+f.getFile().length());
+            System.out.println("startFileSize:" + f.getFile().length());
 
             assertEquals("192", f.getAudioHeader().getBitRate());
             assertEquals("FLAC 16 bits", f.getAudioHeader().getEncodingType());
@@ -66,26 +60,26 @@ public class FlacWriteTest extends TestCase
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(4, infoReader.countMetaBlocks(f.getFile()));
 
-            tag.addField(FieldKey.ARTIST,"artist\u01ff");
-            tag.addField(FieldKey.ALBUM,"album");
-            tag.addField(FieldKey.TITLE,"title");
+            tag.addField(FieldKey.ARTIST, "artist\u01ff");
+            tag.addField(FieldKey.ALBUM, "album");
+            tag.addField(FieldKey.TITLE, "title");
             assertEquals(1, tag.getFields(FieldKey.TITLE.name()).size());
-            tag.addField(FieldKey.YEAR,"1971");
+            tag.addField(FieldKey.YEAR, "1971");
             assertEquals(1, tag.getFields(FieldKey.YEAR).size());
-            tag.addField(FieldKey.TRACK,"2");
-            tag.addField(FieldKey.GENRE,"Rock");
+            tag.addField(FieldKey.TRACK, "2");
+            tag.addField(FieldKey.GENRE, "Rock");
 
 
             tag.setField(tag.createField(FieldKey.BPM, "123"));
-            tag.setField(tag.createField(FieldKey.URL_LYRICS_SITE,"http://www.lyrics.fly.com"));
-            tag.setField(tag.createField(FieldKey.URL_DISCOGS_ARTIST_SITE,"http://www.discogs1.com"));
-            tag.setField(tag.createField(FieldKey.URL_DISCOGS_RELEASE_SITE,"http://www.discogs2.com"));
-            tag.setField(tag.createField(FieldKey.URL_OFFICIAL_ARTIST_SITE,"http://www.discogs3.com"));
-            tag.setField(tag.createField(FieldKey.URL_OFFICIAL_RELEASE_SITE,"http://www.discogs4.com"));
-            tag.setField(tag.createField(FieldKey.URL_WIKIPEDIA_ARTIST_SITE,"http://www.discogs5.com"));
-            tag.setField(tag.createField(FieldKey.URL_WIKIPEDIA_RELEASE_SITE,"http://www.discogs6.com"));
-            tag.setField(tag.createField(FieldKey.TRACK_TOTAL,"11"));
-            tag.setField(tag.createField(FieldKey.DISC_TOTAL,"3"));
+            tag.setField(tag.createField(FieldKey.URL_LYRICS_SITE, "http://www.lyrics.fly.com"));
+            tag.setField(tag.createField(FieldKey.URL_DISCOGS_ARTIST_SITE, "http://www.discogs1.com"));
+            tag.setField(tag.createField(FieldKey.URL_DISCOGS_RELEASE_SITE, "http://www.discogs2.com"));
+            tag.setField(tag.createField(FieldKey.URL_OFFICIAL_ARTIST_SITE, "http://www.discogs3.com"));
+            tag.setField(tag.createField(FieldKey.URL_OFFICIAL_RELEASE_SITE, "http://www.discogs4.com"));
+            tag.setField(tag.createField(FieldKey.URL_WIKIPEDIA_ARTIST_SITE, "http://www.discogs5.com"));
+            tag.setField(tag.createField(FieldKey.URL_WIKIPEDIA_RELEASE_SITE, "http://www.discogs6.com"));
+            tag.setField(tag.createField(FieldKey.TRACK_TOTAL, "11"));
+            tag.setField(tag.createField(FieldKey.DISC_TOTAL, "3"));
             //key not known to jaudiotagger
             tag.setField("VIOLINIST", "Sarah Curtis");
 
@@ -95,8 +89,8 @@ public class FlacWriteTest extends TestCase
             imageFile.read(imagedata);
             tag.setField(tag.createArtworkField(imagedata, PictureTypes.DEFAULT_ID, ImageFormats.MIME_TYPE_PNG, "test", 200, 200, 24, 0));
 
-            assertEquals("11",tag.getFirst(FieldKey.TRACK_TOTAL));
-            assertEquals("3",tag.getFirst(FieldKey.DISC_TOTAL));
+            assertEquals("11", tag.getFirst(FieldKey.TRACK_TOTAL));
+            assertEquals("3", tag.getFirst(FieldKey.DISC_TOTAL));
 
 
             f.commit();
@@ -137,43 +131,38 @@ public class FlacWriteTest extends TestCase
             assertEquals(24, pic.getColourDepth());
             assertEquals(0, pic.getIndexedColourCount());
 
-            assertEquals("http://www.lyrics.fly.com",tag.getFirst(FieldKey.URL_LYRICS_SITE));
-            assertEquals("http://www.discogs1.com",tag.getFirst(FieldKey.URL_DISCOGS_ARTIST_SITE));
-            assertEquals("http://www.discogs2.com",tag.getFirst(FieldKey.URL_DISCOGS_RELEASE_SITE));
-            assertEquals("http://www.discogs3.com",tag.getFirst(FieldKey.URL_OFFICIAL_ARTIST_SITE));
-            assertEquals("http://www.discogs4.com",tag.getFirst(FieldKey.URL_OFFICIAL_RELEASE_SITE));
-            assertEquals("http://www.discogs5.com",tag.getFirst(FieldKey.URL_WIKIPEDIA_ARTIST_SITE));
-            assertEquals("http://www.discogs6.com",tag.getFirst(FieldKey.URL_WIKIPEDIA_RELEASE_SITE));
-            assertEquals("11",tag.getFirst(FieldKey.TRACK_TOTAL));
-            assertEquals("3",tag.getFirst(FieldKey.DISC_TOTAL));
-            assertEquals("Sarah Curtis",tag.getFirst("VIOLINIST"));
+            assertEquals("http://www.lyrics.fly.com", tag.getFirst(FieldKey.URL_LYRICS_SITE));
+            assertEquals("http://www.discogs1.com", tag.getFirst(FieldKey.URL_DISCOGS_ARTIST_SITE));
+            assertEquals("http://www.discogs2.com", tag.getFirst(FieldKey.URL_DISCOGS_RELEASE_SITE));
+            assertEquals("http://www.discogs3.com", tag.getFirst(FieldKey.URL_OFFICIAL_ARTIST_SITE));
+            assertEquals("http://www.discogs4.com", tag.getFirst(FieldKey.URL_OFFICIAL_RELEASE_SITE));
+            assertEquals("http://www.discogs5.com", tag.getFirst(FieldKey.URL_WIKIPEDIA_ARTIST_SITE));
+            assertEquals("http://www.discogs6.com", tag.getFirst(FieldKey.URL_WIKIPEDIA_RELEASE_SITE));
+            assertEquals("11", tag.getFirst(FieldKey.TRACK_TOTAL));
+            assertEquals("3", tag.getFirst(FieldKey.DISC_TOTAL));
+            assertEquals("Sarah Curtis", tag.getFirst("VIOLINIST"));
 
-            System.out.println("NewFileSize:"+f.getFile().length());
+            System.out.println("NewFileSize:" + f.getFile().length());
             assertEquals(144202, f.getFile().length());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }
         assertNull(exceptionCaught);
 
 
-
-
     }
 
-    public void testWriteAllFieldsToFileSmallChunkSize()
-    {
+    @Test
+    public void testWriteAllFieldsToFileSmallChunkSize() {
         Exception exceptionCaught = null;
-        try
-        {
+        try {
             //Put artifically low just to test it out
             TagOptionSingleton.getInstance().setWriteChunkSize(1000);
             File testFile = AbstractTestCase.copyAudioToTmp("test2.flac", new File("test2write.flac"));
             AudioFile f = AudioFileIO.read(testFile);
 
-            System.out.println("startFileSize:"+f.getFile().length());
+            System.out.println("startFileSize:" + f.getFile().length());
 
             assertEquals("192", f.getAudioHeader().getBitRate());
             assertEquals("FLAC 16 bits", f.getAudioHeader().getEncodingType());
@@ -189,26 +178,26 @@ public class FlacWriteTest extends TestCase
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(4, infoReader.countMetaBlocks(f.getFile()));
 
-            tag.addField(FieldKey.ARTIST,"artist\u01ff");
-            tag.addField(FieldKey.ALBUM,"album");
-            tag.addField(FieldKey.TITLE,"title");
+            tag.addField(FieldKey.ARTIST, "artist\u01ff");
+            tag.addField(FieldKey.ALBUM, "album");
+            tag.addField(FieldKey.TITLE, "title");
             assertEquals(1, tag.getFields(FieldKey.TITLE.name()).size());
-            tag.addField(FieldKey.YEAR,"1971");
+            tag.addField(FieldKey.YEAR, "1971");
             assertEquals(1, tag.getFields(FieldKey.YEAR).size());
-            tag.addField(FieldKey.TRACK,"2");
-            tag.addField(FieldKey.GENRE,"Rock");
+            tag.addField(FieldKey.TRACK, "2");
+            tag.addField(FieldKey.GENRE, "Rock");
 
 
             tag.setField(tag.createField(FieldKey.BPM, "123"));
-            tag.setField(tag.createField(FieldKey.URL_LYRICS_SITE,"http://www.lyrics.fly.com"));
-            tag.setField(tag.createField(FieldKey.URL_DISCOGS_ARTIST_SITE,"http://www.discogs1.com"));
-            tag.setField(tag.createField(FieldKey.URL_DISCOGS_RELEASE_SITE,"http://www.discogs2.com"));
-            tag.setField(tag.createField(FieldKey.URL_OFFICIAL_ARTIST_SITE,"http://www.discogs3.com"));
-            tag.setField(tag.createField(FieldKey.URL_OFFICIAL_RELEASE_SITE,"http://www.discogs4.com"));
-            tag.setField(tag.createField(FieldKey.URL_WIKIPEDIA_ARTIST_SITE,"http://www.discogs5.com"));
-            tag.setField(tag.createField(FieldKey.URL_WIKIPEDIA_RELEASE_SITE,"http://www.discogs6.com"));
-            tag.setField(tag.createField(FieldKey.TRACK_TOTAL,"11"));
-            tag.setField(tag.createField(FieldKey.DISC_TOTAL,"3"));
+            tag.setField(tag.createField(FieldKey.URL_LYRICS_SITE, "http://www.lyrics.fly.com"));
+            tag.setField(tag.createField(FieldKey.URL_DISCOGS_ARTIST_SITE, "http://www.discogs1.com"));
+            tag.setField(tag.createField(FieldKey.URL_DISCOGS_RELEASE_SITE, "http://www.discogs2.com"));
+            tag.setField(tag.createField(FieldKey.URL_OFFICIAL_ARTIST_SITE, "http://www.discogs3.com"));
+            tag.setField(tag.createField(FieldKey.URL_OFFICIAL_RELEASE_SITE, "http://www.discogs4.com"));
+            tag.setField(tag.createField(FieldKey.URL_WIKIPEDIA_ARTIST_SITE, "http://www.discogs5.com"));
+            tag.setField(tag.createField(FieldKey.URL_WIKIPEDIA_RELEASE_SITE, "http://www.discogs6.com"));
+            tag.setField(tag.createField(FieldKey.TRACK_TOTAL, "11"));
+            tag.setField(tag.createField(FieldKey.DISC_TOTAL, "3"));
             //key not known to jaudiotagger
             tag.setField("VIOLINIST", "Sarah Curtis");
 
@@ -218,8 +207,8 @@ public class FlacWriteTest extends TestCase
             imageFile.read(imagedata);
             tag.setField(tag.createArtworkField(imagedata, PictureTypes.DEFAULT_ID, ImageFormats.MIME_TYPE_PNG, "test", 200, 200, 24, 0));
 
-            assertEquals("11",tag.getFirst(FieldKey.TRACK_TOTAL));
-            assertEquals("3",tag.getFirst(FieldKey.DISC_TOTAL));
+            assertEquals("11", tag.getFirst(FieldKey.TRACK_TOTAL));
+            assertEquals("3", tag.getFirst(FieldKey.DISC_TOTAL));
 
 
             f.commit();
@@ -260,28 +249,24 @@ public class FlacWriteTest extends TestCase
             assertEquals(24, pic.getColourDepth());
             assertEquals(0, pic.getIndexedColourCount());
 
-            assertEquals("http://www.lyrics.fly.com",tag.getFirst(FieldKey.URL_LYRICS_SITE));
-            assertEquals("http://www.discogs1.com",tag.getFirst(FieldKey.URL_DISCOGS_ARTIST_SITE));
-            assertEquals("http://www.discogs2.com",tag.getFirst(FieldKey.URL_DISCOGS_RELEASE_SITE));
-            assertEquals("http://www.discogs3.com",tag.getFirst(FieldKey.URL_OFFICIAL_ARTIST_SITE));
-            assertEquals("http://www.discogs4.com",tag.getFirst(FieldKey.URL_OFFICIAL_RELEASE_SITE));
-            assertEquals("http://www.discogs5.com",tag.getFirst(FieldKey.URL_WIKIPEDIA_ARTIST_SITE));
-            assertEquals("http://www.discogs6.com",tag.getFirst(FieldKey.URL_WIKIPEDIA_RELEASE_SITE));
-            assertEquals("11",tag.getFirst(FieldKey.TRACK_TOTAL));
-            assertEquals("3",tag.getFirst(FieldKey.DISC_TOTAL));
-            assertEquals("Sarah Curtis",tag.getFirst("VIOLINIST"));
+            assertEquals("http://www.lyrics.fly.com", tag.getFirst(FieldKey.URL_LYRICS_SITE));
+            assertEquals("http://www.discogs1.com", tag.getFirst(FieldKey.URL_DISCOGS_ARTIST_SITE));
+            assertEquals("http://www.discogs2.com", tag.getFirst(FieldKey.URL_DISCOGS_RELEASE_SITE));
+            assertEquals("http://www.discogs3.com", tag.getFirst(FieldKey.URL_OFFICIAL_ARTIST_SITE));
+            assertEquals("http://www.discogs4.com", tag.getFirst(FieldKey.URL_OFFICIAL_RELEASE_SITE));
+            assertEquals("http://www.discogs5.com", tag.getFirst(FieldKey.URL_WIKIPEDIA_ARTIST_SITE));
+            assertEquals("http://www.discogs6.com", tag.getFirst(FieldKey.URL_WIKIPEDIA_RELEASE_SITE));
+            assertEquals("11", tag.getFirst(FieldKey.TRACK_TOTAL));
+            assertEquals("3", tag.getFirst(FieldKey.DISC_TOTAL));
+            assertEquals("Sarah Curtis", tag.getFirst("VIOLINIST"));
 
-            System.out.println("NewFileSize:"+f.getFile().length());
+            System.out.println("NewFileSize:" + f.getFile().length());
             assertEquals(144202, f.getFile().length());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }
         assertNull(exceptionCaught);
-
-
 
 
     }
@@ -289,11 +274,10 @@ public class FlacWriteTest extends TestCase
     /**
      * Test deleting tag file
      */
-    public void testDeleteTagFile()
-    {
+    @Test
+    public void testDeleteTagFile() {
         Exception exceptionCaught = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test.flac", new File("testdeletetag.flac"));
             AudioFile f = AudioFileIO.read(testFile);
 
@@ -308,9 +292,7 @@ public class FlacWriteTest extends TestCase
             AudioFileIO.delete(f);
             f = AudioFileIO.read(testFile);
             assertTrue(f.getTag().isEmpty());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }
@@ -321,24 +303,21 @@ public class FlacWriteTest extends TestCase
     /**
      * Test Writing file that contains cuesheet
      */
-    public void testWriteFileWithCueSheet()
-    {
+    @Test
+    public void testWriteFileWithCueSheet() {
         Exception exceptionCaught = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test3.flac", new File("testWriteWithCueSheet.flac"));
             AudioFile f = AudioFileIO.read(testFile);
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(5, infoReader.countMetaBlocks(f.getFile()));
-            f.getTag().setField(FieldKey.ALBUM,"BLOCK");
+            f.getTag().setField(FieldKey.ALBUM, "BLOCK");
             f.commit();
             f = AudioFileIO.read(testFile);
             infoReader = new FlacInfoReader();
             assertEquals("BLOCK", f.getTag().getFirst(FieldKey.ALBUM));
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }
@@ -348,14 +327,12 @@ public class FlacWriteTest extends TestCase
     /**
      * Test writing to file that contains an ID3 header
      */
-    public void testWriteFileWithId3Header()
-    {
+    @Test
+    public void testWriteFileWithId3Header() {
         Exception exceptionCaught = null;
-        try
-        {
+        try {
             File orig = new File("testdata", "test22.flac");
-            if (!orig.isFile())
-            {
+            if (!orig.isFile()) {
                 System.out.println("Test cannot be run because test file not available");
                 return;
             }
@@ -363,16 +340,14 @@ public class FlacWriteTest extends TestCase
             AudioFile f = AudioFileIO.read(testFile);
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(4, infoReader.countMetaBlocks(f.getFile()));
-            f.getTag().setField(FieldKey.ALBUM,"BLOCK");
+            f.getTag().setField(FieldKey.ALBUM, "BLOCK");
             f.commit();
             f = AudioFileIO.read(testFile);
             infoReader = new FlacInfoReader();
             assertEquals(4, infoReader.countMetaBlocks(f.getFile()));
             assertEquals("BLOCK", f.getTag().getFirst(FieldKey.ALBUM));
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }
@@ -382,14 +357,12 @@ public class FlacWriteTest extends TestCase
     /**
      * Metadata size has increased so that shift required
      */
-    public void testWriteFileWithId3HeaderAudioShifted()
-    {
+    @Test
+    public void testWriteFileWithId3HeaderAudioShifted() {
         Exception exceptionCaught = null;
-        try
-        {
+        try {
             File orig = new File("testdata", "test22.flac");
-            if (!orig.isFile())
-            {
+            if (!orig.isFile()) {
                 System.out.println("Test cannot be run because test file not available");
                 return;
             }
@@ -412,12 +385,12 @@ public class FlacWriteTest extends TestCase
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(4, infoReader.countMetaBlocks(f.getFile()));
 
-            tag.setField(FieldKey.ARTIST,"BLOCK");
-            tag.addField(FieldKey.ALBUM,"album");
-            tag.addField(FieldKey.TITLE,"title");
-            tag.addField(FieldKey.YEAR,"1971");
-            tag.addField(FieldKey.TRACK,"2");
-            tag.addField(FieldKey.GENRE,"Rock");
+            tag.setField(FieldKey.ARTIST, "BLOCK");
+            tag.addField(FieldKey.ALBUM, "album");
+            tag.addField(FieldKey.TITLE, "title");
+            tag.addField(FieldKey.YEAR, "1971");
+            tag.addField(FieldKey.TRACK, "2");
+            tag.addField(FieldKey.GENRE, "Rock");
             tag.setField(tag.createField(FieldKey.BPM, "123"));
 
             //Add new image
@@ -433,19 +406,17 @@ public class FlacWriteTest extends TestCase
             assertEquals("reference libFLAC 1.1.4 20070213", tag.getVorbisCommentTag().getVendor());
             tag = (FlacTag) f.getTag();
             assertEquals("BLOCK", tag.getFirst(FieldKey.ARTIST));
-            assertEquals(1,tag.getArtworkList().size());
+            assertEquals(1, tag.getArtworkList().size());
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }
         assertNull(exceptionCaught);
     }
 
-    public void testDeleteTag() throws Exception
-    {
+    @Test
+    public void testDeleteTag() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("test2.flac", new File("testDelete.flac"));
         AudioFile f = AudioFileIO.read(testFile);
         AudioFileIO.delete(f);
@@ -454,66 +425,64 @@ public class FlacWriteTest extends TestCase
         assertTrue(f.getTag().isEmpty());
     }
 
-    public void testWriteMultipleFields() throws Exception
-    {
+    @Test
+    public void testWriteMultipleFields() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("test.flac", new File("testWriteMultiple.flac"));
         AudioFile f = AudioFileIO.read(testFile);
         List<TagField> tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
-        assertEquals(0,tagFields.size());
-        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT,"artist1");
-        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT,"artist2");
+        assertEquals(0, tagFields.size());
+        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT, "artist1");
+        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT, "artist2");
         tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
-        assertEquals(2,tagFields.size());
+        assertEquals(2, tagFields.size());
         f.commit();
         f = AudioFileIO.read(testFile);
         tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
-        assertEquals(2,tagFields.size());
+        assertEquals(2, tagFields.size());
     }
 
-     public void testDeleteFields() throws Exception
-    {
+    @Test
+    public void testDeleteFields() throws Exception {
         //Delete using generic key
         File testFile = AbstractTestCase.copyAudioToTmp("test.flac", new File("testWriteMultiple.flac"));
         AudioFile f = AudioFileIO.read(testFile);
         List<TagField> tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
-        assertEquals(0,tagFields.size());
-        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT,"artist1");
-        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT,"artist2");
+        assertEquals(0, tagFields.size());
+        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT, "artist1");
+        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT, "artist2");
         tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
-        assertEquals(2,tagFields.size());
+        assertEquals(2, tagFields.size());
         f.getTag().deleteField(FieldKey.ALBUM_ARTIST_SORT);
         f.commit();
 
         //Delete using flac id
         f = AudioFileIO.read(testFile);
         tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
-        assertEquals(0,tagFields.size());
-        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT,"artist1");
-        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT,"artist2");
+        assertEquals(0, tagFields.size());
+        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT, "artist1");
+        f.getTag().addField(FieldKey.ALBUM_ARTIST_SORT, "artist2");
         tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
-        assertEquals(2,tagFields.size());
+        assertEquals(2, tagFields.size());
         f.getTag().deleteField("ALBUMARTISTSORT");
         tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
-        assertEquals(0,tagFields.size());
+        assertEquals(0, tagFields.size());
         f.commit();
 
         f = AudioFileIO.read(testFile);
         tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
-        assertEquals(0,tagFields.size());
+        assertEquals(0, tagFields.size());
 
     }
 
-     /**
+    /**
      * test read flac file with just streaminfo and padding header
      */
-    public void testWriteFileThatOnlyHadStreamAndPaddingInfoHeader()
-    {
+    @Test
+    public void testWriteFileThatOnlyHadStreamAndPaddingInfoHeader() {
         Exception exceptionCaught = null;
-        try
-        {
+        try {
             File orig = new File("testdata", "test102.flac");
-            if (!orig.isFile())
-            {
+            if (!orig.isFile()) {
                 System.out.println("Test cannot be run because test file not available");
                 return;
             }
@@ -521,37 +490,38 @@ public class FlacWriteTest extends TestCase
             AudioFile f = AudioFileIO.read(testFile);
             FlacInfoReader infoReader = new FlacInfoReader();
             assertEquals(2, infoReader.countMetaBlocks(f.getFile()));
-            f.getTag().setField(FieldKey.ARTIST,"fred");
+            f.getTag().setField(FieldKey.ARTIST, "fred");
             f.commit();
 
             f = AudioFileIO.read(testFile);
 
             infoReader = new FlacInfoReader();
             assertEquals(3, infoReader.countMetaBlocks(f.getFile()));
-            assertEquals("fred",f.getTag().getFirst(FieldKey.ARTIST));
-        }
-        catch (Exception e)
-        {
+            assertEquals("fred", f.getTag().getFirst(FieldKey.ARTIST));
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }
         assertNull(exceptionCaught);
     }
-    
+
+    @Test
     public void testWriteWriteProtectedFileWithCheckDisabled() throws Exception {
-    	
+
         FilePermissionsTest.runWriteWriteProtectedFileWithCheckDisabled("test2.flac");
-	}
+    }
 
+    @Test
     public void testWriteWriteProtectedFileWithCheckEnabled() throws Exception {
-    	
-    	FilePermissionsTest.runWriteWriteProtectedFileWithCheckEnabled("test2.flac");
-	}
 
+        FilePermissionsTest.runWriteWriteProtectedFileWithCheckEnabled("test2.flac");
+    }
+
+    @Test
     public void testWriteReadOnlyFileWithCheckDisabled() throws Exception {
-    	
-    	FilePermissionsTest.runWriteReadOnlyFileWithCheckDisabled("test2.flac");
-	}
+
+        FilePermissionsTest.runWriteReadOnlyFileWithCheckDisabled("test2.flac");
+    }
 
 
 }

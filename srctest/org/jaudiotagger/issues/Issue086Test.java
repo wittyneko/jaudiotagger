@@ -9,22 +9,25 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.wav.WavTag;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test
  */
-public class Issue086Test extends AbstractTestCase
-{
+public class Issue086Test extends AbstractTestCase {
 
 
-    public void testEnsureWritingID3SkipBytesWhenChunkNotEven()
-    {
+    @Test
+    public void testEnsureWritingID3SkipBytesWhenChunkNotEven() {
 
         Exception exceptionCaught = null;
-        try
-        {
+        try {
             {
                 TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
                 TagOptionSingleton.getInstance().setWavSaveOptions(WavSaveOptions.SAVE_BOTH);
@@ -32,20 +35,18 @@ public class Issue086Test extends AbstractTestCase
                 AudioFile f = AudioFileIO.read(testFile);
                 Tag tag = f.getTag();
                 tag.setField(FieldKey.ARTIST, "fred");
-                ((WavTag)tag).syncToInfoFromId3IfEmpty();
+                ((WavTag) tag).syncToInfoFromId3IfEmpty();
                 f.commit();
                 f = AudioFileIO.read(testFile);
                 tag = f.getTag();
-                assertEquals("fred", ((WavTag)tag).getID3Tag().getFirst(FieldKey.ARTIST));
-                assertTrue(((WavTag)tag).isExistingInfoTag());
-                assertTrue(((WavTag)tag).isExistingId3Tag());
-                assertEquals("fred", ((WavTag)tag).getInfoTag().getFirst(FieldKey.ARTIST));
+                assertEquals("fred", ((WavTag) tag).getID3Tag().getFirst(FieldKey.ARTIST));
+                assertTrue(((WavTag) tag).isExistingInfoTag());
+                assertTrue(((WavTag) tag).isExistingId3Tag());
+                assertEquals("fred", ((WavTag) tag).getInfoTag().getFirst(FieldKey.ARTIST));
                 assertEquals("fred", tag.getFirst(FieldKey.ARTIST));
 
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }

@@ -5,22 +5,25 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test problem with mapping UFID frame
  */
-public class Issue426Test extends AbstractTestCase
-{
-    public void testHasField() throws Exception
-    {
+public class Issue426Test extends AbstractTestCase {
+    @Test
+    public void testHasField() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV25.mp3");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTagOrCreateAndSetDefault();
-        tag.setField(FieldKey.ARTIST,"fred");
-        tag.setField(FieldKey.MUSICBRAINZ_ARTISTID,"fred");
-        tag.setField(FieldKey.MUSICBRAINZ_TRACK_ID,"fred");
+        tag.setField(FieldKey.ARTIST, "fred");
+        tag.setField(FieldKey.MUSICBRAINZ_ARTISTID, "fred");
+        tag.setField(FieldKey.MUSICBRAINZ_TRACK_ID, "fred");
         f.commit();
 
         f = AudioFileIO.read(testFile);
@@ -29,7 +32,7 @@ public class Issue426Test extends AbstractTestCase
         assertTrue(tag.hasField(FieldKey.ARTIST));
         assertTrue(tag.hasField(FieldKey.MUSICBRAINZ_ARTISTID));
         assertTrue(tag.hasField(FieldKey.MUSICBRAINZ_TRACK_ID));
-        assertEquals("fred",tag.getFirst(FieldKey.MUSICBRAINZ_TRACK_ID));
+        assertEquals("fred", tag.getFirst(FieldKey.MUSICBRAINZ_TRACK_ID));
         assertEquals(1, tag.getFields(FieldKey.MUSICBRAINZ_TRACK_ID).size());
         tag.deleteField(FieldKey.MUSICBRAINZ_TRACK_ID);
         assertEquals(0, tag.getFields(FieldKey.MUSICBRAINZ_TRACK_ID).size());

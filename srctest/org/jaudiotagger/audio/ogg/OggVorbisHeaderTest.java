@@ -1,6 +1,5 @@
 package org.jaudiotagger.audio.ogg;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -8,20 +7,25 @@ import org.jaudiotagger.audio.ogg.util.OggPageHeader;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentFieldKey;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentTag;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 /**
  * Basic Vorbis tests
  */
-public class OggVorbisHeaderTest extends TestCase
+public class OggVorbisHeaderTest extends AbstractTestCase
 {
 
 
     /**
      * Testing reading of vorbis audio header info
      */
+    @Test
     public void testReadFile()
     {
         Exception exceptionCaught = null;
@@ -53,6 +57,7 @@ public class OggVorbisHeaderTest extends TestCase
      * <p/>
      * TODO, need to replace with file that is not copyrighted
      */
+    @Test
     public void testReadPaddedFile()
     {
         Exception exceptionCaught = null;
@@ -90,6 +95,7 @@ public class OggVorbisHeaderTest extends TestCase
     /**
      * Test simple write to file, comment and setup header just spread over one page before and afterwards
      */
+    @Test
     public void testWriteFile()
     {
         Exception exceptionCaught = null;
@@ -134,6 +140,7 @@ public class OggVorbisHeaderTest extends TestCase
      * Test writing to file where previoslu comment was spread over many pages, now only over one so the sequence nos
      * for all subsequent pages have to be redone with checksums
      */
+    @Test
     public void testWritePreviouslyLargeFile()
     {
         Exception exceptionCaught = null;
@@ -187,6 +194,7 @@ public class OggVorbisHeaderTest extends TestCase
     /**
      * Testing writing multi page comment header (existing header is multipage)
      */
+    @Test
     public void testLargeWriteFile()
     {
         Exception exceptionCaught = null;
@@ -231,6 +239,7 @@ public class OggVorbisHeaderTest extends TestCase
      * Testing writing multi page comment header where the setup header has to be split because there is not enough
      * room on the last Comment header Page
      */
+    @Test
     public void testLargeWriteFileWithSplitSetupHeader()
     {
         Exception exceptionCaught = null;

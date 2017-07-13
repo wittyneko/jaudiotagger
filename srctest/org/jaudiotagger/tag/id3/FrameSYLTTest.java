@@ -4,12 +4,15 @@ import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.id3.framebody.FrameBodySYLT;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTPE1;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
 
-public class FrameSYLTTest extends AbstractTestCase
-{
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+public class FrameSYLTTest extends AbstractTestCase {
     private static final String DESCRIPTION = "test";
     private static final String LANG_CODE = "eng";
     private static final int TEXT_ENCODING_KEY = 1;
@@ -17,8 +20,8 @@ public class FrameSYLTTest extends AbstractTestCase
     private static final int CONTENT_TYPE_KEY = 2;
 
 
-    public void testWriteFrame() throws Exception
-    {
+    @Test
+    public void testWriteFrame() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 

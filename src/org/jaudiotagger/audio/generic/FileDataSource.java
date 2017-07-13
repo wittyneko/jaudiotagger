@@ -34,6 +34,7 @@ public class FileDataSource extends DataSource {
     }
 
     public FileDataSource(final FileChannel fileChannel, final String fileName) throws FileNotFoundException {
+        super(fileName);
         this.fileChannel = fileChannel;
         this.fileName = fileName != null ? fileName : "unknown file";
     }

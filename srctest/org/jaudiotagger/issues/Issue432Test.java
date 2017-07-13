@@ -3,90 +3,79 @@ package org.jaudiotagger.issues;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Adding 'getBitsPerSample()' accessor to AudioHeader
  */
-public class Issue432Test extends AbstractTestCase
-{
-    public void testGetBitsPerSampleFlac()
-    {
+public class Issue432Test extends AbstractTestCase {
+    @Test
+    public void testGetBitsPerSampleFlac() {
         Throwable e = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
             AudioFile af = AudioFileIO.read(testFile);
             assertTrue(af.getAudioHeader().isLossless());
-        }
-        catch(Exception ex)
-        {
-            e=ex;
+        } catch (Exception ex) {
+            e = ex;
         }
         assertNull(e);
     }
 
-    public void testGetBitsPerSampleMp4()
-    {
+    @Test
+    public void testGetBitsPerSampleMp4() {
         Throwable e = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test.m4a");
             AudioFile af = AudioFileIO.read(testFile);
             assertFalse(af.getAudioHeader().isLossless());
-        }
-        catch(Exception ex)
-        {
-            e=ex;
+        } catch (Exception ex) {
+            e = ex;
         }
         assertNull(e);
     }
 
-    public void testGetBitsPerSampleOgg()
-    {
+    @Test
+    public void testGetBitsPerSampleOgg() {
         Throwable e = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test.ogg");
             AudioFile af = AudioFileIO.read(testFile);
             assertFalse(af.getAudioHeader().isLossless());
-        }
-        catch(Exception ex)
-        {
-            e=ex;
+        } catch (Exception ex) {
+            e = ex;
         }
         assertNull(e);
     }
 
-    public void testGetBitsPerSampleWma()
-    {
+    @Test
+    public void testGetBitsPerSampleWma() {
         Throwable e = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test1.wma");
             AudioFile af = AudioFileIO.read(testFile);
             assertFalse(af.getAudioHeader().isLossless());
-        }
-        catch(Exception ex)
-        {
-            e=ex;
+        } catch (Exception ex) {
+            e = ex;
         }
         assertNull(e);
     }
 
-    public void testGetBitsPerSampleMp3()
-    {
+    @Test
+    public void testGetBitsPerSampleMp3() {
         Throwable e = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testGetBitsPerSampleMp3-2.mp3"));
             AudioFile af = AudioFileIO.read(testFile);
             assertFalse(af.getAudioHeader().isLossless());
-        }
-        catch(Exception ex)
-        {
-            e=ex;
+        } catch (Exception ex) {
+            e = ex;
         }
         assertNull(e);
     }

@@ -6,6 +6,7 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyETCO;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyETCOTest;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,14 +14,17 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Testing Etco (Issue 187)
  */
-public class FrameETCOTest extends AbstractTestCase
-{
+public class FrameETCOTest extends AbstractTestCase {
 
-    public static ID3v24Frame getInitialisedFrame()
-    {
+    public static ID3v24Frame getInitialisedFrame() {
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_EVENT_TIMING_CODES);
         FrameBodyETCO fb = FrameBodyETCOTest.getInitialisedBody();
         frame.setBody(fb);
@@ -32,16 +36,14 @@ public class FrameETCOTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testReadFile() throws Exception
-    {
+    @Test
+    public void testReadFile() throws Exception {
         File orig = new File("testdata", "test20.mp3");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             return;
         }
         Exception exceptionCaught = null;
-        try
-        {
+        try {
             File testFile = AbstractTestCase.copyAudioToTmp("test20.mp3");
             AudioFile f = AudioFileIO.read(testFile);
             final ID3v23Frame frame = ((ID3v23Frame) ((ID3v23Tag) f.getTag()).getFrame(ID3v24Frames.FRAME_ID_EVENT_TIMING_CODES));
@@ -50,18 +52,16 @@ public class FrameETCOTest extends AbstractTestCase
             assertEquals(1, body.getTimingCodes().size());
             final Map.Entry<Long, int[]> entry = body.getTimingCodes().entrySet().iterator().next();
             assertEquals(224, entry.getValue()[0]);
-            assertEquals(56963L, (long)entry.getKey());
-        }
-        catch (IOException e)
-        {
+            assertEquals(56963L, (long) entry.getKey());
+        } catch (IOException e) {
             e.printStackTrace();
             exceptionCaught = e;
         }
         assertNull(exceptionCaught);
     }
 
-    public void testSaveToFile() throws Exception
-    {
+    @Test
+    public void testSaveToFile() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
@@ -79,8 +79,8 @@ public class FrameETCOTest extends AbstractTestCase
         FrameBodyETCO body = (FrameBodyETCO) frame.getBody();
         assertEquals(referenceBody.getTimestampFormat(), body.getTimestampFormat());
 
-        final Iterator<Map.Entry<Long,int[]>> reference = referenceBody.getTimingCodes().entrySet().iterator();
-        final Iterator<Map.Entry<Long,int[]>> loaded = body.getTimingCodes().entrySet().iterator();
+        final Iterator<Map.Entry<Long, int[]>> reference = referenceBody.getTimingCodes().entrySet().iterator();
+        final Iterator<Map.Entry<Long, int[]>> loaded = body.getTimingCodes().entrySet().iterator();
         while (reference.hasNext() && loaded.hasNext()) {
             final Map.Entry<Long, int[]> refEntry = reference.next();
             final Map.Entry<Long, int[]> loadedEntry = loaded.next();
@@ -91,8 +91,8 @@ public class FrameETCOTest extends AbstractTestCase
         assertFalse(loaded.hasNext());
     }
 
-    public void testSaveEmptyFrameToFile() throws Exception
-    {
+    @Test
+    public void testSaveEmptyFrameToFile() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 

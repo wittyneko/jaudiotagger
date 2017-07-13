@@ -7,27 +7,29 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.mp4.Mp4FieldKey;
 import org.jaudiotagger.tag.mp4.Mp4Tag;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Hide the differences between the two genre fields used by the mp4 format
  */
-public class Issue418Test extends AbstractTestCase
-{
-    public void testGetCustomGenreField() throws Exception
-    {
+public class Issue418Test extends AbstractTestCase {
+    @Test
+    public void testGetCustomGenreField() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("test.m4a");
         AudioFile f = AudioFileIO.read(testFile);
         Tag tag = f.getTag();
         assertEquals("Genre", tag.getFirst(FieldKey.GENRE));
         assertEquals(1, tag.getFields(FieldKey.GENRE).size());
 
-        Mp4Tag mp4tag = (Mp4Tag)f.getTag();
+        Mp4Tag mp4tag = (Mp4Tag) f.getTag();
         assertEquals("Genre", mp4tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));
         assertEquals("", mp4tag.getFirst(Mp4FieldKey.GENRE));
 
-        mp4tag.setField(mp4tag.createField(Mp4FieldKey.GENRE,"Rock"));
+        mp4tag.setField(mp4tag.createField(Mp4FieldKey.GENRE, "Rock"));
         assertEquals("Rock", mp4tag.getFirst(Mp4FieldKey.GENRE));
         assertEquals("Genre", mp4tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));
         //Because we now have two genre fields stored in the file returns the standard genre field by default
@@ -42,7 +44,7 @@ public class Issue418Test extends AbstractTestCase
 
         f = AudioFileIO.read(testFile);
         tag = f.getTag();
-        mp4tag = (Mp4Tag)f.getTag();
+        mp4tag = (Mp4Tag) f.getTag();
         assertEquals("Rock", mp4tag.getFirst(Mp4FieldKey.GENRE));
         assertEquals("Genre", mp4tag.getFirst(Mp4FieldKey.GENRE_CUSTOM));
         //Because we still have two genre fields stored in the file returns the standard genre field by default

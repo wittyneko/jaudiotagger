@@ -5,48 +5,47 @@ import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTSO2;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTSO2Test;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test TSO2  Frame
  */
-public class FrameTSO2Test extends AbstractTestCase
-{
-    public static ID3v24Frame getV24InitialisedFrame()
-    {
+public class FrameTSO2Test extends AbstractTestCase {
+    public static ID3v24Frame getV24InitialisedFrame() {
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ALBUM_ARTIST_SORT_ORDER_ITUNES);
         FrameBodyTSO2 fb = FrameBodyTSO2Test.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public static ID3v23Frame getV23InitialisedFrame()
-    {
+    public static ID3v23Frame getV23InitialisedFrame() {
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ALBUM_ARTIST_SORT_ORDER_ITUNES);
         FrameBodyTSO2 fb = FrameBodyTSO2Test.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public static ID3v22Frame getV22InitialisedFrame()
-    {
+    public static ID3v22Frame getV22InitialisedFrame() {
         ID3v22Frame frame = new ID3v22Frame(ID3v22Frames.FRAME_ID_V2_ALBUM_ARTIST_SORT_ORDER_ITUNES);
         FrameBodyTSO2 fb = FrameBodyTSO2Test.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public void testCreateID3v24Frame()
-    {
+    @Test
+    public void testCreateID3v24Frame() {
         Exception exceptionCaught = null;
         ID3v24Frame frame = null;
-        try
-        {
+        try {
             frame = FrameTSO2Test.getV24InitialisedFrame();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -59,17 +58,14 @@ public class FrameTSO2Test extends AbstractTestCase
     }
 
 
-    public void testCreateID3v23Frame()
-    {
+    @Test
+    public void testCreateID3v23Frame() {
         Exception exceptionCaught = null;
         ID3v23Frame frame = null;
 
-        try
-        {
+        try {
             frame = FrameTSO2Test.getV23InitialisedFrame();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -82,17 +78,14 @@ public class FrameTSO2Test extends AbstractTestCase
 
     }
 
-    public void testCreateID3v22Frame()
-    {
+    @Test
+    public void testCreateID3v22Frame() {
         Exception exceptionCaught = null;
         ID3v22Frame frame = null;
 
-        try
-        {
+        try {
             frame = FrameTSO2Test.getV22InitialisedFrame();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -106,9 +99,9 @@ public class FrameTSO2Test extends AbstractTestCase
 
     }
 
-    public void testSaveToFile() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3",new File("test1017.mp3") );
+    @Test
+    public void testSaveToFile() throws Exception {
+        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1017.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -125,9 +118,9 @@ public class FrameTSO2Test extends AbstractTestCase
     }
 
 
-    public void testConvertV24ToV23() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3",new File("test1018.mp3"));
+    @Test
+    public void testConvertV24ToV23() throws Exception {
+        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1018.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -150,9 +143,9 @@ public class FrameTSO2Test extends AbstractTestCase
         assertEquals(FrameBodyTSO2Test.ALBUM_ARTIST_SORT, body.getText());
     }
 
-    public void testConvertV24ToV22() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3",new File("test1019.mp3"));
+    @Test
+    public void testConvertV24ToV22() throws Exception {
+        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1019.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -175,9 +168,9 @@ public class FrameTSO2Test extends AbstractTestCase
         assertEquals(FrameBodyTSO2Test.ALBUM_ARTIST_SORT, body.getText());
     }
 
-    public void testConvertV23ToV22() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3",new File("test1020.mp3"));
+    @Test
+    public void testConvertV23ToV22() throws Exception {
+        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1020.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -201,8 +194,8 @@ public class FrameTSO2Test extends AbstractTestCase
     }
 
 
-    public void testConvertV22ToV24() throws Exception
-    {
+    @Test
+    public void testConvertV22ToV24() throws Exception {
         File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1021.mp3"));
         MP3File mp3File = new MP3File(testFile);
 

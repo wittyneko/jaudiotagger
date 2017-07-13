@@ -4,23 +4,25 @@ import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.Date;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Test Fail bad Ogg Quicker
  */
-public class Issue178Test extends AbstractTestCase
-{
+public class Issue178Test extends AbstractTestCase {
     /**
      * Test Read empty file pretenidng to be an Ogg, should fail quickly
      */
-    public void testReadBadOgg()
-    {
+
+    @Test
+    public void testReadBadOgg() {
         File orig = new File("testdata", "test36.ogg");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
@@ -28,9 +30,8 @@ public class Issue178Test extends AbstractTestCase
         File testFile = null;
         Exception exceptionCaught = null;
         Date startDate = new Date();
-        System.out.println("start:"+startDate);
-        try
-        {
+        System.out.println("start:" + startDate);
+        try {
             testFile = AbstractTestCase.copyAudioToTmp("test36.ogg");
 
             //Read File
@@ -38,15 +39,13 @@ public class Issue178Test extends AbstractTestCase
 
             //Print Out Tree
 
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            exceptionCaught=e;
+            exceptionCaught = e;
         }
 
         Date endDate = new Date();
-        System.out.println("end  :"+endDate);
+        System.out.println("end  :" + endDate);
         assertTrue(exceptionCaught instanceof CannotReadException);
         assertTrue(endDate.getTime() - startDate.getTime() < 1000);
     }

@@ -1,6 +1,5 @@
 package org.jaudiotagger.tag.mp4;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -12,23 +11,32 @@ import org.jaudiotagger.tag.TagField;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.mp4.atom.Mp4ContentTypeValue;
 import org.jaudiotagger.tag.mp4.atom.Mp4RatingValue;
-import org.jaudiotagger.tag.mp4.field.*;
+import org.jaudiotagger.tag.mp4.field.Mp4DiscNoField;
+import org.jaudiotagger.tag.mp4.field.Mp4FieldType;
+import org.jaudiotagger.tag.mp4.field.Mp4TagCoverField;
+import org.jaudiotagger.tag.mp4.field.Mp4TagReverseDnsField;
+import org.jaudiotagger.tag.mp4.field.Mp4TagTextNumberField;
+import org.jaudiotagger.tag.mp4.field.Mp4TrackField;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 /**
  * M4a write tests.
  */
-public class M4aWriteTagTest extends TestCase
+public class M4aWriteTagTest extends AbstractTestCase
 {
     private static int TEST_FILE1_SIZE = 3883555;
     private static int TEST_FILE2_SIZE = 3882440;
     private static int TEST_FILE5_SIZE = 119472;
 
-    @Override
+    @Before
     public void setUp()
     {
         TagOptionSingleton.getInstance().setToDefault();
@@ -37,6 +45,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Test to write tag data, new tagdata identical size to existing data.
      */
+    @Test
     public void testWriteFileSameSize()
     {
         Exception exceptionCaught = null;
@@ -178,6 +187,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Test to write tag data, new tagdata is smaller size than existing data.
      */
+    @Test
     public void testWriteFileSmallerSize()
     {
         Exception exceptionCaught = null;
@@ -314,6 +324,7 @@ public class M4aWriteTagTest extends TestCase
      * Test to write tag data, new tagdata is larger size than existing data, but not so large
      * that it cant fit into the space already allocated to meta (ilst + free atom).
      */
+    @Test
     public void testWriteFileLargerSize()
     {
         Exception exceptionCaught = null;
@@ -451,6 +462,7 @@ public class M4aWriteTagTest extends TestCase
      * large to fit into the space already allocated to meta (ilst + free atom), but can fit into
      * the second free atom.
      */
+    @Test
     public void testWriteFileAlotLargerSize()
     {
         Exception exceptionCaught = null;
@@ -599,6 +611,7 @@ public class M4aWriteTagTest extends TestCase
      * large to fit into the space already allocated to meta (ilst + free atom) and is even too large to fit
      * into the second free atom, so mdat data gets moved.
      */
+    @Test
     public void testWriteFileMuchLargerSize()
     {
         Exception exceptionCaught = null;
@@ -748,6 +761,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Test removing the tag from the file.
      */
+    @Test
     public void testDeleteTag()
     {
         Exception exceptionCaught = null;
@@ -773,6 +787,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Test removing the tag from the file which does not have a free atom.
      */
+    @Test
     public void testDeleteTag2()
     {
         Exception exceptionCaught = null;
@@ -798,6 +813,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Test to write tag data, new tagdata identical size to existing data, but no meta free atom.
      */
+    @Test
     public void testWriteFileSameSizeNoMetaFreeAtom()
     {
         Exception exceptionCaught = null;
@@ -934,6 +950,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Test to write tag data, new tagdata is smaller size than existing data.
      */
+    @Test
     public void testWriteFileSmallerSizeMoreThanEightBytesSmallerNoMetaFreeAtom()
     {
         Exception exceptionCaught = null;
@@ -963,7 +980,7 @@ public class M4aWriteTagTest extends TestCase
             assertEquals(44100, f.getAudioHeader().getSampleRateAsNumber());
 
             //Ease of use methods for common fields
-            
+
             assertEquals("AR", tag.getFirst(FieldKey.ARTIST));
             assertEquals("AL", tag.getFirst(FieldKey.ALBUM));
             assertEquals("t", tag.getFirst(FieldKey.TITLE));
@@ -1071,6 +1088,7 @@ public class M4aWriteTagTest extends TestCase
      * Test to write tag data, new tagdata is smaller size than existing data, and there is no metadata atom to allow
      * for adjustments, but there is a toplevel free atom.
      */
+    @Test
     public void testWriteFileSmallerSizeLessThanEightBytesNoMetaFreeAtom()
     {
         Exception exceptionCaught = null;
@@ -1206,6 +1224,7 @@ public class M4aWriteTagTest extends TestCase
      * Test to write tag data, new tagdata is smaller size than existing data, and there is no metadata or top level
      * free atom.
      */
+    @Test
     public void testWriteFileSmallerSizeLessThanEightBytesNoFreeAtoms()
     {
         Exception exceptionCaught = null;
@@ -1341,6 +1360,7 @@ public class M4aWriteTagTest extends TestCase
      * Test to write tag data, new tagdata is smaller size than existing data, and there is no metadata or top level
      * free atom.
      */
+    @Test
     public void testWriteFileSmallerNoFreeAtoms()
     {
         Exception exceptionCaught = null;
@@ -1467,6 +1487,7 @@ public class M4aWriteTagTest extends TestCase
      * Test to write tag data, new tagdata is larger size than existing data, but not so large
      * that it cant fit into the space already allocated to meta (ilst + free atom).
      */
+    @Test
     public void testWriteFileLargerSizeNoMetaFreeAtom()
     {
         TagOptionSingleton.getInstance().setWriteChunkSize(1000000);
@@ -1601,6 +1622,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Test to write tag data, no tagdata currently exists in the file.
      */
+    @Test
     public void testWriteFileWhichHasUtdataMetaAndHdlrButNotIlst()
     {
         Exception exceptionCaught = null;
@@ -1677,6 +1699,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Test to write tag data, there is no top level free atom (there is a meta free atom).
      */
+    @Test
     public void testWriteFileLargerSizeNoTopLevelFreeAtom()
     {
         File orig = new File("testdata", "test6.m4p");
@@ -1726,6 +1749,7 @@ public class M4aWriteTagTest extends TestCase
      * Test to write tag data, new tagdata is smaller size than existing data, and there is no metadata atom to allow
      * for adjustments, but there is a toplevel free atom.
      */
+    @Test
     public void testWriteFileLargerSizeEqualToTopLevelFreeSpace()
     {
         Exception exceptionCaught = null;
@@ -1855,6 +1879,7 @@ public class M4aWriteTagTest extends TestCase
      * <p/>
      * TODO:Test incomplete
      */
+    @Test
     public void testWriteAllFields()
     {
         Exception exceptionCaught = null;
@@ -1989,6 +2014,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Testing to ensure can only have genre or custom genre not both.
      */
+    @Test
     public void testWriteGenres()
     {
         Exception exceptionCaught = null;
@@ -2063,6 +2089,7 @@ public class M4aWriteTagTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testWriteGenres2()
     {
         Exception exceptionCaught = null;
@@ -2108,6 +2135,7 @@ public class M4aWriteTagTest extends TestCase
      *
      * See <a href="https://bitbucket.org/ijabz/jaudiotagger/issue/48/mp4s-can-end-up-with-two-types-of-genre">Issue 48</a>.
      */
+    @Test
     public void testWriteGenres3()
     {
         Exception exceptionCaught = null;
@@ -2144,6 +2172,7 @@ public class M4aWriteTagTest extends TestCase
      *
      * See <a href="https://bitbucket.org/ijabz/jaudiotagger/issue/48/mp4s-can-end-up-with-two-types-of-genre">Issue 48</a>.
      */
+    @Test
     public void testWriteGenres4()
     {
         Exception exceptionCaught = null;
@@ -2177,6 +2206,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Testing to ensure always write custom genre, if option enabled.
      */
+    @Test
     public void testWriteCustomGenresAlways()
     {
         Exception exceptionCaught = null;
@@ -2209,6 +2239,7 @@ public class M4aWriteTagTest extends TestCase
      * Test saving to file that contains a mdat atom and then a free atom at the end of file, normally it is the other
      * way round or there is no free atom.
      */
+    @Test
     public void testWriteWhenFreeisAfterMdat()
     {
         Exception exceptionCaught = null;
@@ -2235,6 +2266,7 @@ public class M4aWriteTagTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testWriteMuchLargerWhenFreeIsAfterMdat()
     {
         Exception exceptionCaught = null;
@@ -2264,6 +2296,7 @@ public class M4aWriteTagTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testWriteFileLargerSizeLessThanTopLevelFreeWhenFreeAafterMdat()
     {
         Exception exceptionCaught = null;
@@ -2298,6 +2331,7 @@ public class M4aWriteTagTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testWriteFileLargerSizeEqualToTopLevelFreeWhenFreeAafterMdat()
     {
         Exception exceptionCaught = null;
@@ -2335,6 +2369,7 @@ public class M4aWriteTagTest extends TestCase
     /**
      * Test writing mp4 file.
      */
+    @Test
     public void testWritingIssue198() throws Exception
     {
         File orig = new File("testdata", "test27.m4a");
@@ -2381,6 +2416,7 @@ public class M4aWriteTagTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testWriteMultipleFields() throws Exception
     {
         File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testWriteMultiple.m4a"));
@@ -2395,6 +2431,7 @@ public class M4aWriteTagTest extends TestCase
         assertEquals(tagFields.size(),3);
     }
 
+    @Test
     public void testDeleteFields() throws Exception
     {
         File testFile = AbstractTestCase.copyAudioToTmp("test.m4a", new File("testDeleteFields.m4a"));

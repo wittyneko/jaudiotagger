@@ -1,6 +1,5 @@
 package org.jaudiotagger.tag.mp4;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -8,6 +7,7 @@ import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.mp4.Mp4AtomTree;
 import org.jaudiotagger.audio.mp4.atom.Mp4BoxHeader;
 import org.jaudiotagger.audio.mp4.atom.Mp4StcoBox;
@@ -18,6 +18,8 @@ import org.jaudiotagger.tag.mp4.field.Mp4FieldType;
 import org.jaudiotagger.tag.mp4.field.Mp4TagCoverField;
 import org.jaudiotagger.tag.mp4.field.Mp4TagTextNumberField;
 import org.jaudiotagger.utils.tree.DefaultMutableTreeNode;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,16 +27,19 @@ import java.io.RandomAccessFile;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 /**
  * Mp4StemWriteTagTest.
  *
  * @author <a href="mailto:hs@tagtraum.com">Hendrik Schreiber</a>
  */
-public class Mp4StemWriteTagTest extends TestCase {
+public class Mp4StemWriteTagTest extends AbstractTestCase {
 
     private static final int TEST_FILE1_SIZE = 1450197;
 
-    @Override
+    @Before
     public void setUp()
     {
         TagOptionSingleton.getInstance().setToDefault();
@@ -44,11 +49,12 @@ public class Mp4StemWriteTagTest extends TestCase {
      * Test to write tag data, new tagdata is a larger size than existing data, and too
      * large to fit into the space already allocated to {@code meta} ({@code ilst} + {@code free} atom).
      */
+    @Test
     public void testWriteOneFieldALotLargerSize() throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException, CannotWriteException {
 
         final File testFile = AbstractTestCase.copyAudioToTmp("test.stem.mp4", new File("testWriteOneFieldALotLarger.stem.mp4"));
 
-        final Mp4AtomTree treeBefore = new Mp4AtomTree(new RandomAccessFile(testFile, "r"));
+        final Mp4AtomTree treeBefore = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
         final List<Mp4StcoBox> beforeStcos = treeBefore.getStcos();
         System.out.println("Chunk Offsets before (stco atoms): " + beforeStcos.size());
         // verify that all five tracks were recognized
@@ -66,7 +72,7 @@ public class Mp4StemWriteTagTest extends TestCase {
         audioFile.getTag().setField(FieldKey.TITLE, new String(chars));
         audioFile.commit();
 
-        final Mp4AtomTree treeAfter = new Mp4AtomTree(new RandomAccessFile(testFile, "r"));
+        final Mp4AtomTree treeAfter = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
         final List<Mp4StcoBox> afterStcos = treeAfter.getStcos();
         System.out.println("Chunk Offsets after (stco atoms): " + afterStcos.size());
         assertEquals(beforeStcos.size(), afterStcos.size());
@@ -91,6 +97,7 @@ public class Mp4StemWriteTagTest extends TestCase {
      * large to fit into the space already allocated to meta (ilst + free atom), but can fit into
      * the second free atom.
      */
+    @Test
     public void testWriteFileAlotLargerSize()
     {
         Exception exceptionCaught = null;

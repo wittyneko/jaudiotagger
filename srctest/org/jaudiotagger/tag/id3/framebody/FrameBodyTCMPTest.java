@@ -3,30 +3,30 @@ package org.jaudiotagger.tag.id3.framebody;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test TCMPFrameBody
  */
-public class FrameBodyTCMPTest extends AbstractTestCase
-{
+public class FrameBodyTCMPTest extends AbstractTestCase {
     public static final String COMPILATION_TRUE = "1";
 
-    public static FrameBodyTCMP getInitialisedBody()
-    {
+    public static FrameBodyTCMP getInitialisedBody() {
         FrameBodyTCMP fb = new FrameBodyTCMP();
         return fb;
     }
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyTCMP fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyTCMP();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -38,17 +38,14 @@ public class FrameBodyTCMPTest extends AbstractTestCase
         assertEquals(COMPILATION_TRUE, fb.getFirstTextValue());
     }
 
-    public void testCreateFrameBodyEmptyConstructor()
-    {
+    @Test
+    public void testCreateFrameBodyEmptyConstructor() {
         Exception exceptionCaught = null;
         FrameBodyTCMP fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyTCMP();
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

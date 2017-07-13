@@ -1,6 +1,5 @@
 package org.jaudiotagger.tag.mp4;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -9,21 +8,25 @@ import org.jaudiotagger.audio.mp4.atom.Mp4EsdsBox;
 import org.jaudiotagger.audio.mp4.atom.Mp4StcoBox;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 /**
  * Write drms files, we can modify the metadata without breaking the drm file itself
  */
-public class M4aWriteDrmTagTest extends TestCase
+public class M4aWriteDrmTagTest
 {
     /**
      * Example code of how to show stco table
      *
      * @throws Exception
      */
+    @Test
     public void testShowStco() throws Exception
     {
         System.out.println("Start");
@@ -61,6 +64,7 @@ public class M4aWriteDrmTagTest extends TestCase
      * Test to write all metadata from an Apple iTunes encoded mp4 file, note also uses fixed genre rather than
      * custom genre
      */
+    @Test
     public void testWriteFile()
     {
         File orig = new File("testdata", "test9.m4p");
@@ -126,5 +130,5 @@ public class M4aWriteDrmTagTest extends TestCase
         assertNull(exceptionCaught);
     }
 
-    
+
 }
