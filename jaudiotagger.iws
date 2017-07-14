@@ -1,31 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c6ab1c14-6cd1-42fd-af1f-7ac1a83b7f78" name="Default" comment="Added intellij files to gitignore">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jaudiotagger.iws" afterPath="$PROJECT_DIR$/jaudiotagger.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/AbstractTestCase.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/AbstractTestCase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/flac/FlacHeaderTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/flac/FlacHeaderTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue221Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue221Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody/FrameBodyUSLTTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody/FrameBodyUSLTTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteDatatoMultTrackAudioTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteDatatoMultTrackAudioTest.java" />
+    <list default="true" id="c6ab1c14-6cd1-42fd-af1f-7ac1a83b7f78" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/intellij_settings.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/jaudiotagger.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/jaudiotagger.ipr" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/jaudiotagger.iws" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
     </list>
-    <ignored path="jaudiotagger.iws" />
-    <ignored path=".idea/workspace.xml" />
-    <ignored path="$PROJECT_DIR$/target/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="Commander">
-    <leftPanel />
-    <rightPanel />
-    <splitter proportion="0.5" />
-  </component>
-  <component name="CreatePatchCommitExecutor">
-    <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -53,7 +40,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractTestCase.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AbstractTestCase.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/AbstractTestCase.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
@@ -63,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+            <state relative-caret-position="105">
+              <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -132,11 +119,6 @@
       <dir>$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody</dir>
       <dir>$PROJECT_DIR$/srctest</dir>
     </dirStrings>
-  </component>
-  <component name="FindManager">
-    <FindUsagesManager>
-      <setting name="OPEN_NEW_TAB" value="true" />
-    </FindUsagesManager>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -209,30 +191,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
-  <component name="MavenProjectNavigator">
-    <treeState>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-      </PATH>
-    </treeState>
-  </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="1022" />
-  </component>
-  <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -249,7 +211,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
@@ -266,6 +227,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -301,21 +263,7 @@
     <property name="LayoutCode.rearrangeEntries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.jaudiotagger.audio.wav.chunk" />
-      <recent name="org.jaudiotagger.tag.wav" />
-      <recent name="org.jaudiotagger.audio.wav" />
-      <recent name="org.jaudiotagger.audio.aiff" />
-      <recent name="org.jaudiotagger.audio.aiff.chunk" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="org.jaudiotagger.tag.wav" />
-      <recent name="org.jaudiotagger.audio.asf" />
-      <recent name="org.jaudiotagger.audio.wav" />
-      <recent name="org.jaudiotagger.tag.aiff" />
-    </key>
+    <property name="TODO_SCOPE" value="All Places" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -1129,21 +1077,8 @@
       <Port>5050</Port>
     </configuration>
   </component>
-  <component name="SbtLocalSettings">
-    <option name="externalProjectsViewState">
-      <projects_view />
-    </option>
-  </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
-  </component>
-  <component name="SliceManager">
-    <option name="analysisUIOptions">
-      <AnalysisUIOptions />
-    </option>
-  </component>
-  <component name="SvnConfiguration">
-    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -1152,14 +1087,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1410537432863</updated>
-      <workItem from="1499936792869" duration="27649000" />
-    </task>
-    <task id="LOCAL-00022" summary="Converted all Chunks to process ByteBuffer rather than RAF, this allows us to use inbuilt ByteBuffer methods for reading ints etc but more importantly means we dont need to keep track of bytesLeft because already moved to start of next chunk in calling AiffInfoReader code.&#10;Also tidyup/removal of some util methods">
-      <created>1442569493770</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1442569493770</updated>
+      <workItem from="1499936792869" duration="27767000" />
     </task>
     <task id="LOCAL-00023" summary="https://bitbucket.org/ijabz/jaudiotagger/pull-requests/19 by Hendrik Schreiber&#10;Plus extended toString() for AiffAudioHeader so outputs addtional Aiff Specific Info">
       <created>1442580572270</created>
@@ -1497,43 +1425,18 @@
       <option name="project" value="LOCAL" />
       <updated>1500022548398</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Fix junit after removing the concept of 'testdatatmp' folder and using the junit TemporaryFolder rule">
+      <created>1500024432563</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1500024432563</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
-  <component name="TestHistory">
-    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 03m 42s.xml">
-      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 05m 32s.xml">
-      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 06m 48s.xml">
-      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 16m 14s.xml">
-      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 16m 34s.xml">
-      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 16m 51s.xml">
-      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="M4aWriteDatatoMultTrackAudioTest - 2017.07.14 at 10h 07m 24s.xml">
-      <configuration name="M4aWriteDatatoMultTrackAudioTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="M4aWriteDatatoMultTrackAudioTest - 2017.07.14 at 10h 09m 20s.xml">
-      <configuration name="M4aWriteDatatoMultTrackAudioTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="M4aWriteDatatoMultTrackAudioTest - 2017.07.14 at 10h 14m 24s.xml">
-      <configuration name="M4aWriteDatatoMultTrackAudioTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="VorbisWriteTagTest_testWriteTagToFile - 2017.07.14 at 09h 52m 16s.xml">
-      <configuration name="VorbisWriteTagTest.testWriteTagToFile" configurationId="JUnit" />
-    </history-entry>
-  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27649000" />
+    <option name="totallyTimeSpent" value="26000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1569,7 +1472,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47345132" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3960177" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40707964" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14962727" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20713525" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45575222" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -1586,73 +1489,8 @@
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328341" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="Vcs.Log.UiProperties">
-    <option name="RECENTLY_FILTERED_USER_GROUPS">
-      <collection />
-    </option>
-    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-      <collection />
-    </option>
-  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Simplified chunkHeader write code" />
-    <MESSAGE value="Removed calls to ByteBuffer.array() where easy to do so, as this is old style pre NIO and would fail if ByteBuffer used allocatedDirect()" />
-    <MESSAGE value="Fixed WavTagWriter so it can pad data when new tag is smaller than original tag&#10;Also added test for the reverse when new tag is alrger than original tag" />
-    <MESSAGE value="Added support for deleting LISTINFO chunk from a Wav" />
-    <MESSAGE value="Updated README.txt" />
-    <MESSAGE value="Fixed typo" />
-    <MESSAGE value="Wav ability to remove LISTINFO chunk even when not last chunk" />
-    <MESSAGE value="Wav:Must read all LISTINFO tuples, even those we dont understand because we need to write them back again if tag is modified and then written back again." />
-    <MESSAGE value="Added support for MUSICBRAINZ_WORK, in contrast to WORK which is now used for work derived from title" />
-    <MESSAGE value="Make WORK same name as far as possible" />
-    <MESSAGE value="Rename WORK_COMPOSITION to MUSICBRAINZ_WORK_COMPOSITION" />
-    <MESSAGE value="," />
-    <MESSAGE value="Remapping of some work related fields" />
-    <MESSAGE value="Rename of some ACOUSTICBRAINZ fields for better comptability when converting between audio formats" />
-    <MESSAGE value="Attempt to  get all new classical music fields to share same names over different audio formats." />
-    <MESSAGE value="Fixes to field mappings" />
-    <MESSAGE value="fixes for tag mappings" />
-    <MESSAGE value="Added contact details" />
-    <MESSAGE value="Make TIMBRE and TONALITY fields consistent (havent preceded with MOOD_) because clearly understood measures outside of MOOD" />
-    <MESSAGE value="." />
-    <MESSAGE value="Fixed work type" />
-    <MESSAGE value="Fixed incorrect mapping for ID3v22,ID3V23 for ALBUM_ARTISTS and ALBUM_ARTISTS_SORT" />
-    <MESSAGE value="Merged 'master' branch into 'datasource' branch&#10;Refactored unit tests in the attempt to resolve flaky tests issues: Now only one test is failing, the VorbisWriteTagTest" />
-    <MESSAGE value="Refactored Junit Tests" />
-    <MESSAGE value="Fixed flaky test VorbisWriteTagTest.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed flaky test VorbisWriteTagTest.java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2122,14 +1960,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue221Test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -2146,92 +1976,13 @@
         </state>
       </provider>
     </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>jaudiotagger</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.7</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.20000002" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Maven: junit:junit:3.8.1</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
