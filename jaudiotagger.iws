@@ -1,216 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c6ab1c14-6cd1-42fd-af1f-7ac1a83b7f78" name="Default" comment="">
+    <list default="true" id="c6ab1c14-6cd1-42fd-af1f-7ac1a83b7f78" name="Default" comment="Added intellij files to gitignore">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jaudiotagger.iws" afterPath="$PROJECT_DIR$/jaudiotagger.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/AbstractTestCase.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/AbstractTestCase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/FilePermissionsTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/FilePermissionsTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/TestFileTypeMagic.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/TestFileTypeMagic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/AudioFileWriteAsTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/AudioFileWriteAsTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/aiff/AiffAudioFileTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/aiff/AiffAudioFileTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/asf/io/AsfHeaderUtils.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/asf/io/AsfHeaderUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/dsf/DsfAudioFileTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/dsf/DsfAudioFileTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/flac/FlacHeaderTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/flac/FlacHeaderTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/mp3/LoggingTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/mp3/LoggingTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/mp3/MP3AudioHeaderTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/mp3/MP3AudioHeaderTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/ogg/OggPageTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/ogg/OggPageTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/ogg/OggVorbisHeaderTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/ogg/OggVorbisHeaderTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/wav/WavSimpleTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/wav/WavSimpleTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue001Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue001Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue028Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue028Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue052Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue052Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue055Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue055Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue081Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue081Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue084Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue084Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue086Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue086Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue093Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue093Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue100Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue100Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue119Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue119Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue123Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue123Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue146Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue146Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue161Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue161Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue173Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue173Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue178Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue178Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue180Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue180Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue181Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue181Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue183Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue183Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue184Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue184Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue185Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue185Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue220Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue220Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue222Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue222Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue224Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue224Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue225Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue225Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue233Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue233Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue239Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue239Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue240Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue240Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue241Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue241Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue242Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue242Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue245Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue245Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue248Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue248Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue249Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue249Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue250Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue250Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue255Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue255Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue256Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue256Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue257Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue257Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue258Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue258Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue260Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue260Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue261Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue261Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue263Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue263Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue265Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue265Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue268Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue268Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue269Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue269Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue270Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue270Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue271Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue271Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue273Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue273Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue274Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue274Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue277Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue277Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue279Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue279Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue282Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue282Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue283Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue283Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue284Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue284Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue285Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue285Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue286Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue286Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue289Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue289Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue290Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue290Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue291Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue291Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue292Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue292Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue294Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue294Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue298Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue298Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue302Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue302Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue307Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue307Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue308Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue308Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue309Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue309Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue310Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue310Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue315Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue315Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue322Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue322Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue324Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue324Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue327Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue327Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue335Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue335Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue345Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue345Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue356Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue356Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue365Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue365Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue366Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue366Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue367Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue367Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue368Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue368Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue370Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue370Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue373Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue373Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue374Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue374Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue380Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue380Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue383Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue383Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue386Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue386Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue387Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue387Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue390Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue390Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue397Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue397Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue404Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue404Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue406Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue406Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue409Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue409Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue410Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue410Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue411Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue411Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue412Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue412Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue417Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue417Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue418Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue418Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue420Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue420Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue421Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue421Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue423Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue423Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue424Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue424Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue426Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue426Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue428Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue428Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue429Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue429Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue431Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue431Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue432Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue432Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue433Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue433Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue435Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue435Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue437Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue437Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue443Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue443Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue444Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue444Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue446Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue446Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue450Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue450Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue451Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue451Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue452Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue452Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue453Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue453Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue454Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue454Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue455Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue455Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue461Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue461Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue463Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue463Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue466Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue466Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue468Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue468Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue478Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue478Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue481Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue481Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue484Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue484Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue66Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue66Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/IssueTrackTotalTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/IssueTrackTotalTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/aiff/AiffAudioTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/aiff/AiffAudioTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/dsf/DsfAudioFileTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/dsf/DsfAudioFileTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/flac/ConcurrentWritesTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/flac/ConcurrentWritesTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/flac/FlacReadTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/flac/FlacReadTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/flac/FlacWriteTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/flac/FlacWriteTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/CompressedTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/CompressedTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ConcurrentWritesTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ConcurrentWritesTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/DeprecatedFrameTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/DeprecatedFrameTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/DuplicateFrameTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/DuplicateFrameTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/EmptyFrameTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/EmptyFrameTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FileClosingTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FileClosingTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameCOMMTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameCOMMTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameETCOTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameETCOTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FramePCNTTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FramePCNTTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FramePICAndAPICTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FramePICAndAPICTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FramePOPMTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FramePOPMTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameRVADAndRVA2Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameRVADAndRVA2Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameSYLTTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameSYLTTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameSYTCTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameSYTCTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTCMPTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTCMPTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTDATTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTDATTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTDRCTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTDRCTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTIPLTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTIPLTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTLANTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTLANTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTMOOTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTMOOTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTOPETest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTOPETest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTRCKTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTRCKTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTSO2Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTSO2Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTSOATest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTSOATest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTSOCTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTSOCTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTSOPTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTSOPTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTSOTTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTSOTTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTXXXTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameTXXXTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameULSTTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameULSTTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameWOARTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameWOARTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameWXXXTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/FrameWXXXTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v11TagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v11TagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v1TagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v1TagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v22TagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v22TagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v23TagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v23TagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v24TagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ID3v24TagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ItunesTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/ItunesTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/NewInterfaceTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/NewInterfaceTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/SyncSafeIntegerTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/SyncSafeIntegerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/Unicode23NullTerminatedTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/Unicode23NullTerminatedTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/Unicode23TagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/Unicode23TagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/Unicode24NullTerminatedTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/Unicode24NullTerminatedTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/Unicode24TagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/Unicode24TagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/UnsynchronizationTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/UnsynchronizationTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody/FrameBodyTIPLTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody/FrameBodyTIPLTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody/FrameBodyTMCLTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody/FrameBodyTMCLTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/ConcurrentWritesTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/ConcurrentWritesTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aReadDrmTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aReadDrmTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aReadTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aReadTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteDataBeforeMoovTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteDataBeforeMoovTagTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue221Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue221Test.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody/FrameBodyUSLTTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody/FrameBodyUSLTTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteDatatoMultTrackAudioTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteDatatoMultTrackAudioTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteDrmTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteDrmTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/Mp4StemWriteTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/Mp4StemWriteTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/ReadMp4MovementTagsTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/ReadMp4MovementTagsTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/real/RealReadTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/real/RealReadTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/ConcurrentWritesTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/ConcurrentWritesTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisImageTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisImageTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisReadTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisReadTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisWriteTagTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisWriteTagTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataNewTagsId3BeforeInfoTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataNewTagsId3BeforeInfoTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataNewTagsInfobeforeId3Test.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataNewTagsInfobeforeId3Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataTwonkyTrckTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataTwonkyTrckTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wma/ConcurrentWritesTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wma/ConcurrentWritesTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wma/WmaSimpleTest.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wma/WmaSimpleTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wma/WmaTestCase.java" afterPath="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wma/WmaTestCase.java" />
     </list>
     <ignored path="jaudiotagger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -236,43 +33,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AbstractTestCase.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FlacHeaderTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/audio/flac/FlacHeaderTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="196">
+              <caret line="94" column="31" lean-forward="false" selection-start-line="94" selection-start-column="31" selection-end-line="94" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Issue221Test.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue221Test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="19" column="40" lean-forward="false" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractTestCase.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/AbstractTestCase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="171" column="0" lean-forward="false" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
+            <state relative-caret-position="165">
+              <caret line="39" column="62" lean-forward="false" selection-start-line="39" selection-start-column="62" selection-end-line="39" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VorbisWriteTagTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisWriteTagTest.java">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3748">
-              <caret line="54" column="40" lean-forward="true" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AudioFile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/AudioFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="114" column="22" lean-forward="true" selection-start-line="114" selection-start-column="22" selection-end-line="114" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AudioFileWriteAsTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/audio/AudioFileWriteAsTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="120">
+              <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -288,47 +83,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AudioFileReader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileReader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-63">
-              <caret line="84" column="21" lean-forward="false" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TagOptionSingleton.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/tag/TagOptionSingleton.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="410" column="54" lean-forward="false" selection-start-line="410" selection-start-column="40" selection-end-line="410" selection-end-column="54" />
-              <folding>
-                <element signature="e#12642#12643#0" expanded="true" />
-                <element signature="e#12692#12693#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>@Test*@Test</find>
-      <find>@Test@Test</find>
-      <find>@Test\@Test</find>
-      <find>@Test\s@Test</find>
-      <find>@org.junit.Test</find>
-      <find>@Test\s*@Test</find>
-      <find>T</find>
-      <find>TestCa</find>
-      <find>implementsTestCase</find>
-      <find>implementTestCase</find>
-      <find>implemenTestCase</find>
-      <find>implemeTestCase</find>
-      <find>implemTestCase</find>
-      <find>impleTestCase</find>
       <find>implTestCase</find>
       <find>impTestCase</find>
       <find>imTestCase</find>
@@ -345,11 +103,25 @@
       <find>extends/*TestCase</find>
       <find>extends TestCase</find>
       <find>AbstractTestCase.</find>
+      <find>getVa</find>
+      <find>VorbisWriteT</find>
+      <find>setVorbisAlbumArtistSaveOptions</find>
+      <find>AbstractTestCase</find>
+      <find>ALBUM_ARTIST</find>
+      <find>testWriteMultiTrack7</find>
+      <find>t</find>
+      <find>File file = tempFolder.newFile();</find>
+      <find>te</find>
+      <find>testData</find>
+      <find>testDatatm</find>
+      <find>testDatatmp</find>
+      <find>testatatmp</find>
+      <find>testdatatmp</find>
     </findStrings>
     <replaceStrings>
       <replace>@Test\npublic void test</replace>
-      <replace>@Test</replace>
       <replace />
+      <replace>@Test</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3</dir>
@@ -377,14 +149,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue394Test.java" />
-        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue428Test.java" />
-        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue283Test.java" />
-        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue366Test.java" />
-        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue383Test.java" />
-        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue365Test.java" />
-        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue270Test.java" />
-        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue417Test.java" />
         <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue426Test.java" />
         <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue309Test.java" />
         <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue374Test.java" />
@@ -426,8 +190,16 @@
         <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/wav/WavMetadataTest.java" />
         <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/AudioFileWriteAsTest.java" />
         <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/asf/io/AsfHeaderUtils.java" />
-        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/AbstractTestCase.java" />
+        <option value="$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AbstractTag.java" />
+        <option value="$PROJECT_DIR$/src/org/jaudiotagger/tag/vorbiscomment/VorbisCommentTag.java" />
+        <option value="$PROJECT_DIR$/src/org/jaudiotagger/tag/TagOptionSingleton.java" />
         <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisWriteTagTest.java" />
+        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/AbstractTestCase.java" />
+        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody/FrameBodyUSLTTest.java" />
+        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteDatatoMultTrackAudioTest.java" />
+        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/audio/flac/FlacHeaderTest.java" />
+        <option value="$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue221Test.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -489,38 +261,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="jaudiotagger" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jaudiotagger" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jaudiotagger" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jaudiotagger" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jaudiotagger" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="audio" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -589,33 +329,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.VorbisWriteTagTest.testWriteTagToFile">
-    <configuration default="false" name="DsfAudioFileTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="org.jaudiotagger.audio.dsf.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="jaudiotagger" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.jaudiotagger.audio.dsf" />
-      <option name="MAIN_CLASS_NAME" value="org.jaudiotagger.audio.dsf.DsfAudioFileTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.FlacHeaderTest.testReadFileWithVorbisComment">
     <configuration default="false" name="VorbisWriteTagTest.testWriteTagToFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -630,32 +344,6 @@
       <option name="MAIN_CLASS_NAME" value="org.jaudiotagger.tag.vorbiscomment.VorbisWriteTagTest" />
       <option name="METHOD_NAME" value="testWriteTagToFile" />
       <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestFileTypeMagic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="org.jaudiotagger.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="jaudiotagger" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="org.jaudiotagger" />
-      <option name="MAIN_CLASS_NAME" value="org.jaudiotagger.TestFileTypeMagic" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -706,6 +394,58 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="org.jaudiotagger.issues" />
       <option name="MAIN_CLASS_NAME" value="org.jaudiotagger.issues.Issue429Test" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="FlacHeaderTest.testReadFileWithVorbisComment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="org.jaudiotagger.audio.flac.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="jaudiotagger" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="org.jaudiotagger.audio.flac" />
+      <option name="MAIN_CLASS_NAME" value="org.jaudiotagger.audio.flac.FlacHeaderTest" />
+      <option name="METHOD_NAME" value="testReadFileWithVorbisComment" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="M4aWriteDatatoMultTrackAudioTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="org.jaudiotagger.tag.mp4.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="jaudiotagger" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="org.jaudiotagger.tag.mp4" />
+      <option name="MAIN_CLASS_NAME" value="org.jaudiotagger.tag.mp4.M4aWriteDatatoMultTrackAudioTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -1349,19 +1089,19 @@
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="JUnit.AiffAudioTagTest.testReadAiff3" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.AiffAudioTagTest" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.DsfAudioFileTest" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.VorbisWriteTagTest.testWriteTagToFile" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.TestFileTypeMagic" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.Issue412Test" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.Issue429Test" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.VorbisWriteTagTest.testWriteTagToFile" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.Issue412Test" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.Issue429Test" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.FlacHeaderTest.testReadFileWithVorbisComment" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.M4aWriteDatatoMultTrackAudioTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.VorbisWriteTagTest.testWriteTagToFile" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.Issue429Test" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.Issue412Test" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.TestFileTypeMagic" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.DsfAudioFileTest" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.FlacHeaderTest.testReadFileWithVorbisComment" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.M4aWriteDatatoMultTrackAudioTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.VorbisWriteTagTest.testWriteTagToFile" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.Issue429Test" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.Issue412Test" />
       </list>
     </recent_temporary>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -1412,28 +1152,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1410537432863</updated>
-      <workItem from="1499936792869" duration="19260000" />
-    </task>
-    <task id="LOCAL-00019" summary="Manul merge of https://bitbucket.org/ijabz/jaudiotagger/pull-requests/14  by Hendrik Schreiber">
-      <created>1442525517503</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1442525517503</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Fixed AIFF code that that AiffReader.getTag() is no longer dependent on AiffFileReader.getEncodingInfo(), although this means the file has to be parsed twice most of the file can be skipped as each method can just analyse the chunks they need. This brings the code inline with other formats, as part of this refactored AiffFileReader into AiffInfoReader and AiffTagReader">
-      <created>1442565892141</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1442565892141</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Converted to CommonChunk to process ByteBuffer rather than RAF, this allows us to use inbuilt ByteBuffer methods for reading ints etc but more importantly means we dont need to keep track of bytesLeft because already moved to start of next chunk in calling AiffInfoReader code">
-      <created>1442567115776</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1442567115776</updated>
+      <workItem from="1499936792869" duration="27649000" />
     </task>
     <task id="LOCAL-00022" summary="Converted all Chunks to process ByteBuffer rather than RAF, this allows us to use inbuilt ByteBuffer methods for reading ints etc but more importantly means we dont need to keep track of bytesLeft because already moved to start of next chunk in calling AiffInfoReader code.&#10;Also tidyup/removal of some util methods">
       <created>1442569493770</created>
@@ -1757,43 +1476,64 @@
       <option name="project" value="LOCAL" />
       <updated>1499957703700</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Refactored Junit Tests">
+      <created>1499960472322</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1499960472322</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Refactored Junit Tests">
+      <created>1499960596778</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1499960596778</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Fixed flaky test VorbisWriteTagTest.java">
+      <created>1500022548398</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1500022548398</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="DsfAudioFileTest - 2017.07.13 at 15h 37m 58s.xml">
-      <configuration name="DsfAudioFileTest" configurationId="JUnit" />
+    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 03m 42s.xml">
+      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FlacReadTest - 2017.07.13 at 15h 27m 34s.xml">
-      <configuration name="FlacReadTest" configurationId="JUnit" />
+    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 05m 32s.xml">
+      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Issue412Test - 2017.07.13 at 16h 11m 24s.xml">
-      <configuration name="Issue412Test" configurationId="JUnit" />
+    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 06m 48s.xml">
+      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Issue429Test - 2017.07.13 at 16h 15m 38s.xml">
-      <configuration name="Issue429Test" configurationId="JUnit" />
+    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 16m 14s.xml">
+      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="VorbisWriteTagTest - 2017.07.13 at 15h 29m 02s.xml">
-      <configuration name="VorbisWriteTagTest" configurationId="JUnit" />
+    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 16m 34s.xml">
+      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="VorbisWriteTagTest_testWriteTagToFile - 2017.07.13 at 15h 55m 41s.xml">
+    <history-entry file="FlacHeaderTest_testReadFileWithVorbisComment - 2017.07.14 at 10h 16m 51s.xml">
+      <configuration name="FlacHeaderTest.testReadFileWithVorbisComment" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="M4aWriteDatatoMultTrackAudioTest - 2017.07.14 at 10h 07m 24s.xml">
+      <configuration name="M4aWriteDatatoMultTrackAudioTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="M4aWriteDatatoMultTrackAudioTest - 2017.07.14 at 10h 09m 20s.xml">
+      <configuration name="M4aWriteDatatoMultTrackAudioTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="M4aWriteDatatoMultTrackAudioTest - 2017.07.14 at 10h 14m 24s.xml">
+      <configuration name="M4aWriteDatatoMultTrackAudioTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="VorbisWriteTagTest_testWriteTagToFile - 2017.07.14 at 09h 52m 16s.xml">
       <configuration name="VorbisWriteTagTest.testWriteTagToFile" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="VorbisWriteTagTest_testWriteTagToFile - 2017.07.13 at 16h 29m 42s.xml">
-      <configuration name="VorbisWriteTagTest.testWriteTagToFile" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="VorbisWriteTagTest_testWriteTagToFile - 2017.07.13 at 16h 32m 15s.xml">
-      <configuration name="VorbisWriteTagTest.testWriteTagToFile" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="org_jaudiotagger_tag_mp4_in_jaudiotagger - 2017.07.13 at 14h 29m 59s.xml">
-      <configuration name="org.jaudiotagger.tag.mp4 in jaudiotagger" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="org_jaudiotagger_tag_mp4_in_jaudiotagger - 2017.07.13 at 14h 32m 34s.xml">
-      <configuration name="org.jaudiotagger.tag.mp4 in jaudiotagger" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19260000" />
+    <option name="totallyTimeSpent" value="27649000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1826,9 +1566,9 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34955752" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.70132744" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47234514" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47345132" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3960177" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40707964" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14962727" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45575222" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -1887,8 +1627,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Make WavTag a wrapper of WavInfoTag as a precursor to being able to read Wav ID3 tag as well as info tag" />
-    <MESSAGE value="Basic (and buggy) implementation allowing Wav INFO metadata to be edited and saved." />
     <MESSAGE value="Simplified chunkHeader write code" />
     <MESSAGE value="Removed calls to ByteBuffer.array() where easy to do so, as this is old style pre NIO and would fail if ByteBuffer used allocatedDirect()" />
     <MESSAGE value="Fixed WavTagWriter so it can pad data when new tag is smaller than original tag&#10;Also added test for the reverse when new tag is alrger than original tag" />
@@ -1912,7 +1650,9 @@
     <MESSAGE value="Fixed work type" />
     <MESSAGE value="Fixed incorrect mapping for ID3v22,ID3V23 for ALBUM_ARTISTS and ALBUM_ARTISTS_SORT" />
     <MESSAGE value="Merged 'master' branch into 'datasource' branch&#10;Refactored unit tests in the attempt to resolve flaky tests issues: Now only one test is failing, the VorbisWriteTagTest" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merged 'master' branch into 'datasource' branch&#10;Refactored unit tests in the attempt to resolve flaky tests issues: Now only one test is failing, the VorbisWriteTagTest" />
+    <MESSAGE value="Refactored Junit Tests" />
+    <MESSAGE value="Fixed flaky test VorbisWriteTagTest.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed flaky test VorbisWriteTagTest.java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1937,24 +1677,24 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/org/jaudiotagger/audio/AudioFileIO.java</url>
-          <line>358</line>
-          <properties />
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/org/jaudiotagger/audio/AudioFileIO.java</url>
           <line>471</line>
           <properties />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisWriteTagTest.java</url>
-          <line>130</line>
+          <line>137</line>
           <properties />
           <option name="timeStamp" value="9" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/srctest/org/jaudiotagger/audio/flac/FlacHeaderTest.java</url>
+          <line>100</line>
+          <properties />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="10" />
+      <option name="time" value="12" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1963,86 +1703,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue374Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue285Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue289Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue302Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue282Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue387Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue292Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue279Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue269Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue406Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue271Test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2080,7 +1740,7 @@
         <state relative-caret-position="221">
           <caret line="17" column="53" lean-forward="false" selection-start-line="17" selection-start-column="53" selection-end-line="17" selection-end-column="53" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2090,7 +1750,7 @@
         <state relative-caret-position="207">
           <caret line="39" column="7" lean-forward="true" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2108,8 +1768,8 @@
         <state relative-caret-position="261">
           <caret line="47" column="10" lean-forward="true" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
           <folding>
-            <element signature="e#0#17646#0" expanded="true" />
-            <element signature="imports" expanded="true" />
+            <element signature="e#0#17646#0" expanded="false" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2129,7 +1789,7 @@
         <state relative-caret-position="280">
           <caret line="22" column="52" lean-forward="false" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2147,7 +1807,7 @@
         <state relative-caret-position="213">
           <caret line="47" column="37" lean-forward="false" selection-start-line="47" selection-start-column="37" selection-end-line="47" selection-end-column="37" />
           <folding>
-            <element signature="e#0#23991#0" expanded="true" />
+            <element signature="e#0#23991#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2165,7 +1825,7 @@
         <state relative-caret-position="291">
           <caret line="31" column="45" lean-forward="true" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2175,7 +1835,7 @@
         <state relative-caret-position="192">
           <caret line="65" column="53" lean-forward="false" selection-start-line="65" selection-start-column="53" selection-end-line="65" selection-end-column="53" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2185,7 +1845,7 @@
         <state relative-caret-position="192">
           <caret line="34" column="10" lean-forward="true" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2287,7 +1947,7 @@
         <state relative-caret-position="-1009">
           <caret line="444" column="8" lean-forward="false" selection-start-line="444" selection-start-column="8" selection-end-line="444" selection-end-column="8" />
           <folding>
-            <element signature="e#0#24368#0" expanded="true" />
+            <element signature="e#0#24368#0" expanded="false" />
             <element signature="imports" expanded="false" />
           </folding>
         </state>
@@ -2298,7 +1958,7 @@
         <state relative-caret-position="131">
           <caret line="62" column="50" lean-forward="false" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="50" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2343,17 +2003,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/tag/TagOptionSingleton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="410" column="54" lean-forward="false" selection-start-line="410" selection-start-column="40" selection-end-line="410" selection-end-column="54" />
-          <folding>
-            <element signature="e#12642#12643#0" expanded="true" />
-            <element signature="e#12692#12693#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AudioFileReader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-63">
@@ -2378,6 +2027,85 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/tag/Tag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="237" column="12" lean-forward="false" selection-start-line="237" selection-start-column="12" selection-end-line="237" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/generic/AbstractTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="60" column="19" lean-forward="true" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/tag/FieldKey.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1518">
+          <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/tag/TagOptionSingleton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5051">
+          <caret line="92" column="5" lean-forward="false" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
+          <folding>
+            <element signature="e#12642#12643#0" expanded="true" />
+            <element signature="e#12692#12693#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/tag/vorbiscomment/VorbisCommentTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="752" column="38" lean-forward="false" selection-start-line="752" selection-start-column="21" selection-end-line="752" selection-end-column="38" />
+          <folding>
+            <element signature="e#1851#1884#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisWriteTagTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-262">
+          <caret line="33" column="121" lean-forward="false" selection-start-line="33" selection-start-column="121" selection-end-line="33" selection-end-column="121" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/tag/id3/framebody/FrameBodyUSLTTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="54" column="1" lean-forward="true" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/tag/mp4/M4aWriteDatatoMultTrackAudioTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="418" column="39" lean-forward="false" selection-start-line="418" selection-start-column="39" selection-end-line="418" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jaudiotagger/audio/AudioFileIO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
@@ -2386,21 +2114,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/AbstractTestCase.java">
+    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/audio/flac/FlacHeaderTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="171" column="0" lean-forward="false" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
+        <state relative-caret-position="196">
+          <caret line="94" column="31" lean-forward="false" selection-start-line="94" selection-start-column="31" selection-end-line="94" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/tag/vorbiscomment/VorbisWriteTagTest.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3748">
-          <caret line="54" column="40" lean-forward="true" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="120">
+          <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/issues/Issue221Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="19" column="40" lean-forward="false" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srctest/org/jaudiotagger/AbstractTestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="39" column="62" lean-forward="false" selection-start-line="39" selection-start-column="62" selection-end-line="39" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>

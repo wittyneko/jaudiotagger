@@ -9,6 +9,7 @@ import org.jaudiotagger.tag.mp4.Mp4Tag;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentTag;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileOutputStream;
 
 import static org.junit.Assert.assertTrue;
@@ -53,7 +54,8 @@ public class Issue221Test extends AbstractTestCase {
         try {
             ID3v23Tag tag = new ID3v23Tag();
             tag.setField(FieldKey.TITLE, null);
-            FileOutputStream os = new FileOutputStream("testdatatmp/issue_221_title_v23.mp3");
+            File file = tempFolder.newFile("01_issue_221_title_v23.mp3");
+            FileOutputStream os = new FileOutputStream(file);
             tag.write(os.getChannel(), 0);
             os.close();
         } catch (Exception e) {
@@ -70,7 +72,8 @@ public class Issue221Test extends AbstractTestCase {
         try {
             ID3v23Tag tag = new ID3v23Tag();
             tag.setField(FieldKey.ALBUM, null);
-            FileOutputStream os = new FileOutputStream("testdatatmp/issue_221_title_v23.mp3");
+            File file = tempFolder.newFile("02_issue_221_title_v23.mp3");
+            FileOutputStream os = new FileOutputStream(file);
             tag.write(os.getChannel(), 0);
             os.close();
         } catch (Exception e) {
@@ -87,7 +90,8 @@ public class Issue221Test extends AbstractTestCase {
         try {
             ID3v23Tag tag = new ID3v23Tag();
             tag.setField(FieldKey.ARTIST, null);
-            FileOutputStream os = new FileOutputStream("testdatatmp/issue_221_title_v23.mp3");
+            File file = tempFolder.newFile("03_issue_221_title_v23.mp3");
+            FileOutputStream os = new FileOutputStream(file);
             tag.write(os.getChannel(), 0);
             os.close();
         } catch (Exception e) {
@@ -104,7 +108,8 @@ public class Issue221Test extends AbstractTestCase {
         try {
             ID3v23Tag tag = new ID3v23Tag();
             tag.setField(FieldKey.COMMENT, null);
-            FileOutputStream os = new FileOutputStream("testdatatmp/issue_221_title_v23.mp3");
+            File file = tempFolder.newFile("04_issue_221_title_v23.mp3");
+            FileOutputStream os = new FileOutputStream(file);
             tag.write(os.getChannel(), 0);
             os.close();
         } catch (Exception e) {
@@ -121,7 +126,8 @@ public class Issue221Test extends AbstractTestCase {
         try {
             ID3v23Tag tag = new ID3v23Tag();
             tag.setField(FieldKey.GENRE, null);
-            FileOutputStream os = new FileOutputStream("testdatatmp/issue_221_title_v23.mp3");
+            File file = tempFolder.newFile("05_issue_221_title_v23.mp3");
+            FileOutputStream os = new FileOutputStream(file);
             tag.write(os.getChannel(), 0);
             os.close();
         } catch (Exception e) {
@@ -138,7 +144,8 @@ public class Issue221Test extends AbstractTestCase {
         try {
             ID3v23Tag tag = new ID3v23Tag();
             tag.setField(FieldKey.TRACK, null);
-            FileOutputStream os = new FileOutputStream("testdatatmp/issue_221_title_v23.mp3");
+            File file = tempFolder.newFile("06_issue_221_title_v23.mp3");
+            FileOutputStream os = new FileOutputStream(file);
             tag.write(os.getChannel(), 0);
             os.close();
         } catch (Exception e) {
@@ -156,7 +163,8 @@ public class Issue221Test extends AbstractTestCase {
         try {
             ID3v24Tag tag = new ID3v24Tag();
             tag.setField(FieldKey.TITLE, null);
-            FileOutputStream os = new FileOutputStream("testdatatmp/issue_221_title_v24.mp3");
+            File file = tempFolder.newFile("01_issue_221_title_v24.mp3");
+            FileOutputStream os = new FileOutputStream(file);
             tag.write(os.getChannel(), 0);
             os.close();
         } catch (Exception e) {
@@ -174,7 +182,8 @@ public class Issue221Test extends AbstractTestCase {
         try {
             ID3v22Tag tag = new ID3v22Tag();
             tag.setField(FieldKey.TITLE, null);
-            FileOutputStream os = new FileOutputStream("testdatatmp/issue_221_title_v24.mp3");
+            File file = tempFolder.newFile("02_issue_221_title_v24.mp3");
+            FileOutputStream os = new FileOutputStream(file);
             tag.write(os.getChannel(), 0);
             os.close();
         } catch (Exception e) {

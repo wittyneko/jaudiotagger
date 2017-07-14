@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
 public abstract class AbstractTestCase {
 
     @Rule
-    public TemporaryFolder tempFilder = new TemporaryFolder();
+    public TemporaryFolder tempFolder = new TemporaryFolder();
 
     @Before
     public void setUp() throws Exception {
@@ -188,7 +188,7 @@ public abstract class AbstractTestCase {
 
     private File createTmpFile(final String name) {
         try {
-            File tempFolder = tempFilder.newFolder();
+            File tempFolder = this.tempFolder.newFolder();
             File tempFile = new File(tempFolder, name);
             Assert.assertTrue(tempFile.createNewFile());
             return tempFile;

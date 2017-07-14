@@ -417,7 +417,6 @@ public class M4aWriteDatatoMultTrackAudioTest extends AbstractTestCase
             assertEquals("Classic Rock", tag.getFirst(FieldKey.GENRE));
 
             //Visual check of atom tree
-            testFile = new File("testdatatmp", "testWriteMultiTrack7.m4a");
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
