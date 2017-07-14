@@ -31,7 +31,7 @@ public class Issue282Test extends AbstractTestCase {
             testFile = copyAudioToTmp("test1.wma");
 
             //Copy up a level coz we need it to be in same folder as working directory so can just specify filename
-            File outputFile = new File(testFile.getName());
+            File outputFile = createTmpFile(testFile.getName());
             boolean result = copy(testFile, outputFile);
             assertTrue(result);
 
@@ -69,7 +69,7 @@ public class Issue282Test extends AbstractTestCase {
             testFile = copyAudioToTmp("testV1.mp3");
 
             //Copy up a level coz we need it to be in same folder as working directory so can just specify filename
-            File outputFile = new File(testFile.getName());
+            File outputFile = createTmpFile(testFile.getName());
             boolean result = copy(testFile, outputFile);
             assertTrue(result);
 

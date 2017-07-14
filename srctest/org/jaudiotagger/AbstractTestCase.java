@@ -186,7 +186,7 @@ public abstract class AbstractTestCase {
         return outputFile;
     }
 
-    private File createTmpFile(final String name) {
+    public File createTmpFile(final String name) {
         try {
             File tempFolder = this.tempFolder.newFolder();
             File tempFile = new File(tempFolder, name);
