@@ -354,7 +354,7 @@ public abstract class AbstractTag implements Tag
     /**
      * Set or add encoding
      *
-     * @see org.jaudiotagger.tag.Tag#setEncoding(java.lang.String)
+     * @see org.jaudiotagger.tag.Tag#setEncoding(Charset)
      */
     public boolean setEncoding(final Charset enc)
     {

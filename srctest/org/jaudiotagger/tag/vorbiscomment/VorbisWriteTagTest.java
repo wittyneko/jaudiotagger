@@ -9,6 +9,7 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.TagField;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.vorbiscomment.util.Base64Coder;
+import org.junit.Before;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
@@ -27,6 +28,12 @@ import static org.junit.Assert.assertTrue;
  */
 public class VorbisWriteTagTest extends AbstractTestCase
 {
+
+    @Before
+    public void setUp(){
+        TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST);
+    }
+
     /**
      * Can summarize file
      */
@@ -148,7 +155,9 @@ public class VorbisWriteTagTest extends AbstractTestCase
             assertEquals("Sortartist\u01ff", tag.getFirst(FieldKey.ARTIST_SORT));
             assertEquals("lyrics", tag.getFirst(FieldKey.LYRICS));
             assertEquals("200", tag.getFirst(FieldKey.BPM));
-            assertEquals("Albumartist", tag.getFirst(FieldKey.ALBUM_ARTIST));// TODO - sometimes is failing. Why??
+
+            // TODO - sometimes this is failing. This is because the write (VorbisCommentTag) is falling into the branch WRITE_JRIVER_ALBUMARTIST_AND_DELETE_ALBUMARTIST
+            assertEquals("Albumartist", tag.getFirst(FieldKey.ALBUM_ARTIST));
             assertEquals("Sortalbumartist", tag.getFirst(FieldKey.ALBUM_ARTIST_SORT));
             assertEquals("Sortalbum", tag.getFirst(FieldKey.ALBUM_SORT));
             assertEquals("GROUping", tag.getFirst(FieldKey.GROUPING));
@@ -177,7 +186,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
             assertEquals("Sortartist\u01ff", vorbisTag.getFirst(VorbisCommentFieldKey.ARTISTSORT));
             assertEquals("lyrics", vorbisTag.getFirst(VorbisCommentFieldKey.LYRICS));
             assertEquals("200", vorbisTag.getFirst(VorbisCommentFieldKey.BPM));
-            assertEquals("Albumartist", vorbisTag.getFirst(VorbisCommentFieldKey.ALBUMARTIST));// TODO - sometimes is failing. Why??
+            assertEquals("Albumartist", vorbisTag.getFirst(VorbisCommentFieldKey.ALBUMARTIST));
             assertEquals("Sortalbumartist", vorbisTag.getFirst(VorbisCommentFieldKey.ALBUMARTISTSORT));
             assertEquals("Sortalbum", vorbisTag.getFirst(VorbisCommentFieldKey.ALBUMSORT));
             assertEquals("GROUping", vorbisTag.getFirst(VorbisCommentFieldKey.GROUPING));
