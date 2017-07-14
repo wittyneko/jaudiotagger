@@ -34,16 +34,19 @@ import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
+/**
  * This abstract class is the skeleton for tag readers. It handles the creation/closing of
  * the randomaccessfile objects and then call the subclass method getEncodingInfo and getTag.
  * These two method have to be implemented in the subclass.
- * 
- *@author	Raphael Slinckx
- *@version	$Id$
- *@since	v0.02
+ *
+ * This class is deprecated. Use {@link AudioFileReader3 instead}
+ *
+ * @author	Raphael Slinckx
+ * @version	$Id$
+ * @since	v0.02
+ *
  */
-
+@Deprecated
 public abstract class AudioFileReader
 {
 

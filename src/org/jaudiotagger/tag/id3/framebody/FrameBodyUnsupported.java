@@ -103,7 +103,6 @@ public class FrameBodyUnsupported extends AbstractID3v2FrameBody implements ID3v
      *
      * @param byteBuffer
      * @param frameSize
-     * @throws InvalidFrameException if unable to create framebody from buffer
      * @throws org.jaudiotagger.tag.InvalidTagException
      */
     public FrameBodyUnsupported(ByteBuffer byteBuffer, int frameSize) throws InvalidTagException

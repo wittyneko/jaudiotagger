@@ -14,14 +14,14 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.attribute.AclEntry;
-import java.nio.file.attribute.AclFileAttributeView;
-import java.nio.file.attribute.DosFileAttributes;
 import java.util.logging.Level;
 
 /**
  * Replacement for AudioFileReader class
+ *
+ * this class is deprecated. Use the {@link AudioFileReader3} instead
  */
+@Deprecated
 public abstract class AudioFileReader2 extends AudioFileReader
 {
     /*

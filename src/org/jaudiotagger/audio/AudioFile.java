@@ -185,6 +185,10 @@ public class AudioFile
         return audioHeader;
     }
 
+    public void setAudioHeader(AudioHeader audioHeader) {
+        this.audioHeader = audioHeader;
+    }
+
     /**
      * <p>Returns the tag contained in this AudioFile, the <code>Tag</code> contains any useful meta-data, like
      * artist, album, title, etc. If the file does not contain any tag the null is returned. Some audio formats do
