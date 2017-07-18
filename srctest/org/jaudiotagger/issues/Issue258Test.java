@@ -5,42 +5,41 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertNull;
 
 /**
  * Test Creating Temp file when filename < 3
  */
-public class Issue258Test extends AbstractTestCase
-{
+public class Issue258Test extends AbstractTestCase {
     /**
      * Test write of mp3 with very short filename
      */
-    public void testWriteToShortMp3File()
-    {
+
+    @Test
+    public void testWriteToShortMp3File() {
         File orig = new File("testdata", "01.mp3");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
         File testFile = null;
         Exception exceptionCaught = null;
-        try
-        {
-            testFile = AbstractTestCase.copyAudioToTmp("01.mp3");
+        try {
+            testFile = copyAudioToTmp("01.mp3");
 
             //Read File, and write tag cause padding to be adjusted and temp file created
             AudioFile af = AudioFileIO.read(testFile);
             Tag t = af.getTagOrCreateAndSetDefault();
-            t.setField(FieldKey.ARTIST,"fred");
+            t.setField(FieldKey.ARTIST, "fred");
             af.commit();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            exceptionCaught=e;
+            exceptionCaught = e;
         }
 
         assertNull(exceptionCaught);
@@ -49,31 +48,28 @@ public class Issue258Test extends AbstractTestCase
     /**
      * Test write to mp4 with very short file name
      */
-    public void testWriteToShortMp4File()
-    {
+
+    @Test
+    public void testWriteToShortMp4File() {
         File orig = new File("testdata", "01.m4a");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
         File testFile = null;
         Exception exceptionCaught = null;
-        try
-        {
-            testFile = AbstractTestCase.copyAudioToTmp("01.m4a");   
+        try {
+            testFile = copyAudioToTmp("01.m4a");
 
             //Read File
-            AudioFile af = AudioFileIO.read(testFile);            
+            AudioFile af = AudioFileIO.read(testFile);
             Tag t = af.getTagOrCreateAndSetDefault();
-            t.setField(FieldKey.ARTIST,"fred");
+            t.setField(FieldKey.ARTIST, "fred");
             af.commit();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            exceptionCaught=e;
+            exceptionCaught = e;
         }
 
         assertNull(exceptionCaught);

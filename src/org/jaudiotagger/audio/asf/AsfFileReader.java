@@ -23,18 +23,27 @@ import org.jaudiotagger.audio.asf.data.AsfHeader;
 import org.jaudiotagger.audio.asf.data.AudioStreamChunk;
 import org.jaudiotagger.audio.asf.data.MetadataContainer;
 import org.jaudiotagger.audio.asf.data.MetadataDescriptor;
-import org.jaudiotagger.audio.asf.io.*;
+import org.jaudiotagger.audio.asf.io.AsfExtHeaderReader;
+import org.jaudiotagger.audio.asf.io.AsfHeaderReader;
+import org.jaudiotagger.audio.asf.io.ChunkReader;
+import org.jaudiotagger.audio.asf.io.ContentBrandingReader;
+import org.jaudiotagger.audio.asf.io.ContentDescriptionReader;
+import org.jaudiotagger.audio.asf.io.FileHeaderReader;
+import org.jaudiotagger.audio.asf.io.LanguageListReader;
+import org.jaudiotagger.audio.asf.io.MetadataReader;
+import org.jaudiotagger.audio.asf.io.StreamChunkReader;
 import org.jaudiotagger.audio.asf.util.TagConverter;
 import org.jaudiotagger.audio.asf.util.Utils;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.audio.generic.*;
+import org.jaudiotagger.audio.generic.AudioFileReader3;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
+import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.logging.ErrorMessage;
-import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.asf.AsfTag;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -132,7 +141,7 @@ public class AsfFileReader extends AudioFileReader3
     /**
      * (overridden)
      *
-     * @see org.jaudiotagger.audio.generic.AudioFileReader#getEncodingInfo(java.io.RandomAccessFile)
+     * @see org.jaudiotagger.audio.generic.AudioFileReader3#getEncodingInfo(DataSource)
      */
     @Override
     protected GenericAudioHeader getEncodingInfo(final DataSource dataSource) throws CannotReadException, IOException
@@ -180,7 +189,7 @@ public class AsfFileReader extends AudioFileReader3
     /**
      * (overridden)
      *
-     * @see org.jaudiotagger.audio.generic.AudioFileReader#getTag(java.io.RandomAccessFile)
+     * @see org.jaudiotagger.audio.generic.AudioFileReader3#getTag(DataSource)
      */
     @Override
     protected AsfTag getTag(final DataSource dataSource) throws CannotReadException, IOException
@@ -221,7 +230,7 @@ public class AsfFileReader extends AudioFileReader3
      * {@inheritDoc}
      */
     @Override
-    public AudioFile read(final File f) throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException
+    public AudioFile read(final File f) throws CannotReadException, IOException
     {
         if (!f.canRead())
         {

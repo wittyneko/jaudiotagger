@@ -1,9 +1,9 @@
 package org.jaudiotagger.audio.aiff;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
+import org.junit.Test;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -14,12 +14,14 @@ import java.util.Random;
 
 import static org.jaudiotagger.audio.aiff.AiffType.AIFC;
 import static org.jaudiotagger.audio.aiff.AiffType.AIFF;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 /**
  * AiffFileHeader tests.
  */
-public class AiffFileHeaderTest extends TestCase {
+public class AiffFileHeaderTest {
 
+    @Test
     public void testValidAIFF() throws IOException, CannotReadException {
         final int size = 1234;
         final File aiffFile = createAIFF("FORM", "AIFF", size);
@@ -35,6 +37,7 @@ public class AiffFileHeaderTest extends TestCase {
         aiffFile.delete();
     }
 
+    @Test
     public void testInvalidFormatType() throws IOException, CannotReadException {
         final int size = 5762;
         final File aiffFile = createAIFF("FORM", "COOL", size);
@@ -49,6 +52,7 @@ public class AiffFileHeaderTest extends TestCase {
         aiffFile.delete();
     }
 
+    @Test
     public void testInvalidFormat1() throws IOException, CannotReadException {
         final int size = 34242;
         final File aiffFile = createAIFF("FURM", "AIFF", size);
@@ -63,7 +67,7 @@ public class AiffFileHeaderTest extends TestCase {
         aiffFile.delete();
     }
 
-
+    @Test
     public void testInvalidFormat2() throws IOException, CannotReadException {
         final int size = 34234;
         final File aiffFile = createAIFF("FORMA", "AIFF", size);
@@ -78,6 +82,7 @@ public class AiffFileHeaderTest extends TestCase {
         aiffFile.delete();
     }
 
+    @Test
     public void testValidAIFC() throws IOException, CannotReadException {
         final int size = 3452;
         final File aiffFile = createAIFF("FORM", "AIFC", size);

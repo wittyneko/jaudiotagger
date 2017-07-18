@@ -11,17 +11,23 @@ import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
 import org.jaudiotagger.tag.images.Artwork;
 import org.jaudiotagger.tag.images.ArtworkFactory;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Test Itunes problems
  */
-public class UnsynchronizationTest extends AbstractTestCase
-{
+public class UnsynchronizationTest extends AbstractTestCase {
     private static final int FRAME_SIZE = 2049;
 
     /**
@@ -29,9 +35,9 @@ public class UnsynchronizationTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testv24TagCreateFrameUnsynced() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue1.id3", "testV1.mp3");
+    @Test
+    public void testv24TagCreateFrameUnsynced() throws Exception {
+        File testFile = copyAudioToTmp("Issue1.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -90,9 +96,9 @@ public class UnsynchronizationTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testv23TagCreateTagUnsynced() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue1.id3", "testV1.mp3");
+    @Test
+    public void testv23TagCreateTagUnsynced() throws Exception {
+        File testFile = copyAudioToTmp("Issue1.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -127,9 +133,9 @@ public class UnsynchronizationTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testv22TagCreateTagUnsynced() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue1.id3", "testV1.mp3");
+    @Test
+    public void testv22TagCreateTagUnsynced() throws Exception {
+        File testFile = copyAudioToTmp("Issue1.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -160,22 +166,21 @@ public class UnsynchronizationTest extends AbstractTestCase
     /**
      * Test writing Artwork  to Mp3 ID3v23 compares not synchronized to unsynchronised
      */
-    public void testWriteLargeunsynchronizedFields()
-    {
+    @Test
+    public void testWriteLargeunsynchronizedFields() {
         File testFile = null;
         File testFile2 = null;
 
         Exception exceptionCaught = null;
-        try
-        {
-            testFile  = AbstractTestCase.copyAudioToTmp("testV1.mp3");
-            testFile2 = AbstractTestCase.copyAudioToTmp("testV1.mp3",new File("testV1-nonsynced.mp3"));
+        try {
+            testFile = copyAudioToTmp("testV1.mp3");
+            testFile2 = copyAudioToTmp("testV1.mp3", new File("testV1-nonsynced.mp3"));
 
             //Save Unsynced
             TagOptionSingleton.getInstance().setUnsyncTags(true);
             AudioFile af = AudioFileIO.read(testFile);
             af.setTag(new ID3v23Tag());
-            ID3v23Tag v23TagUnsynced = (ID3v23Tag)af.getTag();
+            ID3v23Tag v23TagUnsynced = (ID3v23Tag) af.getTag();
             assertFalse(v23TagUnsynced.isUnsynchronization());
             Tag unsyncedTag = af.getTag();
             Artwork artworkUnsynced = ArtworkFactory.createArtworkFromFile(new File("testdata/coverart_large.jpg"));
@@ -186,7 +191,7 @@ public class UnsynchronizationTest extends AbstractTestCase
             TagOptionSingleton.getInstance().setUnsyncTags(false);
             af = AudioFileIO.read(testFile2);
             af.setTag(new ID3v23Tag());
-            ID3v23Tag  v23TagNotsynced = (ID3v23Tag)af.getTag();
+            ID3v23Tag v23TagNotsynced = (ID3v23Tag) af.getTag();
             assertFalse(v23TagNotsynced.isUnsynchronization());
             Tag notSyncedTag = af.getTag();
             Artwork artworkNotsynced = ArtworkFactory.createArtworkFromFile(new File("testdata/coverart_large.jpg"));
@@ -197,46 +202,42 @@ public class UnsynchronizationTest extends AbstractTestCase
             long start = System.nanoTime();
             af = AudioFileIO.read(testFile2);
             long time = System.nanoTime() - start;
-            System.out.printf("NOTSYNCED Took %6.3f ms \n", time/1e6);
+            System.out.printf("NOTSYNCED Took %6.3f ms \n", time / 1e6);
 
             notSyncedTag = af.getTag();
-            v23TagNotsynced = (ID3v23Tag)notSyncedTag;
-            assertEquals(1,notSyncedTag.getArtworkList().size());
+            v23TagNotsynced = (ID3v23Tag) notSyncedTag;
+            assertEquals(1, notSyncedTag.getArtworkList().size());
             artworkNotsynced = notSyncedTag.getArtworkList().get(0);
-            
+
             //Now read back ok
             start = System.nanoTime();
             af = AudioFileIO.read(testFile);
             time = System.nanoTime() - start;
-            System.out.printf("UNSYCNCED Took %6.3f ms \n", time/1e6);
+            System.out.printf("UNSYCNCED Took %6.3f ms \n", time / 1e6);
 
             unsyncedTag = af.getTag();
-            v23TagUnsynced = (ID3v23Tag)unsyncedTag;
+            v23TagUnsynced = (ID3v23Tag) unsyncedTag;
             assertTrue(v23TagUnsynced.isUnsynchronization());
-            assertEquals(1,unsyncedTag.getArtworkList().size());
+            assertEquals(1, unsyncedTag.getArtworkList().size());
             artworkUnsynced = unsyncedTag.getArtworkList().get(0);
 
-            int count=0;
+            int count = 0;
             assertEquals(114425, artworkUnsynced.getBinaryData().length);
             assertEquals(114425, artworkNotsynced.getBinaryData().length);
 
 
             boolean matches = true;
-            for(int i=0;i< artworkUnsynced.getBinaryData().length;i++)
-            {
-                if((artworkUnsynced.getBinaryData()[i])!=(artworkNotsynced.getBinaryData()[i]))
-                {
-                    System.out.println(i+":"+ Hex.asHex(artworkNotsynced.getBinaryData()[i])+":"+Hex.asHex(artworkUnsynced.getBinaryData()[i]));
-                    matches=false;
+            for (int i = 0; i < artworkUnsynced.getBinaryData().length; i++) {
+                if ((artworkUnsynced.getBinaryData()[i]) != (artworkNotsynced.getBinaryData()[i])) {
+                    System.out.println(i + ":" + Hex.asHex(artworkNotsynced.getBinaryData()[i]) + ":" + Hex.asHex(artworkUnsynced.getBinaryData()[i]));
+                    matches = false;
                     break;
                 }
             }
             assertTrue(matches);
             BufferedImage bi = ImageIO.read(new ByteArrayInputStream(artworkNotsynced.getBinaryData()));
             bi = ImageIO.read(new ByteArrayInputStream(artworkUnsynced.getBinaryData()));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }

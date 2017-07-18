@@ -1,10 +1,15 @@
 package org.jaudiotagger.audio.asf.io;
 
-import junit.framework.TestCase;
-import org.jaudiotagger.audio.asf.data.*;
+import org.jaudiotagger.audio.asf.data.AsfHeader;
+import org.jaudiotagger.audio.asf.data.Chunk;
+import org.jaudiotagger.audio.asf.data.ChunkContainer;
+import org.jaudiotagger.audio.asf.data.ContainerType;
+import org.jaudiotagger.audio.asf.data.GUID;
+import org.jaudiotagger.audio.asf.data.MetadataContainer;
 import org.jaudiotagger.audio.asf.util.Utils;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +18,12 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
 /**
  * 
  * @author Christian Laireiter
  */
-public final class AsfHeaderUtils extends TestCase
+public final class AsfHeaderUtils
 {
 
     public final static int BINARY_PRINT_COLUMNS = 20;
@@ -98,6 +104,7 @@ public final class AsfHeaderUtils extends TestCase
      */
     //TODO we dont know this is correct because need an independent way of checking our figures with an ASF file,
     //the previous calculation appeard incorrect.
+    @Test
     public void testDateHeaderConversion()
     {
         Calendar cal = org.jaudiotagger.audio.asf.util.Utils.getDateOf(BigInteger.valueOf(1964448000));
@@ -108,6 +115,7 @@ public final class AsfHeaderUtils extends TestCase
     /**
      * Test to show the calculation done to derive the DIFF_BETWEEN_ASF_DATE_AND_JAVA_DATE constant
      */
+    @Test
     public void testConversionDateConstant()
     {
         Date date1 = new Date((1601-1900),0,1);

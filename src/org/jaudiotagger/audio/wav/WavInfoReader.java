@@ -25,6 +25,7 @@ import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.iff.Chunk;
 import org.jaudiotagger.audio.iff.ChunkHeader;
 import org.jaudiotagger.audio.iff.IffHeaderChunk;
+import org.jaudiotagger.audio.wav.chunk.WavCorruptChunkType;
 import org.jaudiotagger.audio.wav.chunk.WavFactChunk;
 import org.jaudiotagger.audio.wav.chunk.WavFormatChunk;
 import org.jaudiotagger.logging.Hex;
@@ -109,9 +110,7 @@ public class WavInfoReader
         }
 
         String id = chunkHeader.getID();
-        logger.config(loggingName + " Reading Chunk:" + id
-                + ":starting at:" + Hex.asDecAndHex(chunkHeader.getStartLocationInFile())
-                + ":sizeIncHeader:" + (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE));
+        logger.finer(loggingName + " Reading Chunk:" + id + ":starting at:" + Hex.asDecAndHex(chunkHeader.getStartLocationInFile()) + ":sizeIncHeader:" + (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE));
         final WavChunkType chunkType = WavChunkType.get(id);
 
         //If known chunkType
@@ -151,16 +150,23 @@ public class WavInfoReader
                     break;
                 }
 
-                case CORRUPT_LIST:
-                    logger.severe(loggingName + " Found Corrupt LIST Chunk, starting at Odd Location:"+chunkHeader.getID()+":"+chunkHeader.getSize());
-                    dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
-                    return true;
-
                 //Dont need to do anything with these just skip
                 default:
                     logger.config(loggingName + " Skipping chunk bytes:" + chunkHeader.getSize());
                     dataSource.position(dataSource.position() + chunkHeader.getSize());
             }
+        }
+        else if(id.substring(1,4).equals(WavCorruptChunkType.CORRUPT_LIST_EARLY.getCode()))
+        {
+            logger.severe(loggingName + " Found Corrupt LIST Chunk, starting at Odd Location:"+chunkHeader.getID()+":"+chunkHeader.getSize());
+            dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
+            return true;
+        }
+        else if(id.substring(0,3).equals(WavCorruptChunkType.CORRUPT_LIST_LATE.getCode()))
+        {
+            logger.severe(loggingName + " Found Corrupt LIST Chunk (2), starting at Odd Location:"+chunkHeader.getID()+":"+chunkHeader.getSize());
+            dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE + 1));
+            return true;
         }
         //Unknown chunk type just skip
         else
@@ -178,7 +184,7 @@ public class WavInfoReader
             if(dataSource.position()>dataSource.size())
             {
                 String msg = loggingName + " Failed to move to invalid position to " + dataSource.position() + " because file length is only " + dataSource.size()
-                        + " indicates invalid chunk";
+                        + " indicates invalid chunk:"+id;
                 logger.severe(msg);
                 throw new CannotReadException(msg);
             }

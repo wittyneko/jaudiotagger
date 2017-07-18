@@ -11,6 +11,7 @@ import org.jaudiotagger.tag.asf.AsfFieldKey;
 import org.jaudiotagger.tag.asf.AsfTag;
 import org.jaudiotagger.tag.asf.AsfTagCoverField;
 import org.jaudiotagger.tag.asf.AsfTagTextField;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,13 +19,14 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-
+import static org.junit.Assert.*;
 /**
  * User: paul
  * Date: 07-Dec-2007
  */
 public class WmaSimpleTest extends AbstractTestCase
 {
+    @Test
     public void testReadFileFromPicardQtInvalidHeaderSizeException()
     {
         File orig = new File("testdata", "test2.wma");
@@ -37,7 +39,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.wma");
+            File testFile = copyAudioToTmp("test2.wma");
             AudioFile f = AudioFileIO.read(testFile);
             //Now
         }
@@ -55,12 +57,13 @@ public class WmaSimpleTest extends AbstractTestCase
      * Checking our fields match the fields used by media Monkey 3 (Defacto Standard) by ensuring we can read fields written
      * in Media Monkey
      */
+    @Test
     public void testReadFileFromMediaMonkey3()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma");
+            File testFile = copyAudioToTmp("test1.wma");
             AudioFile f = AudioFileIO.read(testFile);
 
             assertEquals("32", f.getAudioHeader().getBitRate());
@@ -139,6 +142,7 @@ public class WmaSimpleTest extends AbstractTestCase
      * Checking our fields match the fields used by picard Qt3 (Defacto Standard for Musicbrainz fields) by ensuring we can read fields written
      * in Picard Qt
      */
+    @Test
     public void testReadFileFromPicardQt()
     {
         File orig = new File("testdata", "test2.wma");
@@ -151,7 +155,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.wma");
+            File testFile = copyAudioToTmp("test2.wma");
             AudioFile f = AudioFileIO.read(testFile);
 
             assertEquals("128", f.getAudioHeader().getBitRate());
@@ -258,13 +262,13 @@ public class WmaSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
-
+    @Test
     public void testWriteFile()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
+            File testFile = copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
             AudioFile f = AudioFileIO.read(testFile);
 
             assertEquals("32", f.getAudioHeader().getBitRate());
@@ -347,12 +351,13 @@ public class WmaSimpleTest extends AbstractTestCase
     /**
      * Just create fields for all the tag field keys defined, se if we hit any problems
      */
+    @Test
     public void testTagFieldKeyWrite()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
+            File testFile = copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
 
             AudioFile f = AudioFileIO.read(testFile);
             AudioFileIO.delete(f);
@@ -364,7 +369,7 @@ public class WmaSimpleTest extends AbstractTestCase
                 Tag tag = f.getTag();
                 for (FieldKey key : FieldKey.values())
                 {
-                    if (!(key == FieldKey.COVER_ART))
+                    if (!(key == FieldKey.COVER_ART) && !(key == FieldKey.ITUNES_GROUPING))
                     {
                         tag.setField(tag.createField(key, key.name() + "_value_" + i));
                     }
@@ -377,7 +382,7 @@ public class WmaSimpleTest extends AbstractTestCase
                     /*
                       * Test value retrieval, using multiple access methods.
                       */
-                    if (!(key == FieldKey.COVER_ART))
+                    if (!(key == FieldKey.COVER_ART) && !(key == FieldKey.ITUNES_GROUPING))
                     {
                         String value = key.name() + "_value_" + i;
                         System.out.println("Value is:" + value);
@@ -403,12 +408,13 @@ public class WmaSimpleTest extends AbstractTestCase
     /**
      * Lets now check the value explicity are what we expect
      */
+    @Test
     public void testTagFieldKeyWrite2()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
+            File testFile = copyAudioToTmp("test1.wma", new File("testwrite1.wma"));
             AudioFile f = AudioFileIO.read(testFile);
             AudioFileIO.delete(f);
 
@@ -417,7 +423,7 @@ public class WmaSimpleTest extends AbstractTestCase
             Tag tag = f.getTag();
             for (FieldKey key : FieldKey.values())
             {
-                if (!(key == FieldKey.COVER_ART))
+                if (!(key == FieldKey.COVER_ART) && !(key == FieldKey.ITUNES_GROUPING))
                 {
                     tag.addField(tag.createField(key, key.name() + "_value"));
                 }
@@ -457,6 +463,7 @@ public class WmaSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testIsMultiValues()
     {
         assertFalse(AsfFieldKey.isMultiValued(AsfFieldKey.ALBUM.getFieldName()));
@@ -465,6 +472,7 @@ public class WmaSimpleTest extends AbstractTestCase
     /**
      * Shouldnt fail just ecause header size doesnt match file size because file plays ok in winamp
      */
+    @Test
     public void testReadFileWithHeaderSizeDoesntMatchFileSize()
     {
         File orig = new File("testdata", "test3.wma");
@@ -477,7 +485,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.wma");
+            File testFile = copyAudioToTmp("test3.wma");
             AudioFile f = AudioFileIO.read(testFile);
             assertEquals("Glass", f.getTag().getFirst(FieldKey.TITLE));
             //Now
@@ -490,6 +498,7 @@ public class WmaSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadFileWithGifArtwork()
     {
         File orig = new File("testdata", "test1.wma");
@@ -502,7 +511,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test1.wma");
+            File testFile = copyAudioToTmp("test1.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(1, tag.getFields(FieldKey.COVER_ART).size());
@@ -576,6 +585,7 @@ public class WmaSimpleTest extends AbstractTestCase
     /**
      * Contains image field, but only has image type and image, it doesnt have a label
      */
+    @Test
     public void testReadFileWithGifArtworkNoDescription()
     {
         File orig = new File("testdata", "test4.wma");
@@ -588,7 +598,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test4.wma");
+            File testFile = copyAudioToTmp("test4.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(1, tag.getFields(FieldKey.COVER_ART).size());
@@ -656,6 +666,7 @@ public class WmaSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadFileWithPngArtwork()
     {
         File orig = new File("testdata", "test5.wma");
@@ -668,7 +679,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test5.wma");
+            File testFile = copyAudioToTmp("test5.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(1, tag.getFields(FieldKey.COVER_ART).size());
@@ -739,6 +750,7 @@ public class WmaSimpleTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadFileWithJpgArtwork()
     {
         File orig = new File("testdata", "test6.wma");
@@ -751,7 +763,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test6.wma");
+            File testFile = copyAudioToTmp("test6.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(1, tag.getFields(FieldKey.COVER_ART).size());
@@ -830,6 +842,7 @@ public class WmaSimpleTest extends AbstractTestCase
     /**
      * Write png , old method
      */
+    @Test
     public void testWritePngArtworkToFile()
     {
         File orig = new File("testdata", "test7.wma");
@@ -843,7 +856,7 @@ public class WmaSimpleTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test7.wma");
+            File testFile = copyAudioToTmp("test7.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(0, tag.getFields(FieldKey.COVER_ART).size());
@@ -886,7 +899,7 @@ public class WmaSimpleTest extends AbstractTestCase
 
     public void testWriteMultipleFields() throws Exception
     {
-        File testFile = AbstractTestCase.copyAudioToTmp("test1.wma", new File("testWriteMultiple.wma"));
+        File testFile = copyAudioToTmp("test1.wma", new File("testWriteMultiple.wma"));
         AudioFile f = AudioFileIO.read(testFile);
         List<TagField> tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
         assertEquals(tagFields.size(),0);
@@ -899,10 +912,11 @@ public class WmaSimpleTest extends AbstractTestCase
     }
     */
 
+    @Test
     public void testDeleteFields() throws Exception
     {
         //Delete using generic key
-        File testFile = AbstractTestCase.copyAudioToTmp("test1.wma", new File("testDeleteFields.wma"));
+        File testFile = copyAudioToTmp("test1.wma", new File("testDeleteFields.wma"));
         AudioFile f = AudioFileIO.read(testFile);
         List<TagField> tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
         assertEquals(0,tagFields.size());

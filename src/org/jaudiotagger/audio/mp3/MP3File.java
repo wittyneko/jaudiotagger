@@ -23,14 +23,9 @@ package org.jaudiotagger.audio.mp3;
 
 
 import org.jaudiotagger.audio.AudioFile;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.CannotWriteException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.NoWritePermissionsException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.audio.exceptions.*;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
-import org.jaudiotagger.audio.exceptions.UnableToModifyFileException;
 import org.jaudiotagger.audio.generic.Permissions;
 import org.jaudiotagger.logging.*;
 import org.jaudiotagger.tag.Tag;
@@ -42,8 +37,6 @@ import org.jaudiotagger.tag.lyrics3.AbstractLyrics3;
 import org.jaudiotagger.tag.reference.ID3V2Version;
 
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
@@ -171,14 +164,14 @@ public class MP3File extends AudioFile
     }
 
     /**
-     * Read V2tag if exists
+     * Read V2tag, if exists.
      *
      * TODO:shouldn't we be handing TagExceptions:when will they be thrown
      *
-     * @param file
-     * @param loadOptions
-     * @throws IOException
-     * @throws TagException
+     * @param file the file to read tags from
+     * @param loadOptions load options
+     * @throws IOException IO issues
+     * @throws TagException tag issues
      */
     private void readV2Tag(File file, DataSource dataSource, int loadOptions, int startByte) throws IOException, TagException
     {
@@ -187,78 +180,49 @@ public class MP3File extends AudioFile
         if (startByte >= AbstractID3v2Tag.TAG_HEADER_LENGTH)
         {
             logger.finer("Attempting to read id3v2tags");
-            ByteBuffer bb =  ByteBuffer.allocate(startByte);
+            ByteBuffer bb =  ByteBuffer.allocateDirect(startByte);
             dataSource.position(0);
             dataSource.read(bb);
 
-            try
+            bb.rewind();
+
+            if ((loadOptions & LOAD_IDV2TAG) != 0)
             {
-                bb.rewind();
-
-                if ((loadOptions & LOAD_IDV2TAG) != 0)
+                logger.config("Attempting to read id3v2tags");
+                try
                 {
-                    logger.config("Attempting to read id3v2tags");
-                    try
-                    {
-                        this.setID3v2Tag(new ID3v24Tag(bb, file != null? file.getName() : ""));
-                    }
-                    catch (TagNotFoundException ex)
-                    {
-                        logger.config("No id3v24 tag found");
-                    }
+                    this.setID3v2Tag(new ID3v24Tag(bb, file != null? file.getName() : ""));
+                }
+                catch (TagNotFoundException ex)
+                {
+                    logger.config("No id3v24 tag found");
+                }
 
-                    try
+                try
+                {
+                    if (id3v2tag == null)
                     {
-                        if (id3v2tag == null)
-                        {
-                            this.setID3v2Tag(new ID3v23Tag(bb, file != null? file.getName() : ""));
-                        }
-                    }
-                    catch (TagNotFoundException ex)
-                    {
-                        logger.config("No id3v23 tag found");
-                    }
-
-                    try
-                    {
-                        if (id3v2tag == null)
-                        {
-                            this.setID3v2Tag(new ID3v22Tag(bb, file != null? file.getName() : ""));
-                        }
-                    }
-                    catch (TagNotFoundException ex)
-                    {
-                        logger.config("No id3v22 tag found");
+                        this.setID3v2Tag(new ID3v23Tag(bb, file != null? file.getName() : ""));
                     }
                 }
-            }
-            finally
-            {
-                //Workaround for 4724038 on Windows
-                bb.clear();
-                if (bb.isDirect() && !TagOptionSingleton.getInstance().isAndroid())
+                catch (TagNotFoundException ex)
                 {
-                    // Reflection substitute for following code:
-                    //    ((sun.nio.ch.DirectBuffer) bb).cleaner().clean();
-                    // which causes exception on Android - Sun NIO classes are not available
-                    try {
-                        Class<?> clazz = Class.forName("sun.nio.ch.DirectBuffer");
-                        Method cleanerMethod = clazz.getMethod("cleaner");
-                        Object cleaner = cleanerMethod.invoke(bb);  // cleaner = bb.cleaner()
-                        if (cleaner != null) {
-                            Method cleanMethod = cleaner.getClass().getMethod("clean");
-                            cleanMethod.invoke(cleaner);   // cleaner.clean()
-                        }
-                    } catch (ClassNotFoundException e) {
-                        logger.severe("Could not load sun.nio.ch.DirectBuffer.");
-                    } catch (NoSuchMethodException e) {
-                        logger.severe("Could not invoke DirectBuffer method - " + e.getMessage());
-                    } catch (InvocationTargetException e) {
-                        logger.severe("Could not invoke DirectBuffer method - target exception");
-                    } catch (IllegalAccessException e) {
-                        logger.severe("Could not invoke DirectBuffer method - illegal access");
+                    logger.config("No id3v23 tag found");
+                }
+
+                try
+                {
+                    if (id3v2tag == null)
+                    {
+                        this.setID3v2Tag(new ID3v22Tag(bb, file != null? file.getName() : ""));
                     }
-                }            }
+                }
+                catch (TagNotFoundException ex)
+                {
+                    logger.config("No id3v22 tag found");
+                }
+            }
+
         }
         else
         {
@@ -676,9 +640,8 @@ public class MP3File extends AudioFile
     /**
      * Calculates hash with given buffer size.
      * Hash is calculated EXCLUDING meta-data, like id3v1 or id3v2
-     *
+     * @param  buffer
      * @return byte[] hash value in byte
-     * @param  buffer buffersize
      * @throws IOException
      * @throws InvalidAudioFrameException
      * @throws NoSuchAlgorithmException
@@ -1143,54 +1106,10 @@ public class MP3File extends AudioFile
         return new ID3v24Tag();
     }
 
-    /**
-     * Convert tag from current version to another as specified by id3V2Version
-     *
-     * @return
-     */
-    public Tag convertTag(Tag tag, ID3V2Version id3V2Version)
-    {
-        if(tag instanceof ID3v24Tag)
-        {
-            switch(id3V2Version)
-            {
-                case ID3_V22:
-                    return new ID3v22Tag((ID3v24Tag)tag);
-                case ID3_V23:
-                    return new ID3v23Tag((ID3v24Tag)tag);
-                case ID3_V24:
-                    return tag;
-            }
-        }
-        else if(tag instanceof ID3v23Tag)
-        {
-            switch(id3V2Version)
-            {
-                case ID3_V22:
-                    return new ID3v22Tag((ID3v23Tag)tag);
-                case ID3_V23:
-                    return tag;
-                case ID3_V24:
-                    return new ID3v24Tag((ID3v23Tag)tag);
-            }
-        }
-        else if(tag instanceof ID3v22Tag)
-        {
-            switch(id3V2Version)
-            {
-                case ID3_V22:
-                    return tag;
-                case ID3_V23:
-                    return new ID3v23Tag((ID3v22Tag)tag);
-                case ID3_V24:
-                    return new ID3v24Tag((ID3v22Tag)tag);
-            }
-        }
-        return tag;
-    }
+
 
     /**
-     * Overidden to only consider ID3v2 Tag
+     * Overridden to only consider ID3v2 Tag
      *
      * @return
      */
@@ -1216,10 +1135,17 @@ public class MP3File extends AudioFile
     @Override
     public Tag getTagAndConvertOrCreateAndSetDefault()
     {
-        Tag tag = getTagOrCreateDefault();
-        tag=convertTag(tag, TagOptionSingleton.getInstance().getID3V2Version());
-        setTag(tag);
-        return tag;
+        Tag tag          = getTagOrCreateDefault();
+        Tag convertedTag = convertID3Tag((AbstractID3v2Tag)tag, TagOptionSingleton.getInstance().getID3V2Version());
+        if(convertedTag!=null)
+        {
+            setTag(convertedTag);
+        }
+        else
+        {
+            setTag(tag);
+        }
+        return getTag();
     }
 }
 

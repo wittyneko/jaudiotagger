@@ -1,21 +1,28 @@
 package org.jaudiotagger.audio.aiff;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.GenericAudioHeader;
+import org.junit.Test;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 /**
  * AiffInfoReader Test.
  *
  * @author <a href="mailto:hs@tagtraum.com">Hendrik Schreiber</a>
  */
-public class AiffInfoReaderTest extends TestCase {
+public class AiffInfoReaderTest {
 
+    @Test
     public void testWithSomeLocalChunks() throws IOException, CannotReadException {
 
         final String author = "AUTH4567";
@@ -30,7 +37,7 @@ public class AiffInfoReaderTest extends TestCase {
                 new PseudoChunk("AUTH", author)};
         final File aiff = createAIFF("FORM", "AIFF", pseudoChunks);
 
-        final AiffInfoReader aiffInfoReader = new AiffInfoReader();
+        final AiffInfoReader aiffInfoReader = new AiffInfoReader("test");
         try(DataSource dataSource = new FileDataSource(aiff.toPath())) {
             final GenericAudioHeader audioHeader = aiffInfoReader.read(dataSource);
             assertTrue(audioHeader instanceof AiffAudioHeader);
@@ -44,12 +51,13 @@ public class AiffInfoReaderTest extends TestCase {
         aiff.delete();
     }
 
+    @Test
     public void testWithUnknownChunk() throws IOException, CannotReadException {
 
         final String author = "AUTH4567";
         final File aiff = createAIFF("FORM", "AIFF", new PseudoChunk("XYZ0", "SOME_STUFF"), new PseudoChunk("AUTH", author));
 
-        final AiffInfoReader aiffInfoReader = new AiffInfoReader();
+        final AiffInfoReader aiffInfoReader = new AiffInfoReader("test");
         try(DataSource dataSource = new FileDataSource(aiff.toPath())) {
             final GenericAudioHeader audioHeader = aiffInfoReader.read(dataSource);
             assertTrue(audioHeader instanceof AiffAudioHeader);

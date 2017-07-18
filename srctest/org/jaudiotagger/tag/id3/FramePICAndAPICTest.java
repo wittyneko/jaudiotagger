@@ -6,67 +6,62 @@ import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyAPICTest;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyPIC;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyPICTest;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test PIC (v22) and APIC (v23,v24) frames
  */
-public class FramePICAndAPICTest extends AbstractTestCase
-{
-    public static String cmp(byte[] a, byte[] b)
-    {
-        if (a.length != b.length)
-        {
+public class FramePICAndAPICTest extends AbstractTestCase {
+    public static String cmp(byte[] a, byte[] b) {
+        if (a.length != b.length) {
             return "length of byte arrays differ (" + a.length + "!=" + b.length + ")";
         }
-        for (int i = 0; i < a.length; i++)
-        {
-            if (a[i] != b[i])
-            {
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] != b[i]) {
                 return "byte arrays differ at offset " + i + " (" + a[i] + "!=" + b[i] + ")";
             }
         }
         return null;
     }
 
-    public static ID3v24Frame getV24InitialisedFrame()
-    {
+    public static ID3v24Frame getV24InitialisedFrame() {
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ATTACHED_PICTURE);
         FrameBodyAPIC fb = FrameBodyAPICTest.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public static ID3v23Frame getV23InitialisedFrame()
-    {
+    public static ID3v23Frame getV23InitialisedFrame() {
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ATTACHED_PICTURE);
         FrameBodyAPIC fb = FrameBodyAPICTest.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public static ID3v22Frame getV22InitialisedFrame()
-    {
+    public static ID3v22Frame getV22InitialisedFrame() {
         ID3v22Frame frame = new ID3v22Frame(ID3v22Frames.FRAME_ID_V2_ATTACHED_PICTURE);
         FrameBodyPIC fb = FrameBodyPICTest.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public void testCreateID3v24Frame()
-    {
+    @Test
+    public void testCreateID3v24Frame() {
         Exception exceptionCaught = null;
         ID3v24Frame frame = null;
         FrameBodyAPIC fb = null;
-        try
-        {
+        try {
             frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ATTACHED_PICTURE);
             fb = FrameBodyAPICTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -78,19 +73,16 @@ public class FramePICAndAPICTest extends AbstractTestCase
     }
 
 
-    public void testCreateID3v23Frame()
-    {
+    @Test
+    public void testCreateID3v23Frame() {
         Exception exceptionCaught = null;
         ID3v23Frame frame = null;
         FrameBodyAPIC fb = null;
-        try
-        {
+        try {
             frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_ATTACHED_PICTURE);
             fb = FrameBodyAPICTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -102,19 +94,16 @@ public class FramePICAndAPICTest extends AbstractTestCase
     }
 
 
-    public void testCreateID3v22Frame()
-    {
+    @Test
+    public void testCreateID3v22Frame() {
         Exception exceptionCaught = null;
         ID3v22Frame frame = null;
         FrameBodyPIC fb = null;
-        try
-        {
+        try {
             frame = new ID3v22Frame(ID3v22Frames.FRAME_ID_V2_ATTACHED_PICTURE);
             fb = FrameBodyPICTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -125,9 +114,9 @@ public class FramePICAndAPICTest extends AbstractTestCase
         assertEquals(FrameBodyPICTest.DESCRIPTION, fb.getDescription());
     }
 
-    public void testSaveToFile() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testSaveToFile() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -147,9 +136,9 @@ public class FramePICAndAPICTest extends AbstractTestCase
     }
 
 
-    public void testConvertV24ToV23() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testConvertV24ToV23() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -173,9 +162,9 @@ public class FramePICAndAPICTest extends AbstractTestCase
         assertEquals(FrameBodyAPICTest.DESCRIPTION, body.getDescription());
     }
 
-    public void testConvertV24ToV22() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testConvertV24ToV22() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -200,9 +189,9 @@ public class FramePICAndAPICTest extends AbstractTestCase
     }
 
 
-    public void testConvertV22ToV24() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testConvertV22ToV24() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save

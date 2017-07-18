@@ -1,82 +1,43 @@
 package org.jaudiotagger.tag.id3;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyWXXX;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyWXXXTest;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  *
  */
-public class Unicode23NullTerminatedTagTest extends TestCase
-{
-    /**
-     * Constructor
-     *
-     * @param arg0
-     */
-    public Unicode23NullTerminatedTagTest(String arg0)
-    {
-        super(arg0);
-    }
-
-    /**
-     * Command line entrance.
-     *
-     * @param args
-     */
-    public static void main(String[] args)
-    {
-        junit.textui.TestRunner.run(Unicode23NullTerminatedTagTest.suite());
-    }
-
-    /////////////////////////////////////////////////////////////////////////
-    // TestCase classes to override
-    /////////////////////////////////////////////////////////////////////////
+public class Unicode23NullTerminatedTagTest extends AbstractTestCase {
 
     /**
      *
      */
-    protected void setUp()
-    {
+    @Before
+    public void setUp() {
         TagOptionSingleton.getInstance().setToDefault();
     }
 
     /**
      *
      */
-    protected void tearDown()
-    {
-    }
-
-    /**
-     *
-     */
-//    protected void runTest()
-//    {
-//    }
-
-    /**
-     * Builds the Test Suite.
-     *
-     * @return the Test Suite.
-     */
-    public static Test suite()
-    {
-        return new TestSuite(Unicode23NullTerminatedTagTest.class);
+    @After
+    public void tearDown() {
     }
 
     /////////////////////////////////////////////////////////////////////////
     // Tests
     /////////////////////////////////////////////////////////////////////////
-
 
     /**
      * Create a String that only contains text within IS8859 charset so should be
@@ -84,21 +45,18 @@ public class Unicode23NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateISO8859EncodedNullTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testCreateISO8859EncodedNullTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -131,22 +89,19 @@ public class Unicode23NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF16BOMLEEncodedNullTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testCreateUTF16BOMLEEncodedNullTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_16);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -178,23 +133,20 @@ public class Unicode23NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF16BOMBEEncodedNullTerminatedString() throws Exception
-    {
+    @Test
+    public void testCreateUTF16BOMBEEncodedNullTerminatedString() throws Exception {
         TagOptionSingleton.getInstance().setEncodeUTF16BomAsLittleEndian(false);
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_16);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -226,21 +178,18 @@ public class Unicode23NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF16AutoEncodedNullTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testCreateUTF16AutoEncodedNullTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getUnicodeRequiredInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -272,22 +221,19 @@ public class Unicode23NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF16BEEncodedNullTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testCreateUTF16BEEncodedNullTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getUnicodeRequiredInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_16BE);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -319,22 +265,19 @@ public class Unicode23NullTerminatedTagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF8EncodedNullTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testCreateUTF8EncodedNullTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v23Frame frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_USER_DEFINED_URL);
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = FrameBodyWXXXTest.getUnicodeRequiredInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_8);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

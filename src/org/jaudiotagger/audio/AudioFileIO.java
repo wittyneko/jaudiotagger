@@ -31,7 +31,11 @@ import org.jaudiotagger.audio.exceptions.NoWritePermissionsException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.audio.flac.FlacFileReader;
 import org.jaudiotagger.audio.flac.FlacFileWriter;
-import org.jaudiotagger.audio.generic.*;
+import org.jaudiotagger.audio.generic.AudioFileModificationListener;
+import org.jaudiotagger.audio.generic.AudioFileReader3;
+import org.jaudiotagger.audio.generic.AudioFileWriter;
+import org.jaudiotagger.audio.generic.ModificationHandler;
+import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.mp3.MP3FileReader;
 import org.jaudiotagger.audio.mp3.MP3FileWriter;
 import org.jaudiotagger.audio.mp4.Mp4FileReader;
@@ -44,6 +48,7 @@ import org.jaudiotagger.audio.wav.WavFileWriter;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.TagException;
 
+import javax.sound.sampled.spi.AudioFileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -237,7 +242,7 @@ public class AudioFileIO
 
     // These tables contains all the readers/writers associated with extension
     // as a key
-    private Map<String, AudioFileReader> readers = new HashMap<String, AudioFileReader>();
+    private Map<String, AudioFileReader3> readers = new HashMap<String, AudioFileReader3>();
     private Map<String, AudioFileWriter> writers = new HashMap<String, AudioFileWriter>();
 
 
@@ -351,7 +356,7 @@ public class AudioFileIO
         checkFileExists(f);
         String ext = Utils.getExtension(f);
 
-        AudioFileReader afr = readers.get(ext);
+        AudioFileReader3 afr = readers.get(ext);
         if (afr == null)
         {
             throw new CannotReadException(ErrorMessage.NO_READER_FOR_THIS_FORMAT.getMsg(ext));
@@ -381,7 +386,7 @@ public class AudioFileIO
        checkFileExists(f);
        String ext = Utils.getMagicExtension(f);
 
-       AudioFileReader afr = readers.get(ext);
+       AudioFileReader3 afr = readers.get(ext);
        if (afr == null)
        {
            throw new CannotReadException(ErrorMessage.NO_READER_FOR_THIS_FORMAT.getMsg(ext));
@@ -414,7 +419,7 @@ public class AudioFileIO
       checkFileExists(f);
 //      String ext = Utils.getExtension(f);
 
-      AudioFileReader afr = readers.get(ext);
+      AudioFileReader3 afr = readers.get(ext);
       if (afr == null)
       {
           throw new CannotReadException(ErrorMessage.NO_READER_FOR_THIS_FORMAT.getMsg(ext));

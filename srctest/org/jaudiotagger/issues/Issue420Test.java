@@ -5,17 +5,22 @@ import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.id3.ID3v11Tag;
 import org.jaudiotagger.tag.id3.ID3v23Tag;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test deleting track total field shouldn't delete track field
  */
-public class Issue420Test extends AbstractTestCase
-{
-    public void testReadingFieldsThatOnlyExistInID3v1tag() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testReadingFieldsThatOnlyExistInID3v1tag.mp3"));
+public class Issue420Test extends AbstractTestCase {
+    @Test
+    public void testReadingFieldsThatOnlyExistInID3v1tag() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testReadingFieldsThatOnlyExistInID3v1tag.mp3"));
         MP3File mp3File = new MP3File(testFile);
         assertFalse(mp3File.hasID3v1Tag());
         assertFalse(mp3File.hasID3v2Tag());
@@ -27,8 +32,8 @@ public class Issue420Test extends AbstractTestCase
         mp3File.save();
         mp3File = new MP3File(testFile);
         assertNotNull(mp3File.getTag());
-        assertEquals(0,mp3File.getTag().getFields("TYER").size());
-        assertEquals(0,mp3File.getTag().getFields(FieldKey.YEAR).size());
-        assertEquals(1,mp3File.getID3v1Tag().getFields(FieldKey.YEAR).size());
+        assertEquals(0, mp3File.getTag().getFields("TYER").size());
+        assertEquals(0, mp3File.getTag().getFields(FieldKey.YEAR).size());
+        assertEquals(1, mp3File.getID3v1Tag().getFields(FieldKey.YEAR).size());
     }
 }

@@ -3,43 +3,41 @@ package org.jaudiotagger.tag.id3.framebody;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test WXXXFrameBody   (Artist)
  */
-public class FrameBodyWXXXTest extends AbstractTestCase
-{
+public class FrameBodyWXXXTest extends AbstractTestCase {
     public static final String WXXX_TEST_URL = "http://test.url.com";
 
     public static final String WXXX_TEST_STRING = "simple url";
     public static final String WXXX_UNICODE_REQUIRED_TEST_STRING = "\u01ff\u01ffcomplex url";
 
 
-    public static FrameBodyWXXX getInitialisedBody()
-    {
+    public static FrameBodyWXXX getInitialisedBody() {
         //Text Encoding doesnt matter until written to file
         FrameBodyWXXX fb = new FrameBodyWXXX(TextEncoding.ISO_8859_1, WXXX_TEST_STRING, WXXX_TEST_URL);
         return fb;
     }
 
 
-    public static FrameBodyWXXX getUnicodeRequiredInitialisedBody()
-    {
+    public static FrameBodyWXXX getUnicodeRequiredInitialisedBody() {
         //Text Encoding doesnt matter until written to file
         FrameBodyWXXX fb = new FrameBodyWXXX(TextEncoding.ISO_8859_1, WXXX_UNICODE_REQUIRED_TEST_STRING, WXXX_TEST_URL);
         return fb;
     }
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyWXXX fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyWXXX(TextEncoding.ISO_8859_1, WXXX_TEST_STRING, WXXX_TEST_URL);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

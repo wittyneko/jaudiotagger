@@ -2,23 +2,23 @@ package org.jaudiotagger.tag.id3.framebody;
 
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test DeprecatedFrameBody
  */
-public class FrameBodyDeprecatedTest extends AbstractTestCase
-{
+public class FrameBodyDeprecatedTest extends AbstractTestCase {
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyDeprecated fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyDeprecated(FrameBodyTPE1Test.getInitialisedBody());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

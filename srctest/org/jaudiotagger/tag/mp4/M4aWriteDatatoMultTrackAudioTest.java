@@ -1,6 +1,5 @@
 package org.jaudiotagger.tag.mp4;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -8,27 +7,30 @@ import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.mp4.Mp4AtomTree;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 /**
- * Write tags  for a file which contains  multiple tracks such as winamp encoder
+ * Write tags for a file which contains multiple tracks such as winamp encoder.
  */
-public class M4aWriteDatatoMultTrackAudioTest extends TestCase
+public class M4aWriteDatatoMultTrackAudioTest extends AbstractTestCase
 {
     /**
-     * Test to write file that has  multiple tracks such as winamp encoder
-     * <p/>
+     * Test to write file that has multiple tracks such as winamp encoder.
      */
+    @Test
     public void testWriteFileOption1SameSize()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack1.m4a"));
+            File testFile = copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack1.m4a"));
 
-            //First lets just createField tree
+            //First let's just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 
@@ -63,15 +65,15 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
     }
 
     /**
-     * Test to write file that has MDAT at start BEFORE MOOV atom, this is what Facc 1.25 does
-     * <p/>
+     * Test to write file that has MDAT at start BEFORE MOOV atom, this is what Facc 1.25 does.
      */
+    @Test
     public void testWriteFileOption3SmallerSizeCreateFree()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack3.m4a"));
+            File testFile = copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack3.m4a"));
 
             //First lets just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
@@ -108,15 +110,15 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
     }
 
     /**
-     * Test to write file that has MDAT at start BEFORE MOOV atom, this is what Facc 1.25 does
-     * <p/>
+     * Test to write file that has MDAT at start BEFORE MOOV atom, this is what Facc 1.25 does.
      */
+    @Test
     public void testWriteFileOption4SmallerSizeNoFree()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack4.m4a"));
+            File testFile = copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack4.m4a"));
 
             //First lets just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
@@ -152,16 +154,17 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
 
 
     /**
-     * Test to write all fields to check all can be written, just use simple file as starting point
-     * <p/>
+     * Test to write all fields to check all can be written, just use simple file as starting point.
+     *
      * TODO:Test incomplete
      */
+    @Test
     public void testWriteFileOption8CannoutUseTopLevelFree()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack8.m4a"));
+            File testFile = copyAudioToTmp("test16.m4a", new File("testWriteMultiTrack8.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -239,14 +242,15 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
     }
 
     /**
-     * Larger Size can use top free atom
+     * Larger size can use top free atom.
      */
+    @Test
     public void testWriteFileOption6LargerCanUseTopLevelFree()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test21.m4a", new File("testWriteMultiTrack6.m4a"));
+            File testFile = copyAudioToTmp("test21.m4a", new File("testWriteMultiTrack6.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -324,14 +328,15 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
     }
 
     /**
-     * Larger Size can use top free atom
+     * Larger size can use top free atom.
      */
+    @Test
     public void testWriteFileOption7LargerCanUseTopLevelFree()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test21.m4a", new File("testWriteMultiTrack7.m4a"));
+            File testFile = copyAudioToTmp("test21.m4a", new File("testWriteMultiTrack7.m4a"));
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 
@@ -412,7 +417,6 @@ public class M4aWriteDatatoMultTrackAudioTest extends TestCase
             assertEquals("Classic Rock", tag.getFirst(FieldKey.GENRE));
 
             //Visual check of atom tree
-            testFile = new File("testdatatmp", "testWriteMultiTrack7.m4a");
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
 

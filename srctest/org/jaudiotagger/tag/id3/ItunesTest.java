@@ -6,15 +6,18 @@ import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTPE1;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Test Itunes problems
  */
-public class ItunesTest extends AbstractTestCase
-{
+public class ItunesTest extends AbstractTestCase {
     private static final int FRAME_SIZE = 2049;
     private static final int FRAME_SIZE2 = 765450;
     private static final int STRING_LENGTH_WITH_NULL = 12;
@@ -23,13 +26,11 @@ public class ItunesTest extends AbstractTestCase
     private static final String SECOND_VALUE = "test";
     private static final String EMPTY_VALUE = "";
 
-    
 
     /**
      *
      */
-    protected void tearDown()
-    {
+    protected void tearDown() {
     }
 
     /**
@@ -38,9 +39,9 @@ public class ItunesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testv24TagWithNonSyncSafeFrame() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue96-1.id3", "testV1.mp3");
+    @Test
+    public void testv24TagWithNonSyncSafeFrame() throws Exception {
+        File testFile = copyAudioToTmp("Issue96-1.id3", "testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
 
@@ -56,9 +57,9 @@ public class ItunesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testv24TagWithNonSyncSafeFrame2() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue96-3.id3", "testV1.mp3");
+    @Test
+    public void testv24TagWithNonSyncSafeFrame2() throws Exception {
+        File testFile = copyAudioToTmp("Issue96-3.id3", "testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
 
@@ -75,9 +76,9 @@ public class ItunesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testv24TagWithNonSyncSafeFrame3() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue96-4.id3", "testV1.mp3");
+    @Test
+    public void testv24TagWithNonSyncSafeFrame3() throws Exception {
+        File testFile = copyAudioToTmp("Issue96-4.id3", "testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
 
@@ -92,9 +93,9 @@ public class ItunesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testv24TagWithSyncSafeFrame() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue96-2.id3", "testV1.mp3");
+    @Test
+    public void testv24TagWithSyncSafeFrame() throws Exception {
+        File testFile = copyAudioToTmp("Issue96-2.id3", "testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
 
@@ -110,9 +111,9 @@ public class ItunesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testCanIgnoreSpuriousNullCharacters() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue92.id3", "testV1.mp3");
+    @Test
+    public void testCanIgnoreSpuriousNullCharacters() throws Exception {
+        File testFile = copyAudioToTmp("Issue92.id3", "testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
 
@@ -159,9 +160,9 @@ public class ItunesTest extends AbstractTestCase
     /**
      * Check can handle empty value when splitting strings into a list
      */
-    public void testCanReadEmptyString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue92-2.id3", "testV1.mp3");
+    @Test
+    public void testCanReadEmptyString() throws Exception {
+        File testFile = copyAudioToTmp("Issue92-2.id3", "testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
 
@@ -174,17 +175,17 @@ public class ItunesTest extends AbstractTestCase
     /**
      * Check skips over tag to read mp3 audio
      */
-    public void testCanFindStartOfMp3AudioWithinUTF16LETag() throws Exception
-    {
+    @Test
+    public void testCanFindStartOfMp3AudioWithinUTF16LETag() throws Exception {
         long START_OF_AUDIO_LOCATION = 2048;
         int FRAME_COUNT = 11;
-        File testFile = AbstractTestCase.copyAudioToTmp("Issue104-1.id3", "testV1.mp3");
+        File testFile = copyAudioToTmp("Issue104-1.id3", "testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Should find mp3 in same location whether start search from start or after ID3tag
         assertEquals(START_OF_AUDIO_LOCATION, mp3File.getMP3AudioHeader().getMp3StartByte());
         assertEquals(FRAME_COUNT, mp3File.getID3v2Tag().getFieldCountIncludingSubValues());
-        assertEquals(FRAME_COUNT, mp3File.getID3v2Tag().getFieldCount());        
+        assertEquals(FRAME_COUNT, mp3File.getID3v2Tag().getFieldCount());
     }
 
     /**
@@ -193,9 +194,9 @@ public class ItunesTest extends AbstractTestCase
      *
      * @throws Exception
      */
-    public void testv24TagWithlargeSyncSafeFrameAndNoPadding() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("issue115.id3", "testV1.mp3");
+    @Test
+    public void testv24TagWithlargeSyncSafeFrameAndNoPadding() throws Exception {
+        File testFile = copyAudioToTmp("issue115.id3", "testV1.mp3");
 
         MP3File mp3File = new MP3File(testFile);
 

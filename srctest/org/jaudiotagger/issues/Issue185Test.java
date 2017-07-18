@@ -5,21 +5,24 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.id3.ID3v23Tag;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test Creating Null fields
  */
-public class Issue185Test extends AbstractTestCase
-{
+public class Issue185Test extends AbstractTestCase {
 
-    public void testDefaultTagMp3()
-    {
+
+    @Test
+    public void testDefaultTagMp3() {
         Exception exceptionCaught = null;
-        try
-        {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        try {
+            File testFile = copyAudioToTmp("testV1.mp3");
             AudioFile af = AudioFileIO.read(testFile);
 
             //No Tag
@@ -42,21 +45,18 @@ public class Issue185Test extends AbstractTestCase
             af = AudioFileIO.read(testFile);
             assertTrue(af.getTag() instanceof ID3v23Tag);
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
         assertNull(exceptionCaught);
     }
 
 
-    public void testDefaultTagMp3AndCreate()
-    {
+    @Test
+    public void testDefaultTagMp3AndCreate() {
         Exception exceptionCaught = null;
-        try
-        {
-            File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+        try {
+            File testFile = copyAudioToTmp("testV1.mp3");
             AudioFile af = AudioFileIO.read(testFile);
 
             //No Tag
@@ -73,9 +73,7 @@ public class Issue185Test extends AbstractTestCase
             af = AudioFileIO.read(testFile);
             assertTrue(af.getTag() instanceof ID3v23Tag);
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
         assertNull(exceptionCaught);

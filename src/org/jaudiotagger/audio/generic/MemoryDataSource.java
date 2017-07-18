@@ -13,10 +13,12 @@ public class MemoryDataSource extends DataSource {
     private final ByteBuffer data;
 
     public MemoryDataSource(final byte[] data) {
+        super("in memory data");
         this.data = ByteBuffer.wrap(data);
     }
 
     public MemoryDataSource(final ByteBuffer data) {
+        super("in memory data");
         this.data = data;
     }
 

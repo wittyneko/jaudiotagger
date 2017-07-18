@@ -4,11 +4,16 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.asf.data.AsfHeader;
 import org.jaudiotagger.audio.asf.data.MetadataContainer;
-import org.jaudiotagger.audio.asf.io.*;
+import org.jaudiotagger.audio.asf.io.AsfExtHeaderModifier;
+import org.jaudiotagger.audio.asf.io.AsfHeaderReader;
+import org.jaudiotagger.audio.asf.io.AsfStreamer;
+import org.jaudiotagger.audio.asf.io.ChunkModifier;
+import org.jaudiotagger.audio.asf.io.WriteableChunkModifer;
 import org.jaudiotagger.audio.asf.util.TagConverter;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.asf.AsfFieldKey;
 import org.jaudiotagger.tag.asf.AsfTag;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,10 +21,13 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 /**
  * This testcase tests the ability to read the content description and extended content description 
  * from the ASF header object and the ASF header extension object.
- * 
+ *
  * @author Christian Laireiter
  */
 public class WmaDescriptionLocationTest extends WmaTestCase
@@ -92,7 +100,7 @@ public class WmaDescriptionLocationTest extends WmaTestCase
         headerMods.add(new AsfExtHeaderModifier(extHeaderMods));
         File destination = prepareTestFile("chunkloc.wma");
         new AsfStreamer()
-                        .createModifiedCopy(new FileInputStream(testFile), new FileOutputStream(destination), headerMods);
+                .createModifiedCopy(new FileInputStream(testFile), new FileOutputStream(destination), headerMods);
         checkExcpectations(destination, hcd, hecd, !hcd, !hecd);
 
     }
@@ -119,17 +127,18 @@ public class WmaDescriptionLocationTest extends WmaTestCase
         assertEquals(hcd, readHeader.getContentDescription() != null);
         assertEquals(hecd, readHeader.getExtendedContentDescription() != null);
         assertEquals(ehcd, readHeader.getExtendedHeader() != null && readHeader.getExtendedHeader()
-                        .getContentDescription() != null);
+                .getContentDescription() != null);
         assertEquals(ehecd, readHeader.getExtendedHeader() != null && readHeader.getExtendedHeader()
-                        .getExtendedContentDescription() != null);
+                .getExtendedContentDescription() != null);
     }
 
     /**
      * Tests the locations of the metadata descriptor object and the extended metadata descriptor object, upon
      * some deep ASF manipulations.
-     * 
+     *
      * @throws Exception On I/O Errors
      */
+    @Test
     public void testChunkLocations() throws Exception
     {
         File testFile = prepareTestFile(null);

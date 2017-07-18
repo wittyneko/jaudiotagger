@@ -15,79 +15,39 @@
  */
 package org.jaudiotagger.tag.id3;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTPE1;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTPE1Test;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 /**
  *
  */
-public class Unicode24TagTest extends TestCase
-{
-    /**
-     * Constructor
-     *
-     * @param arg0
-     */
-    public Unicode24TagTest(String arg0)
-    {
-        super(arg0);
-    }
-
-    /**
-     * Command line entrance.
-     *
-     * @param args
-     */
-    public static void main(String[] args)
-    {
-        junit.textui.TestRunner.run(suite());
-    }
-
-    /////////////////////////////////////////////////////////////////////////
-    // TestCase classes to override
-    /////////////////////////////////////////////////////////////////////////
+public class Unicode24TagTest extends AbstractTestCase {
 
     /**
      *
      */
-    protected void setUp()
-    {
+    @Before
+    public void setUp() {
         TagOptionSingleton.getInstance().setToDefault();
     }
 
     /**
      *
      */
-    protected void tearDown()
-    {
+    @After
+    public void tearDown() {
     }
-
-    /**
-     *
-     */
-//    protected void runTest()
-//    {
-//    }
-
-    /**
-     * Builds the Test Suite.
-     *
-     * @return the Test Suite.
-     */
-    public static Test suite()
-    {
-        return new TestSuite(Unicode24TagTest.class);
-    }
-
 
     /**
      * Create a String that only contains text within IS8859 charset so should be
@@ -95,21 +55,18 @@ public class Unicode24TagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateISO8859EncodedSizeTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testISO8859.mp3"));
+    @Test
+    public void testCreateISO8859EncodedSizeTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testISO8859.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
         Exception exceptionCaught = null;
         FrameBodyTPE1 fb = null;
-        try
-        {
+        try {
             fb = FrameBodyTPE1Test.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -139,22 +96,19 @@ public class Unicode24TagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF16BOMLEEncodedSizeTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf16bomle.mp3"));
+    @Test
+    public void testCreateUTF16BOMLEEncodedSizeTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf16bomle.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
         Exception exceptionCaught = null;
         FrameBodyTPE1 fb = null;
-        try
-        {
+        try {
             fb = FrameBodyTPE1Test.getInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_16);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -179,50 +133,47 @@ public class Unicode24TagTest extends TestCase
     }
 
     /**
-    * Can explicitly uses UTF-16 even if not required
-    * as UTf16 by default
-    *
-    * @throws Exception
-    */
-   public void testCreateUTF16BOMBEEncodedSizeTerminatedString() throws Exception
-   {
-       TagOptionSingleton.getInstance().setEncodeUTF16BomAsLittleEndian(false);
-       File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf16bombe.mp3"));
-       MP3File mp3File = new MP3File(testFile);
+     * Can explicitly uses UTF-16 even if not required
+     * as UTf16 by default
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testCreateUTF16BOMBEEncodedSizeTerminatedString() throws Exception {
+        TagOptionSingleton.getInstance().setEncodeUTF16BomAsLittleEndian(false);
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf16bombe.mp3"));
+        MP3File mp3File = new MP3File(testFile);
 
-       ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
-       Exception exceptionCaught = null;
-       FrameBodyTPE1 fb = null;
-       try
-       {
-           fb = FrameBodyTPE1Test.getInitialisedBody();
-           fb.setTextEncoding(TextEncoding.UTF_16);
-           frame.setBody(fb);
-       }
-       catch (Exception e)
-       {
-           exceptionCaught = e;
-       }
+        ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
+        Exception exceptionCaught = null;
+        FrameBodyTPE1 fb = null;
+        try {
+            fb = FrameBodyTPE1Test.getInitialisedBody();
+            fb.setTextEncoding(TextEncoding.UTF_16);
+            frame.setBody(fb);
+        } catch (Exception e) {
+            exceptionCaught = e;
+        }
 
-       assertNull(exceptionCaught);
-       assertEquals(ID3v24Frames.FRAME_ID_ARTIST, fb.getIdentifier());
-       assertEquals(TextEncoding.UTF_16, fb.getTextEncoding());
-       assertEquals(FrameBodyTPE1Test.TPE1_TEST_STRING, fb.getText());
+        assertNull(exceptionCaught);
+        assertEquals(ID3v24Frames.FRAME_ID_ARTIST, fb.getIdentifier());
+        assertEquals(TextEncoding.UTF_16, fb.getTextEncoding());
+        assertEquals(FrameBodyTPE1Test.TPE1_TEST_STRING, fb.getText());
 
-       //Create and Save
-       ID3v24Tag tag = new ID3v24Tag();
-       tag.setFrame(frame);
-       mp3File.setID3v2Tag(tag);
-       mp3File.save();
+        //Create and Save
+        ID3v24Tag tag = new ID3v24Tag();
+        tag.setFrame(frame);
+        mp3File.setID3v2Tag(tag);
+        mp3File.save();
 
-       //Reload, should be written as UTF16 because of the text
-       mp3File = new MP3File(testFile);
-       frame = (ID3v24Frame) mp3File.getID3v2Tag().getFrame(ID3v24Frames.FRAME_ID_ARTIST);
-       FrameBodyTPE1 body = (FrameBodyTPE1) frame.getBody();
-       assertEquals(ID3v24Frames.FRAME_ID_ARTIST, body.getIdentifier());
-       assertEquals(TextEncoding.UTF_16, body.getTextEncoding());
-       assertEquals(FrameBodyTPE1Test.TPE1_TEST_STRING, body.getText());
-   }
+        //Reload, should be written as UTF16 because of the text
+        mp3File = new MP3File(testFile);
+        frame = (ID3v24Frame) mp3File.getID3v2Tag().getFrame(ID3v24Frames.FRAME_ID_ARTIST);
+        FrameBodyTPE1 body = (FrameBodyTPE1) frame.getBody();
+        assertEquals(ID3v24Frames.FRAME_ID_ARTIST, body.getIdentifier());
+        assertEquals(TextEncoding.UTF_16, body.getTextEncoding());
+        assertEquals(FrameBodyTPE1Test.TPE1_TEST_STRING, body.getText());
+    }
 
 
     /**
@@ -231,21 +182,18 @@ public class Unicode24TagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF16BOMLEAutoEncodedSizeTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf16-2.mp3"));
+    @Test
+    public void testCreateUTF16BOMLEAutoEncodedSizeTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf16-2.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
         Exception exceptionCaught = null;
         FrameBodyTPE1 fb = null;
-        try
-        {
+        try {
             fb = FrameBodyTPE1Test.getUnicodeRequiredInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -275,21 +223,18 @@ public class Unicode24TagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF8AutoEncodedSizeTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf8.mp3"));
+    @Test
+    public void testCreateUTF8AutoEncodedSizeTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf8.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
         Exception exceptionCaught = null;
         FrameBodyTPE1 fb = null;
-        try
-        {
+        try {
             fb = FrameBodyTPE1Test.getUnicodeRequiredInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -321,22 +266,19 @@ public class Unicode24TagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF16BEEncodedSizeTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf16be.mp3"));
+    @Test
+    public void testCreateUTF16BEEncodedSizeTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf16be.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
         Exception exceptionCaught = null;
         FrameBodyTPE1 fb = null;
-        try
-        {
+        try {
             fb = FrameBodyTPE1Test.getUnicodeRequiredInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_16BE);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -365,22 +307,19 @@ public class Unicode24TagTest extends TestCase
      *
      * @throws Exception
      */
-    public void testCreateUTF8EncodedSizeTerminatedString() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("testutf8enc.mp3"));
+    @Test
+    public void testCreateUTF8EncodedSizeTerminatedString() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("testutf8enc.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_ARTIST);
         Exception exceptionCaught = null;
         FrameBodyTPE1 fb = null;
-        try
-        {
+        try {
             fb = FrameBodyTPE1Test.getUnicodeRequiredInitialisedBody();
             fb.setTextEncoding(TextEncoding.UTF_8);
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -404,9 +343,9 @@ public class Unicode24TagTest extends TestCase
         assertEquals(FrameBodyTPE1Test.TPE1_UNICODE_REQUIRED_TEST_STRING, body.getText());
     }
 
-    public void testv24TagsWithUTF8EncodingMaintainedOnSave() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("issue109-2.id3", "testV1.mp3");
+    @Test
+    public void testv24TagsWithUTF8EncodingMaintainedOnSave() throws Exception {
+        File testFile = copyAudioToTmp("issue109-2.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -434,9 +373,9 @@ public class Unicode24TagTest extends TestCase
         assertEquals(TextEncoding.UTF_8, body.getTextEncoding());
     }
 
-    public void testv24TagsWithUTF8OverriddenByDefaultOnSave() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("issue109-2.id3", "testV1.mp3");
+    @Test
+    public void testv24TagsWithUTF8OverriddenByDefaultOnSave() throws Exception {
+        File testFile = copyAudioToTmp("issue109-2.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -468,9 +407,9 @@ public class Unicode24TagTest extends TestCase
         assertEquals(TextEncoding.ISO_8859_1, body.getTextEncoding());
     }
 
-    public void testv24TagsWithUTF8OverriddenByDefaultsOnSave() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("issue109-2.id3", "testV1.mp3");
+    @Test
+    public void testv24TagsWithUTF8OverriddenByDefaultsOnSave() throws Exception {
+        File testFile = copyAudioToTmp("issue109-2.id3", "testV1.mp3");
 
         //Read file as currently stands
         MP3File mp3File = new MP3File(testFile);
@@ -500,7 +439,7 @@ public class Unicode24TagTest extends TestCase
         //Text Encoding has been defaulted by tagoption - no unicode required
         assertEquals(TextEncoding.UTF_16, body.getTextEncoding());
 
-        
+
     }
 
 }

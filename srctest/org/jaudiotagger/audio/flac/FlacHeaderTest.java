@@ -1,6 +1,5 @@
 package org.jaudiotagger.audio.flac;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -8,23 +7,25 @@ import org.jaudiotagger.audio.flac.metadatablock.MetadataBlockDataPicture;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.flac.FlacTag;
 import org.jaudiotagger.tag.reference.PictureTypes;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-
+import static org.junit.Assert.*;
 /**
  * basic Flac tests
  */
-public class FlacHeaderTest extends TestCase
+public class FlacHeaderTest extends AbstractTestCase
 {
+    @Test
     public void testReadFileWithVorbisComment()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.flac");
+            File testFile = copyAudioToTmp("test.flac");
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
 
@@ -85,19 +86,19 @@ public class FlacHeaderTest extends TestCase
             assertEquals("coverart.gif", image.getImageUrl());
 
             //Create Image Link
-            tag.getImages().add((MetadataBlockDataPicture) tag.createLinkedArtworkField("../testdata/coverart.jpg"));
+            tag.getImages().add((MetadataBlockDataPicture) tag.createLinkedArtworkField("testdata/coverart.jpg"));
             f.commit();
             f = AudioFileIO.read(testFile);
             image = tag.getImages().get(2);
             assertEquals(3, (int) image.getPictureType());
             assertEquals("-->", image.getMimeType());
             assertTrue(image.isImageUrl());
-            assertEquals("../testdata/coverart.jpg", new String(image.getImageData(), 0, image.getImageData().length, StandardCharsets.ISO_8859_1));
-            assertEquals("../testdata/coverart.jpg", image.getImageUrl());
+            assertEquals("testdata/coverart.jpg", new String(image.getImageData(), 0, image.getImageData().length, StandardCharsets.ISO_8859_1));
+            assertEquals("testdata/coverart.jpg", image.getImageUrl());
 
             //Can we actually createField Buffered Image from the url  of course remember url is relative to the audio file
             //not where we run the program from
-            File file = new File("testdatatmp", image.getImageUrl());
+            File file = new File(image.getImageUrl());
             assertTrue(file.exists());
             BufferedImage bi = ImageIO.read(file);
             assertEquals(200, bi.getWidth());
@@ -116,12 +117,13 @@ public class FlacHeaderTest extends TestCase
     /**
      * Only contains vorbis comment with minimum encoder info
      */
+    @Test
     public void testReadFileWithOnlyVorbisCommentEncoder()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.flac");
+            File testFile = copyAudioToTmp("test2.flac");
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
 
@@ -147,6 +149,7 @@ public class FlacHeaderTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadFile2()
     {
         File orig = new File("testdata", "test102.flac");
@@ -159,7 +162,7 @@ public class FlacHeaderTest extends TestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test102.flac");
+            File testFile = copyAudioToTmp("test102.flac");
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
 
@@ -185,6 +188,7 @@ public class FlacHeaderTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadWithID3Header()
     {
         File orig = new File("testdata", "test158.flac");
@@ -197,7 +201,7 @@ public class FlacHeaderTest extends TestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test158.flac");
+            File testFile = copyAudioToTmp("test158.flac");
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
 
@@ -223,6 +227,7 @@ public class FlacHeaderTest extends TestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testReadWriteWithID3Header()
     {
         File orig = new File("testdata", "test158.flac");
@@ -235,7 +240,7 @@ public class FlacHeaderTest extends TestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test158.flac", new File("test158write.flac"));
+            File testFile = copyAudioToTmp("test158.flac", new File("test158write.flac"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f);
 

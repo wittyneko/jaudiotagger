@@ -8,32 +8,36 @@ import org.jaudiotagger.tag.TagField;
 import org.jaudiotagger.tag.id3.ID3v23Frame;
 import org.jaudiotagger.tag.id3.ID3v23Tag;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Test APIC Frame with no PictureType Field
  */
-public class Issue224Test extends AbstractTestCase
-{
+public class Issue224Test extends AbstractTestCase {
 
-    public void testReadInvalidPicture()
-    {
+
+    @Test
+    public void testReadInvalidPicture() {
         String genre = null;
 
         File orig = new File("testdata", "test31.mp3");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             return;
         }
 
         Exception exceptionCaught = null;
-        try
-        {
-            File testFile = AbstractTestCase.copyAudioToTmp("test31.mp3");
+        try {
+            File testFile = copyAudioToTmp("test31.mp3");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(11, tag.getFieldCount());
@@ -62,9 +66,7 @@ public class Issue224Test extends AbstractTestCase
             assertEquals("FREDDY", body.getDescription());
             f.commit();
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }

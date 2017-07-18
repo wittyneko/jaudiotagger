@@ -3,32 +3,31 @@ package org.jaudiotagger.tag.id3.framebody;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test POPMFrameBody
  */
-public class FrameBodyPOPMTest extends AbstractTestCase
-{
+public class FrameBodyPOPMTest extends AbstractTestCase {
     public static final String POPM_EMAIL = "paul@jaudiotagger.dev.net";
     public static final long POPM_RATING = 167;
     public static final long POPM_COUNTER = 1000;
 
-    public static FrameBodyPOPM getInitialisedBody()
-    {
+    public static FrameBodyPOPM getInitialisedBody() {
         FrameBodyPOPM fb = new FrameBodyPOPM(POPM_EMAIL, POPM_RATING, POPM_COUNTER);
         return fb;
     }
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyPOPM fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyPOPM(POPM_EMAIL, POPM_RATING, POPM_COUNTER);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -40,19 +39,16 @@ public class FrameBodyPOPMTest extends AbstractTestCase
         assertEquals(FrameBodyPOPMTest.POPM_COUNTER, fb.getCounter());
     }
 
-    public void testCreateFrameBodyEmptyConstructor()
-    {
+    @Test
+    public void testCreateFrameBodyEmptyConstructor() {
         Exception exceptionCaught = null;
         FrameBodyPOPM fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyPOPM();
             fb.setEmailToUser(FrameBodyPOPMTest.POPM_EMAIL);
             fb.setRating(FrameBodyPOPMTest.POPM_RATING);
             fb.setCounter(FrameBodyPOPMTest.POPM_COUNTER);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -64,18 +60,15 @@ public class FrameBodyPOPMTest extends AbstractTestCase
         assertEquals(FrameBodyPOPMTest.POPM_COUNTER, fb.getCounter());
     }
 
-    public void testCreateFrameBodyEmptyConstructorWithoutCounter()
-    {
+    @Test
+    public void testCreateFrameBodyEmptyConstructorWithoutCounter() {
         Exception exceptionCaught = null;
         FrameBodyPOPM fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyPOPM();
             fb.setEmailToUser(FrameBodyPOPMTest.POPM_EMAIL);
             fb.setRating(FrameBodyPOPMTest.POPM_RATING);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

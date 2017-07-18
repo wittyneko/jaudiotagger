@@ -1,17 +1,20 @@
 package org.jaudiotagger.audio;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.io.File;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 /**
  * Generic tests
  */
-public class GenericTest extends TestCase
+public class GenericTest
 {
     /**
      * Test File filter, postive and negative tests
      */
+    @Test
     public void testReadFileUnsupportedFormat()
     {
         File nonAudioFile = new File("testdata", "coverart.bmp");

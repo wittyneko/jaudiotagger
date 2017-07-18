@@ -1,8 +1,15 @@
 package org.jaudiotagger.audio.asf.data;
 
+import org.junit.Test;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the content branding container.
@@ -58,6 +65,7 @@ public class ContentBrandingTest extends
      * {@link org.jaudiotagger.audio.asf.data.ContentBranding#isAddSupported(org.jaudiotagger.audio.asf.data.MetadataDescriptor)}
      * .
      */
+    @Test
     public void testIsAddSupported() {
         final ContentBranding chunk = createChunk(0, BigInteger.ZERO);
         assertFalse(chunk.isAddSupported(new MetadataDescriptor("arbitrary")));
@@ -71,6 +79,7 @@ public class ContentBrandingTest extends
     /**
      * Test method for {@link ContentBranding#setBannerImageURL(String)}.
      */
+    @Test
     public void testSetBannerImageURL() {
         final ContentBranding chunk = createChunk(0, BigInteger.ZERO);
         assertTrue(chunk.isEmpty());
@@ -83,6 +92,7 @@ public class ContentBrandingTest extends
     /**
      * Test method for {@link ContentBranding#setCopyRightURL(String)}.
      */
+    @Test
     public void testSetCopyrightURL() {
         final ContentBranding chunk = createChunk(0, BigInteger.ZERO);
         assertTrue(chunk.isEmpty());

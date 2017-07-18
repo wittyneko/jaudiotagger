@@ -1,9 +1,16 @@
 package org.jaudiotagger.audio.asf.data;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.math.BigInteger;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 /**
  * Since the tested enumeration {@link ContainerType} is more a definition of
  * constant nature, these tests are more a safety precaution to prevent numerous
@@ -12,7 +19,7 @@ import java.math.BigInteger;
  * 
  * @author Christian Laireiter
  */
-public class ContainerTypeTest extends TestCase {
+public class ContainerTypeTest {
 
     /**
      * Helper method for creating string with <code>charAmount</code> of 'a's.<br>
@@ -34,6 +41,7 @@ public class ContainerTypeTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#areInCorrectOrder(org.jaudiotagger.audio.asf.data.ContainerType, org.jaudiotagger.audio.asf.data.ContainerType)}
      * .
      */
+    @Test
     public void testAreInCorrectOrder() {
         for (int i = 0; i < ContainerType.values().length; i++) {
             for (int j = i + 1; j < ContainerType.values().length; j++) {
@@ -52,6 +60,7 @@ public class ContainerTypeTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#assertConstraints(java.lang.String, byte[], int, int, int)}
      * .
      */
+    @Test
     public void testAssertConstraints() {
         try {
             ContainerType.CONTENT_BRANDING.assertConstraints(null, null, 0, 0,
@@ -67,6 +76,7 @@ public class ContainerTypeTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#checkConstraints(java.lang.String, byte[], int, int, int)}
      * .
      */
+    @Test
     public void testCheckCtonstraints() {
         assertNotNull(ContainerType.CONTENT_DESCRIPTION.checkConstraints(null,
                 null, 0, 0, 0));
@@ -102,6 +112,7 @@ public class ContainerTypeTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#getContainerGUID()}
      * .
      */
+    @Test
     public void testGetContainerGUID() {
         assertEquals(GUID.GUID_CONTENTDESCRIPTION,
                 ContainerType.CONTENT_DESCRIPTION.getContainerGUID());
@@ -120,6 +131,7 @@ public class ContainerTypeTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#getMaximumDataLength()}
      * .
      */
+    @Test
     public void testGetMaximumDataLength() {
         final BigInteger wordSize = new BigInteger("FFFF", 16);
         final BigInteger dwordSize = new BigInteger("FFFFFFFF", 16);
@@ -139,6 +151,7 @@ public class ContainerTypeTest extends TestCase {
      * Test method for
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#getOrdered()}.
      */
+    @Test
     public void testGetOrdered() {
         assertSame(ContainerType.CONTENT_DESCRIPTION, ContainerType
                 .getOrdered()[0]);
@@ -156,6 +169,7 @@ public class ContainerTypeTest extends TestCase {
      * Test method for
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#isGuidEnabled()}.
      */
+    @Test
     public void testIsGuidEnabled() {
         assertFalse(ContainerType.CONTENT_DESCRIPTION.isGuidEnabled());
         assertFalse(ContainerType.CONTENT_BRANDING.isGuidEnabled());
@@ -169,6 +183,7 @@ public class ContainerTypeTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#isLanguageEnabled()}
      * .
      */
+    @Test
     public void testIsLanguageEnabled() {
         assertFalse(ContainerType.CONTENT_DESCRIPTION.isLanguageEnabled());
         assertFalse(ContainerType.CONTENT_BRANDING.isLanguageEnabled());
@@ -181,6 +196,7 @@ public class ContainerTypeTest extends TestCase {
      * Test method for
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#isMultiValued()}.
      */
+    @Test
     public void testIsMultiValued() {
         assertFalse(ContainerType.CONTENT_DESCRIPTION.isMultiValued());
         assertFalse(ContainerType.CONTENT_BRANDING.isMultiValued());
@@ -194,6 +210,7 @@ public class ContainerTypeTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#isStreamNumberEnabled()}
      * .
      */
+    @Test
     public void testIsStreamNumberEnabled() {
         assertFalse(ContainerType.CONTENT_DESCRIPTION.isStreamNumberEnabled());
         assertFalse(ContainerType.CONTENT_BRANDING.isStreamNumberEnabled());
@@ -207,6 +224,7 @@ public class ContainerTypeTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.ContainerType#isWithinValueRange(long)}
      * .
      */
+    @Test
     public void testIsWithinThanValueRange() {
         final BigInteger wordSize = new BigInteger("FFFF", 16);
         final BigInteger dwordSize = new BigInteger("FFFFFFFF", 16);

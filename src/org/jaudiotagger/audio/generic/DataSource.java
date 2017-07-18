@@ -12,6 +12,17 @@ import java.nio.ByteBuffer;
  */
 public abstract class DataSource implements Closeable {
 
+    public final String name;
+
+    /**
+     * <p> Constructor.
+     *
+     * @param name The name of the datasource. Used for logging purposes.
+     */
+    public DataSource(final String name) {
+        this.name = name;
+    }
+
     /**
      * <p> Reads a sequence of bytes from the source starting from the current position into the specified destination.
      *     There is no guarantee that the buffer is filled completely and the method returns the number of bytes actually read.
@@ -46,6 +57,15 @@ public abstract class DataSource implements Closeable {
      * @throws IOException IOException If an I/O error occurs
      */
     public abstract void position(final long newPosition) throws IOException;
+
+    /**
+     * <p> Returns the name of the datasource
+     *
+     * @return The name of the datasource.
+     */
+    public String getName() {
+        return name;
+    }
 
     /**
      * <p> Skips a number of bytes and updates the read position to the new position.

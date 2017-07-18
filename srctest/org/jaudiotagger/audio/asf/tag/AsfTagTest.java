@@ -1,6 +1,5 @@
 package org.jaudiotagger.audio.asf.tag;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.tag.FieldDataInvalidException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.TagField;
@@ -8,21 +7,27 @@ import org.jaudiotagger.tag.TagTextField;
 import org.jaudiotagger.tag.asf.AsfFieldKey;
 import org.jaudiotagger.tag.asf.AsfTag;
 import org.jaudiotagger.tag.asf.AsfTagTextField;
+import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 /**
  * Tests tag implementations.
  * 
  * @author Christian Laireiter
  */
-public class AsfTagTest extends TestCase
+public class AsfTagTest
 {
 
 
     /**
      * This method tests the insertion of fields (or data) with empty content.<br>
      */
+    @Test
     public void testEmptyField() throws FieldDataInvalidException
     {
         //Copy fields flag setField
@@ -49,6 +54,7 @@ public class AsfTagTest extends TestCase
     /**
      * tests the mixed use of {@link AsfFieldKey} and {@link org.jaudiotagger.tag.FieldKey}.
      */
+    @Test
     public void testIdentifierConversion() throws FieldDataInvalidException
     {
         final AsfTag asfTag = new AsfTag();
@@ -58,8 +64,7 @@ public class AsfTagTest extends TestCase
         assertSame(albumField, asfTag.getFields(AsfFieldKey.ALBUM.getFieldName()).get(0));
     }
 
-    
-
+    @Test
     public void testMixedIdentifiers() throws Exception
     {
         final AsfTag asfTag = new AsfTag();
@@ -67,7 +72,8 @@ public class AsfTagTest extends TestCase
         asfTag.setField(textField);
         assertSame(textField, asfTag.getFirstField(AsfFieldKey.ALBUM.getFieldName()));
     }
-    
+
+    @Test
     public void testUncommonAsfTagFields()
     {
         AsfTag asfTag = new AsfTag(true);

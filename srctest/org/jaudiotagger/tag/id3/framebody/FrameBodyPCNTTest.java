@@ -3,30 +3,29 @@ package org.jaudiotagger.tag.id3.framebody;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test PCNTFrameBody
  */
-public class FrameBodyPCNTTest extends AbstractTestCase
-{
+public class FrameBodyPCNTTest extends AbstractTestCase {
     public static final long PCNT_COUNTER = 1000;
 
-    public static FrameBodyPCNT getInitialisedBody()
-    {
+    public static FrameBodyPCNT getInitialisedBody() {
         FrameBodyPCNT fb = new FrameBodyPCNT(FrameBodyPCNTTest.PCNT_COUNTER);
         return fb;
     }
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyPCNT fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyPCNT(FrameBodyPCNTTest.PCNT_COUNTER);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -36,17 +35,14 @@ public class FrameBodyPCNTTest extends AbstractTestCase
         assertEquals(FrameBodyPCNTTest.PCNT_COUNTER, fb.getCounter());
     }
 
-    public void testCreateFrameBodyEmptyConstructor()
-    {
+    @Test
+    public void testCreateFrameBodyEmptyConstructor() {
         Exception exceptionCaught = null;
         FrameBodyPCNT fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyPCNT();
             fb.setCounter(FrameBodyPCNTTest.PCNT_COUNTER);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

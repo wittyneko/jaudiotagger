@@ -1,25 +1,27 @@
 package org.jaudiotagger.audio.asf;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.audio.asf.data.AsfHeader;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.asf.AsfFieldKey;
 import org.jaudiotagger.tag.asf.AsfTag;
+import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 /**
  * This test covers some mistakes that could be made by changing the implementation.<br>
  * For example, constants which are assigned at class loading being <code>null</code>.  
  * 
  * @author Christian Laireiter
  */
-public class AsfCodeCheckTest extends TestCase
+public class AsfCodeCheckTest
 {
     
     /**
      * Tests the correct implementation of {@link AsfTag}.<br>
-     * For example if {@link AsfTag#createAlbumField(String)} returns a field whose {@link org.jaudiotagger.tag.TagField#getId()} 
+     * For example if {@link AsfTag#createField(AsfFieldKey, String)} returns a field whose {@link org.jaudiotagger.tag.TagField#getId()}
      * equals {@link org.jaudiotagger.tag.asf.AsfFieldKey#ALBUM}s }.
      */
+    @Test
     public void testAsfTagImpl() throws Exception
     {
         final AsfTag asfTag = new AsfTag();
@@ -35,6 +37,7 @@ public class AsfCodeCheckTest extends TestCase
     /**
      * Tests some constants which must have values.
      */
+    @Test
     public void testConstants()
     {
         // UTF16-LE by specification

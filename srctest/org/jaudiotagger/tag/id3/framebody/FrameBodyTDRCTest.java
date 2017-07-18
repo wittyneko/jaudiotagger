@@ -3,26 +3,26 @@ package org.jaudiotagger.tag.id3.framebody;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.tag.id3.ID3v24Frames;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test Unique File Identifier FrameBody
  */
-public class FrameBodyTDRCTest extends AbstractTestCase
-{
+public class FrameBodyTDRCTest extends AbstractTestCase {
     public static final String TEST_YEAR = "2002";
 
 
-    public void testCreateFrameBody()
-    {
+    @Test
+    public void testCreateFrameBody() {
         Exception exceptionCaught = null;
         FrameBodyTDRC fb = null;
-        try
-        {
+        try {
             fb = new FrameBodyTDRC();
             fb.setDate(TEST_YEAR);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 

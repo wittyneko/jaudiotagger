@@ -9,6 +9,8 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.TagField;
 import org.jaudiotagger.tag.TagOptionSingleton;
 import org.jaudiotagger.tag.vorbiscomment.util.Base64Coder;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -17,21 +19,32 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 /**
  * Vorbis Write tsgs
  */
 public class VorbisWriteTagTest extends AbstractTestCase
 {
+
+    @Before
+    public void setUp(){
+        TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST);
+    }
+
     /**
      * Can summarize file
      */
+    @Test
     public void testSummarizeFile()
     {
         Exception exceptionCaught = null;
         try
         {
 //Can summarize file
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testSummarizeFile.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testSummarizeFile.ogg"));
             RandomAccessFile raf = new RandomAccessFile(testFile, "r");
             OggFileReader oggFileReader = new OggFileReader();
             oggFileReader.summarizeOggPageHeaders(testFile);
@@ -48,13 +61,14 @@ public class VorbisWriteTagTest extends AbstractTestCase
     /**
      * Testing of writing various fields
      */
+    @Test
     public void testWriteTagToFile()
     {
         TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_ALBUMARTIST);
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWriteTagTest.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testWriteTagTest.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             assertTrue(f.getTag() instanceof VorbisCommentTag);
@@ -141,7 +155,9 @@ public class VorbisWriteTagTest extends AbstractTestCase
             assertEquals("Sortartist\u01ff", tag.getFirst(FieldKey.ARTIST_SORT));
             assertEquals("lyrics", tag.getFirst(FieldKey.LYRICS));
             assertEquals("200", tag.getFirst(FieldKey.BPM));
-            assertEquals("Albumartist", tag.getFirst(FieldKey.ALBUM_ARTIST));// TODO - sometimes is failing. Why??
+
+            // TODO - sometimes this is failing. This is because the write (VorbisCommentTag) is falling into the branch WRITE_JRIVER_ALBUMARTIST_AND_DELETE_ALBUMARTIST
+            assertEquals("Albumartist", tag.getFirst(FieldKey.ALBUM_ARTIST));
             assertEquals("Sortalbumartist", tag.getFirst(FieldKey.ALBUM_ARTIST_SORT));
             assertEquals("Sortalbum", tag.getFirst(FieldKey.ALBUM_SORT));
             assertEquals("GROUping", tag.getFirst(FieldKey.GROUPING));
@@ -212,7 +228,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
             assertEquals(base64image, vorbisTag.getFirst(VorbisCommentFieldKey.COVERART));
             BufferedImage bi = ImageIO.read(ImageIO
                     .createImageInputStream(new ByteArrayInputStream(Base64Coder.
-                    decode(vorbisTag.getFirst(VorbisCommentFieldKey.COVERART).toCharArray()))));
+                            decode(vorbisTag.getFirst(VorbisCommentFieldKey.COVERART).toCharArray()))));
             assertNotNull(bi);
 
 
@@ -237,6 +253,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
     /**
      * Test writing to file, comments too large to fit on single page anymore
      */
+    @Test
     public void testWriteToFileMuchLarger()
     {
         File orig = new File("testdata", "test.ogg");
@@ -248,7 +265,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWriteTagTestRequiresTwoPages.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testWriteTagTestRequiresTwoPages.ogg"));
 
             AudioFile f = AudioFileIO.read(testFile);
             assertTrue(f.getTag() instanceof VorbisCommentTag);
@@ -295,6 +312,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
     /**
      * Test writing to file, comments too large to fit on single page anymore, and also setup header gets split
      */
+    @Test
     public void testWriteToFileMuchLargerSetupHeaderSplit()
     {
         File orig = new File("testdata", "test.ogg");
@@ -306,7 +324,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWriteTagTestRequiresTwoPagesHeaderSplit.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testWriteTagTestRequiresTwoPagesHeaderSplit.ogg"));
 
             AudioFile f = AudioFileIO.read(testFile);
             assertTrue(f.getTag() instanceof VorbisCommentTag);
@@ -357,6 +375,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
      * Issue 197, test writing to file when audio packet come straight after setup packet on same oggPage, edit so
      * comment data is changed but size of comment header is same length
      */
+    @Test
     public void testWriteToFileWithExtraPacketsOnSamePageAsSetupHeader()
     {
         File orig = new File("testdata", "test2.ogg");
@@ -368,7 +387,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.ogg", new File("testWriteTagWithExtraPacketsHeaderSameSize.ogg"));
+            File testFile = copyAudioToTmp("test2.ogg", new File("testWriteTagWithExtraPacketsHeaderSameSize.ogg"));
 
             OggFileReader oggFileReader = new OggFileReader();
             RandomAccessFile raf = new RandomAccessFile(testFile, "r");
@@ -415,6 +434,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
      * Issue 197, test writing to file when audio packet come straight after setup packet on same oggPage, edit enough
      * so that comment is larger, but the comment, header and extra packets can still all fit on page 2
      */
+    @Test
     public void testWriteToFileWithExtraPacketsOnSamePageAsSetupHeaderLarger()
     {
         File orig = new File("testdata", "test2.ogg");
@@ -426,7 +446,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.ogg", new File("testWriteTagWithExtraPacketsHeaderLargerSize.ogg"));
+            File testFile = copyAudioToTmp("test2.ogg", new File("testWriteTagWithExtraPacketsHeaderLargerSize.ogg"));
 
             OggFileReader oggFileReader = new OggFileReader();
             RandomAccessFile raf = new RandomAccessFile(testFile, "r");
@@ -472,6 +492,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
      * Issue 197, test writing to file when audio packet come straight after setup packet on same oggPage, edit enough
      * so that comment is much larger, so that comment, header and extra packets can no longer fit on page 2
      */
+    @Test
     public void testWriteToFileWithExtraPacketsOnSamePageAsSetupHeaderMuchLarger()
     {
         File orig = new File("testdata", "test2.ogg");
@@ -483,7 +504,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWriteTagWithExtraPacketsHeaderMuchLargerSize.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testWriteTagWithExtraPacketsHeaderMuchLargerSize.ogg"));
 
             AudioFile f = AudioFileIO.read(testFile);
             assertTrue(f.getTag() instanceof VorbisCommentTag);
@@ -532,6 +553,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
      * so that comment is much larger, so that comment, header and extra packets can no longer fit on page 2 AND
      * setup header is also split over two
      */
+    @Test
     public void testWriteToFileWithExtraPacketsOnSamePageAsSetupHeaderMuchLargerAndSplit()
     {
         File orig = new File("testdata", "test2.ogg");
@@ -543,7 +565,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.ogg", new File("testWriteTagWithExtraPacketsHeaderMuchLargerSizeAndSplit.ogg"));
+            File testFile = copyAudioToTmp("test2.ogg", new File("testWriteTagWithExtraPacketsHeaderMuchLargerSizeAndSplit.ogg"));
 
             AudioFile f = AudioFileIO.read(testFile);
             assertTrue(f.getTag() instanceof VorbisCommentTag);
@@ -595,6 +617,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
     /**
      * Test writing to file, comments was too large for one page but not anymore
      */
+    @Test
     public void testWriteToFileNoLongerRequiresTwoPages()
     {
         File orig = new File("testdata", "test3.ogg");
@@ -606,7 +629,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test3.ogg", new File("testWriteTagTestNoLongerRequiresTwoPages.ogg"));
+            File testFile = copyAudioToTmp("test3.ogg", new File("testWriteTagTestNoLongerRequiresTwoPages.ogg"));
 
             AudioFile f = AudioFileIO.read(testFile);
             assertTrue(f.getTag() instanceof VorbisCommentTag);
@@ -649,6 +672,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
     /**
      * Test writing to file, comments was too large for one page and setup header split but not anymore
      */
+    @Test
     public void testWriteToFileNoLongerRequiresTwoPagesNorSplit()
     {
         File orig = new File("testdata", "test5.ogg");
@@ -660,7 +684,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test5.ogg", new File("testWriteTagTestNoLongerRequiresTwoPagesNorSplit.ogg"));
+            File testFile = copyAudioToTmp("test5.ogg", new File("testWriteTagTestNoLongerRequiresTwoPagesNorSplit.ogg"));
 
             AudioFile f = AudioFileIO.read(testFile);
             assertTrue(f.getTag() instanceof VorbisCommentTag);
@@ -702,6 +726,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
     /**
      * Test writing to file, comments was too large for one page but not anymore
      */
+    @Test
     public void testWriteToFileWriteToFileWithExtraPacketsNoLongerRequiresTwoPages()
     {
         File orig = new File("testdata", "test4.ogg");
@@ -713,7 +738,7 @@ public class VorbisWriteTagTest extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test4.ogg", new File("testWriteTagTestWithPacketsNoLongerRequiresTwoPages.ogg"));
+            File testFile = copyAudioToTmp("test4.ogg", new File("testWriteTagTestWithPacketsNoLongerRequiresTwoPages.ogg"));
 
             AudioFile f = AudioFileIO.read(testFile);
             assertTrue(f.getTag() instanceof VorbisCommentTag);
@@ -754,9 +779,10 @@ public class VorbisWriteTagTest extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
+    @Test
     public void testDeleteTag() throws Exception
     {
-        File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testDelete.ogg"));
+        File testFile = copyAudioToTmp("test.ogg", new File("testDelete.ogg"));
         AudioFile f = AudioFileIO.read(testFile);
         f.setTag(VorbisCommentTag.createNewTag());
         f.commit();
@@ -766,9 +792,10 @@ public class VorbisWriteTagTest extends AbstractTestCase
         assertEquals("jaudiotagger", ((VorbisCommentTag) f.getTag()).getVendor());
     }
 
+    @Test
     public void testDeleteTag2() throws Exception
     {
-        File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testDelete2.ogg"));
+        File testFile = copyAudioToTmp("test.ogg", new File("testDelete2.ogg"));
         AudioFile f = AudioFileIO.read(testFile);
         AudioFileIO.delete(f);
 
@@ -777,13 +804,14 @@ public class VorbisWriteTagTest extends AbstractTestCase
         assertEquals("jaudiotagger", ((VorbisCommentTag) f.getTag()).getVendor());
     }
 
+    @Test
     public void testWriteMultipleFields() throws Exception
     {
         TagOptionSingleton.getInstance().setVorbisAlbumArtistReadOptions(VorbisAlbumArtistReadOptions.READ_ALBUMARTIST);
         TagOptionSingleton.getInstance().setVorbisAlbumArtistSaveOptions(VorbisAlbumArtistSaveOptions.WRITE_ALBUMARTIST);
 
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWriteMultiple.ogg"));
+        File testFile = copyAudioToTmp("test.ogg", new File("testWriteMultiple.ogg"));
         AudioFile f = AudioFileIO.read(testFile);
         f.getTag().addField(FieldKey.ALBUM_ARTIST,"artist1");
         f.getTag().addField(FieldKey.ALBUM_ARTIST,"artist2");
@@ -793,10 +821,11 @@ public class VorbisWriteTagTest extends AbstractTestCase
         assertEquals(tagFields.size(),2);
     }
 
-     public void testDeleteFields() throws Exception
+    @Test
+    public void testDeleteFields() throws Exception
     {
         //Delete using generic key
-        File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testDeleteFields.ogg"));
+        File testFile = copyAudioToTmp("test.ogg", new File("testDeleteFields.ogg"));
         AudioFile f = AudioFileIO.read(testFile);
         List<TagField> tagFields = f.getTag().getFields(FieldKey.ALBUM_ARTIST_SORT);
         assertEquals(0,tagFields.size());

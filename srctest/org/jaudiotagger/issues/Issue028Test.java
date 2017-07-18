@@ -4,34 +4,35 @@ import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.mp3.MP3AudioHeader;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.audio.mp3.MPEGFrameHeader;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 /**
  * Test reading Version 2 Layer III file correctly
  */
-public class Issue028Test extends AbstractTestCase
-{
-    public void testReadV2L3Stereo()
-    {
+public class Issue028Test extends AbstractTestCase {
+
+    @Test
+    public void testReadV2L3Stereo() {
         File orig = new File("testdata", "test97.mp3");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
 
         Exception exceptionCaught = null;
-        File testFile = AbstractTestCase.copyAudioToTmp("test97.mp3");
+        File testFile = copyAudioToTmp("test97.mp3");
         MP3AudioHeader mp3AudioHeader = null;
-        try
-        {
+        try {
             mp3AudioHeader = new MP3File(testFile).getMP3AudioHeader();
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
         assertNull(exceptionCaught);

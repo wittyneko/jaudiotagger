@@ -25,11 +25,11 @@ import org.jaudiotagger.audio.iff.Chunk;
 import org.jaudiotagger.audio.iff.ChunkHeader;
 import org.jaudiotagger.audio.iff.ChunkSummary;
 import org.jaudiotagger.audio.iff.IffHeaderChunk;
+import org.jaudiotagger.audio.wav.chunk.WavCorruptChunkType;
 import org.jaudiotagger.audio.wav.chunk.WavId3Chunk;
 import org.jaudiotagger.audio.wav.chunk.WavListChunk;
 import org.jaudiotagger.logging.Hex;
 import org.jaudiotagger.tag.TagOptionSingleton;
-import org.jaudiotagger.tag.id3.ID3v23Tag;
 import org.jaudiotagger.tag.wav.WavInfoTag;
 import org.jaudiotagger.tag.wav.WavTag;
 
@@ -92,8 +92,7 @@ public class WavTagReader
     {
         if(!tag.isExistingId3Tag())
         {
-            //Default used by Tag & Rename
-            tag.setID3Tag(new ID3v23Tag());
+            tag.setID3Tag(WavTag.createDefaultID3Tag());
         }
         if(!tag.isExistingInfoTag())
         {
@@ -121,7 +120,7 @@ public class WavTagReader
         }
 
         String id = chunkHeader.getID();
-        logger.config("Next Id is:" + id + ":FileLocation:" + dataSource.position() + ":Size:" + chunkHeader.getSize());
+        logger.config(loggingName + " Next Id is:" + id + ":FileLocation:" + dataSource.position() + ":Size:" + chunkHeader.getSize());
         final WavChunkType chunkType = WavChunkType.get(id);
         if (chunkType != null)
         {
@@ -131,7 +130,7 @@ public class WavTagReader
                     tag.addChunkSummary(new ChunkSummary(chunkHeader.getID(), chunkHeader.getStartLocationInFile(), chunkHeader.getSize()));
                     if(tag.getInfoTag()==null)
                     {
-                        chunk = new WavListChunk(Utils.readFileDataIntoBufferLE(dataSource, (int) chunkHeader.getSize()), chunkHeader, tag);
+                        chunk = new WavListChunk(loggingName, Utils.readFileDataIntoBufferLE(dataSource, (int) chunkHeader.getSize()), chunkHeader, tag);
                         if (!chunk.readChunk())
                         {
                             return false;
@@ -144,16 +143,6 @@ public class WavTagReader
                                 + ":sizeIncHeader:"+ (chunkHeader.getSize() + ChunkHeader.CHUNK_HEADER_SIZE));
                     }
                     break;
-
-                case CORRUPT_LIST:
-                    logger.severe(loggingName + " Found Corrupt LIST Chunk, starting at Odd Location:"+chunkHeader.getID()+":"+chunkHeader.getSize());
-
-                    if(tag.getInfoTag()==null && tag.getID3Tag() == null)
-                    {
-                        tag.setIncorrectlyAlignedTag(true);
-                    }
-                    dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
-                    return true;
 
                 case ID3:
                     tag.addChunkSummary(new ChunkSummary(chunkHeader.getID(), chunkHeader.getStartLocationInFile(), chunkHeader.getSize()));
@@ -195,6 +184,27 @@ public class WavTagReader
                     tag.addChunkSummary(new ChunkSummary(chunkHeader.getID(), chunkHeader.getStartLocationInFile(), chunkHeader.getSize()));
                     dataSource.skip((int)chunkHeader.getSize());
             }
+        }
+        else if(id.substring(1,4).equals(WavCorruptChunkType.CORRUPT_LIST_EARLY.getCode()))
+        {
+            logger.severe(loggingName + " Found Corrupt LIST Chunk, starting at Odd Location:"+chunkHeader.getID()+":"+chunkHeader.getSize());
+
+            if(tag.getInfoTag()==null && tag.getID3Tag() == null)
+            {
+                tag.setIncorrectlyAlignedTag(true);
+            }
+            dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE - 1));
+            return true;
+        }
+        else if(id.substring(0,3).equals(WavCorruptChunkType.CORRUPT_LIST_LATE.getCode()))
+        {
+            logger.severe(loggingName + " Found Corrupt LIST Chunk (2), starting at Odd Location:"+chunkHeader.getID()+":"+chunkHeader.getSize());
+            if(tag.getInfoTag()==null && tag.getID3Tag() == null)
+            {
+                tag.setIncorrectlyAlignedTag(true);
+            }
+            dataSource.position(dataSource.position() -  (ChunkHeader.CHUNK_HEADER_SIZE + 1));
+            return true;
         }
         //Unknown chunk type just skip
         else

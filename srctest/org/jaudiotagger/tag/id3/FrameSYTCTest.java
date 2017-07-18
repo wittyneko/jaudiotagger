@@ -4,28 +4,30 @@ import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.id3.framebody.FrameBodySYTC;
 import org.jaudiotagger.tag.id3.framebody.FrameBodySYTCTest;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 /**
  * Testing Sytc.
  */
-public class FrameSYTCTest extends AbstractTestCase
-{
+public class FrameSYTCTest extends AbstractTestCase {
 
-    public static ID3v24Frame getInitialisedFrame()
-    {
+    public static ID3v24Frame getInitialisedFrame() {
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_SYNC_TEMPO);
         FrameBodySYTC fb = FrameBodySYTCTest.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public void testSaveToFile() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testSaveToFile() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -42,8 +44,8 @@ public class FrameSYTCTest extends AbstractTestCase
         FrameBodySYTC body = (FrameBodySYTC) frame.getBody();
         assertEquals(referenceBody.getTimestampFormat(), body.getTimestampFormat());
 
-        final Iterator<Map.Entry<Long,Integer>> reference = referenceBody.getTempi().entrySet().iterator();
-        final Iterator<Map.Entry<Long,Integer>> loaded = body.getTempi().entrySet().iterator();
+        final Iterator<Map.Entry<Long, Integer>> reference = referenceBody.getTempi().entrySet().iterator();
+        final Iterator<Map.Entry<Long, Integer>> loaded = body.getTempi().entrySet().iterator();
         while (reference.hasNext() && loaded.hasNext()) {
             final Map.Entry<Long, Integer> refEntry = reference.next();
             final Map.Entry<Long, Integer> loadedEntry = loaded.next();
@@ -54,9 +56,9 @@ public class FrameSYTCTest extends AbstractTestCase
         assertFalse(loaded.hasNext());
     }
 
-    public void testSaveEmptyFrameToFile() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testSaveEmptyFrameToFile() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_SYNC_TEMPO);

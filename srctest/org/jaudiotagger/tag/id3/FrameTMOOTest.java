@@ -7,19 +7,24 @@ import org.jaudiotagger.tag.id3.framebody.FrameBodyTMOOTest;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTXXX;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTXXXTest;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Test TSOP and XSOP (Title Sort) Frame
  */
-public class FrameTMOOTest extends AbstractTestCase
-{
-    public static ID3v24Frame getInitialisedFrame()
-    {
+public class FrameTMOOTest extends AbstractTestCase {
+    public static ID3v24Frame getInitialisedFrame() {
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_MOOD);
         FrameBodyTMOO fb = FrameBodyTMOOTest.getInitialisedBody();
         frame.setBody(fb);
@@ -34,19 +39,16 @@ public class FrameTMOOTest extends AbstractTestCase
         return frame;
     } */
 
-    public void testCreateID3v24Frame()
-    {
+    @Test
+    public void testCreateID3v24Frame() {
         Exception exceptionCaught = null;
         ID3v24Frame frame = null;
         FrameBodyTMOO fb = null;
-        try
-        {
+        try {
             frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_MOOD);
             fb = FrameBodyTMOOTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -61,6 +63,7 @@ public class FrameTMOOTest extends AbstractTestCase
 
 
     /*
+@Test
 public void testCreateID3v23Frame()
 {
 Exception exceptionCaught = null;
@@ -86,6 +89,7 @@ assertEquals(FrameBodyTSOPTest.ARTIST_SORT, fb.getText());
 
 }                             */
     /*
+@Test
 public void testCreateID3v22Frame()
 {
   Exception exceptionCaught = null;
@@ -111,9 +115,9 @@ public void testCreateID3v22Frame()
 
 }
     */
-    public void testSaveToFile() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1016.mp3"));
+    @Test
+    public void testSaveToFile() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("test1016.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -129,9 +133,9 @@ public void testCreateID3v22Frame()
         assertEquals(TextEncoding.ISO_8859_1, body.getTextEncoding());
     }
 
-    public void testSaveEmptyFrameToFile() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1004.mp3"));
+    @Test
+    public void testSaveEmptyFrameToFile() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("test1004.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_MOOD);
@@ -156,9 +160,9 @@ public void testCreateID3v22Frame()
      *
      * @throws Exception
      */
-    public void testConvertV24ToV23() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1005.mp3"));
+    @Test
+    public void testConvertV24ToV23() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("test1005.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -175,8 +179,7 @@ public void testCreateID3v22Frame()
         mp3File.setID3v2TagOnly(v23Tag);
 
         Iterator i = v23Tag.getFields();
-        while (i.hasNext())
-        {
+        while (i.hasNext()) {
             System.out.println(((ID3v23Frame) i.next()).getIdentifier());
         }
         mp3File.save();
@@ -200,9 +203,9 @@ public void testCreateID3v22Frame()
      *
      * @throws Exception
      */
-    public void testConvertV23ToV24() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1005.mp3"));
+    @Test
+    public void testConvertV23ToV24() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("test1005.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -220,25 +223,24 @@ public void testCreateID3v22Frame()
         mp3File = new MP3File(testFile);
         ID3v24Tag v24Tag = new ID3v24Tag(mp3File.getID3v2Tag());
         Iterator i = v24Tag.getFields();
-        while (i.hasNext())
-        {
+        while (i.hasNext()) {
             System.out.println("kkk" + ((ID3v24Frame) i.next()).getIdentifier());
         }
         assertEquals(1, v24Tag.getFieldCount());
-        ID3v24Frame v24frame = (ID3v24Frame)v24Tag.getFrame("TMOO");
-        assertTrue(v24frame.getBody() instanceof FrameBodyTMOO); 
-        FrameBodyTMOO v24framebody = (FrameBodyTMOO)v24frame.getBody();
-        assertEquals("Tranquil",v24framebody.getText());
+        ID3v24Frame v24frame = (ID3v24Frame) v24Tag.getFrame("TMOO");
+        assertTrue(v24frame.getBody() instanceof FrameBodyTMOO);
+        FrameBodyTMOO v24framebody = (FrameBodyTMOO) v24frame.getBody();
+        assertEquals("Tranquil", v24framebody.getText());
     }
 
-      public void testConvertMultiV23ToV24() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3", new File("test1005.mp3"));
+    @Test
+    public void testConvertMultiV23ToV24() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3", new File("test1005.mp3"));
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
         ID3v23Tag tag = new ID3v23Tag();
-        ArrayList frames= new ArrayList();
+        ArrayList frames = new ArrayList();
         {
             FrameBodyTXXX frameBody = new FrameBodyTXXX();
             frameBody.setDescription(FrameBodyTXXX.MOOD);
@@ -255,7 +257,7 @@ public void testCreateID3v22Frame()
             frame.setBody(frameBody);
             frames.add(frame);
         }
-        tag.setFrame("TXXX",frames);
+        tag.setFrame("TXXX", frames);
         mp3File.setID3v2Tag(tag);
         mp3File.save();
 
@@ -263,15 +265,14 @@ public void testCreateID3v22Frame()
         mp3File = new MP3File(testFile);
         ID3v24Tag v24Tag = new ID3v24Tag(mp3File.getID3v2Tag());
         Iterator i = v24Tag.getFields();
-        while (i.hasNext())
-        {
+        while (i.hasNext()) {
             System.out.println("kkk" + ((ID3v24Frame) i.next()).getIdentifier());
         }
         assertEquals(2, v24Tag.getFieldCount());
-        ID3v24Frame v24frame = (ID3v24Frame)v24Tag.getFrame("TMOO");
+        ID3v24Frame v24frame = (ID3v24Frame) v24Tag.getFrame("TMOO");
         assertNotNull(v24frame);
         assertTrue(v24frame.getBody() instanceof FrameBodyTMOO);
-        FrameBodyTMOO v24framebody = (FrameBodyTMOO)v24frame.getBody();
-        assertEquals("Tranquil",v24framebody.getText());
+        FrameBodyTMOO v24framebody = (FrameBodyTMOO) v24frame.getBody();
+        assertEquals("Tranquil", v24framebody.getText());
     }
 }

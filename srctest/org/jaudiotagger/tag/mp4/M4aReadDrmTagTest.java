@@ -1,6 +1,5 @@
 package org.jaudiotagger.tag.mp4;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -9,18 +8,22 @@ import org.jaudiotagger.audio.mp4.Mp4AudioHeader;
 import org.jaudiotagger.audio.mp4.atom.Mp4EsdsBox;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 /**
  */
-public class M4aReadDrmTagTest extends TestCase
+public class M4aReadDrmTagTest extends AbstractTestCase
 {
     /**
      * Test to read all metadata from an Apple iTunes encoded mp4 file, note also uses fixed genre rather than
      * custom genre
      */
+    @Test
     public void testReadFile()
     {
         Exception exceptionCaught = null;
@@ -32,7 +35,7 @@ public class M4aReadDrmTagTest extends TestCase
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test9.m4p");
+            File testFile = copyAudioToTmp("test9.m4p");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
 

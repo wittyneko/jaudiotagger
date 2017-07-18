@@ -1,19 +1,25 @@
 package org.jaudiotagger.audio.asf.data;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.tag.TagOptionSingleton;
+import org.junit.Test;
 
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Random;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 /**
  * Tests the most important data structure for the basic ASF implementations
  * metadata.
- * 
+ *
  * @author Christian Laireiter
  */
-public class MetadataDescriptorTest extends TestCase {
+public class MetadataDescriptorTest {
 
     /**
      * A test descriptor instance.
@@ -23,7 +29,7 @@ public class MetadataDescriptorTest extends TestCase {
 
     /**
      * Helper method for creating string with <code>charAmount</code> of 'a's.<br>
-     * 
+     *
      * @param charAmount
      *            amount of characters to include in result.
      * @return see description.
@@ -44,14 +50,14 @@ public class MetadataDescriptorTest extends TestCase {
     /**
      * This method calls {@link MetadataDescriptor#setString(String)} on given
      * descriptor and expects an {@link IllegalArgumentException} to be thrown.
-     * 
+     *
      * @param desc
      *            descriptor to call.
      * @param value
      *            value to pass.
      */
     protected void setStringFail(final MetadataDescriptor desc,
-            final String value) {
+                                 final String value) {
         try {
             desc.setString(value);
             fail("Exception expected");
@@ -64,6 +70,7 @@ public class MetadataDescriptorTest extends TestCase {
      * Test method for
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#createCopy()}.
      */
+    @Test
     public void testCreateCopy() {
         final Random rand = new Random(System.currentTimeMillis());
         for (ContainerType curr : ContainerType.getOrdered()) {
@@ -91,6 +98,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#equals(java.lang.Object)}
      * .
      */
+    @Test
     public void testEqualsObject() {
         final ContainerType[] types = ContainerType.getOrdered();
         for (int i = 0; i < types.length; i++) {
@@ -105,7 +113,7 @@ public class MetadataDescriptorTest extends TestCase {
                 MetadataDescriptor two = new MetadataDescriptor(types[j],
                         types[j].name(), MetadataDescriptor.TYPE_STRING,
                         types[j].isStreamNumberEnabled() ? 3 : 0, types[j]
-                                .isLanguageEnabled() ? 3 : 0);
+                        .isLanguageEnabled() ? 3 : 0);
                 two.setStringValue(createAString(j));
                 assertEquals(i == j, one.equals(two));
                 two.setStringValue(createAString(types.length));
@@ -118,6 +126,7 @@ public class MetadataDescriptorTest extends TestCase {
      * Test method for
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#getBoolean()}.
      */
+    @Test
     public void testGetBoolean() {
         this.descriptor1.setBooleanValue(true);
         assertTrue(this.descriptor1.getBoolean());
@@ -132,6 +141,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#getContainerType()}
      * .
      */
+    @Test
     public void testGetContainerType() {
         for (ContainerType curr : ContainerType.values()) {
             assertSame(curr, new MetadataDescriptor(curr, "name",
@@ -144,6 +154,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#getLanguageIndex()}
      * .
      */
+    @Test
     public void testGetLanguageIndex() {
         assertSame(4, new MetadataDescriptor(
                 ContainerType.METADATA_LIBRARY_OBJECT, "name",
@@ -154,6 +165,7 @@ public class MetadataDescriptorTest extends TestCase {
      * Test method for
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#getName()}.
      */
+    @Test
     public void testGetName() {
         assertEquals("descriptorName", new MetadataDescriptor(
                 ContainerType.METADATA_LIBRARY_OBJECT, "descriptorName",
@@ -164,6 +176,7 @@ public class MetadataDescriptorTest extends TestCase {
      * Test method for
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#getNumber()}.
      */
+    @Test
     public void testGetNumber() {
         final MetadataDescriptor desc = new MetadataDescriptor("name");
         desc.setWordValue(555);
@@ -195,6 +208,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#getRawDataSize()}
      * .
      */
+    @Test
     public void testGetRawDataSize() {
         this.descriptor1.setBinaryValue(new byte[20]);
         assertEquals(this.descriptor1.getRawData().length, this.descriptor1
@@ -206,6 +220,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#getStreamNumber()}
      * .
      */
+    @Test
     public void testGetStreamNumber() {
         this.descriptor1.setStreamNumber(55);
         assertEquals(55, this.descriptor1.getStreamNumber());
@@ -218,6 +233,7 @@ public class MetadataDescriptorTest extends TestCase {
      * Test method for
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#getString()}.
      */
+    @Test
     public void testGetString() {
         this.descriptor1.setBooleanValue(true);
         assertEquals(Boolean.TRUE.toString(), this.descriptor1.getString());
@@ -239,6 +255,7 @@ public class MetadataDescriptorTest extends TestCase {
      * Test method for
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#isEmpty()}.
      */
+    @Test
     public void testIsEmpty() {
         this.descriptor1.setBinaryValue(new byte[0]);
         assertTrue(this.descriptor1.isEmpty());
@@ -268,6 +285,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setBinaryValue(byte[])}
      * .
      */
+    @Test
     public void testSetBinaryValue() {
         MetadataDescriptor desc = new MetadataDescriptor("name",
                 MetadataDescriptor.TYPE_BOOLEAN);
@@ -296,6 +314,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setBooleanValue(boolean)}
      * .
      */
+    @Test
     public void testSetBooleanValue() {
         final MetadataDescriptor desc = new MetadataDescriptor("name",
                 MetadataDescriptor.TYPE_BINARY);
@@ -311,6 +330,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setDWordValue(long)}
      * .
      */
+    @Test
     public void testSetDWordValue() {
         final BigInteger dwordMax = new BigInteger("FFFFFFFF", 16);
         final MetadataDescriptor desc = new MetadataDescriptor("name",
@@ -335,6 +355,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setGUIDValue(org.jaudiotagger.audio.asf.data.GUID)}
      * .
      */
+    @Test
     public void testSetGUIDValue() {
         final MetadataDescriptor desc = new MetadataDescriptor("name",
                 MetadataDescriptor.TYPE_BINARY);
@@ -366,6 +387,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setLanguageIndex(int)}
      * .
      */
+    @Test
     public void testSetLanguageIndex() {
         final MetadataDescriptor desc = new MetadataDescriptor(
                 ContainerType.METADATA_LIBRARY_OBJECT, "name",
@@ -396,6 +418,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setQWordValue(java.math.BigInteger)}
      * .
      */
+    @Test
     public void testSetQWordValueBigInteger() {
         final BigInteger qwordMax = new BigInteger("FFFFFFFFFFFFFFFF", 16);
         final MetadataDescriptor desc = new MetadataDescriptor("name",
@@ -424,6 +447,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setQWordValue(long)}
      * .
      */
+    @Test
     public void testSetQWordValueLong() {
         final MetadataDescriptor desc = new MetadataDescriptor("name",
                 MetadataDescriptor.TYPE_BINARY);
@@ -445,6 +469,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setStreamNumber(int)}
      * .
      */
+    @Test
     public void testSetStreamNumber() {
         final MetadataDescriptor desc = new MetadataDescriptor(
                 ContainerType.METADATA_OBJECT, "name",
@@ -475,6 +500,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setString(java.lang.String)}
      * .
      */
+    @Test
     public void testSetString() {
         MetadataDescriptor desc = new MetadataDescriptor(
                 ContainerType.METADATA_LIBRARY_OBJECT, "name",
@@ -518,6 +544,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setStringValue(java.lang.String)}
      * .
      */
+    @Test
     public void testSetStringValue() {
         MetadataDescriptor desc = new MetadataDescriptor(
                 ContainerType.CONTENT_DESCRIPTION, "name",
@@ -557,6 +584,7 @@ public class MetadataDescriptorTest extends TestCase {
      * {@link org.jaudiotagger.audio.asf.data.MetadataDescriptor#setWordValue(int)}
      * .
      */
+    @Test
     public void testSetWordValue() {
         final BigInteger wordMax = new BigInteger("FFFF", 16);
         final MetadataDescriptor desc = new MetadataDescriptor("name",

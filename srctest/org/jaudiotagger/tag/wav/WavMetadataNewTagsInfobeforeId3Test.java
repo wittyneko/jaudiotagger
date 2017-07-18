@@ -7,14 +7,16 @@ import org.jaudiotagger.audio.wav.WavOptions;
 import org.jaudiotagger.audio.wav.WavSaveOptions;
 import org.jaudiotagger.audio.wav.WavSaveOrder;
 import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagOptionSingleton;
-import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
-import org.jaudiotagger.tag.id3.ID3v23Tag;
 import org.jaudiotagger.tag.id3.ID3v24Tag;
+import org.junit.Test;
 
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 /**
  * User: paul
  * Date: 07-Dec-2007
@@ -22,22 +24,22 @@ import java.io.File;
 public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
 {
 
-
-
-
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileMetadataSaveBoth()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
         TagOptionSingleton.getInstance().setWavSaveOptions(WavSaveOptions.SAVE_BOTH);
         TagOptionSingleton.getInstance().setWavSaveOrder(WavSaveOrder.INFO_THEN_ID3);
+        TagOptionSingleton.getInstance().setWriteWavForTwonky(true);
+
 
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveBothNew.wav"));
+            File testFile = copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveBothNew.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             assertEquals("529", f.getAudioHeader().getBitRate());
@@ -93,16 +95,18 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileWithMoreMetadataSaveBoth()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_INFO_ONLY);
         TagOptionSingleton.getInstance().setWavSaveOptions(WavSaveOptions.SAVE_BOTH);
         TagOptionSingleton.getInstance().setWavSaveOrder(WavSaveOrder.INFO_THEN_ID3);
+        TagOptionSingleton.getInstance().setWriteWavForTwonky(true);
 
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test123.wav", new File("test123ModifyMoreMetadataNew.wav"));
+            File testFile = copyAudioToTmp("test123.wav", new File("test123ModifyMoreMetadataNew.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             assertEquals("529", f.getAudioHeader().getBitRate());
@@ -156,21 +160,22 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
         assertNull(exceptionCaught);
     }
 
-
-
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileMetadataSaveExistingActiveId3Info()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_ID3_ONLY);
         TagOptionSingleton.getInstance().setWavSaveOptions(WavSaveOptions.SAVE_EXISTING_AND_ACTIVE);
         TagOptionSingleton.getInstance().setWavSaveOrder(WavSaveOrder.INFO_THEN_ID3);
+        TagOptionSingleton.getInstance().setWriteWavForTwonky(true);
+
 
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveExistingActiveId3New.wav"));
+            File testFile = copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveExistingActiveId3New.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             assertEquals("529", f.getAudioHeader().getBitRate());
@@ -226,6 +231,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileMetadataSaveActiveId3()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_ID3_ONLY);
@@ -235,7 +241,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveActiveId3New.wav"));
+            File testFile = copyAudioToTmp("test123.wav", new File("test123ModifyMetadataSaveActiveId3New.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             assertEquals("529", f.getAudioHeader().getBitRate());
@@ -296,6 +302,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
     /**
      * Read file with metadata added by MediaMonkey
      */
+    @Test
     public void testModifyFileMetadataSaveActiveId32()
     {
         TagOptionSingleton.getInstance().setWavOptions(WavOptions.READ_ID3_ONLY);
@@ -305,7 +312,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test126.wav", new File("test126ModifyMetadataSaveActiveId3New.wav"));
+            File testFile = copyAudioToTmp("test126.wav", new File("test126ModifyMetadataSaveActiveId3New.wav"));
             AudioFile f = AudioFileIO.read(testFile);
             System.out.println(f.getAudioHeader());
             assertEquals("529", f.getAudioHeader().getBitRate());
@@ -369,6 +376,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
      * so can still read, then we write to it padding bit added and when read/write again we
      * correctly work out ID3chunk is still at end of file.
      */
+    @Test
     public void testFileDeleteWithInfoAndOddLengthData()
     {
         Exception exceptionCaught = null;
@@ -384,7 +392,7 @@ public class WavMetadataNewTagsInfobeforeId3Test extends AbstractTestCase
         TagOptionSingleton.getInstance().setWavSaveOptions(WavSaveOptions.SAVE_ACTIVE);
         TagOptionSingleton.getInstance().setWavSaveOrder(WavSaveOrder.INFO_THEN_ID3);
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test129.wav", new File("test128OddData.wav"));
+        File testFile = copyAudioToTmp("test129.wav", new File("test128OddData.wav"));
         try {
             AudioFile f = AudioFileIO.read(testFile);
             f.delete();

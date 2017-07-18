@@ -6,46 +6,41 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.mp4.Mp4AtomTree;
 import org.jaudiotagger.tag.id3.valuepair.ImageFormats;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 
+import static org.junit.Assert.assertNull;
+
 /**
  * Test
  */
-public class Issue451Test extends AbstractTestCase
-{
-    public void testCovrAtom() throws Exception
-    {
-        Exception ex=null;
+public class Issue451Test extends AbstractTestCase {
+    @Test
+    public void testCovrAtom() throws Exception {
+        Exception ex = null;
         File orig = new File("testdata", "test109.m4a");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
-        File testFile = AbstractTestCase.copyAudioToTmp("test109.m4a");
-        try
-        {
+        File testFile = copyAudioToTmp("test109.m4a");
+        try {
             //Now just createField tree
             Mp4AtomTree atomTree = new Mp4AtomTree(new FileDataSource(new RandomAccessFile(testFile, "r")));
             atomTree.printAtomTree();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        try
-        {
+        try {
             AudioFile af = AudioFileIO.read(testFile);
             ImageFormats.getMimeTypeForBinarySignature(af.getTag().getArtworkList().get(0).getBinaryData());
-        }
-        catch(ArrayIndexOutOfBoundsException aex)
-        {
-            ex=aex;
+        } catch (ArrayIndexOutOfBoundsException aex) {
+            ex = aex;
         }
         assertNull(ex);
     }

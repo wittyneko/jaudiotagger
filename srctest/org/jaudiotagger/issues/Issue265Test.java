@@ -6,33 +6,36 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagOptionSingleton;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Truncation haling for string data and picture data
  */
-public class Issue265Test extends AbstractTestCase
-{
+public class Issue265Test extends AbstractTestCase {
 
     /**
      * Try an d write too large a file
      */
-    public void testWriteTooLargeStringToFile()
-    {
+    @Test
+    public void testWriteTooLargeStringToFile() {
         File orig = new File("testdata", "test7.wma");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
         Exception exceptionCaught = null;
-        try
-        {
+        try {
             TagOptionSingleton.getInstance().setTruncateTextWithoutErrors(false);
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test7.wma");
+            File testFile = copyAudioToTmp("test7.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(0, tag.getFields(FieldKey.COVER_ART).size());
@@ -40,15 +43,12 @@ public class Issue265Test extends AbstractTestCase
 
             //Now createField artwork field
             StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < 34000;i++)
-            {
+            for (int i = 0; i < 34000; i++) {
                 sb.append("x");
             }
-            tag.setField(FieldKey.ARTIST,sb.toString());
+            tag.setField(FieldKey.ARTIST, sb.toString());
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }
@@ -57,23 +57,20 @@ public class Issue265Test extends AbstractTestCase
     }
 
 
-
     /**
      * Try and write too large a file, automtically truncated if option set
      */
-    public void testWriteTruncateStringToFile()
-    {
+    @Test
+    public void testWriteTruncateStringToFile() {
         File orig = new File("testdata", "test7.wma");
-        if (!orig.isFile())
-        {
+        if (!orig.isFile()) {
             System.err.println("Unable to test file - not available");
             return;
         }
 
         Exception exceptionCaught = null;
-        try
-        {
-            File testFile = AbstractTestCase.copyAudioToTmp("test7.wma");
+        try {
+            File testFile = copyAudioToTmp("test7.wma");
             AudioFile f = AudioFileIO.read(testFile);
             Tag tag = f.getTag();
             assertEquals(0, tag.getFields(FieldKey.COVER_ART).size());
@@ -83,16 +80,13 @@ public class Issue265Test extends AbstractTestCase
 
             //Now createField artwork field
             StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < 34000;i++)
-            {
+            for (int i = 0; i < 34000; i++) {
                 sb.append("x");
             }
-            tag.setField(FieldKey.ARTIST,sb.toString());
+            tag.setField(FieldKey.ARTIST, sb.toString());
             f.commit();
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }
@@ -100,82 +94,71 @@ public class Issue265Test extends AbstractTestCase
     }
 
     /**
-        * Try an d write too large a file
-        */
-       public void testWriteTooLargeStringToFileContentDesc()
-       {
-           File orig = new File("testdata", "test7.wma");
-           if (!orig.isFile())
-           {
-               System.err.println("Unable to test file - not available");
-               return;
-           }
+     * Try an d write too large a file
+     */
+    @Test
+    public void testWriteTooLargeStringToFileContentDesc() {
+        File orig = new File("testdata", "test7.wma");
+        if (!orig.isFile()) {
+            System.err.println("Unable to test file - not available");
+            return;
+        }
 
-           Exception exceptionCaught = null;
-           try
-           {
-               File testFile = AbstractTestCase.copyAudioToTmp("test7.wma");
-               AudioFile f = AudioFileIO.read(testFile);
-               Tag tag = f.getTag();
+        Exception exceptionCaught = null;
+        try {
+            File testFile = copyAudioToTmp("test7.wma");
+            AudioFile f = AudioFileIO.read(testFile);
+            Tag tag = f.getTag();
 
-               TagOptionSingleton.getInstance().setTruncateTextWithoutErrors(false);
-               StringBuffer sb = new StringBuffer();
-               for (int i = 0; i < 34000;i++)
-               {
-                   sb.append("x");
-               }
-               tag.setField(FieldKey.TITLE,sb.toString());
+            TagOptionSingleton.getInstance().setTruncateTextWithoutErrors(false);
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < 34000; i++) {
+                sb.append("x");
+            }
+            tag.setField(FieldKey.TITLE, sb.toString());
 
-           }
-           catch (Exception e)
-           {
-               e.printStackTrace();
-               exceptionCaught = e;
-           }
-           assertNotNull(exceptionCaught);
-           assertTrue(exceptionCaught instanceof IllegalArgumentException);
-       }
+        } catch (Exception e) {
+            e.printStackTrace();
+            exceptionCaught = e;
+        }
+        assertNotNull(exceptionCaught);
+        assertTrue(exceptionCaught instanceof IllegalArgumentException);
+    }
 
 
+    /**
+     * Try and write too large a file, automtically truncated if option set
+     */
+    @Test
+    public void testWriteTruncateStringToFileContentDesc() {
+        File orig = new File("testdata", "test7.wma");
+        if (!orig.isFile()) {
+            System.err.println("Unable to test file - not available");
+            return;
+        }
 
-       /**
-        * Try and write too large a file, automtically truncated if option set
-        */
-       public void testWriteTruncateStringToFileContentDesc()
-       {
-           File orig = new File("testdata", "test7.wma");
-           if (!orig.isFile())
-           {
-               System.err.println("Unable to test file - not available");
-               return;
-           }
+        Exception exceptionCaught = null;
+        try {
+            File testFile = copyAudioToTmp("test7.wma");
+            AudioFile f = AudioFileIO.read(testFile);
+            Tag tag = f.getTag();
 
-           Exception exceptionCaught = null;
-           try
-           {
-               File testFile = AbstractTestCase.copyAudioToTmp("test7.wma");
-               AudioFile f = AudioFileIO.read(testFile);
-               Tag tag = f.getTag();
+            //Enable value
+            TagOptionSingleton.getInstance().setTruncateTextWithoutErrors(true);
 
-               //Enable value
-               TagOptionSingleton.getInstance().setTruncateTextWithoutErrors(true);
+            //Now createField artwork field
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < 34000; i++) {
+                sb.append("x");
+            }
+            tag.setField(FieldKey.TITLE, sb.toString());
+            f.commit();
 
-               //Now createField artwork field
-               StringBuffer sb = new StringBuffer();
-               for (int i = 0; i < 34000;i++)
-               {
-                   sb.append("x");
-               }
-               tag.setField(FieldKey.TITLE,sb.toString());
-               f.commit();
-
-           }
-           catch (Exception e)
-           {
-               e.printStackTrace();
-               exceptionCaught = e;
-           }
-           assertNull(exceptionCaught);
-       }
+        } catch (Exception e) {
+            e.printStackTrace();
+            exceptionCaught = e;
+        }
+        assertNull(exceptionCaught);
+    }
 
 }

@@ -1,21 +1,23 @@
 package org.jaudiotagger.audio.asf.tag;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.asf.AsfTag;
+import org.junit.Test;
 
+import static org.junit.Assert.assertNull;
 /**
  * @author Christian Laireiter
  *
  */
-public class AsfKeyMappingTest extends TestCase
+public class AsfKeyMappingTest
 {
 
     /**
      * This method tests whether each {@link org.jaudiotagger.tag.FieldKey} is mapped
      * to an {@link org.jaudiotagger.tag.asf.AsfFieldKey}.<br>
      */
+    @Test
     public void testTagFieldKeyMappingComplete()
     {
         Exception exceptionCaught=null;
@@ -24,7 +26,10 @@ public class AsfKeyMappingTest extends TestCase
         {
             for (FieldKey curr : FieldKey.values())
             {
-                tag.getFields(curr);
+                if(curr != FieldKey.ITUNES_GROUPING)
+                {
+                    tag.getFields(curr);
+                }
             }
         }
         catch(Exception e)

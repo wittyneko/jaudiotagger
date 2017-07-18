@@ -1,30 +1,28 @@
 package org.jaudiotagger.audio.aiff;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.generic.*;
+import org.jaudiotagger.audio.generic.AudioFileReader3;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.GenericAudioHeader;
 import org.jaudiotagger.tag.Tag;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.file.Path;
 
 /**
  * Reads Audio and Metadata information contained in Aiff file.
  */
 public class AiffFileReader extends AudioFileReader3
 {
-    private AiffInfoReader      ir = new AiffInfoReader();
-    private AiffTagReader       im = new AiffTagReader();
 
     @Override
-    protected GenericAudioHeader getEncodingInfo(DataSource dataSource)throws CannotReadException, IOException
+    protected GenericAudioHeader getEncodingInfo(DataSource dataSource) throws CannotReadException, IOException
     {
-        return ir.read(dataSource);
+        return new AiffInfoReader(dataSource.getName()).read(dataSource);
     }
 
     @Override
-    protected Tag getTag(DataSource dataSource)throws CannotReadException, IOException
+    protected Tag getTag(DataSource dataSource) throws CannotReadException, IOException
     {
-        return im.read(dataSource);
+        return new AiffTagReader(dataSource.getName()).read(dataSource);
     }
 }

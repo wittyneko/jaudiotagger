@@ -10,9 +10,9 @@ import java.io.IOException;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class FilePermissionsTest {
+public class FilePermissionsTest extends AbstractTestCase {
 
-	public static void runWriteWriteProtectedFileWithCheckDisabled(String sourceFile) throws Exception {
+	public void runWriteWriteProtectedFileWithCheckDisabled(String sourceFile) throws Exception {
 		File testFile = createFile(sourceFile);
 		try {
 			testFile.setWritable(false);
@@ -29,7 +29,7 @@ public class FilePermissionsTest {
 		}
 	}
 
-	public static void runWriteWriteProtectedFileWithCheckEnabled(String sourceFile) throws Exception {
+	public void runWriteWriteProtectedFileWithCheckEnabled(String sourceFile) throws Exception {
 		File testFile = createFile(sourceFile);
 		try {
 	        testFile.setWritable(false);
@@ -45,7 +45,7 @@ public class FilePermissionsTest {
 		}
 	}
 
-	public static void runWriteReadOnlyFileWithCheckDisabled(String sourceFile) throws Exception {
+	public void runWriteReadOnlyFileWithCheckDisabled(String sourceFile) throws Exception {
 		File testFile = createFile(sourceFile);
 		try {
 	        testFile.setReadOnly();
@@ -61,14 +61,13 @@ public class FilePermissionsTest {
 		}
 	}
 
-	private static File createFile(String sourceFile) {
+	private File createFile(String sourceFile) {
 		String[] baseNameAndExt = sourceFile.split("\\.(?=[^\\.]+$)");
-		File testFile = AbstractTestCase
-				.copyAudioToTmp(sourceFile, new File(baseNameAndExt[0] + "WriteProtected." + baseNameAndExt[1]));
+		File testFile = copyAudioToTmp(sourceFile, new File(baseNameAndExt[0] + "WriteProtected." + baseNameAndExt[1]));
 		return testFile;
 	}
 
-	private static void setFieldAndCommit(File testFile, boolean performPreCheck) throws CannotReadException,
+	private void setFieldAndCommit(File testFile, boolean performPreCheck) throws CannotReadException,
 			IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException, FieldDataInvalidException,
 			CannotWriteException {
 		TagOptionSingleton.getInstance().setCheckIsWritable(performPreCheck);

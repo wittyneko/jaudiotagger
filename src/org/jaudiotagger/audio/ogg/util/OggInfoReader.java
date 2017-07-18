@@ -108,6 +108,12 @@ public class OggInfoReader
         //1st page = Identification Header
         OggPageHeader pageHeader = OggPageHeader.read(dataSource);
         byte[] vorbisData = new byte[pageHeader.getPageLength()];
+
+        if(vorbisData.length < OggPageHeader.OGG_PAGE_HEADER_FIXED_LENGTH)
+        {
+            throw new CannotReadException("Invalid Identification header for this Ogg File");
+        }
+
         dataSource.read(vorbisData);
         VorbisIdentificationHeader vorbisIdentificationHeader = new VorbisIdentificationHeader(vorbisData);
 

@@ -8,29 +8,34 @@ import org.jaudiotagger.tag.id3.valuepair.ImageFormats;
 import org.jaudiotagger.tag.images.Artwork;
 import org.jaudiotagger.tag.images.ArtworkFactory;
 import org.jaudiotagger.tag.images.Images;
+import org.junit.Test;
 
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 /**
-  Vorbis Comment reading new Image Format
-*/
-public class Issue286Test extends AbstractTestCase
-{
+ * Vorbis Comment reading new Image Format
+ */
+public class Issue286Test extends AbstractTestCase {
     /*
      * TestRead Vorbis COverArt One
      * @throws Exception
      */
-    public void testReadVorbisCoverartOne() throws Exception
-    {
+    @Test
+    public void testReadVorbisCoverartOne() throws Exception {
         File file = new File("testdata", "test76.ogg");
         AudioFile af = AudioFileIO.read(file);
-        assertEquals(1,af.getTag().getArtworkList().size());
+        assertEquals(1, af.getTag().getArtworkList().size());
         Artwork artwork = af.getTag().getFirstArtwork();
         System.out.println(artwork);
         assertEquals(600, Images.getImage(artwork).getWidth());
         assertEquals(800, Images.getImage(artwork).getHeight());
-        assertEquals("image/jpeg",artwork.getMimeType());
-        assertEquals(3,artwork.getPictureType());
+        assertEquals("image/jpeg", artwork.getMimeType());
+        assertEquals(3, artwork.getPictureType());
 
     }
 
@@ -38,30 +43,29 @@ public class Issue286Test extends AbstractTestCase
      * TestRead Vorbis CoverArt Two
      * @throws Exception
      */
-    public void testReadVorbisCoverartTwo() throws Exception
-    {
+    @Test
+    public void testReadVorbisCoverartTwo() throws Exception {
         File file = new File("testdata", "test77.ogg");
         AudioFile af = AudioFileIO.read(file);
-        assertEquals(1,af.getTag().getArtworkList().size());
+        assertEquals(1, af.getTag().getArtworkList().size());
         Artwork artwork = af.getTag().getFirstArtwork();
         System.out.println(artwork);
-        assertEquals(600,Images.getImage(artwork).getWidth());
-        assertEquals(800,Images.getImage(artwork).getHeight());
-        assertEquals("image/jpeg",artwork.getMimeType());
-        assertEquals(3,artwork.getPictureType());
+        assertEquals(600, Images.getImage(artwork).getWidth());
+        assertEquals(800, Images.getImage(artwork).getHeight());
+        assertEquals("image/jpeg", artwork.getMimeType());
+        assertEquals(3, artwork.getPictureType());
 
     }
 
     /**
      * Test reading/writing artwork to Ogg
      */
-    public void testReadWriteArtworkFieldsToOggVorbis()
-    {
+    @Test
+    public void testReadWriteArtworkFieldsToOggVorbis() {
         File testFile = null;
         Exception exceptionCaught = null;
-        try
-        {
-            testFile = AbstractTestCase.copyAudioToTmp("test3.ogg");
+        try {
+            testFile = copyAudioToTmp("test3.ogg");
 
             //Read File okay
             AudioFile af = AudioFileIO.read(testFile);
@@ -72,7 +76,7 @@ public class Issue286Test extends AbstractTestCase
             Artwork artwork = tag.getFirstArtwork();
             assertEquals("image/png", artwork.getMimeType());
             assertNotNull(artwork.getImage());
-            assertEquals("",artwork.getDescription());
+            assertEquals("", artwork.getDescription());
             assertEquals(200, Images.getImage(artwork).getWidth());
 
             //Now add new image
@@ -90,20 +94,18 @@ public class Issue286Test extends AbstractTestCase
             artwork = tag.getFirstArtwork();
             assertEquals("image/png", artwork.getMimeType());
             assertNotNull(artwork.getImage());
-            assertEquals("",artwork.getDescription());
+            assertEquals("", artwork.getDescription());
             assertEquals(200, Images.getImage(artwork).getWidth());
 
             assertTrue(tag.getArtworkList().get(1) instanceof Artwork);
             artwork = tag.getArtworkList().get(1);
             assertEquals("image/png", artwork.getMimeType());
             assertNotNull(artwork.getImage());
-            assertEquals("A new file",artwork.getDescription());
+            assertEquals("A new file", artwork.getDescription());
             assertEquals(200, Images.getImage(artwork).getWidth());
 
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             exceptionCaught = e;
         }

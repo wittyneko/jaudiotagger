@@ -1,6 +1,5 @@
 package org.jaudiotagger.audio.ogg;
 
-import junit.framework.TestCase;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -8,26 +7,31 @@ import org.jaudiotagger.audio.ogg.util.OggPageHeader;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentFieldKey;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentTag;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 /**
  * Basic Vorbis tests
  */
-public class OggVorbisHeaderTest extends TestCase
+public class OggVorbisHeaderTest extends AbstractTestCase
 {
 
 
     /**
      * Testing reading of vorbis audio header info
      */
+    @Test
     public void testReadFile()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testReadFile.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testReadFile.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //assertEquals("192",f.getAudioHeader().getBitRate());
@@ -53,6 +57,7 @@ public class OggVorbisHeaderTest extends TestCase
      * <p/>
      * TODO, need to replace with file that is not copyrighted
      */
+    @Test
     public void testReadPaddedFile()
     {
         Exception exceptionCaught = null;
@@ -64,7 +69,7 @@ public class OggVorbisHeaderTest extends TestCase
                 return;
             }
 
-            File testFile = AbstractTestCase.copyAudioToTmp("test2.ogg", new File("test2.ogg"));
+            File testFile = copyAudioToTmp("test2.ogg", new File("test2.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             f.getTag().setField(FieldKey.ALBUM,"bbbbbbb");
@@ -90,12 +95,13 @@ public class OggVorbisHeaderTest extends TestCase
     /**
      * Test simple write to file, comment and setup header just spread over one page before and afterwards
      */
+    @Test
     public void testWriteFile()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("test.ogg", new File("testWriteTagToFile.ogg"));
+            File testFile = copyAudioToTmp("test.ogg", new File("testWriteTagToFile.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //Size of VorbisComment should increase
@@ -134,12 +140,13 @@ public class OggVorbisHeaderTest extends TestCase
      * Test writing to file where previoslu comment was spread over many pages, now only over one so the sequence nos
      * for all subsequent pages have to be redone with checksums
      */
+    @Test
     public void testWritePreviouslyLargeFile()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("testlargeimage.ogg", new File("testWritePreviouslyLargeFile.ogg"));
+            File testFile = copyAudioToTmp("testlargeimage.ogg", new File("testWritePreviouslyLargeFile.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //Size of VorbisComment should decrease just setting a nonsical but muuch smaller value for image
@@ -187,12 +194,13 @@ public class OggVorbisHeaderTest extends TestCase
     /**
      * Testing writing multi page comment header (existing header is multipage)
      */
+    @Test
     public void testLargeWriteFile()
     {
         Exception exceptionCaught = null;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("testlargeimage.ogg", new File("testLargeWriteFile.ogg"));
+            File testFile = copyAudioToTmp("testlargeimage.ogg", new File("testLargeWriteFile.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //Size of VorbisComment should increase
@@ -231,13 +239,14 @@ public class OggVorbisHeaderTest extends TestCase
      * Testing writing multi page comment header where the setup header has to be split because there is not enough
      * room on the last Comment header Page
      */
+    @Test
     public void testLargeWriteFileWithSplitSetupHeader()
     {
         Exception exceptionCaught = null;
         int count = 0;
         try
         {
-            File testFile = AbstractTestCase.copyAudioToTmp("testlargeimage.ogg", new File("testAwkwardSizeWriteFile.ogg"));
+            File testFile = copyAudioToTmp("testlargeimage.ogg", new File("testAwkwardSizeWriteFile.ogg"));
             AudioFile f = AudioFileIO.read(testFile);
 
             //Size of VorbisComment should increase and to a level that the setupheader cant fit completely

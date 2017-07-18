@@ -6,35 +6,36 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTRCK;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyTRCKTest;
 import org.jaudiotagger.tag.id3.valuepair.TextEncoding;
+import org.junit.Test;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test TRCKFrame
  */
-public class FrameTRCKTest extends AbstractTestCase
-{
-    public static ID3v24Frame getInitialisedFrame()
-    {
+public class FrameTRCKTest extends AbstractTestCase {
+    public static ID3v24Frame getInitialisedFrame() {
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_TRACK);
         FrameBodyTRCK fb = FrameBodyTRCKTest.getInitialisedBody();
         frame.setBody(fb);
         return frame;
     }
 
-    public void testCreateID3v24Frame()
-    {
+    @Test
+    public void testCreateID3v24Frame() {
         Exception exceptionCaught = null;
         ID3v24Frame frame = null;
         FrameBodyTRCK fb = null;
-        try
-        {
+        try {
             frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_TRACK);
             fb = FrameBodyTRCKTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -47,19 +48,16 @@ public class FrameTRCKTest extends AbstractTestCase
     }
 
 
-    public void testCreateID3v23Frame()
-    {
+    @Test
+    public void testCreateID3v23Frame() {
         Exception exceptionCaught = null;
         ID3v23Frame frame = null;
         FrameBodyTRCK fb = null;
-        try
-        {
+        try {
             frame = new ID3v23Frame(ID3v23Frames.FRAME_ID_V3_TRACK);
             fb = FrameBodyTRCKTest.getInitialisedBody();
             frame.setBody(fb);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             exceptionCaught = e;
         }
 
@@ -70,9 +68,9 @@ public class FrameTRCKTest extends AbstractTestCase
 
     }
 
-    public void testSaveToFile() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testSaveToFile() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         //Create and Save
@@ -90,9 +88,9 @@ public class FrameTRCKTest extends AbstractTestCase
 
     }
 
-    public void testSaveEmptyFrameToFile() throws Exception
-    {
-        File testFile = AbstractTestCase.copyAudioToTmp("testV1.mp3");
+    @Test
+    public void testSaveEmptyFrameToFile() throws Exception {
+        File testFile = copyAudioToTmp("testV1.mp3");
         MP3File mp3File = new MP3File(testFile);
 
         ID3v24Frame frame = new ID3v24Frame(ID3v24Frames.FRAME_ID_TRACK);
@@ -112,13 +110,13 @@ public class FrameTRCKTest extends AbstractTestCase
         assertEquals("", ((FrameBodyTRCK) frame.getBody()).getText());
     }
 
-    public void testMergingMultipleTrackFrames() throws Exception
-    {
+    @Test
+    public void testMergingMultipleTrackFrames() throws Exception {
         ID3v24Tag tag = new ID3v24Tag();
-        tag.setField(tag.createField(FieldKey.TRACK,"1"));
-        tag.setField(tag.createField(FieldKey.TRACK_TOTAL,"10"));
-        assertEquals("1",tag.getFirst(FieldKey.TRACK));
-        assertEquals("10",tag.getFirst(FieldKey.TRACK_TOTAL));
+        tag.setField(tag.createField(FieldKey.TRACK, "1"));
+        tag.setField(tag.createField(FieldKey.TRACK_TOTAL, "10"));
+        assertEquals("1", tag.getFirst(FieldKey.TRACK));
+        assertEquals("10", tag.getFirst(FieldKey.TRACK_TOTAL));
         assertTrue(tag.getFrame("TRCK") instanceof AbstractID3v2Frame);
     }
 

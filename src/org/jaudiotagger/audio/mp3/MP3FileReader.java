@@ -55,8 +55,7 @@ public class MP3FileReader extends AudioFileReader3
      * @throws InvalidAudioFrameException
      */
     //Override because we read mp3s differently to the entagged code
-    public AudioFile read(File file) throws IOException, TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException
-    {
+    public AudioFile read(File file) throws IOException, CannotReadException, InvalidAudioFrameException, TagException, ReadOnlyFileException {
         MP3File mp3File = new MP3File(file, MP3File.LOAD_IDV1TAG | MP3File.LOAD_IDV2TAG, true);
         return mp3File;
     }
@@ -72,8 +71,7 @@ public class MP3FileReader extends AudioFileReader3
      * @throws CannotReadException
      * @throws InvalidAudioFrameException
      */
-    public AudioFile read(DataSource dataSource) throws IOException, TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException
-    {
+    public AudioFile read(DataSource dataSource) throws IOException, CannotReadException, InvalidAudioFrameException, TagException {
         MP3File mp3File = new MP3File(dataSource, MP3File.LOAD_IDV1TAG | MP3File.LOAD_IDV2TAG);
         return mp3File;
     }
