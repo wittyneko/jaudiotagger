@@ -63,7 +63,8 @@ public class Mp4BoxHeader
     public static final int OFFSET_LENGTH = 4;
     public static final int IDENTIFIER_LENGTH = 4;
     public static final int HEADER_LENGTH = OFFSET_LENGTH + IDENTIFIER_LENGTH;
-
+    public static final int DATA_64BITLENGTH = 8;
+    public static final int REALDATA_64BITLENGTH = HEADER_LENGTH + DATA_64BITLENGTH;
     //Box identifier
     private String id;
 
@@ -158,7 +159,14 @@ public class Mp4BoxHeader
 
         if(length<HEADER_LENGTH)
         {
-            throw new InvalidBoxHeaderException(ErrorMessage.MP4_UNABLE_TO_FIND_NEXT_ATOM_BECAUSE_IDENTIFIER_IS_INVALID.getMsg(id,length));
+            if(length==1)
+            {
+                //Indicates 64bit, we need to read body to find true length
+            }
+            else
+            {
+                throw new InvalidBoxHeaderException(ErrorMessage.MP4_UNABLE_TO_FIND_NEXT_ATOM_BECAUSE_IDENTIFIER_IS_INVALID.getMsg(id, length));
+            }
         }
     }
 
@@ -247,10 +255,6 @@ public class Mp4BoxHeader
         return StandardCharsets.UTF_8;
     }
 
-    public static Mp4BoxHeader seekWithinLevel(FileChannel fc, String id) throws IOException
-    {
-        return seekWithinLevel(new FileDataSource(fc), id);
-    }
 
     /**
      * Seek for box with the specified id starting from the current location of filepointer,
@@ -282,14 +286,31 @@ public class Mp4BoxHeader
         {
             logger.finer("Found:" + boxHeader.getId() + " Still searching for:" + id + " in file at:" + dataSource.position());
 
+            //64bit data length
+            if(boxHeader.getLength() == 1)
+            {
+                ByteBuffer data64bitLengthBuffer = ByteBuffer.allocate(DATA_64BITLENGTH);
+                data64bitLengthBuffer.order(ByteOrder.BIG_ENDIAN);
+                bytesRead = dataSource.read(data64bitLengthBuffer);
+                if (bytesRead != DATA_64BITLENGTH)
+                {
+                    return null;
+                }
+                data64bitLengthBuffer.rewind();
+                dataSource.position(dataSource.position() + data64bitLengthBuffer.getLong() - REALDATA_64BITLENGTH);
+                logger.severe("Skipped 64bit data length, now at:" + fc.position());
+            }
             //Something gone wrong probably not at the start of an atom so return null;
-            if (boxHeader.getLength() < Mp4BoxHeader.HEADER_LENGTH)
+            else if (boxHeader.getLength() < Mp4BoxHeader.HEADER_LENGTH)
             {
                 return null;
             }
-            long noOfBytesSkipped = dataSource.skip(boxHeader.getDataLength());
-            logger.finer("Skipped:" + noOfBytesSkipped);
-            if (noOfBytesSkipped < boxHeader.getDataLength())
+            //Usual data lenght in header
+            else
+            {
+                dataSource.position(dataSource.position() + boxHeader.getDataLength());
+            }
+            if (dataSource.position() > dataSource.size())
             {
                 return null;
             }
