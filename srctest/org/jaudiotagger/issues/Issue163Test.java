@@ -1,9 +1,10 @@
 package org.jaudiotagger.issues;
 
 import org.jaudiotagger.AbstractTestCase;
-import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3File;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +14,7 @@ import java.io.FileNotFoundException;
  */
 public class Issue163Test extends AbstractTestCase
 {
+    @Test
     public void testReadProblemArtwork()    {
         Exception e=null;
         try
@@ -25,7 +27,8 @@ public class Issue163Test extends AbstractTestCase
         {
             e=ex;
         }
-        assertNull(e);
+        Assert.assertNotNull(e);
+        Assert.assertTrue(e instanceof FileNotFoundException);
     }
 
 

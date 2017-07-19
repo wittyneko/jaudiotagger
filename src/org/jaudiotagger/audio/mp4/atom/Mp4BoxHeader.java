@@ -21,16 +21,13 @@ package org.jaudiotagger.audio.mp4.atom;
 import org.jaudiotagger.audio.exceptions.InvalidBoxHeaderException;
 import org.jaudiotagger.audio.exceptions.NullBoxIdException;
 import org.jaudiotagger.audio.generic.DataSource;
-import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.logging.ErrorMessage;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
@@ -298,7 +295,7 @@ public class Mp4BoxHeader
                 }
                 data64bitLengthBuffer.rewind();
                 dataSource.position(dataSource.position() + data64bitLengthBuffer.getLong() - REALDATA_64BITLENGTH);
-                logger.severe("Skipped 64bit data length, now at:" + fc.position());
+                logger.severe("Skipped 64bit data length, now at:" + dataSource.position());
             }
             //Something gone wrong probably not at the start of an atom so return null;
             else if (boxHeader.getLength() < Mp4BoxHeader.HEADER_LENGTH)

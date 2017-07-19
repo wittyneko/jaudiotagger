@@ -48,7 +48,6 @@ import org.jaudiotagger.audio.wav.WavFileWriter;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.TagException;
 
-import javax.sound.sampled.spi.AudioFileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

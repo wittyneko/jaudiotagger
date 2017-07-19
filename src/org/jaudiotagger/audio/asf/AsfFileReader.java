@@ -43,6 +43,7 @@ import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.asf.AsfTag;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
