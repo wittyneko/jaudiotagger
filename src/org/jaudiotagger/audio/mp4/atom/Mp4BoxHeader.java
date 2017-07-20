@@ -294,7 +294,12 @@ public class Mp4BoxHeader
                     return null;
                 }
                 data64bitLengthBuffer.rewind();
-                dataSource.position(dataSource.position() + data64bitLengthBuffer.getLong() - REALDATA_64BITLENGTH);
+                long length = data64bitLengthBuffer.getLong();
+                if (length < Mp4BoxHeader.HEADER_LENGTH){
+                    return null;
+                }
+
+                dataSource.position(dataSource.position() + length - REALDATA_64BITLENGTH);
                 logger.severe("Skipped 64bit data length, now at:" + dataSource.position());
             }
             //Something gone wrong probably not at the start of an atom so return null;
