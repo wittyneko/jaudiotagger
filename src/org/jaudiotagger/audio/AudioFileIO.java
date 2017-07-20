@@ -48,7 +48,6 @@ import org.jaudiotagger.audio.wav.WavFileWriter;
 import org.jaudiotagger.logging.ErrorMessage;
 import org.jaudiotagger.tag.TagException;
 
-import javax.sound.sampled.spi.AudioFileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -353,7 +352,7 @@ public class AudioFileIO
     public AudioFile readFile(File f)
             throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException
     {
-        checkFileExists(f);
+        //checkFileExists(f);
         String ext = Utils.getExtension(f);
 
         AudioFileReader3 afr = readers.get(ext);
@@ -383,7 +382,7 @@ public class AudioFileIO
    public AudioFile readFileMagic(File f)
            throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException
    {
-       checkFileExists(f);
+       //checkFileExists(f);
        String ext = Utils.getMagicExtension(f);
 
        AudioFileReader3 afr = readers.get(ext);
@@ -416,8 +415,7 @@ public class AudioFileIO
   public AudioFile readFileAs(File f,String ext)
           throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException
   {
-      checkFileExists(f);
-//      String ext = Utils.getExtension(f);
+      //checkFileExists(f);
 
       AudioFileReader3 afr = readers.get(ext);
       if (afr == null)

@@ -3,6 +3,8 @@ package org.jaudiotagger.tag.mp4;
 import org.jaudiotagger.AbstractTestCase;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.generic.DataSource;
+import org.jaudiotagger.audio.generic.FileDataSource;
 import org.jaudiotagger.audio.mp4.Mp4AudioHeader;
 import org.jaudiotagger.audio.mp4.atom.Mp4EsdsBox;
 import org.jaudiotagger.audio.mp4.atom.Mp4StcoBox;
@@ -11,7 +13,6 @@ import org.jaudiotagger.tag.Tag;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.RandomAccessFile;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -42,16 +43,16 @@ public class M4aWriteDrmTagTest extends AbstractTestCase
 
 
             //Stco ouput
-            RandomAccessFile raf = new RandomAccessFile(testFile, "r");
-            Mp4StcoBox.debugShowStcoInfo(raf);
-            raf.close();
+            DataSource ds = new FileDataSource(testFile);
+            Mp4StcoBox.debugShowStcoInfo(ds);
+            ds.close();
 
             //and test
-            raf = new RandomAccessFile(testFile, "r");
-            Mp4StcoBox stco = Mp4StcoBox.getStco(raf);
+            ds = new FileDataSource(testFile);
+            Mp4StcoBox stco = Mp4StcoBox.getStco(ds);
             assertEquals(496,stco.getNoOfOffSets());
             assertEquals(56589, stco.getFirstOffSet());
-            raf.close();
+            ds.close();
 
         }
         catch(Exception ex)

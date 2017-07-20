@@ -10,6 +10,7 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -75,6 +76,10 @@ public abstract class AudioFileReader3
 
         if(logger.isLoggable(Level.CONFIG)) {
             logger.config(ErrorMessage.GENERAL_READ.getMsg(path.toAbsolutePath()));
+        }
+
+        if (!Files.exists(path)){
+            throw new FileNotFoundException(ErrorMessage.UNABLE_TO_FIND_FILE.getMsg(path.toAbsolutePath()));
         }
 
         if (!Files.isReadable(path)) {

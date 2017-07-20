@@ -1,14 +1,13 @@
 package org.jaudiotagger.audio.mp4.atom;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.DataSource;
 import org.jaudiotagger.audio.generic.Utils;
 import org.jaudiotagger.audio.mp4.Mp4AtomIdentifier;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.channels.FileChannel;
 
 /**
  * StcoBox ( media (stream) header), holds offsets into the Audio data
@@ -150,16 +149,16 @@ public class Mp4StcoBox extends AbstractMp4Box
         return firstOffSet;
     }
 
-    public static Mp4StcoBox getStco(RandomAccessFile raf) throws IOException, CannotReadException
+    public static Mp4StcoBox getStco(DataSource dataSource) throws IOException, CannotReadException
     {
-        FileChannel fc = raf.getChannel();
-        Mp4BoxHeader moovHeader = Mp4BoxHeader.seekWithinLevel(fc, Mp4AtomIdentifier.MOOV.getFieldName());
+
+        Mp4BoxHeader moovHeader = Mp4BoxHeader.seekWithinLevel(dataSource, Mp4AtomIdentifier.MOOV.getFieldName());
         if (moovHeader == null)
         {
             throw new CannotReadException("This file does not appear to be an audio file");
         }
         ByteBuffer moovBuffer = ByteBuffer.allocate(moovHeader.getLength() - Mp4BoxHeader.HEADER_LENGTH);
-        fc.read(moovBuffer);
+        dataSource.read(moovBuffer);
         moovBuffer.rewind();
 
         //Level 2-Searching for "mvhd" somewhere within "moov", we make a slice after finding header
@@ -229,9 +228,9 @@ public class Mp4StcoBox extends AbstractMp4Box
         return stco;
     }
 
-    public static void debugShowStcoInfo(RandomAccessFile raf) throws IOException, CannotReadException
+    public static void debugShowStcoInfo(DataSource dataSource) throws IOException, CannotReadException
     {
-        Mp4StcoBox stco = getStco(raf);
+        Mp4StcoBox stco = getStco(dataSource);
         stco.printAllOffsets();
     }
 }
