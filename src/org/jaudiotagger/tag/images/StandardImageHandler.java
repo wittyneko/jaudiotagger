@@ -7,6 +7,7 @@ import javax.imageio.ImageWriter;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -48,12 +49,12 @@ public class StandardImageHandler implements ImageHandler
             makeSmaller(artwork,newSize);
         }
     }
-     /**
+    /**
      * Resize image using Java 2D
-      * @param artwork
-      * @param size
-      * @throws java.io.IOException
-      */
+     * @param artwork
+     * @param size
+     * @throws java.io.IOException
+     */
     public void makeSmaller(Artwork artwork,int size) throws IOException
     {
         Image srcImage = (Image)artwork.getImage();
@@ -102,7 +103,7 @@ public class StandardImageHandler implements ImageHandler
      * @return
      * @throws IOException
      */
-    public byte[] writeImage(BufferedImage bi,String mimeType) throws IOException
+    public byte[] writeImage(Object bi,String mimeType) throws IOException
     {
         Iterator<ImageWriter> writers =  ImageIO.getImageWritersByMIMEType(mimeType);
         if(writers.hasNext())
@@ -110,7 +111,7 @@ public class StandardImageHandler implements ImageHandler
             ImageWriter writer = writers.next();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             writer.setOutput(ImageIO.createImageOutputStream(baos));
-            writer.write(bi);
+            writer.write((BufferedImage)bi);
             return baos.toByteArray();
         }
         throw new IOException("Cannot write to this mimetype");
@@ -122,11 +123,16 @@ public class StandardImageHandler implements ImageHandler
      * @return
      * @throws IOException
      */
-    public byte[] writeImageAsPng(BufferedImage bi) throws IOException
+    public byte[] writeImageAsPng(Object bi) throws IOException
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bi, ImageFormats.MIME_TYPE_PNG,baos);
+        ImageIO.write((BufferedImage)bi, ImageFormats.MIME_TYPE_PNG,baos);
         return baos.toByteArray();
+    }
+
+    @Override
+    public Object getImage(byte[] bytes) throws IOException {
+        return ImageIO.read(new ByteArrayInputStream(bytes));
     }
 
     /**
@@ -136,7 +142,7 @@ public class StandardImageHandler implements ImageHandler
      */
     public void showReadFormats()
     {
-         String[] formats = ImageIO.getReaderMIMETypes();
+        String[] formats = ImageIO.getReaderMIMETypes();
         for(String f:formats)
         {
             System.out.println("r"+f);
@@ -150,7 +156,7 @@ public class StandardImageHandler implements ImageHandler
      */
     public void showWriteFormats()
     {
-         String[] formats = ImageIO.getWriterMIMETypes();
+        String[] formats = ImageIO.getWriterMIMETypes();
         for(String f:formats)
         {
             System.out.println(f);

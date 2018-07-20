@@ -1,12 +1,17 @@
 package org.jaudiotagger.tag.images;
 
-import java.awt.image.BufferedImage;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+
+import org.jaudiotagger.tag.id3.valuepair.ImageFormats;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
  Image Handling to to use when running on Android
-
- TODO need to provide Android compatible implementations
  */
 public class AndroidImageHandler implements ImageHandler
 {
@@ -34,35 +39,69 @@ public class AndroidImageHandler implements ImageHandler
      */
     public void reduceQuality(Artwork artwork, int maxSize) throws IOException
     {
-        throw new UnsupportedOperationException();
+        while(artwork.getBinaryData().length > maxSize)
+        {
+            Bitmap srcImage = (Bitmap) artwork.getImage();
+            int w = srcImage.getWidth();
+            int newSize = w /2;
+            makeSmaller(artwork,newSize);
+        }
     }
-     /**
-     * Resize image using Java 2D
-      * @param artwork
-      * @param size
-      * @throws java.io.IOException
-      */
+    /**
+     * Resize image using Bitmap
+     * @param artwork
+     * @param size
+     * @throws java.io.IOException
+     */
     public void makeSmaller(Artwork artwork,int size) throws IOException
     {
-        throw new UnsupportedOperationException();
+        Bitmap srcImage = (Bitmap)artwork.getImage();
+
+        int w = srcImage.getWidth();
+        int h = srcImage.getHeight();
+
+        // Determine the scaling required to get desired result.
+        float scaleW = (float) size / (float) w;
+        float scaleH = (float) size / (float) h;
+
+        // scale Bitmap
+        Matrix matrix = new Matrix();
+        matrix.setScale(scaleW, scaleH);
+        Bitmap bi = Bitmap.createBitmap(srcImage, 0, 0, srcImage.getWidth(), srcImage.getHeight(), matrix, true);
+
+
+        if(artwork.getMimeType()!=null && isMimeTypeWritable(artwork.getMimeType()))
+        {
+            artwork.setBinaryData(writeImage(bi, artwork.getMimeType()));
+        }
+        else
+        {
+            artwork.setBinaryData(writeImageAsPng(bi));
+        }
     }
 
     public boolean isMimeTypeWritable(String mimeType)
     {
-        throw new UnsupportedOperationException();
+        switch (mimeType) {
+            case ImageFormats.MIME_TYPE_JPG:
+            case ImageFormats.MIME_TYPE_JPEG:
+                return true;
+        }
+        return false;
     }
-
     /**
-     *  Write buffered image as required format
+     *  Write Bitmap as required format
      *
      * @param bi
      * @param mimeType
      * @return
      * @throws IOException
      */
-    public byte[] writeImage(BufferedImage bi,String mimeType) throws IOException
+    public byte[] writeImage(Object bi,String mimeType) throws IOException
     {
-        throw new UnsupportedOperationException();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ((Bitmap)bi).compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        return baos.toByteArray();
     }
 
     /**
@@ -71,15 +110,22 @@ public class AndroidImageHandler implements ImageHandler
      * @return
      * @throws IOException
      */
-    public byte[] writeImageAsPng(BufferedImage bi) throws IOException
+    public byte[] writeImageAsPng(Object bi) throws IOException
     {
-        throw new UnsupportedOperationException();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ((Bitmap)bi).compress(Bitmap.CompressFormat.PNG, 80, baos);
+        return baos.toByteArray();
+    }
+
+    @Override
+    public Object getImage(byte[] bytes) throws IOException {
+        return BitmapFactory.decodeStream(new ByteArrayInputStream(bytes));
     }
 
     /**
      * Show read formats
      *
-     * On Windows supports png/jpeg/bmp/gif
+     * On Android supports png/jpeg/bmp/gif/webp
      */
     public void showReadFormats()
     {
@@ -89,7 +135,7 @@ public class AndroidImageHandler implements ImageHandler
     /**
      * Show write formats
      *
-     * On Windows supports png/jpeg/bmp
+     * On Android supports png/jpeg/webp
      */
     public void showWriteFormats()
     {
