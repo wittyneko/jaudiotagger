@@ -516,10 +516,10 @@ public class WmaSimpleTest extends AbstractTestCase
             AsfTagCoverField coverartField = (AsfTagCoverField) tagField;
             assertEquals("image/gif", coverartField.getMimeType());
             assertEquals("coverart", coverartField.getDescription());
-            assertEquals(200, coverartField.getImage().getWidth());
-            assertEquals(200, coverartField.getImage().getHeight());
+            assertEquals(200, ((BufferedImage)coverartField.getImage()).getWidth());
+            assertEquals(200, ((BufferedImage)coverartField.getImage()).getHeight());
             assertEquals(3, coverartField.getPictureType());
-            assertEquals(BufferedImage.TYPE_BYTE_INDEXED, coverartField.getImage().getType());
+            assertEquals(BufferedImage.TYPE_BYTE_INDEXED, ((BufferedImage)coverartField.getImage()).getType());
 
             /***** TO SOME MANUAL CHECKING *****************/
 
@@ -602,10 +602,10 @@ public class WmaSimpleTest extends AbstractTestCase
             AsfTagCoverField coverartField = (AsfTagCoverField) tagField;
             assertEquals("image/gif", coverartField.getMimeType());
             assertEquals("", coverartField.getDescription());
-            assertEquals(200, coverartField.getImage().getWidth());
-            assertEquals(200, coverartField.getImage().getHeight());
+            assertEquals(200, ((BufferedImage)coverartField.getImage()).getWidth());
+            assertEquals(200, ((BufferedImage)coverartField.getImage()).getHeight());
             assertEquals(12, coverartField.getPictureType());
-            assertEquals(BufferedImage.TYPE_BYTE_INDEXED, coverartField.getImage().getType());
+            assertEquals(BufferedImage.TYPE_BYTE_INDEXED, ((BufferedImage)coverartField.getImage()).getType());
 
             //First byte of data is immediatley after the 2 byte Descriptor value
             assertEquals(12, tagField.getRawContent()[0]);
@@ -683,9 +683,9 @@ public class WmaSimpleTest extends AbstractTestCase
             assertEquals("image/png", coverartField.getMimeType());
             assertEquals(3, coverartField.getPictureType());
             assertEquals("coveerart", coverartField.getDescription());
-            assertEquals(200, coverartField.getImage().getWidth());
-            assertEquals(200, coverartField.getImage().getHeight());
-            //assertEquals(BufferedImage.TYPE_CUSTOM, coverartField.getImage().getType());
+            assertEquals(200, ((BufferedImage)coverartField.getImage()).getWidth());
+            assertEquals(200, ((BufferedImage)coverartField.getImage()).getHeight());
+            //assertEquals(BufferedImage.TYPE_CUSTOM, ((BufferedImage)coverartField.getImage()).getType());
 
             /***** TO SOME MANUAL CHECKING *****************/
 
@@ -766,14 +766,14 @@ public class WmaSimpleTest extends AbstractTestCase
             assertEquals("image/jpeg", coverartField.getMimeType());
             assertEquals("coveerart", coverartField.getDescription());
             assertEquals(3, coverartField.getPictureType());
-            assertEquals(200, coverartField.getImage().getWidth());
-            assertEquals(200, coverartField.getImage().getHeight());
+            assertEquals(200, ((BufferedImage)coverartField.getImage()).getWidth());
+            assertEquals(200, ((BufferedImage)coverartField.getImage()).getHeight());
             assertEquals(5093, coverartField.getRawContent().length);
             assertEquals(5046, coverartField.getRawImageData().length);
             assertEquals(5046, coverartField.getImageDataSize());
             assertEquals(coverartField.getRawImageData().length, coverartField.getImageDataSize());
 
-            assertEquals(BufferedImage.TYPE_3BYTE_BGR, coverartField.getImage().getType());
+            assertEquals(BufferedImage.TYPE_3BYTE_BGR, ((BufferedImage)coverartField.getImage()).getType());
 
             /***** TO SOME MANUAL CHECKING *****************/
 
@@ -855,7 +855,7 @@ public class WmaSimpleTest extends AbstractTestCase
             AsfTag asftag = (AsfTag) tag;
             asftag.setField(asftag.createArtworkField(imagedata));
             f.commit();
-                                             
+
             f = AudioFileIO.read(testFile);
             tag = f.getTag();
             assertEquals(1, tag.getFields(FieldKey.COVER_ART).size());
@@ -867,9 +867,9 @@ public class WmaSimpleTest extends AbstractTestCase
             assertEquals(18572, tagField.getRawContent().length);
             assertEquals(18545, coverartField.getRawImageData().length);
             assertEquals(coverartField.getImageDataSize(), coverartField.getRawImageData().length);
-            assertEquals(200, coverartField.getImage().getWidth());
-            assertEquals(200, coverartField.getImage().getHeight());
-            assertEquals(BufferedImage.TYPE_3BYTE_BGR, coverartField.getImage().getType());
+            assertEquals(200, ((BufferedImage)coverartField.getImage()).getWidth());
+            assertEquals(200, ((BufferedImage)coverartField.getImage()).getHeight());
+            assertEquals(BufferedImage.TYPE_3BYTE_BGR, ((BufferedImage)coverartField.getImage()).getType());
 
         }
         catch (Exception e)
