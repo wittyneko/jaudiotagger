@@ -1,3 +1,9 @@
+*.iws
+/.idea/
+/.gradle/
+/build/
+/gen/
+/out/
 /target/
 /testdatatmp/
 .ignore*
@@ -119,7 +125,6 @@ test106.mp3
 test108.mp3
 testdata/test113.mp3
 test114.mp3
-jaudiotagger.iws
 .settings/
 test139.mp3
 test140.mp3
