@@ -1,0 +1,57 @@
+buildscript {
+    ext.kotlin_version = '1.2.51'
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        //classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+apply plugin: 'java'
+
+group 'org'
+version 'v2.2.6-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+        resources {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+            srcDir 'srctest'
+        }
+        resources {
+            srcDir 'srctest'
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains:annotations:13.0"
+    testImplementation "junit:junit:4.12"
+}
+
+task buildJar(type: Jar) {
+    from sourceSets.main.output
+    exclude("android")
+}
