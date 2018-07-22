@@ -51,7 +51,8 @@ dependencies {
     testImplementation "junit:junit:4.12"
 }
 
-task buildJar(type: Jar) {
-    from sourceSets.main.output
+jar{
     exclude("android")
+    exclude("org/jaudiotagger/test")
+    exclude("org/jaudiotagger/Test*")
 }
